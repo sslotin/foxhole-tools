@@ -1,1 +1,3 @@
-s6ss.pages.dev - ship precisely!
+# Foxhole tools
+
+This repository will contain various logistics-oriented tools for video game Foxhole.
