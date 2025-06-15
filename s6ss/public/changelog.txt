@@ -1,0 +1,33 @@
+TODO:
+- Hover-on item information
+- Autofill
+- Group by factory item types
+- Selecting shippables
+- Selecting resources to be shipped in resource containers
+- Hiding items not present in stockpiles for inventory mode
+- Smart targets
+- Hiding/dimming items and customizing targets
+- Persistent history
+- Profiles
+- Text shopping lists
+- Import/export
+- Parallel processing
+- Progress bar (esp. for the first scan)
+- Automated script for FModel data extraction
+- Integrate a stockpile access management system?
+
+v1.1.0 (Jun 15, 2025):
+- Split scanner into a separate Node module
+- Added scanner tests
+
+v1.0.1 (May 22, 2025):
+- Fixed 1440p parsing issues
+- Added parser error message
+- Redeisgned the interface for selecting target number of shirts, visually displaying the current count
+- Target shirts step changed from 10 to 50
+- Adjusted item margins in inventory mode
+
+v1.0 (May 15, 2025):
+- Screenshot content recognition, supporting Clean Icons Essential and New Icons Mod
+- Inventory mode: comparing two base inventories, automatic previous base detection, faction-specific targets, setting overall supply level
+- Stockpile mode: comparing target and source stockpiles, picking shipments, filtering, displaying recommended targets
