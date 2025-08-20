@@ -1,6 +1,6 @@
 <script setup>
 import { ref, onMounted, reactive, provide, watch, nextTick } from 'vue';
-import { parse } from '../../scanner';
+import { parse } from 'foxhole-stockpile-scanner';
 import Screenshots from './components/Screenshots.vue'
 import InventoryReport from './components/InventoryReport.vue'
 import StockpileReport from './components/StockpileReport.vue';

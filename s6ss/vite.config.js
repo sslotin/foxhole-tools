@@ -16,9 +16,9 @@ export default defineConfig({
       ],
     },
   },
-  build: {
+  /*build: {
     rollupOptions: {
       external: ['canvas'],
     },
-  },
+  },*/
 });
