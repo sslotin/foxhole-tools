@@ -177,6 +177,7 @@ onMounted(async () => {
     <p class="ctrlv">ctrl+v a screenshot</p>
     <div class="links">
       <a href='/tutorial.mp4'>tutorial</a>
+      <a href='/guide/index.html'>logi guide</a>
       <a href='/changelog.txt'>changelog (v1.1.0)</a>
       <a href='https://discord.com/users/___s6'>message me</a>
     </div>

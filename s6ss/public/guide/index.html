@@ -1,0 +1,45 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8"/>
+  <title>advanced logi guide</title>
+  <style>
+    body {
+        font-size: 16px;
+        font-family: 'Open Sans', sans-serif;
+        background: #222;
+        color: #ddd;
+        line-height: 1.4em;
+    }
+    #content {
+        margin: auto;
+        max-width: 800px;
+    }
+    li {
+        margin-top: 8px;
+    }
+    a {
+        text-decoration: none;
+        color: #999;
+    }
+    a:hover {
+        color: #ddd;
+    }
+    pre {
+        font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+  <div id="content"></div>
+  <script src="https://cdn.jsdelivr.net/npm/marked/lib/marked.umd.js"></script>
+  <script>
+    document.getElementById('content').innerHTML =
+    fetch('guide.md')
+      .then(response => response.text())
+      .then(text => {
+        document.getElementById('content').innerHTML = marked.parse(text);
+      });
+  </script>
+</body>
+</html>
