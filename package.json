@@ -1,0 +1,6 @@
+{
+  "workspaces": [
+    "scanner",
+    "s6ss"
+  ]
+}

@@ -1,3 +1,4 @@
 data/*
 .venv
 test-user-project/*
+node_modules
