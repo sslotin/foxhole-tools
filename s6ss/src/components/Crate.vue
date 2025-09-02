@@ -161,17 +161,17 @@ const target = computed(() => {
     width: 32px
   
 .meds img
-  filter: sepia(0.5) saturate(4) hue-rotate(50deg)
+  filter: sepia(0.5) saturate(3) hue-rotate(50deg)
 
 .small img
-  filter: sepia(0.5) saturate(4) hue-rotate(10deg)
+  filter: sepia(0.5) saturate(3) hue-rotate(10deg)
 
 .heavy img
-  filter: sepia(0.5) saturate(4) hue-rotate(-25deg)
+  filter: sepia(0.5) saturate(3) hue-rotate(-25deg)
 
 .tools img
-  filter: sepia(0.5) saturate(4) hue-rotate(170deg)
+  filter: sepia(0.5) saturate(3) hue-rotate(170deg)
 
 .arty img
-  filter: sepia(0.5) saturate(4) hue-rotate(310deg)
+  filter: sepia(0.5) saturate(3) hue-rotate(310deg)
 </style>

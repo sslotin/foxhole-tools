@@ -232,8 +232,8 @@ for (const [name, data] of Object.entries(metadata)) {
         <div class="section">
           <Crate name="GrenadeC" type="small" />
           <Crate name="GrenadeW" type="small" />
-          <Crate name="SmokeGrenade" type="small" />
           <Crate name="GreenAsh" type="small" />
+          <Crate name="SmokeGrenade" />
         </div>
 
         <div class="section">
@@ -324,12 +324,12 @@ for (const [name, data] of Object.entries(metadata)) {
         </div>
 
         <div class="section">
-          <Crate name="FlameTorchW" />
-          <Crate name="FlameBackpackW" />
-          <Crate name="FlameTorchC" />
-          <Crate name="FlameBackpackC" />
-          <Crate name="MaceW" />
-          <Crate name="SwordC" />
+          <Crate name="FlameTorchW" type="heavy" />
+          <Crate name="FlameBackpackW" type="tools" />
+          <Crate name="FlameTorchC" type="heavy" />
+          <Crate name="FlameBackpackC" type="tools" />
+          <Crate name="MaceW" type="tools" />
+          <Crate name="SwordC" type="tools" />
         </div>
 
         <div class="section">
