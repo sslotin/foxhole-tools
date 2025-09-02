@@ -27,16 +27,6 @@ async function parse(screenshot) {
   const [img, W, H] = await convertScreenshot(screenshot);
 
   function crop(x, y, w, h, new_w, new_h) {
-    /*
-    const cropped = new Uint8Array(w * h);
-    for (let i = 0; i < h; i++) {
-      for (let j = 0; j < w; j++) {
-        cropped[i * w + j] = img[(x + i) * W + y + j];
-      }
-    }
-    return cropped;
-    */
-
     const old_canvas = createCanvas(w, h);
     const old_ctx = old_canvas.getContext('2d');
    
@@ -207,10 +197,15 @@ async function parse(screenshot) {
               if (scoreShirt < scoreShirtCrated) {
                 results.stockpileName = '';
               } else {
-                const stockpileNameCrop = crop(x - to_scale(36), y + to_scale(306), to_scale(200), to_scale(28), to_scale(200), to_scale(28));
+                let y_edge = y;
+                while (img[(x-2) * W + y_edge] < 40) {
+                  y_edge++;
+                }
+                const stockpileNameCrop = crop(x - to_scale(36), y_edge - to_scale(120), to_scale(80), to_scale(28), to_scale(80), to_scale(28));
+                //await writeImage(stockpileNameCrop, 80, 28, 'tmp.png', true);
                 //console.log(Math.max(...stockpileNameCrop));
                 if (Math.max(...stockpileNameCrop) > 220) {
-                  [results.stockpileName, results.stockpileNameConfidence] = await ocr(x - to_scale(36), y + to_scale(306), to_scale(200), to_scale(28));
+                  [results.stockpileName, results.stockpileNameConfidence] = await ocr(x - to_scale(36), y_edge - to_scale(120), to_scale(80), to_scale(28));
                   console.log('Stockpile name:', results.stockpileName, results.stockpileNameConfidence);
                 } else {
                   results.stockpileName = 'Public';
@@ -258,9 +253,9 @@ async function parse(screenshot) {
             console.warn('Item already present');
           }
 
-          if (keyName == 'ShippingContainer') {
+          /*if (keyName == 'ShippingContainer') {
             console.log(x, y, w, h);
-          }
+          }*/
 
           results.items[keyName] = {
             'count': count,
