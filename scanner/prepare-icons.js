@@ -3,9 +3,16 @@ import { glob } from 'glob';
 import { createCanvas, loadImage } from 'canvas';
 import { toGrayscale, writeImage, encodeImage } from './utils.js';
 
-const iconBaseDir = `/home/sereja/Projects/foxhole/inventory/s6ss/public/`;
+const iconBaseDir = `/home/sereja/Projects/foxhole/s6ss/public/`;
 
-const baseDir = '/home/sereja/Projects/foxhole/content/Output/Exports/'; // should contain "War" directory
+if (!fs.existsSync(iconBaseDir + 'icons')) {
+  fs.mkdirSync(iconBaseDir + 'icons');
+}
+if (!fs.existsSync(iconBaseDir + 'subtypes')) {
+  fs.mkdirSync(iconBaseDir + 'subtypes');
+}
+
+const baseDir = '/home/sereja/Projects/foxhole/data/content/u62/Output/Exports/'; // should contain "War" directory
 const crateIcon = await loadImage(baseDir + 'War/Content/Textures/UI/Menus/IconFilterCrates.png');
 
 const itemFiles = glob.sync(baseDir + 'War/Content/Blueprints/ItemPickups/**/*.json');
@@ -17,8 +24,9 @@ const files = [...itemFiles, ...vehicleFiles, ...structureFiles];
 let metadata = {};
 const modIcons = {
   [baseDir]: {},
-  '/home/sereja/Projects/foxhole/content/cleanicons/Output/Exports/': {},
-  '/home/sereja/Projects/foxhole/content/newicons/Output/Exports/': {},
+  '/home/sereja/Projects/foxhole/data/content/mods/AshdeuzoFR/Output/Exports/': {},
+  '/home/sereja/Projects/foxhole/data/content/mods/Bu/Output/Exports/': {},
+  '/home/sereja/Projects/foxhole/data/content/mods/Sentsu/Output/Exports/': {},
 };
 
 function readJSON(path) {
@@ -119,7 +127,14 @@ for (const file of files) {
       
       //console.log(file, modDir, Object.keys(modIcons).length);
 
-      const iconImg = await (fs.existsSync(modDir + properties.Icon) ? loadImage(modDir + properties.Icon) : loadImage(baseDir + properties.Icon));
+      let iconPath = modDir + properties.Icon;
+
+      if (!fs.existsSync(iconPath)) {
+        console.log('Missing modded icon:', iconPath);
+        iconPath = baseDir + properties.Icon;
+      }
+
+      const iconImg = await loadImage(iconPath);
 
       const canvas = createCanvas(100, 100);
       const ctx = canvas.getContext('2d');

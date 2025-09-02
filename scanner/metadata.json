@@ -90,12 +90,12 @@
     "description": "An old war artillery shell that failed to detonate. Etchings on the side indicate a powerful payload and should be handled carefully.",
     "factoryCost": [
       {
-        "ItemCodeName": "HeavyExplosive",
-        "Quantity": 60
-      },
-      {
         "ItemCodeName": "Cloth",
         "Quantity": 100
+      },
+      {
+        "ItemCodeName": "HeavyExplosive",
+        "Quantity": 60
       }
     ],
     "quantityPerCrate": 5,
@@ -183,12 +183,12 @@
     "description": "An adherable grenade designed to penetrate heavy tank armor. The Sticky Bomb can only be thrown a short distance and is ineffective against structures.",
     "factoryCost": [
       {
-        "ItemCodeName": "Explosive",
-        "Quantity": 100
-      },
-      {
         "ItemCodeName": "Cloth",
         "Quantity": 50
+      },
+      {
+        "ItemCodeName": "Explosive",
+        "Quantity": 100
       }
     ],
     "quantityPerCrate": 10,
@@ -240,28 +240,16 @@
     "itemType": "item",
     "warden": false
   },
-  "SniperRifleAmmo": {
-    "displayName": "8.5mm",
-    "description": "Standard ammunition for sniper rifles.",
-    "factoryCost": [
-      {
-        "ItemCodeName": "Cloth",
-        "Quantity": 150
-      }
-    ],
-    "quantityPerCrate": 10,
-    "itemType": "item"
-  },
   "SmokeGrenade": {
     "displayName": "PT-815 Smoke Grenade",
     "description": "A standard smoke grenade designed for concealing allied movement or screening the enemy’s vision.",
     "factoryCost": [
       {
         "ItemCodeName": "Cloth",
-        "Quantity": 120
+        "Quantity": 80
       }
     ],
-    "quantityPerCrate": 10,
+    "quantityPerCrate": 15,
     "itemType": "item"
   },
   "SledgeHammer": {
@@ -297,7 +285,7 @@
         "Quantity": 80
       }
     ],
-    "quantityPerCrate": 20,
+    "quantityPerCrate": 15,
     "itemType": "item",
     "warden": true
   },
@@ -307,10 +295,10 @@
     "factoryCost": [
       {
         "ItemCodeName": "Cloth",
-        "Quantity": 110
+        "Quantity": 130
       }
     ],
-    "quantityPerCrate": 20,
+    "quantityPerCrate": 15,
     "itemType": "item",
     "warden": false
   },
@@ -331,12 +319,12 @@
     "description": "This heavy-duty explosive device is designed to deal significant damage to fortified structures and stationary vehicles. ",
     "factoryCost": [
       {
-        "ItemCodeName": "Explosive",
-        "Quantity": 160
-      },
-      {
         "ItemCodeName": "Cloth",
         "Quantity": 150
+      },
+      {
+        "ItemCodeName": "Explosive",
+        "Quantity": 160
       }
     ],
     "quantityPerCrate": 10,
@@ -348,12 +336,12 @@
     "description": "Required to detonate Havoc Charges. The Havoc Charge must be placed before the detonator can be deployed.",
     "factoryCost": [
       {
-        "ItemCodeName": "HeavyExplosive",
-        "Quantity": 20
-      },
-      {
         "ItemCodeName": "Cloth",
         "Quantity": 75
+      },
+      {
+        "ItemCodeName": "HeavyExplosive",
+        "Quantity": 20
       }
     ],
     "quantityPerCrate": 5,
@@ -445,12 +433,12 @@
     "description": "A fast-moving explosive projectile used with RPG launchers.",
     "factoryCost": [
       {
-        "ItemCodeName": "Explosive",
-        "Quantity": 90
-      },
-      {
         "ItemCodeName": "Cloth",
         "Quantity": 60
+      },
+      {
+        "ItemCodeName": "Explosive",
+        "Quantity": 90
       }
     ],
     "quantityPerCrate": 15,
@@ -635,6 +623,18 @@
     "quantityPerCrate": 40,
     "itemType": "item"
   },
+  "ReservePower": {
+    "displayName": "Reserve Power",
+    "description": "Power used to turn on garrison spotlights and activate super structures.",
+    "factoryCost": [
+      {
+        "ItemCodeName": "Cloth",
+        "Quantity": 200
+      }
+    ],
+    "quantityPerCrate": 10,
+    "itemType": "item"
+  },
   "RelicMaterials": {
     "displayName": "Relic Materials",
     "description": "Vehicle parts used to assemble Relic vehicles.",
@@ -771,8 +771,8 @@
     "itemType": "item"
   },
   "MortarTankAmmo": {
-    "displayName": "250mm",
-    "description": "A shell that is launched over short distances by a spigot mortar.",
+    "displayName": "250mm \"Purity\" Shell",
+    "description": "A shell that's launched over short distances by a spigot mortar.",
     "factoryCost": [
       {
         "ItemCodeName": "Cloth",
@@ -785,6 +785,23 @@
     ],
     "quantityPerCrate": 5,
     "itemType": "item"
+  },
+  "MortarTankAmmoBR": {
+    "displayName": "250mm \"Fury\" Shell",
+    "description": "A breaching shell that's launched by a spigot mortar.",
+    "factoryCost": [
+      {
+        "ItemCodeName": "Cloth",
+        "Quantity": 120
+      },
+      {
+        "ItemCodeName": "HeavyExplosive",
+        "Quantity": 100
+      }
+    ],
+    "quantityPerCrate": 5,
+    "itemType": "item",
+    "warden": false
   },
   "Mortar": {
     "displayName": "Cremari Mortar",
@@ -807,12 +824,12 @@
     "description": "An payload filled with shrapnel used with mortar tubes. Devastates nearby infantry.",
     "factoryCost": [
       {
-        "ItemCodeName": "Explosive",
-        "Quantity": 20
-      },
-      {
         "ItemCodeName": "Cloth",
         "Quantity": 60
+      },
+      {
+        "ItemCodeName": "Explosive",
+        "Quantity": 20
       }
     ],
     "quantityPerCrate": 15,
@@ -823,12 +840,12 @@
     "description": "An explosive payload used with mortar tubes.",
     "factoryCost": [
       {
-        "ItemCodeName": "Explosive",
-        "Quantity": 70
-      },
-      {
         "ItemCodeName": "Cloth",
         "Quantity": 60
+      },
+      {
+        "ItemCodeName": "Explosive",
+        "Quantity": 70
       }
     ],
     "quantityPerCrate": 15,
@@ -839,12 +856,12 @@
     "description": "An incendiary payload used with mortar tubes. Will ignite objects near impact.",
     "factoryCost": [
       {
-        "ItemCodeName": "Explosive",
-        "Quantity": 70
-      },
-      {
         "ItemCodeName": "Cloth",
         "Quantity": 60
+      },
+      {
+        "ItemCodeName": "Explosive",
+        "Quantity": 70
       }
     ],
     "quantityPerCrate": 15,
@@ -855,12 +872,12 @@
     "description": "A long-burning flare that ignites midair to illuminate a large area and reveals enemy targets.",
     "factoryCost": [
       {
-        "ItemCodeName": "Explosive",
-        "Quantity": 15
-      },
-      {
         "ItemCodeName": "Cloth",
         "Quantity": 60
+      },
+      {
+        "ItemCodeName": "Explosive",
+        "Quantity": 15
       }
     ],
     "quantityPerCrate": 15,
@@ -1008,12 +1025,12 @@
     "description": "Payload for light artillery weapons.",
     "factoryCost": [
       {
-        "ItemCodeName": "HeavyExplosive",
-        "Quantity": 10
-      },
-      {
         "ItemCodeName": "Cloth",
         "Quantity": 120
+      },
+      {
+        "ItemCodeName": "HeavyExplosive",
+        "Quantity": 10
       }
     ],
     "quantityPerCrate": 5,
@@ -1024,12 +1041,12 @@
     "description": "Standard payload used with Storm Cannons.",
     "factoryCost": [
       {
-        "ItemCodeName": "HeavyExplosive",
-        "Quantity": 45
-      },
-      {
         "ItemCodeName": "Cloth",
         "Quantity": 135
+      },
+      {
+        "ItemCodeName": "HeavyExplosive",
+        "Quantity": 45
       }
     ],
     "quantityPerCrate": 1,
@@ -1104,12 +1121,12 @@
     "description": "Payload for heavy artillery weapons.",
     "factoryCost": [
       {
-        "ItemCodeName": "HeavyExplosive",
-        "Quantity": 60
-      },
-      {
         "ItemCodeName": "Cloth",
         "Quantity": 120
+      },
+      {
+        "ItemCodeName": "HeavyExplosive",
+        "Quantity": 60
       }
     ],
     "quantityPerCrate": 5,
@@ -1117,15 +1134,15 @@
   },
   "HERocketAmmo": {
     "displayName": "3C-High Explosive Rocket",
-    "description": "Standard calibre rocket with a heavy explosive payload. Chance to ignite objects near impact.",
+    "description": "Standard calibre rocket with a heavy explosive payload.",
     "factoryCost": [
-      {
-        "ItemCodeName": "Explosive",
-        "Quantity": 15
-      },
       {
         "ItemCodeName": "Cloth",
         "Quantity": 60
+      },
+      {
+        "ItemCodeName": "Explosive",
+        "Quantity": 15
       }
     ],
     "quantityPerCrate": 1,
@@ -1214,15 +1231,15 @@
     "description": "A weapon designed to launch specialty grenades over long-distances.  This modern Kraunian firearm uses advanced propulsion designed for increased efficiency due to the overall weight of the weapon and projectiles. ",
     "factoryCost": [
       {
-        "ItemCodeName": "Wood",
-        "Quantity": 30
-      },
-      {
         "ItemCodeName": "Cloth",
         "Quantity": 50
+      },
+      {
+        "ItemCodeName": "Wood",
+        "Quantity": 15
       }
     ],
-    "quantityPerCrate": 10,
+    "quantityPerCrate": 5,
     "itemType": "item",
     "warden": false
   },
@@ -1248,12 +1265,12 @@
     "description": "A rifle attachment that fires grenades with pneumatic force. Along with specialized grenades, it can launch standard grenades.",
     "factoryCost": [
       {
-        "ItemCodeName": "Wood",
-        "Quantity": 10
-      },
-      {
         "ItemCodeName": "Cloth",
         "Quantity": 85
+      },
+      {
+        "ItemCodeName": "Wood",
+        "Quantity": 10
       }
     ],
     "quantityPerCrate": 20,
@@ -1301,12 +1318,12 @@
     "description": "Named for the unfortunate trees harmed in the development of this highly destructive weapon, the Willow’s Bane utilizes flammable chemicals and fires them into a concentrated stream through an open flame. This liquid flame ignites Colonial emplacements and garrisons to route infantry while reducing their defenses to a pile of ash.",
     "factoryCost": [
       {
-        "ItemCodeName": "Wood",
-        "Quantity": 30
-      },
-      {
         "ItemCodeName": "Cloth",
         "Quantity": 165
+      },
+      {
+        "ItemCodeName": "Wood",
+        "Quantity": 30
       }
     ],
     "quantityPerCrate": 10,
@@ -1318,12 +1335,12 @@
     "description": "Using a deadly mix of flammable gasses and chemical compounds, the “Molten Wind” is the Colonial Legion’s most devastating infantry weapon. Employing ancient techniques, Mesean chemists developed a technique to stabilize and weaponize liquid flames, which quickly transform any flammable structure into a raging inferno.",
     "factoryCost": [
       {
-        "ItemCodeName": "Wood",
-        "Quantity": 25
-      },
-      {
         "ItemCodeName": "Cloth",
         "Quantity": 185
+      },
+      {
+        "ItemCodeName": "Wood",
+        "Quantity": 25
       }
     ],
     "quantityPerCrate": 10,
@@ -1369,12 +1386,12 @@
     "description": "A drum containing fuel for use with flame weapons.",
     "factoryCost": [
       {
-        "ItemCodeName": "Explosive",
-        "Quantity": 45
-      },
-      {
         "ItemCodeName": "Cloth",
         "Quantity": 60
+      },
+      {
+        "ItemCodeName": "Explosive",
+        "Quantity": 45
       }
     ],
     "quantityPerCrate": 1,
@@ -1397,27 +1414,15 @@
     "description": "Standard calibre rocket with an incendiary explosion. Will ignite objects near impact.",
     "factoryCost": [
       {
-        "ItemCodeName": "Explosive",
-        "Quantity": 15
-      },
-      {
         "ItemCodeName": "Cloth",
         "Quantity": 60
+      },
+      {
+        "ItemCodeName": "Explosive",
+        "Quantity": 15
       }
     ],
     "quantityPerCrate": 1,
-    "itemType": "item"
-  },
-  "FieldMGAmmo": {
-    "displayName": "14.5mm",
-    "description": "Standard ammunition for Field Machine Guns and Gunboats.",
-    "factoryCost": [
-      {
-        "ItemCodeName": "Cloth",
-        "Quantity": 100
-      }
-    ],
-    "quantityPerCrate": 20,
     "itemType": "item"
   },
   "FacilityComponents1": {
@@ -1465,29 +1470,17 @@
     "description": "This unique demolition tool is a long, metal tube packed with explosives. The Hydra’s Whisper is designed to destroy out-of-reach movement impairing structures and detonate any mines along the length of the tube.",
     "factoryCost": [
       {
-        "ItemCodeName": "Explosive",
-        "Quantity": 80
-      },
-      {
         "ItemCodeName": "Cloth",
         "Quantity": 100
+      },
+      {
+        "ItemCodeName": "Explosive",
+        "Quantity": 80
       }
     ],
     "quantityPerCrate": 5,
     "itemType": "item",
     "warden": false
-  },
-  "Diesel": {
-    "displayName": "Diesel",
-    "description": "Common fuel used to power all vehicles and resource mines.",
-    "factoryCost": [
-      {
-        "ItemCodeName": "None",
-        "Quantity": 0
-      }
-    ],
-    "quantityPerCrate": 1,
-    "itemType": "item"
   },
   "DepthChargeAmmo": {
     "displayName": "Model-7 “Evie”",
@@ -1500,6 +1493,23 @@
     ],
     "quantityPerCrate": 1,
     "itemType": "item"
+  },
+  "DemolitionRocketAmmo": {
+    "displayName": "Shatter Missile",
+    "description": "Short-range rockets that specialize in breaching bunkers and devastating enemy structures.",
+    "factoryCost": [
+      {
+        "ItemCodeName": "Cloth",
+        "Quantity": 60
+      },
+      {
+        "ItemCodeName": "Explosive",
+        "Quantity": 15
+      }
+    ],
+    "quantityPerCrate": 1,
+    "itemType": "item",
+    "warden": true
   },
   "CriticalSoldier": {
     "displayName": "Critically Wounded Soldier",
@@ -1578,18 +1588,6 @@
       }
     ],
     "quantityPerCrate": 100,
-    "itemType": "item"
-  },
-  "BunkerSupplies": {
-    "displayName": "Bunker Supplies",
-    "description": "Supplies for maintaining structures. Store at Bases to prevent decay on surrounding Bunker/Trench structures when Garrison Supplies are not available.",
-    "factoryCost": [
-      {
-        "ItemCodeName": "Cloth",
-        "Quantity": 75
-      }
-    ],
-    "quantityPerCrate": 150,
     "itemType": "item"
   },
   "BloodPlasma": {
@@ -1873,12 +1871,12 @@
     "description": "An armour piercing projectile used with indirect RPG launchers.",
     "factoryCost": [
       {
-        "ItemCodeName": "Explosive",
-        "Quantity": 150
-      },
-      {
         "ItemCodeName": "Cloth",
         "Quantity": 60
+      },
+      {
+        "ItemCodeName": "Explosive",
+        "Quantity": 150
       }
     ],
     "quantityPerCrate": 15,
@@ -1940,12 +1938,12 @@
     "description": "An armour piercing projectile used with specialized RPG launchers.",
     "factoryCost": [
       {
-        "ItemCodeName": "Explosive",
-        "Quantity": 150
-      },
-      {
         "ItemCodeName": "Cloth",
         "Quantity": 60
+      },
+      {
+        "ItemCodeName": "Explosive",
+        "Quantity": 150
       }
     ],
     "quantityPerCrate": 15,
@@ -1990,12 +1988,12 @@
     "description": "Standard shell for anti-tank weapons.",
     "factoryCost": [
       {
-        "ItemCodeName": "Explosive",
-        "Quantity": 240
-      },
-      {
         "ItemCodeName": "Cloth",
         "Quantity": 120
+      },
+      {
+        "ItemCodeName": "Explosive",
+        "Quantity": 240
       }
     ],
     "quantityPerCrate": 20,
@@ -2144,6 +2142,32 @@
     "itemType": "item",
     "warden": false
   },
+  "NavalUniformW": {
+    "displayName": "Gentleman’s Peacoat",
+    "description": "Seamen of the Caoivish Naval Command are always prepared to operate at the highest levels, even in frigid, northern waters. Every Warden sailor’s readiness paints a portrait of life or death; thus, cold-weather outerwear is an essential part of every CNC gentleman’s kit.",
+    "factoryCost": [
+      {
+        "ItemCodeName": "Cloth",
+        "Quantity": 100
+      }
+    ],
+    "quantityPerCrate": 15,
+    "itemType": "item",
+    "warden": true
+  },
+  "NavalUniformC": {
+    "displayName": "Remex Garb",
+    "description": "Standard-issue uniform for sailors in the Velian branch of the Republic Coastal Legion. Dressed for practicality, Velian Remiges are second to none at keeping ships in tip-top condition while wading through water levels that would see most men praying for a swift death.",
+    "factoryCost": [
+      {
+        "ItemCodeName": "Cloth",
+        "Quantity": 100
+      }
+    ],
+    "quantityPerCrate": 15,
+    "itemType": "item",
+    "warden": false
+  },
   "MedicUniformW": {
     "displayName": "Physician’s Jacket",
     "description": "Physicians in the Warden army are unmatched and this uniform has a plethora of pockets and bags designed to carry and deploy first aid gear easily.",
@@ -2253,12 +2277,12 @@
     "description": "Standard payload for small cannons.",
     "factoryCost": [
       {
-        "ItemCodeName": "Explosive",
-        "Quantity": 240
-      },
-      {
         "ItemCodeName": "Cloth",
         "Quantity": 160
+      },
+      {
+        "ItemCodeName": "Explosive",
+        "Quantity": 240
       }
     ],
     "quantityPerCrate": 20,
@@ -2269,12 +2293,12 @@
     "description": "Standard payload for battle tanks.",
     "factoryCost": [
       {
-        "ItemCodeName": "HeavyExplosive",
-        "Quantity": 20
-      },
-      {
         "ItemCodeName": "Cloth",
         "Quantity": 200
+      },
+      {
+        "ItemCodeName": "HeavyExplosive",
+        "Quantity": 20
       }
     ],
     "quantityPerCrate": 1,
@@ -2285,12 +2309,12 @@
     "description": "A heavy anti-tank shell.",
     "factoryCost": [
       {
-        "ItemCodeName": "HeavyExplosive",
-        "Quantity": 20
-      },
-      {
         "ItemCodeName": "Cloth",
         "Quantity": 200
+      },
+      {
+        "ItemCodeName": "HeavyExplosive",
+        "Quantity": 20
       }
     ],
     "quantityPerCrate": 1,
@@ -2585,6 +2609,12 @@
     "description": "An armoured landship reinforced with an alloy now lost to time. This nearly indestructible beast carries up to 8 passengers. Whispers of its existence date back to the first breaching.",
     "itemType": "vehicle"
   },
+  "Mech": {
+    "displayName": "Centurion MV-2",
+    "description": "Designed for the soul purpose of fighting back the cursed undead, the “Centurion” Mechanized Utility Vehicle is equipped with two high powered, heavy machine guns and a deadly, front-facing cannon.",
+    "itemType": "vehicle",
+    "warden": false
+  },
   "TruckW": {
     "displayName": "Dunne Transport",
     "description": "A heavy-duty Warden truck used to mobilize troops and supplies.",
@@ -2650,21 +2680,6 @@
     "itemType": "vehicle"
   },
   "TrailerLiquid": {
-    "displayName": "Rooster - Lamploader",
-    "description": "A simple towable trailer that holds various fuel sources and can be used to refuel vehicles.",
-    "itemType": "vehicle"
-  },
-  "ResourceTrailer": {
-    "displayName": "Rooster - Junkwagon",
-    "description": "A simple towable trailer that holds common building resources.",
-    "itemType": "vehicle"
-  },
-  "MaterialTrailer": {
-    "displayName": "Rooster - Tumblebox",
-    "description": "A simple towable trailer that holds heavier building materials.",
-    "itemType": "vehicle"
-  },
-  "FuelTrailer": {
     "displayName": "Rooster - Lamploader",
     "description": "A simple towable trailer that holds various fuel sources and can be used to refuel vehicles.",
     "itemType": "vehicle"
@@ -2755,7 +2770,7 @@
   },
   "ScoutTankMultiW": {
     "displayName": "King Jester Mk. I-1",
-    "description": "Originally designed as a mock-up for more sophisticated rocket platforms, the Jester gets its designation from the response to reckless early prototypes that were bolted onto stripped down King Spires. This unusual vehicle can fire specialized rockets over long distances. Its light frame makes it easy to reposition, but vulnerable to sabotage.",
+    "description": "Originally designed as a mock-up for more sophisticated rocket platforms, the Jester gets its designation from the response to reckless early prototypes that were bolted onto stripped-down King Spires. This unusual vehicle fires powerful short-range breaching rockets. Its light frame makes it easy to reposition but vulnerable to sabotage.",
     "itemType": "vehicle",
     "warden": true
   },
@@ -2939,6 +2954,12 @@
     "itemType": "vehicle",
     "warden": false
   },
+  "MechW": {
+    "displayName": "Herne QMW 1a Scourge Hunter",
+    "description": "Built in response to the ongoing use of the Cursed in military skirmishes, the Scourge Hunter class Quadruped Mechanized Walker is equipped with a quad-barrelled rocket launcher, accompanied by a specially designed quad-barrel machine gun. ",
+    "itemType": "vehicle",
+    "warden": true
+  },
   "TruckLiquidW": {
     "displayName": "Dunne Fuelrunner 2d",
     "description": "The Fuelrunner is a heavy Dunne rig designed to transport and distribute large quantities of Fuel.",
@@ -3096,12 +3117,6 @@
     "description": "This BMS shipping vessel, the Bowhead, is specially designed to carry large quantities of resource containers and fitted with compartments for resource Harvesters. Named for a great whale, the Bassett Motor Society ensures that resources get delivered to the front lines where they’re needed and when they’re needed due to efficient loading bay design and a sturdy frame.",
     "itemType": "vehicle"
   },
-  "LargeShipDestroyerWEngineRoom": {
-    "displayName": "Blacksteele",
-    "description": "Named for the unpainted look of an early prototype, the Blacksteele-Class Frigate is a highly manoeuvrable, albeit small-statured vessel. Deployment of “Trident” Submarines by the Republic Coastal Legion saw the Caoivish Naval Command respond in kind with the Blacksteele. Designed as a sub-hunter escort, the Blacksteele excels at thwarting submersible assaults against larger, ungainly ships. The head shipwright on the project was none other than Conor O’Brien’s top protégé, Rory Boyd, who, in his later years became known as a master shipwright, and largely recognised as the man behind the Caoivish Naval Command’s world-class reputation.",
-    "itemType": "vehicle",
-    "warden": true
-  },
   "LargeShipDestroyerCEngineRoom": {
     "displayName": "Conqueror",
     "description": "Serving as the front line to the Republic Coastal Legion, long have Conquerors lived up to the namesake. These beasts are fitted with armaments to tackle threats both above and below, including a specialized sonar station and depth charge launchers. A young upstart, Diana Geminus, was first to command a Conqueror after quickly rising through the ranks with fresh ideas for defence against the northerner’s disgraceful efforts.",
@@ -3217,7 +3232,7 @@
   },
   "GunboatC": {
     "displayName": "Type C - “Charon”",
-    "description": "Designed for river patrols, the Type-C Charon is fitted with twin tripod mounts, and a midship mortar cannon designed to sunder any armoured resistance on the shore or on open waters.",
+    "description": "Designed for river patrols, the Type-C Charon is fitted with twin tripod mounts, and a mortar cannon designed to sunder any armoured resistance on the shore or on open waters.",
     "itemType": "vehicle",
     "warden": false
   },
@@ -3226,6 +3241,12 @@
     "description": "Lyle Rycker first built a prototype of the Wasp Nest as a test for his rack mounted rocket batteries that would eventually find their way onto armoured vehicles. Capable of firing twelve compact rockets in quick succession, the Wasp Nest became a quick favourite of the Warden infantry testing it, so an official design was requisitioned.",
     "itemType": "vehicle",
     "warden": true
+  },
+  "LargeFieldMortarC": {
+    "displayName": "40-250 “Alekto” Heavy Cannon",
+    "description": "Fitted with a larger, more advanced cannon and a sturdier chassis, this modification of the “Tisiphone” Field Cannon specializes in breaching assaults. What it lacks in overall versatility, it makes up for with a high firing arc, making it ideal for circumventing walled encampments. ",
+    "itemType": "vehicle",
+    "warden": false
   },
   "LargeFieldLightArtilleryC": {
     "displayName": "120-68 “Koronides” Field Gun",
@@ -3412,6 +3433,12 @@
     "itemType": "vehicle",
     "warden": true
   },
+  "ArmoredCar2MultiW": {
+    "displayName": "O’Brien v.200 Squire",
+    "description": "The second full iteration of Conor O’Brien’s storied Armoured Car designs, the Squire serves as a reinforced rocket platform. The squire—designed to play a support role for larger assault operations with its rocket battery platform—is easy to reposition and provides operators and nearby infantry with more protection than might be afforded by a standard utility vehicle.",
+    "itemType": "vehicle",
+    "warden": true
+  },
   "ArmoredCar2LargeW": {
     "displayName": "O’Brien V.101 Freeman",
     "description": "This early O’Brien variant, the V.101 Freeman is fitted with a 360 degree ballistics cannon turret at the expense of top speed.",
@@ -3433,35 +3460,35 @@
     "description": "A material pallet.",
     "itemType": "structure"
   },
-  "EmplacedLightArtilleryW": {
-    "displayName": "Huber Lariat 120mm",
-    "description": "A light artillery cannon designed to be a fixture in defensive fortifications. The Lariat sports a formidable long-range 120mm cannon designed to put immense pressure on enemy infantry.",
-    "itemType": "structure",
-    "warden": true
+  "FortWeatherStationPart": {
+    "displayName": "Weather Station Parts",
+    "description": "The final critical components necessary to construct a towering Weather Station. Must be placed onto a Large Structure Foundation.",
+    "itemType": "structure"
   },
-  "EmplacedInfantryW": {
-    "displayName": "Leary Snare Trap 127",
-    "description": "The Snare Trap is a repurposed anti-aircraft flak cannon used to fortify emplaced positions with twin anti-infantry machine guns.",
-    "itemType": "structure",
-    "warden": true
+  "FortStructurePart": {
+    "displayName": "Structure Parts",
+    "description": "The second piece of a Large Structure. Must be placed onto a Large Structure Foundation.",
+    "itemType": "structure"
   },
-  "EmplacedHeavyArtilleryW": {
-    "displayName": "Huber Exalt 150mm",
-    "description": "A heavy cannon designed to shatter the garrisons and fortifications of advancing forces. The Exalt is best utilized when emplaced into a defensive position to take advantage of its impressive range.",
-    "itemType": "structure",
-    "warden": true
+  "FortLRArtilleryPart": {
+    "displayName": "Storm Cannon Parts",
+    "description": "The final critical components necessary to construct a powerful Storm Cannon. Must be placed onto a Large Structure Foundation.",
+    "itemType": "structure"
   },
-  "EmplacedHeavyArtilleryC": {
-    "displayName": "50-500 “Thunderbolt” Cannon",
-    "description": "This heavy artillery cannon is designed to cripple enemy fortifications from an entrenched position. Its long heavy barrel gives the \"Thunderbolt\" outstanding range.",
-    "itemType": "structure",
-    "warden": false
+  "FortIntelCenterPart": {
+    "displayName": "Intelligence Center Parts",
+    "description": "The final critical components necessary to construct a strategic Intelligence Center. Must be placed onto a Large Structure Foundation.",
+    "itemType": "structure"
   },
-  "EmplacedATW": {
-    "displayName": "Leary Shellbore 68mm",
-    "description": "A defensive emplacement with a 68mm Anti-tank cannon. This rudimentary weapon was once built to fit onto the hull of large naval vessels, but was eventually phased out and repurposed.",
-    "itemType": "structure",
-    "warden": true
+  "FortGarrisonStationPart": {
+    "displayName": "Underground Fortress Parts",
+    "description": "The final critical components necessary to reinforce the basement of an Underground Fortress. Must be placed onto a Large Structure Foundation.",
+    "itemType": "structure"
+  },
+  "FortConstructionPart": {
+    "displayName": "Construction Parts",
+    "description": "The first piece of a Large Structure. Must be placed onto a Large Structure Foundation.",
+    "itemType": "structure"
   },
   "ShipPart3": {
     "displayName": "Naval Turbine Components",
@@ -3498,6 +3525,11 @@
     "description": "A container for storing high volumes of liquids. Nearby structures and vehicles can refill directly from this container. ",
     "itemType": "structure"
   },
+  "ConstructionEquipment": {
+    "displayName": "Construction Equipment",
+    "description": "An automated excavator that can be fuelled with Gravel to assist with construction projects.",
+    "itemType": "structure"
+  },
   "ConcreteMixer": {
     "displayName": "Concrete Mixer",
     "description": "A portable device that mixes various materials to form Concrete, which are used to build heavily fortified structures.",
@@ -3508,6 +3540,18 @@
     "description": "The DAE 3b-2 fires rockets over long distances from a safe, emplaced position. This unique weapon was given its name due to the screams heard across the battlefield during its first deployment, with some referring to the barrage as a “web of death.”",
     "itemType": "structure",
     "warden": false
+  },
+  "EmplacedLightArtilleryW": {
+    "displayName": "Huber Lariat 120mm",
+    "description": "A light artillery cannon designed to be a fixture in defensive fortifications. The Lariat sports a formidable long-range 120mm cannon designed to put immense pressure on enemy infantry.",
+    "itemType": "structure",
+    "warden": true
+  },
+  "EmplacedInfantryW": {
+    "displayName": "Leary Snare Trap 127",
+    "description": "The Snare Trap is a repurposed anti-aircraft flak cannon used to fortify emplaced positions with twin anti-infantry machine guns.",
+    "itemType": "structure",
+    "warden": true
   },
   "EmplacedInfantryC": {
     "displayName": "DAE 1b-2 “Serra”",
@@ -3521,11 +3565,29 @@
     "itemType": "structure",
     "warden": false
   },
+  "EmplacedHeavyArtilleryW": {
+    "displayName": "Huber Exalt 150mm",
+    "description": "A heavy cannon designed to shatter the garrisons and fortifications of advancing forces. The Exalt is best utilized when emplaced into a defensive position to take advantage of its impressive range.",
+    "itemType": "structure",
+    "warden": true
+  },
+  "EmplacedHeavyArtilleryC": {
+    "displayName": "50-500 “Thunderbolt” Cannon",
+    "description": "This heavy artillery cannon is designed to cripple enemy fortifications from an entrenched position. Its long heavy barrel gives the \"Thunderbolt\" outstanding range.",
+    "itemType": "structure",
+    "warden": false
+  },
   "EmplacedCannonLargeC": {
     "displayName": "DAE 2a-1 “Ruptura”",
     "description": "Not to be outdone by its counterparts, the 2a-1 “Ruptura” is fitted with a 75mm cannon. Designed to aid in holding ground for longer durations, the “Ruptura” is a strong, efficient anti-armour tool.",
     "itemType": "structure",
     "warden": false
+  },
+  "EmplacedATW": {
+    "displayName": "Leary Shellbore 68mm",
+    "description": "A defensive emplacement with a 68mm Anti-tank cannon. This rudimentary weapon was once built to fit onto the hull of large naval vessels, but was eventually phased out and repurposed.",
+    "itemType": "structure",
+    "warden": true
   },
   "EmplacedATLargeW": {
     "displayName": "Huber Starbreaker 94.5mm",
