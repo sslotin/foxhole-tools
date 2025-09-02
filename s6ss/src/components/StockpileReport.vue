@@ -114,26 +114,27 @@ const needed = computed(() => {
 const resources = ['MaintenanceSupplies', 'Wood', 'Explosive', 'HeavyExplosive', 'GroundMaterials'];
 const matfac = ['SandbagMaterials', 'BarbedWireMaterials', 'MetalBeamMaterials'];
 const mines = ['InfantryMine', 'TankMine'];
-const arty = ['LightArtilleryAmmo', 'HeavyArtilleryAmmo'];
+const arty = ['LightArtilleryAmmo', 'HeavyArtilleryAmmo', 'MortarTankAmmo'];
 const tripods = [
   'Tripod', 'MGTC', 'MGTW', 'ISGTC', 'RPGTW',
   'ATRPGTW', 'ATRifleTC', 'GrenadeLauncherTC', 'WindsockT', 'BannerTW', 'BannerTC'
 ];
 const uniforms = [
-  'AmmoUniformW', 'ArmourUniformC', 'ArmourUniformW', 'EngineerUniformW', 'EngineerUniformC',
+  'AmmoUniformW', 'GrenadeUniformC', 'ArmourUniformC', 'ArmourUniformW', 'EngineerUniformW', 'EngineerUniformC',
   'MedicUniformW', 'MedicUniformC', 'OfficerUniformW', 'OfficerUniformC', 'RainUniformC',
-  'ScoutUniformW', 'ScoutUniformC', 'SnowUniformW', 'SnowUniformC', 'TankUniformW', 'TankUniformC'
+  'ScoutUniformW', 'ScoutUniformC', 'SnowUniformW', 'SnowUniformC', 'TankUniformW', 'TankUniformC',
+  'NavalUniformW', 'NavalUniformC'
 ];
 const SAW = [
   'ATGrenadeW', 'ATRPGLightC', 'MortarAmmoFL', 'MortarAmmoSH', 'MortarAmmo',
   'StickyBomb', 'ATRifleAmmo', 'SmokeGrenade'
 ];
 const HMF = [
-  'ATRPGAmmo', 'ATRPGIndirectAmmo', 'RpgW', 'MiniTankAmmo', 'LightTankAmmo',
+  'ATRPGAmmo', 'ATRPGIndirectAmmo', 'RpgAmmo', 'MiniTankAmmo', 'LightTankAmmo',
   'ATAmmo', 'HELaunchedGrenade', 'ATLaunchedGrenadeW'
 ];
 const SIFA = ['ATRifleAssaultW', 'ATRifleAutomaticW', 'ATRifleLightC', 'ATRifleSniperC', 'MortarAmmoFlame'];
-const larp = ['OfficerUniformW', 'OfficerUniformC', 'BannerTW', 'BannerTC', 'MaceW', 'SwordC', 'WindsockT'];
+const larp = ['OfficerUniformW', 'OfficerUniformC', 'NavalUniformW', 'NavalUniformC', 'BannerTW', 'BannerTC', 'MaceW', 'SwordC', 'WindsockT'];
 const facility = [...mines, ...arty, ...tripods, ...uniforms, ...SAW, ...HMF, ...SIFA, ...matfac];
 
 let vehicles = [];
@@ -171,94 +172,94 @@ for (const [name, data] of Object.entries(metadata)) {
         </div>
 
         <div class="section">
-          <Crate name="Bandages" />
-          <Crate name="BloodPlasma" />
-          <Crate name="FirstAidKit" />
-          <Crate name="TraumaKit" />
+          <Crate name="Bandages" type="meds" />
+          <Crate name="BloodPlasma" type="meds" />
+          <Crate name="FirstAidKit" type="meds" />
+          <Crate name="TraumaKit" type="meds" />
         </div>
 
         <div class="section">
-          <Crate name="AssaultRifleAmmo" />
-          <Crate name="AssaultRifleHeavyC" />
-          <Crate name="AssaultRifleHeavyW" />
-          <Crate name="AssaultRifleW" />
+          <Crate name="AssaultRifleAmmo" type="small" />
+          <Crate name="AssaultRifleHeavyC" type="small" />
+          <Crate name="AssaultRifleHeavyW" type="small" />
+          <Crate name="AssaultRifleW" type="small" />
         </div>
 
         <div class="section">
-          <Crate name="MGAmmo" />
-          <Crate name="AssaultRifleC" />
-          <Crate name="MGC" />
-          <Crate name="MGW" />
+          <Crate name="MGAmmo" type="small" />
+          <Crate name="AssaultRifleC" type="small" />
+          <Crate name="MGC" type="small" />
+          <Crate name="MGW" type="small" />
         </div>
 
         <div class="section">
-          <Crate name="RevolverAmmo" />
-          <Crate name="RifleHeavyW" />
-          <Crate name="Revolver" />
-          <Crate name="PistolLightW" />
+          <Crate name="RevolverAmmo" type="small" />
+          <Crate name="RifleHeavyW" type="small" />
+          <Crate name="Revolver" type="small" />
+          <Crate name="PistolLightW" type="small" />
         </div>
 
         <div class="section">
-          <Crate name="RifleAmmo" />
-          <Crate name="RifleAutomaticC" />
-          <Crate name="RifleAutomaticW" />
-          <Crate name="RifleC" />
-          <Crate name="RifleHeavyC" />
-          <Crate name="RifleLightC" />
-          <Crate name="RifleLightW" />
-          <Crate name="RifleLongC" />
-          <Crate name="RifleLongW" />
-          <Crate name="RifleShortW" />
-          <Crate name="RifleW" />
-          <Crate name="SniperRifleC" />
-          <Crate name="SniperRifleW" />
+          <Crate name="RifleAmmo" type="small" />
+          <Crate name="RifleAutomaticC" type="small" />
+          <Crate name="RifleAutomaticW" type="small" />
+          <Crate name="RifleC" type="small" />
+          <Crate name="RifleHeavyC" type="small" />
+          <Crate name="RifleLightC" type="small" />
+          <Crate name="RifleLightW" type="small" />
+          <Crate name="RifleLongC" type="small" />
+          <Crate name="RifleLongW" type="small" />
+          <Crate name="RifleShortW" type="small" />
+          <Crate name="RifleW" type="small" />
+          <Crate name="SniperRifleC" type="small" />
+          <Crate name="SniperRifleW" type="small" />
         </div>
 
         <div class="section">
-          <Crate name="ShotgunAmmo" />
-          <Crate name="ShotgunC" />
-          <Crate name="ShotgunW" />
+          <Crate name="ShotgunAmmo" type="small" />
+          <Crate name="ShotgunC" type="small" />
+          <Crate name="ShotgunW" type="small" />
         </div>
 
         <div class="section">
-          <Crate name="SMGAmmo" />
-          <Crate name="SMGC" />
-          <Crate name="SMGHeavyC" />
-          <Crate name="SMGHeavyW" />
-          <Crate name="SMGW" />
+          <Crate name="SMGAmmo" type="small" />
+          <Crate name="SMGC" type="small" />
+          <Crate name="SMGHeavyC" type="small" />
+          <Crate name="SMGHeavyW" type="small" />
+          <Crate name="SMGW" type="small" />
         </div>
 
         <div class="section">
-          <Crate name="GrenadeC" />
-          <Crate name="GrenadeW" />
-          <Crate name="SmokeGrenade" />
-          <Crate name="GreenAsh" />
+          <Crate name="GrenadeC" type="small" />
+          <Crate name="GrenadeW" type="small" />
+          <Crate name="SmokeGrenade" type="small" />
+          <Crate name="GreenAsh" type="small" />
         </div>
 
         <div class="section">
           <Crate name="ATRifleAmmo" />
+          <Crate name="ATRifleW" type="heavy" />
           <Crate name="ATRifleAssaultW" />
           <Crate name="ATRifleAutomaticW" />
           <Crate name="ATRifleLightC" />
           <Crate name="ATRifleSniperC" />
-          <Crate name="ATRifleW" />
         </div>
 
         <div class="section">
           <Crate name="ATRPGAmmo" />
-          <Crate name="ATRPGC" />
-          <Crate name="ATRPGHeavyC" />
-          <Crate name="ATRPGHeavyW" />
+          <Crate name="ATRPGC" type="heavy" />
+          <Crate name="ATRPGHeavyC" type="heavy" />
+          <Crate name="ATRPGHeavyW" type="heavy" />
           <Crate name="ATRPGIndirectAmmo" />
-          <Crate name="ATRPGW" />
+          <Crate name="ATRPGW" type="heavy" />
           <Crate name="RpgAmmo" />
-          <Crate name="RpgW" />
+          <Crate name="RpgW" type="heavy" />
           <Crate name="HELaunchedGrenade" />
-          <Crate name="GrenadeLauncherC" />
+          <Crate name="GrenadeLauncherC" type="heavy" />
         </div>
 
         <div class="section">
-          <Crate name="Mortar" />
+          <Crate name="Mortar" type="heavy" />
           <Crate name="MortarAmmoFlame" />
           <Crate name="MortarAmmoFL" />
           <Crate name="MortarAmmoSH" />
@@ -277,9 +278,9 @@ for (const [name, data] of Object.entries(metadata)) {
           <Crate name="MiniTankAmmo" />
           <Crate name="LightTankAmmo" />
           <Crate name="ATAmmo" />
-          <Crate name="LightArtilleryAmmo" />
-          <Crate name="HeavyArtilleryAmmo" />
-          <Crate name="MortarTankAmmo" />
+          <Crate name="LightArtilleryAmmo" type="arty" />
+          <Crate name="HeavyArtilleryAmmo" type="arty" />
+          <Crate name="MortarTankAmmo" type="arty" />
         </div>
 
         <div class="section">
@@ -291,21 +292,21 @@ for (const [name, data] of Object.entries(metadata)) {
         </div>
 
         <div class="section">
-          <Crate name="Bayonet" />
-          <Crate name="Binoculars" />
-          <Crate name="ExplosiveLightC" />
-          <Crate name="ExplosiveTripod" />
-          <Crate name="SatchelChargeT" />
-          <Crate name="ListeningKit" />
-          <Crate name="RadioBackpack" />
-          <Crate name="SatchelChargeW" />
-          <Crate name="Shovel" />
-          <Crate name="WorkWrench" />
-          <Crate name="WaterBucket" />
-          <Crate name="GasMask" />
-          <Crate name="GasMaskFilter" />
-          <Crate name="GrenadeAdapter" />
-          <Crate name="Radio" />
+          <Crate name="Bayonet" type="tools" />
+          <Crate name="Binoculars" type="tools" />
+          <Crate name="ExplosiveLightC" type="tools" />
+          <Crate name="ExplosiveTripod" type="tools" />
+          <Crate name="SatchelChargeT" type="tools" />
+          <Crate name="ListeningKit" type="tools" />
+          <Crate name="RadioBackpack" type="tools" />
+          <Crate name="SatchelChargeW" type="tools" />
+          <Crate name="Shovel" type="tools" />
+          <Crate name="WorkWrench" type="tools" />
+          <Crate name="WaterBucket" type="tools" />
+          <Crate name="GasMask" type="tools" />
+          <Crate name="GasMaskFilter" type="tools" />
+          <Crate name="GrenadeAdapter" type="tools" />
+          <Crate name="Radio" type="tools" />
         </div>
 
         <div class="section">
@@ -333,19 +334,22 @@ for (const [name, data] of Object.entries(metadata)) {
 
         <div class="section">
           <Crate name="AmmoUniformW" />
+          <Crate name="GrenadeUniformC" />
           <Crate name="ArmourUniformC" />
           <Crate name="ArmourUniformW" />
           <Crate name="EngineerUniformW" />
           <Crate name="EngineerUniformC" />
           <Crate name="MedicUniformW" />
           <Crate name="MedicUniformC" />
-          <Crate name="RainUniformC" />
-          <Crate name="ScoutUniformW" />
-          <Crate name="ScoutUniformC" />
-          <Crate name="SnowUniformW" />
-          <Crate name="SnowUniformC" />
           <Crate name="TankUniformW" />
           <Crate name="TankUniformC" />
+          <Crate name="ScoutUniformW" />
+          <Crate name="ScoutUniformC" />
+          <Crate name="RainUniformC" />
+          <Crate name="SnowUniformW" />
+          <Crate name="SnowUniformC" />
+          <Crate name="NavalUniformW" />
+          <Crate name="NavalUniformC" />
           <Crate name="OfficerUniformW" />
           <Crate name="OfficerUniformC" />
         </div>

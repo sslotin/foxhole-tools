@@ -191,7 +191,8 @@ onMounted(async () => {
       check that it is not compressed or resized, contains all fields including title,
       <br>and that you're using either
       vanilla icons,
-      <a href="https://ashdeuzofr.itch.io/foxhole-clean-icons-essential">Clean Icons Essential</a>
+      <a href="https://ashdeuzofr.itch.io/foxhole-clean-icons-essential">Clean Icons Essential</a>,
+      <a href="https://sentsu.itch.io/foxhole-ui-label-icons">UI Label Icons</a>
       or
       <a href="https://rainbowbu.itch.io/new-icons-modfoxhole">New Icons Mod</a>
     </p>

@@ -175,7 +175,7 @@ for (const file of files) {
 
       // determine if it can be crated?
       ctx32.globalAlpha = 0.75;
-      ctx32.drawImage(crateIcon, 32-14, 32-14, 14, 14);        
+      ctx32.drawImage(crateIcon, 32-14, 32-14, 14, 14);
       ctx32.globalAlpha = 1.0;
 
       const processedIconCrated = toGrayscale(ctx32.getImageData(0, 0, 32, 32).data);
@@ -202,6 +202,10 @@ for (const file of files) {
       modIcons[mod][codeName] = {
         icon: encodeImage(processedIcon),
         iconCrated: encodeImage(processedIconCrated),
+      }
+
+      if (codeName == 'SoldierSupplies') {
+        console.log(mod, iconPath, processedIcon);
       }
     }
   }

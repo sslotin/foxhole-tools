@@ -4,7 +4,7 @@ import CrateCount from './CrateCount.vue'
 import { relevantItems, getTarget } from './items.js'
 import { metadata } from '../../../scanner'
 
-const props = defineProps(['name']);
+const props = defineProps(['name', 'type']);
 const name = props.name;
 
 const sourceStockpile = inject('sourceStockpile');
@@ -64,7 +64,7 @@ const target = computed(() => {
 </script>
 
 <template>
-  <div class='line' :class="{ dimmed: settings.hiddenCrates.includes(name) }" v-if="!metadata[name].hasOwnProperty('warden') || metadata[name].warden == settings.warden">
+  <div class='line' :class="[type, { dimmed: settings.hiddenCrates.includes(name) }]" v-if="!metadata[name].hasOwnProperty('warden') || metadata[name].warden == settings.warden">
     <img :src="`/icons/${name}.png`">
     <span class='name' @click="processClick()">{{ metadata[name].displayName }}</span>
 
@@ -159,4 +159,19 @@ const target = computed(() => {
     margin-left: 4px
 
     width: 32px
+  
+.meds img
+  filter: sepia(0.5) saturate(4) hue-rotate(50deg)
+
+.small img
+  filter: sepia(0.5) saturate(4) hue-rotate(10deg)
+
+.heavy img
+  filter: sepia(0.5) saturate(4) hue-rotate(-25deg)
+
+.tools img
+  filter: sepia(0.5) saturate(4) hue-rotate(170deg)
+
+.arty img
+  filter: sepia(0.5) saturate(4) hue-rotate(310deg)
 </style>

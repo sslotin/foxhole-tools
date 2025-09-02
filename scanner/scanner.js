@@ -6,10 +6,10 @@ import { toGrayscale, writeImage, decodeImage } from './utils.js';
 import metadata from './metadata.json' assert { type: "json" };
 import icons from './icons.json' assert { type: "json" };
 
-for (const modDir of Object.keys(icons)) {
-  for (const key of Object.keys(icons[modDir])) {
-    icons[modDir][key].icon = decodeImage(icons[modDir][key].icon);
-    icons[modDir][key].iconCrated = decodeImage(icons[modDir][key].iconCrated);
+for (const mod of Object.keys(icons)) {
+  for (const key of Object.keys(icons[mod])) {
+    icons[mod][key].icon = decodeImage(icons[mod][key].icon);
+    icons[mod][key].iconCrated = decodeImage(icons[mod][key].iconCrated);
   }
 }
 
@@ -120,7 +120,7 @@ async function parse(screenshot) {
     return [text, ret.data.confidence];
   }
   
-  let modDir = undefined;
+  let mod = undefined;
 
   let results = {
     stockpileName: undefined, // empty for bases; Public or non-empty string for stockpiles
@@ -167,26 +167,28 @@ async function parse(screenshot) {
           if (results.stockpileName === undefined) {
             let lowestScore = Infinity;
 
-            for (const modDirCandidate of Object.keys(icons)) {
-              //console.log(modDirCandidate, icons[modDirCandidate]);
-              //console.log(icons[modDirCandidate]['SoldierSupplies']);
-              const scoreShirt = mse(template, icons[modDirCandidate]['SoldierSupplies'].icon);
-              const scoreShirtCrated = mse(template, icons[modDirCandidate]['SoldierSupplies'].iconCrated);
+            for (const modCandidate of Object.keys(icons)) {
+              //console.log(modCandidate, icons[modCandidate]);
+              //console.log(icons[modCandidate]['SoldierSupplies']);
+              const scoreShirt = mse(template, icons[modCandidate]['SoldierSupplies'].icon);
+              const scoreShirtCrated = mse(template, icons[modCandidate]['SoldierSupplies'].iconCrated);
               const score = Math.min(scoreShirt, scoreShirtCrated);
 
+              console.log(modCandidate, scoreShirt, scoreShirtCrated);
+
               if (score < lowestScore) {
-                modDir = modDirCandidate;
+                mod = modCandidate;
                 lowestScore = score;
               }
             }
 
-            console.log('Detected icon mod:', modDir);
+            console.log('Detected icon mod:', mod);
 
-            let scoreShirt = mse(template, icons[modDir]['SoldierSupplies'].icon);
-            let scoreShirtCrated = mse(template, icons[modDir]['SoldierSupplies'].iconCrated);
+            let scoreShirt = mse(template, icons[mod]['SoldierSupplies'].icon);
+            let scoreShirtCrated = mse(template, icons[mod]['SoldierSupplies'].iconCrated);
 
             //await writeImage(template, 32, 32, 'tmp.png', true);
-            //await writeImage(icons[modDir]['SoldierSupplies'].icon, 32, 32, 'tmp2.png', true);
+            //await writeImage(icons[mod]['SoldierSupplies'].icon, 32, 32, 'tmp2.png', true);
             //console.log(scoreShirt, scoreShirtCrated);
             //console.log(x, y, w, h);
 
@@ -229,7 +231,7 @@ async function parse(screenshot) {
           let lowestScore = Infinity;
           let isCrated = undefined;
 
-          for (const [name, data] of Object.entries(icons[modDir])) {
+          for (const [name, data] of Object.entries(icons[mod])) {
             const score = mse(template, data.icon);
             const scoreCrated = (results.stockpileName == '' ? Infinity : mse(template, data.iconCrated)); // bases can't have crates
             const minScore = Math.min(score, scoreCrated);

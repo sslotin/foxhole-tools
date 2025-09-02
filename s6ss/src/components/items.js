@@ -648,7 +648,9 @@ const relevantCrates = [
   'GroundMaterials',
   'MaintenanceSupplies',
   'OfficerUniformW',
-  'OfficerUniformC'
+  'OfficerUniformC',
+  'NavalUniformW',
+  'NavalUniformC'
 ];
 
 //console.log(relevantCrates);
