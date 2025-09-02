@@ -22,12 +22,15 @@ const structureFiles = glob.sync(baseDir + 'War/Content/Blueprints/Structures/**
 const files = [...itemFiles, ...vehicleFiles, ...structureFiles];
 
 let metadata = {};
-const modIcons = {
-  [baseDir]: {},
-  '/home/sereja/Projects/foxhole/data/content/mods/AshdeuzoFR/Output/Exports/': {},
-  '/home/sereja/Projects/foxhole/data/content/mods/Bu/Output/Exports/': {},
-  '/home/sereja/Projects/foxhole/data/content/mods/Sentsu/Output/Exports/': {},
+
+const modPaths = {
+  'vanilla': baseDir,
+  'AshdeuzoFR': '/home/sereja/Projects/foxhole/data/content/mods/AshdeuzoFR/Output/Exports/',
+  'Bu': '/home/sereja/Projects/foxhole/data/content/mods/Bu/Output/Exports/',
+  'Sentsu': '/home/sereja/Projects/foxhole/data/content/mods/Sentsu/Output/Exports/',
 };
+
+const modIcons = Object.fromEntries(Object.keys(modPaths).map(key => [key, {}]));
 
 function readJSON(path) {
   return JSON.parse(fs.readFileSync(path, 'utf-8'));
@@ -122,12 +125,10 @@ for (const file of files) {
       !file.includes('Lore')
   ) {
     //console.log(file, properties);
-    for (const modDir of Object.keys(modIcons)) {
+    for (const mod of Object.keys(modPaths)) {
       const codeName = properties.CodeName;
       
-      //console.log(file, modDir, Object.keys(modIcons).length);
-
-      let iconPath = modDir + properties.Icon;
+      let iconPath = modPaths[mod] + properties.Icon;
 
       if (!fs.existsSync(iconPath)) {
         console.log('Missing modded icon:', iconPath);
@@ -159,7 +160,7 @@ for (const file of files) {
 
       const fullIcon = toGrayscale(ctx.getImageData(0, 0, 100, 100).data);
       
-      if (modDir == baseDir) {
+      if (mod == 'vanilla') {
         await writeImage(fullIcon, 100, 100, iconBaseDir + `icons/${codeName}.png`);
       }
 
@@ -187,7 +188,7 @@ for (const file of files) {
         itemType = 'structure';
       }
 
-      if (modDir == baseDir) {
+      if (mod == 'vanilla') {
         metadata[codeName] = {
           displayName: properties.DisplayName.SourceString,
           description: properties.Description.SourceString,
@@ -198,7 +199,7 @@ for (const file of files) {
         }
       }
 
-      modIcons[modDir][codeName] = {
+      modIcons[mod][codeName] = {
         icon: encodeImage(processedIcon),
         iconCrated: encodeImage(processedIconCrated),
       }
