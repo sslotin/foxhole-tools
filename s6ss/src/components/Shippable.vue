@@ -15,6 +15,8 @@ const sourceCrated = sourceStockpile[name]?.countCrated || 0;
 
 const targetSingular = targetStockpile[name]?.countSingular || 0;
 const targetCrated = targetStockpile[name]?.countCrated || 0;
+
+const multiple = (name == 'MediumTankC' ? 5 : 3); // falchion
 </script>
 
 <template>
@@ -22,9 +24,9 @@ const targetCrated = targetStockpile[name]?.countCrated || 0;
     <img :src="`/icons/${name}.png`">
     <span class='name'>{{ metadata[name].displayName }}</span>
 
-    <ShippableCount :singular="sourceSingular" :crated="sourceCrated" class="source-count" />
+    <ShippableCount :singular="sourceSingular" :crated="sourceCrated" :multiple="multiple" class="source-count" />
 
-    <ShippableCount :singular="targetSingular" :crated="targetCrated" class="target-count" />
+    <ShippableCount :singular="targetSingular" :crated="targetCrated" :multiple="multiple" class="target-count" />
   </div>
 </template>
 

@@ -1,10 +1,10 @@
 <script setup>
-const props = defineProps(['singular', 'crated']);
+const props = defineProps(['singular', 'crated', 'multiple']);
 </script>
 
 <template>
   <span class="wrapper">
-    <span class="crated" v-if="crated > 0">{{ crated }}<span class='x3'>×3</span></span>
+    <span class="crated" v-if="crated > 0">{{ crated }}<span class='x3'>×{{ multiple }}</span></span>
     <span class="plus" v-if="singular > 0 && crated > 0"> + </span>
     <span class="singular" v-if="singular > 0">{{ singular }}</span>
   </span>
