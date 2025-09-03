@@ -32,6 +32,21 @@ function processClick() {
   }
   //console.log(remove, settings.hiddenCrates);
 }
+
+const targetStockpile = inject('targetStockpile');
+const sourceStockpile = inject('sourceStockpile');
+
+function categoryCount(stockpile) {
+  let sum = 0;
+  for (const item of factionCrates.value) {
+    if (stockpile[item]) {
+      sum += stockpile[item].countTotal;
+    }
+  }
+  return sum;
+}
+
+//console.log(factionCrates.value, targetStockpile, sourceStockpile)
 </script>
 
 <template>
@@ -40,6 +55,15 @@ function processClick() {
       {{ { true: '+', false: '−', undefined: '~' }[status] }}
     </span>
     {{ text }}
+
+    <i class="count">
+      <template v-if="Object.keys(sourceStockpile).length > 0 && Object.keys(targetStockpile).length > 0">
+        {{ categoryCount(sourceStockpile) }}+{{ categoryCount(targetStockpile) }}
+      </template>
+      <template v-else>
+        {{ categoryCount(sourceStockpile) + categoryCount(targetStockpile) }}
+      </template>
+    </i>
   </div>
 </template>
 
@@ -48,13 +72,20 @@ div
   opacity: 0.75
   cursor: pointer
   font-style: italic
+  white-space: nowrap
 
   span
     font-weight: bold
-    font-size: 24px
+    font-size: 20px
     position: relative
     margin-right: 2px
     top: 2px
+  
+  .count
+    color: #999
+    font-size: 10px
+    position: relative
+    top: -1px
 
   &:hover
     opacity: 1
