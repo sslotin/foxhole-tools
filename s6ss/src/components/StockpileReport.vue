@@ -1,5 +1,5 @@
 <script setup>
-import { provide, inject, reactive, computed } from 'vue'
+import { ref, provide, inject, reactive, computed } from 'vue'
 import Crate from './Crate.vue'
 import Filter from './Filter.vue'
 import Shippable from './Shippable.vue'
@@ -61,7 +61,7 @@ function mergeStockpiles(indices) {
 function countCrates(stockpile) {
   let s = 0;
   for (const [name, data] of Object.entries(stockpile)) {
-    if (!settings.hiddenCrates.includes(name) && relevantCrates.includes(name)) {
+    if (!settings.hiddenCrates.includes(name) && relevantCrates.includes(name) && (!metadata[name].hasOwnProperty('warden') || metadata[name].warden == settings.warden)) {
       s += data.countTotal || 0;
     }
   }
@@ -148,6 +148,41 @@ for (const [name, data] of Object.entries(metadata)) {
       structures.push(name);
     }
   }
+}
+
+const copied = ref(false);
+
+function exportText() {
+  const entries = Object.entries(shoppingList)
+    .filter(([, count]) => count > 0)
+    .sort((a, b) => b[1] - a[1]);
+
+  const text = entries.map(([key, count]) => `${count} ${metadata[key].displayName}`).join('\n') + `\n\n${needed.value} total\n`;
+
+  navigator.clipboard.writeText(text);
+  copied.value = true;
+  setTimeout(() => copied.value = false, 1000);
+}
+
+function exportJson() {
+  const obj = {
+    'sources': sourceStockpiles.value.map(idx => screenshots.value[idx].report),
+    'targets': targetStockpiles.value.map(idx => screenshots.value[idx].report),
+    'manifest': Object.fromEntries(Object.entries(shoppingList).filter(([, count]) => count > 0))
+  }
+
+  const json = JSON.stringify(obj, null, 2);
+  
+  // make a file and "click" on an ephemeral link to download it
+  const blob = new Blob([json], { type: 'application/json' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = 'manifest.json';
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
 }
 </script>
 
@@ -388,7 +423,18 @@ for (const [name, data] of Object.entries(metadata)) {
         <div class="autofill">
           <input type="range" min="0" max="1000" step="10" v-model="settings.targetShirtCrates">
           <span>target {{ settings.targetShirtCrates }}c shirts</span>
+          <br><span>123c available</span>
+          <br><span>123c missing</span>
         </div>
+
+        <!--
+       fill <input type="number" min="0" max="9999"
+      v-model="shoppingList[name]"
+      @input="shoppingList[name] = Math.max(Math.min(shoppingList[name], 999), 0);"
+      :class='{ full: shoppingList[name] >= sourceTotal }'> crates-->
+
+        <div class="button" @click="exportJson()">json</div>
+        <div class="button" @click="exportText()">text <span v-if="copied">(copied)</span></div>
 
         <!--<div>hide filtered items</div>
         <div>hide if source is empty</div>
@@ -407,7 +453,7 @@ h2
   margin-bottom: 20px
 
 .stockpile-report
-  width: 820px
+  width: 870px
   margin: auto
   margin-top: 6px
 
@@ -475,4 +521,13 @@ h2
 
   .crate-list
     width: 680px
+  
+  .button
+    font-size: 14px
+    margin-top: 10px
+    opacity: 0.75
+
+    &:hover
+      cursor: pointer
+      opacity: 1
 </style>

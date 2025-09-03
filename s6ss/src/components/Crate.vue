@@ -14,6 +14,8 @@ const shoppingList = inject('shoppingList');
 
 shoppingList[name] = 0;
 
+// todo: remove public/total separation
+
 const sourceTotal = sourceStockpile[name]?.countTotal || 0;
 const sourcePublic = sourceStockpile[name]?.countPublic || 0;
 
@@ -30,7 +32,7 @@ function processChange(event, sign) {
     return;
   }
   if (event.ctrlKey) {
-    sign *= 10;
+    sign *= 15;
   }
   shoppingList[name] += sign;
   shoppingList[name] = Math.max(shoppingList[name], 0);
