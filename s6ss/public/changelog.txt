@@ -16,9 +16,18 @@ TODO:
 - Automated script for FModel data extraction
 - Integrate a stockpile access management system?
 
-v1.1.0 (Jun 15, 2025):
+v1.1.0 (Sep 4, 2025):
+- Current with update 62
+- Added auto-fill
+- Added category counts
+- Added colors for factory/MPF-relevant crates
+- Implemented text and json exports
+- Added ability to hide items in inventory mode
+- Added support for Sentsu's icon mod
+- Minor bugfixes
+
+v1.0.2 (Jun 15, 2025):
 - Split scanner into a separate Node module
-- Added scanner tests
 
 v1.0.1 (May 22, 2025):
 - Fixed 1440p parsing issues
