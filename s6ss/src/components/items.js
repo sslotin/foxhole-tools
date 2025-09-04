@@ -396,6 +396,14 @@ const relevantItems = {
     short: 'comps',
   },
 
+  Sulfur: {
+    short: 'sulfur',
+  },
+
+  RareMetal: {
+    short: 'rares',
+  },
+
   Binoculars: {
     short: 'binos',
     target: 5,
@@ -639,7 +647,7 @@ function isDisplayed(name, count, settings) {
 }
 
 const relevantCrates = [
-  ...Object.keys(relevantItems).filter((name) => !['Wreckage', 'Components'].includes(name)),
+  ...Object.keys(relevantItems).filter((name) => !['Wreckage', 'Components', 'Sulfur', 'RareMetal'].includes(name)),
   'HeavyArtilleryAmmo',
   'LightArtilleryAmmo',
   'BannerTW',

@@ -9,6 +9,7 @@ const name = props.name;
 const activeReport = inject('activeReport');
 const referenceReport = inject('referenceReport');
 const settings = inject('settings');
+const configure = inject('configure');
 
 const data = {...activeReport.items[name], ...relevantItems[name], ...metadata[name]};
 
@@ -71,10 +72,34 @@ console.log('Total:', s);
 if (name == 'SoldierSupplies' && data.count > settings.targetShirts) {
   settings.targetShirts = data.count;
 }
+
+function isConfigurable() {
+  const nonConfigurable = [
+    'SoldierSupplies', 'Cloth', 'Bandages', 'BloodPlasma', 'FirstAidKit', 'TraumaKit',
+    'WorkWrench', 'Radio', 'Shovel', 'Binoculars',
+    'RifleAmmo', 'RifleW', 'RifleC',
+    'HEGrenade', 'GrenadeW', 'GrenadeC', 'StickyBomb',
+    'SandbagMaterials', 'BarbedWireMaterials', 'MetalBeamMaterials',
+    'RareMetal', 'Wood', 'Wreckage', 'Components', 'Sulfur', 'HeavyExplosive', 'Explosive'
+  ]
+  return !nonConfigurable.includes(name);
+}
+
+function processClick() {
+  if (isConfigurable()) {
+    if (settings.hiddenItems.includes(name)) {
+      settings.hiddenItems = settings.hiddenItems.filter(x => x != name);
+    } else {
+      settings.hiddenItems.push(name);
+    }
+  }
+}
+
+console.log(settings);
 </script>
 
 <template>
-  <div class="item" v-if="isDisplayed(name, data.count, settings)">
+  <div class="item" v-if="configure || isDisplayed(name, data.count, settings)" :class='{ dimmed: settings.hiddenItems.includes(name), configurable: isConfigurable() }' @click="processClick()">
     <img :src="`/icons/${name}.png`">
     <span class='change' v-if="countChange != 0" :class="{ negative: countChange < 0 }">{{ formatChange(countChange) }}</span>
     <span class='name' :class='{ warden: (data.warden !== undefined) && data.warden && !settings.warden, collie: (data.warden !== undefined) && !data.warden && settings.warden }'>{{ data.short }}</span>
@@ -209,4 +234,14 @@ img
     //margin-left: -8px
     color: green
     //color: #516c4b
+
+.dimmed
+  opacity: 0.2
+
+.configurable
+  cursor: pointer
+  user-select: none
+
+  &:hover
+    opacity: 0.6
 </style>

@@ -1,5 +1,5 @@
 <script setup>
-import { provide, inject } from 'vue'
+import { ref, provide, inject } from 'vue'
 import Item from './Item.vue'
 
 const props = defineProps(['activeReport', 'referenceReport']);
@@ -79,6 +79,9 @@ const liveGuns = Math.min(normalRifles, Math.round(count('RifleAmmo') / 3))
 //console.log('render inventory report:', props.activeReport, props.referenceReport);
 
 const settings = inject('settings');
+
+const configure = ref(false);
+provide('configure', configure);
 </script>
 
 <template>
@@ -182,9 +185,11 @@ const settings = inject('settings');
       <Item name="MiniTankAmmo" />
       <Item name="ISGTC" />
       <!-- large shells? -->
+      <Item name="RareMetal" />
       <Item name="Wood" />
       <Item name="Wreckage" />
       <Item name="Components" />
+      <Item name="Sulfur" />
       <Item name="HeavyExplosive" />
       <Item name="Explosive" />
     </div>
@@ -248,6 +253,7 @@ const settings = inject('settings');
       <Item name="MortarTankAmmo" />
     </div>
   </div>
+  <div class="configure" @click="configure = !configure">{{ configure ? 'hide' : 'configure' }}</div>
 </template>
 
 <style scoped lang="sass">
@@ -260,4 +266,16 @@ const settings = inject('settings');
 .section
   width: 118px
   margin-top: 20px
+
+.configure
+  position: absolute
+  top: 0
+  right: 0
+  margin: 10px
+  opacity: 0.75
+  font-size: 14px
+
+  &:hover
+    opacity: 1
+    cursor: pointer
 </style>
