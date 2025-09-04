@@ -1,7 +1,6 @@
 <script setup>
 import { inject, computed } from 'vue'
 import CrateCount from './CrateCount.vue'
-import { relevantItems, getTarget } from './items.js'
 import { metadata } from '../../../scanner'
 
 const props = defineProps(['name', 'type']);
@@ -11,6 +10,9 @@ const sourceStockpile = inject('sourceStockpile');
 const targetStockpile = inject('targetStockpile');
 const settings = inject('settings');
 const shoppingList = inject('shoppingList');
+const targets = inject('targets');
+
+const target = computed(() => targets.value[props.name]);
 
 shoppingList[name] = 0;
 
@@ -52,16 +54,6 @@ function resourceCount(crates) {
   return ['Explosive', 'HeavyExplosive', 'GroundMaterials'].includes(name) ? metadata[name].quantityPerCrate * crates : 0;
 }
 
-const target = computed(() => {
-  return Math.ceil(
-    (relevantItems.hasOwnProperty(name) ? getTarget(name, settings) : 0)
-    / metadata[name].quantityPerCrate
-    / settings.targetShirts
-    * settings.targetShirtCrates
-    * 10
-    - 0.001
-  );
-});
 //console.log(settings);
 </script>
 
@@ -143,6 +135,7 @@ const target = computed(() => {
     text-align: center
     width: 30px
     font-size: 1em
+    -moz-appearance: textfield
     
     &::-webkit-outer-spin-button,
     &::-webkit-inner-spin-button

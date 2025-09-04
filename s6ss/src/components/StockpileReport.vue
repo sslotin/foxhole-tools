@@ -4,7 +4,7 @@ import Crate from './Crate.vue'
 import Filter from './Filter.vue'
 import Shippable from './Shippable.vue'
 import { metadata } from '../../../scanner'
-import { relevantCrates } from './items.js'
+import { relevantItems, relevantCrates, getTarget } from './items.js'
 
 const settings = inject('settings');
 const screenshots = inject('screenshots');
@@ -72,44 +72,91 @@ const targetStockpile = mergeStockpiles(targetStockpiles.value);
 const sourceStockpile = mergeStockpiles(sourceStockpiles.value);
 const shoppingList = reactive({});
 
+const targets = computed(() => {
+  const obj = {};
+  for (const name of relevantCrates) {
+    obj[name] = Math.ceil(
+      (relevantItems.hasOwnProperty(name) ? getTarget(name, settings) : 0)
+      / metadata[name].quantityPerCrate
+      / settings.targetShirts
+      * settings.targetShirtCrates
+      * 10
+      - 0.001
+    );
+  }
+  return obj;
+});
+
+provide('targets', targets);
 provide('targetStockpile', targetStockpile);
 provide('sourceStockpile', sourceStockpile);
 provide('shoppingList', shoppingList);
 
-/*
-123c, 25130r, 2×3+2v, 2×3+6s
-
-for every relevant item
-merge stockpiles, computing how many reservable and total crates we have -> separate for source and target
-
-screenshots should calculate how many crates there are, excluding items in the settings
-
-Fulll Item Name 2|60+5   < [65] >     20|32
-grey subtext for resources
-toggle resoruce container mode? [] > click adds one crate, ctrl adds 5k, and "minus" on the crates
-
-shift-clicking should adds all
-ctrl-clicking adds/removes 10 crates
-
-every relevant item is displayed, some are greyed out (opacity)
-
-no structures or vehicles for now?
-
-bottom-right corner displays number of picked crates (60×5 + 32 = 332 crates & 5 shippables)
-
-maybe list just the present vehicles and structures, no exceptions
-
-Niska 3×5 + 3 + 3    [ ] >     1×3 + 5
-
-
-other faction's items are ignored
-
-clicking on a line or adding items should re-activate it
-*/
-
 const needed = computed(() => {
   return Array.from(Object.entries(shoppingList)).reduce((sum, [, value]) => sum + value, 0);
 });
+
+const filteredCrates = computed(() => {
+  return relevantCrates.filter((name) => {
+    return !settings.hiddenCrates.includes(name) && (!metadata[name].hasOwnProperty('warden') || metadata[name].warden == settings.warden);
+  });
+});
+
+// todo: find a way to join these two
+const missingCount = computed(() => {
+  let s = 0;
+  for (const name of filteredCrates.value) {
+    s += Math.max(targets.value[name] - (targetStockpile[name]?.countTotal || 0), 0);
+  }
+  return s;
+});
+
+const availableCount = computed(() => {
+  let s = 0;
+  for (const name of filteredCrates.value) {
+    const missing = Math.max(targets.value[name] - (targetStockpile[name]?.countTotal || 0), 0);
+    s += Math.min(missing, sourceStockpile[name]?.countTotal || 0);
+  }
+  return s;
+});
+
+let autofillCount = ref(310);
+
+function autofill() {
+  let limit = 0;
+  for (const name of filteredCrates.value) {
+    if (targets.value[name] > 0) {
+      limit += sourceStockpile[name]?.countTotal || 0;
+      console.log(name, limit);
+    }
+  }
+  autofillCount.value = Math.max(0, Math.min(autofillCount.value, limit));
+
+  for (const name of Object.keys(shoppingList)) {
+    shoppingList[name] = 0;
+  }
+  for (let i = 0; i < autofillCount.value; i++) {
+    let bestItem = undefined;
+    let bestRatio = Infinity; // targetStockpile + shoppingList / targets
+
+    for (const name of filteredCrates.value) {
+      if (shoppingList[name] < (sourceStockpile[name]?.countTotal || 0)) {
+        const ratio = ((targetStockpile[name]?.countTotal || 0) + shoppingList[name]) / targets.value[name];
+        if (ratio < bestRatio) {
+          bestRatio = ratio;
+          bestItem = name;
+        }
+      }
+    }
+
+    if (bestItem === undefined) {
+      // no crates available
+      break;
+    }
+
+    shoppingList[bestItem]++;
+  }
+}
 
 const resources = ['MaintenanceSupplies', 'Wood', 'Explosive', 'HeavyExplosive', 'GroundMaterials'];
 const matfac = ['SandbagMaterials', 'BarbedWireMaterials', 'MetalBeamMaterials'];
@@ -422,9 +469,18 @@ function exportJson() {
 
         <div class="autofill">
           <input type="range" min="0" max="1000" step="10" v-model="settings.targetShirtCrates">
-          <span>target {{ settings.targetShirtCrates }}c shirts</span>
-          <br><span>123c available</span>
-          <br><span>123c missing</span>
+          <div><b>{{ settings.targetShirtCrates }}</b> shirts target</div>
+          <div><b>{{ availableCount }}</b>/<b>{{ missingCount }}</b> available</div>
+
+          <div class="autofill-button">autofill <input type="number" min="0" max="9999" v-model="autofillCount" @input="autofill()" @click="autofill()"> crates</div>
+        </div>
+
+        <div class="export-buttons">
+          export
+          <span class="button" @click="exportText()">text</span>
+          /
+          <span class="button" @click="exportJson()">json</span>
+          <div v-if="copied" style="text-align: center">(copied)</div>
         </div>
 
         <!--
@@ -432,10 +488,6 @@ function exportJson() {
       v-model="shoppingList[name]"
       @input="shoppingList[name] = Math.max(Math.min(shoppingList[name], 999), 0);"
       :class='{ full: shoppingList[name] >= sourceTotal }'> crates-->
-
-        <div class="button" @click="exportJson()">json</div>
-        <div class="button" @click="exportText()">text <span v-if="copied">(copied)</span></div>
-
         <!--<div>hide filtered items</div>
         <div>hide if source is empty</div>
         <div>hide if target is empty</div>
@@ -516,18 +568,61 @@ h2
 
   .autofill
     margin-top: 10px
-    font-size: 14px
-    text-align: center
+    font-size: 16px
+    text-align: left
+
+    input[type="range"]
+      width: 100%
+    
+    div
+      margin-left: 8px
+      opacity: 0.75
+    
+    .autofill-button
+      margin-top: 8px
+      padding: 8px 0
+      border-top: 1px solid #444
+      border-bottom: 1px solid #444
+
+      input
+        background: #444
+        font-size: 14px
+        border-radius: 4px
+        padding: 2px 2px
+        color: #ddd
+        border: none
+        text-align: center
+        width: 35px
+        font-weight: bold
+        position: relative
+        top: -1px
+        -moz-appearance: textfield
+        
+        &::-webkit-outer-spin-button,
+        &::-webkit-inner-spin-button
+          -webkit-appearance: none
+        
+        &:hover
+          background: #555
+
+        &:focus
+          outline: none
+          background: #555
 
   .crate-list
     width: 680px
   
-  .button
-    font-size: 14px
-    margin-top: 10px
+  .export-buttons
+    font-size: 16px
     opacity: 0.75
+    margin-left: 8px
+    margin-top: 10px
 
-    &:hover
-      cursor: pointer
-      opacity: 1
+    .button
+      background: #444
+      border-radius: 4px
+      padding: 0px 4px
+
+      &:hover
+        background: #555
 </style>
