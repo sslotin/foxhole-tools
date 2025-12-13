@@ -378,7 +378,7 @@
 - Hammering takes 1.1 seconds per bonk. CVs and ACVs take 0.68 seconds, or ~38% less. Up to three players can work on the same part simultaneously. ACVs let you fill in T2 trenches but otherwise have no other advantages over CVs.
 - Construction equipment builds slowly but automatically: you just need to feed it gravel and materials. Not accounting the time it takes to move construction equipment, one trainload of gravel can save 12 hours of building with CVs. Gravel is most efficiently made in coal fields with concrete mixers (5:1), but can also be transported to refineries.
 - It is convenient to use concrete mixers to turn a resource container of components into 2.08 pallets of concrete, but it is usually too wasteful even if there is a component mine nearby. It is better to use vegan concrete produced on coal fields (300 coal per bag, with sulfur and petrol as significant byproducts).
-- Pcons, cmats and other large items can be submitted to blueprint in bulk using a small flatbed cart.
+- Pcons, cmats and other large items can be submitted to a blueprint in bulk using a small flatbed car.
 
 ## Defenses
 
