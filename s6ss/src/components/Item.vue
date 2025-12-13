@@ -9,7 +9,6 @@ const name = props.name;
 const activeReport = inject('activeReport');
 const referenceReport = inject('referenceReport');
 const settings = inject('settings');
-const configure = inject('configure');
 
 const data = {...activeReport.items[name], ...relevantItems[name], ...metadata[name]};
 
@@ -95,11 +94,11 @@ function processClick() {
   }
 }
 
-console.log(settings);
+//console.log(settings);
 </script>
 
 <template>
-  <div class="item" v-if="configure || isDisplayed(name, data.count, settings)" :class='{ dimmed: settings.hiddenItems.includes(name), configurable: isConfigurable() }' @click="processClick()">
+  <div class="item" v-if="settings.configure || isDisplayed(name, data.count, settings)" :class='{ dimmed: settings.hiddenItems.includes(name), configurable: isConfigurable() }' @click="processClick()">
     <img :src="`/icons/${name}.png`">
     <span class='change' v-if="countChange != 0" :class="{ negative: countChange < 0 }">{{ formatChange(countChange) }}</span>
     <span class='name' :class='{ warden: (data.warden !== undefined) && data.warden && !settings.warden, collie: (data.warden !== undefined) && !data.warden && settings.warden }'>{{ data.short }}</span>
@@ -235,13 +234,16 @@ img
     color: green
     //color: #516c4b
 
-.dimmed
-  opacity: 0.2
-
 .configurable
   cursor: pointer
   user-select: none
 
   &:hover
     opacity: 0.6
+
+.dimmed
+  opacity: 0.2
+
+  &:hover
+    opacity: 0.4
 </style>

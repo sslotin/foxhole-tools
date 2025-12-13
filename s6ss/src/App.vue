@@ -7,11 +7,12 @@ import StockpileReport from './components/StockpileReport.vue';
 
 const defaultSettings = {
   warden: true,
+  configure: false,
   hiddenCrates: [],
   hiddenItems: [],
   targetShirts: 200,
   targetShirtCrates: 0,
-  version: 1 // update when making non-compatible changes to reset old settings
+  version: 2 // update when making non-compatible changes to reset old settings
 };
 
 let savedSettings = JSON.parse(localStorage.getItem('settings'));

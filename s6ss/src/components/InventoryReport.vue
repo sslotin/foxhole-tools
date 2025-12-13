@@ -79,9 +79,6 @@ const liveGuns = Math.min(normalRifles, Math.round(count('RifleAmmo') / 3))
 //console.log('render inventory report:', props.activeReport, props.referenceReport);
 
 const settings = inject('settings');
-
-const configure = ref(false);
-provide('configure', configure);
 </script>
 
 <template>
@@ -253,7 +250,6 @@ provide('configure', configure);
       <Item name="MortarTankAmmo" />
     </div>
   </div>
-  <div class="configure" @click="configure = !configure">{{ configure ? 'hide' : 'configure' }}</div>
 </template>
 
 <style scoped lang="sass">
@@ -266,16 +262,4 @@ provide('configure', configure);
 .section
   width: 118px
   margin-top: 20px
-
-.configure
-  position: absolute
-  top: 0
-  right: 0
-  margin: 10px
-  opacity: 0.75
-  font-size: 14px
-
-  &:hover
-    opacity: 1
-    cursor: pointer
 </style>

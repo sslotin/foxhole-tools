@@ -58,7 +58,7 @@ function resourceCount(crates) {
 </script>
 
 <template>
-  <div class='line' :class="[type, { dimmed: settings.hiddenCrates.includes(name) }]" v-if="!metadata[name].hasOwnProperty('warden') || metadata[name].warden == settings.warden">
+  <div class='line' :class="[type, { dimmed: settings.hiddenCrates.includes(name) }]" v-if="settings.configure || (!metadata[name].hasOwnProperty('warden') || metadata[name].warden == settings.warden)">
     <img :src="`/icons/${name}.png`">
     <span class='name' @click="processClick()">{{ metadata[name].displayName }}</span>
 
