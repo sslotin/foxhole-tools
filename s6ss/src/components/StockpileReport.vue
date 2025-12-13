@@ -61,7 +61,7 @@ function mergeStockpiles(indices) {
 function countCrates(stockpile) {
   let s = 0;
   for (const [name, data] of Object.entries(stockpile)) {
-    if (!settings.hiddenCrates.includes(name) && relevantCrates.includes(name) && (!metadata[name].hasOwnProperty('warden') || metadata[name].warden == settings.warden)) {
+    if (!settings.hiddenCrates.includes(name) && relevantCrates.includes(name) && (settings.configure || (!metadata[name].hasOwnProperty('warden') || metadata[name].warden == settings.warden))) {
       s += data.countTotal || 0;
     }
   }

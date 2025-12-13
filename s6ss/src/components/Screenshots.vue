@@ -27,7 +27,7 @@ function countInventoryCrates(report) {
 function countStockpileCrates(report) {
   let s = 0;
   for (const name of relevantCrates) {
-    if (report.items.hasOwnProperty(name + '-crated') && (!metadata[name].hasOwnProperty('warden') || metadata[name].warden == settings.warden) && !settings.hiddenCrates.includes(name)) {
+    if (report.items.hasOwnProperty(name + '-crated') && (settings.configure || !metadata[name].hasOwnProperty('warden') || metadata[name].warden == settings.warden) && !settings.hiddenCrates.includes(name)) {
       s += report.items[name + '-crated'].count;
     }
   }

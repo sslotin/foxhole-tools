@@ -643,7 +643,7 @@ function getTarget(name, settings) {
 
 function isDisplayed(name, count, settings) {
   const meta = metadata[name];
-  return (count > 0 || getTarget(name, settings) > 0) && (meta.warden === undefined || settings.warden == meta.warden || (!name.includes('Uniform') && count > 0));
+  return (count > 0 || getTarget(name, settings) > 0) && (settings.configure || meta.warden === undefined || settings.warden == meta.warden || (!name.includes('Uniform') && count > 0));
 }
 
 const relevantCrates = [
