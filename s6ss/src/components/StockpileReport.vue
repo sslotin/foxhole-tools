@@ -123,13 +123,20 @@ const availableCount = computed(() => {
 let autofillCount = ref(310);
 
 function autofill() {
+  const targetedCrates = filteredCrates.value.filter(name => targets.value[name] > 0);
+
   let limit = 0;
   for (const name of filteredCrates.value) {
     if (targets.value[name] > 0) {
       limit += sourceStockpile[name]?.countTotal || 0;
-      console.log(name, limit);
+      //console.log(name, limit);
     }
   }
+
+  if (sourceStockpiles.value.length == 0) {
+    limit = 9999;
+  }
+
   autofillCount.value = Math.max(0, Math.min(autofillCount.value, limit));
 
   for (const name of Object.keys(shoppingList)) {
@@ -139,13 +146,14 @@ function autofill() {
     let bestItem = undefined;
     let bestRatio = Infinity; // targetStockpile + shoppingList / targets
 
-    for (const name of filteredCrates.value) {
-      if (shoppingList[name] < (sourceStockpile[name]?.countTotal || 0)) {
+    for (const name of targetedCrates) {
+      if (sourceStockpiles.value.length == 0 || shoppingList[name] < (sourceStockpile[name]?.countTotal || 0)){
         const ratio = ((targetStockpile[name]?.countTotal || 0) + shoppingList[name]) / targets.value[name];
         if (ratio < bestRatio) {
           bestRatio = ratio;
           bestItem = name;
         }
+        //console.log(name, ratio, targets.value[name]);
       }
     }
 
