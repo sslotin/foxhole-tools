@@ -103,6 +103,9 @@ async function addScreenshot(img) {
   
   try {
     report = await parse(img);
+    if (Object.keys(report.items).length == 0) {
+      throw new Error('Screenshot contains no items');
+    }
   } catch(e) {
     console.log('Parsing error:', e);
     errorMessage.value = e.toString();
@@ -191,14 +194,18 @@ onMounted(async () => {
     </div>
   </template>
   <div v-if="errorMessage" class="error">
+    <p class='errorMessage'>
+      {{ errorMessage }}
+    </p>
+
     <p>
       could not parse the last screenshot
     </p>
     
     <p>
-      check that it is not compressed or resized, contains all fields including title,
-      <br>and that you're using either
-      vanilla icons,
+      try resetting your graphics settings, setting gamma to maximum,
+      <br>check that the picture is not compressed or resized, contains all fields and the title,
+      <br></br>and you are using either vanilla icons,
       <a href="https://ashdeuzofr.itch.io/foxhole-clean-icons-essential">Clean Icons Essential</a>,
       <a href="https://sentsu.itch.io/foxhole-ui-label-icons">UI Label Icons</a>
       or
@@ -251,10 +258,14 @@ body
 
 .error
   text-align: center
-  width: 700px
+  width: 780px
   margin: 30px auto
 
   a
     text-decoration: none
     color: #999
+
+.errorMessage
+  font-family: monospace
+  color: #966
 </style>
