@@ -631,7 +631,7 @@ const relevantItems = {
 function getTarget(name, settings) {
   const item = relevantItems[name];
   const meta = metadata[name];
-  if (item.target === undefined || (meta.warden !== undefined && meta.warden != settings.warden)) {
+  if (item.target === undefined || (meta.warden !== undefined && meta.warden != settings.warden && !settings.configure)) {
     return 0;
   }
   const mult = settings.targetShirts / 100;
