@@ -149,7 +149,7 @@ function autofill() {
     for (const name of targetedCrates) {
       if (sourceStockpiles.value.length == 0 || shoppingList[name] < (sourceStockpile[name]?.countTotal || 0)){
         const ratio = ((targetStockpile[name]?.countTotal || 0) + shoppingList[name]) / targets.value[name];
-        if (ratio < bestRatio) {
+        if (ratio < bestRatio || (ratio == bestRatio && name < bestItem)) {
           bestRatio = ratio;
           bestItem = name;
         }
