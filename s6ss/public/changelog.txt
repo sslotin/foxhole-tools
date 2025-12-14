@@ -16,6 +16,10 @@ TODO:
 - Automated script for FModel data extraction
 - Integrate a stockpile access management system?
 
+v1.2.0 (Dec 14, 2025):
+- Added support for arbitrary gamma settings
+- Added a timer in inventory mode for tracking day-night cycle (top-right corner)
+
 v1.1.1 (Dec 13, 2025):
 - Added a mode that displays items of both factions (click faction toggle in top left corner)
 - Auto-filling now works without a source stockpile
