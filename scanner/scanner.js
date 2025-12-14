@@ -59,9 +59,9 @@ async function parse(screenshot) {
     return cropped;
   }
 
-  function check(x, y) {
+  function check(x, y, tgt) {
     const col = img[x * W + y];
-    return 97 <= col && col <= 99;
+    return tgt - 1 <= col && col <= tgt + 1;
   }
 
   function mse(a, b) {
@@ -131,14 +131,16 @@ async function parse(screenshot) {
   for (let x = 1; x < H; x++) {
     for (let y = 1; y < W; y++) {
       //console.log(x, y);
-      if (check(x, y) && !check(x - 1, y) && !check(x, y - 1)) {
+      const tgt = img[x * W + y];
+      // todo: allow low gamma (as low as 14 are valid)
+      if (20 <= tgt && tgt <= 99 && !check(x - 1, y, tgt) && !check(x, y - 1, tgt)) {
         let h = 1;
-        while (check(x + h, y)) {
+        while (check(x + h, y, tgt)) {
           h++;
         }
  
         let w = 1;
-        while (check(x, y + w)) {
+        while (check(x, y + w, tgt)) {
           w++;
         }
 
@@ -159,12 +161,28 @@ async function parse(screenshot) {
             return Math.floor(t * w / 42); // round?
           }
           //console.log(x, y, w, h, w/h, 42/32);
-          const template = crop(x, y - to_scale(44), h, h, 32, 32);
+          let template = crop(x, y - to_scale(44), h, h, 32, 32);
+          // todo: gamma correct the image
+          /*//console.log(template);
+          // tgt = v^gamma
+          // v = 98/255?
+          // gamma = log_v tgt
+          const guessed_gamma = Math.log(tgt / 255) / Math.log(50 / 255);
+          console.log('guessed gamma', guessed_gamma);
+
+          // val = orig^gamma
+          // orig = val^(1/gamma)
+          console.log(template);
+          template = new Uint8Array(template.map(x => Math.round(255 * Math.pow(x / 255, 1/guessed_gamma))));
+          console.log(template);*/
+
           //await writeImage(template, 32, 32, 'tmp.png', true);
           //console.log('WRITE');
           //break;
 
           if (results.stockpileName === undefined) {
+            console.log('trying shirt at', x, y, h, w, tgt);
+
             let lowestScore = Infinity;
 
             for (const modCandidate of Object.keys(icons)) {
@@ -224,6 +242,8 @@ async function parse(screenshot) {
           });
         
           let [countString, countConfidence] = await ocr(x, y, w, h);
+          //let countString = '100';
+          //let countConfidence = 95;
 
           const count = parseInt(countString, 10) * (countString.includes('k') ? 1000 : 1);
 
