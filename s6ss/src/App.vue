@@ -102,7 +102,9 @@ async function addScreenshot(img) {
   let report;
   
   try {
+    const startTime = performance.now()
     report = await parse(img);
+    console.log(`parsing took ${Math.round(performance.now() - startTime)}ms`)
     if (Object.keys(report.items).length == 0) {
       throw new Error('Screenshot contains no items');
     }
