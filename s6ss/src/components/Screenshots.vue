@@ -2,6 +2,7 @@
 import { inject } from 'vue'
 
 import FactionToggle from './FactionToggle.vue'
+import Timer from './Timer.vue'
 import { metadata } from '../../../scanner'
 import { relevantItems, relevantCrates, isDisplayed } from './items.js'
 
@@ -121,9 +122,10 @@ function handleClose(event, index) {
         <div v-else>
           …
         </div>
-        <div class="time">{{ screenshot.time }}</div>
+        <div class="time">{{ screenshot.time.toLocaleTimeString('en-US', { hour12: false }) }}</div>
       </div>
     </div>
+    <Timer />
   </div>
 </template>
 

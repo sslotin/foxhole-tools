@@ -91,7 +91,7 @@ async function addScreenshot(img) {
   screenshots.value = [...screenshots.value, {
     image: img,
     report: undefined,
-    time: new Date().toLocaleTimeString('en-US', { hour12: false })
+    time: new Date()
   }];
 
   nextTick(() => {
