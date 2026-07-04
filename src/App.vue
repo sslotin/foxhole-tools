@@ -1,7 +1,7 @@
 <script setup>
 import { ref, onMounted, reactive, provide, watch, nextTick } from 'vue';
 import { parseCSV } from '../parser/csv-parser.js';
-import Screenshots from './components/Screenshots.vue'
+import Submissions from './components/Submissions.vue'
 import InventoryReport from './components/InventoryReport.vue'
 import StockpileReport from './components/StockpileReport.vue';
 
@@ -35,8 +35,8 @@ watch(
 provide('settings', settings);
 
 // contains report and time taken
-const screenshots = ref([]);
-provide('screenshots', screenshots);
+const submissions = ref([]);
+provide('submissions', submissions);
 
 const isInventory = ref(true);
 provide('isInventory', isInventory);
@@ -54,7 +54,7 @@ watch(
   targetStockpiles,
   (newTargetStockpiles) => {
     if (newTargetStockpiles.length == 1) {
-      activeReport.value = screenshots.value[newTargetStockpiles[newTargetStockpiles.length - 1]].report;
+      activeReport.value = submissions.value[newTargetStockpiles[newTargetStockpiles.length - 1]].report;
     } else {
       activeReport.value = undefined;
     }
@@ -66,7 +66,7 @@ watch(
   sourceStockpiles,
   (newSourceStockpiles) => {
     if (newSourceStockpiles.length == 1) {
-      referenceReport.value = screenshots.value[newSourceStockpiles[newSourceStockpiles.length - 1]].report;
+      referenceReport.value = submissions.value[newSourceStockpiles[newSourceStockpiles.length - 1]].report;
     } else {
       referenceReport.value = undefined;
     }
@@ -79,23 +79,23 @@ provide('errorMessage', errorMessage);
 
 async function addCSV(text) {
   if (errorMessage.value !== undefined) {
-    screenshots.value.pop();
+    submissions.value.pop();
     errorMessage.value = undefined;
   }
 
-  if (screenshots.value.some(screenshot => screenshot.report === undefined)) {
+  if (submissions.value.some(submission => submission.report === undefined)) {
     console.warn('a report is already being processed');
     return;
   }
 
-  screenshots.value = [...screenshots.value, {
+  submissions.value = [...submissions.value, {
     report: undefined,
     time: new Date()
   }];
 
   nextTick(() => {
-    const screenshotsDiv = document.querySelector('.screenshots');
-    if (screenshotsDiv) screenshotsDiv.scrollLeft = screenshotsDiv.scrollWidth;
+    const submissionsDiv = document.querySelector('.submissions');
+    if (submissionsDiv) submissionsDiv.scrollLeft = submissionsDiv.scrollWidth;
   });
 
   let report;
@@ -112,23 +112,23 @@ async function addCSV(text) {
     errorMessage.value = e.toString();
     return;
   }
-  screenshots.value[screenshots.value.length - 1].report = report;
+  submissions.value[submissions.value.length - 1].report = report;
 
   const newIsInventory = !report.isStockpile;
 
   if (isInventory.value != newIsInventory) {
     isInventory.value = newIsInventory;
-    screenshots.value = screenshots.value.slice(-1);
+    submissions.value = submissions.value.slice(-1);
     targetStockpiles.value = [0];
     sourceStockpiles.value = [];
   } else if (newIsInventory) {
-    targetStockpiles.value = [screenshots.value.length - 1];
+    targetStockpiles.value = [submissions.value.length - 1];
     sourceStockpiles.value = [];
 
     let reference = undefined;
 
-    for (let i = screenshots.value.length - 2; i >= 0; i--) {
-      const prev = screenshots.value[i].report;
+    for (let i = submissions.value.length - 2; i >= 0; i--) {
+      const prev = submissions.value[i].report;
       if (prev.hex === report.hex && prev.coords === report.coords) {
         reference = i;
         break;
@@ -139,7 +139,7 @@ async function addCSV(text) {
       sourceStockpiles.value = [reference];
     }
   } else {
-    targetStockpiles.value = [...targetStockpiles.value, screenshots.value.length - 1]; // push doesn't re-render
+    targetStockpiles.value = [...targetStockpiles.value, submissions.value.length - 1]; // push doesn't re-render
   }
 }
 
@@ -162,7 +162,7 @@ onMounted(async () => {
 </script>
 
 <template>
-  <Screenshots v-if="screenshots.length > 0" :key="settings" />
+  <Submissions v-if="submissions.length > 0" :key="settings" />
   <template v-else>
     <p class="ctrlv">ctrl+v a CSV</p>
     <div class="links">

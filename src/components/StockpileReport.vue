@@ -7,7 +7,7 @@ import metadata from '../../parser/data/metadata.json'
 import { relevantItems, relevantCrates, getTarget } from './items.js'
 
 const settings = inject('settings');
-const screenshots = inject('screenshots');
+const submissions = inject('submissions');
 const targetStockpiles = inject('targetStockpiles');
 const sourceStockpiles = inject('sourceStockpiles');
 
@@ -20,7 +20,7 @@ function mergeStockpiles(indices) {
       let countTotal = 0;
 
       for (const idx of indices) {
-        const report = screenshots.value[idx].report;
+        const report = submissions.value[idx].report;
         
         if (report.items.hasOwnProperty(name + '-crated')) {
           const count = report.items[name + '-crated'].count;
@@ -39,7 +39,7 @@ function mergeStockpiles(indices) {
       let countCrated = 0;
 
       for (const idx of indices) {
-        const report = screenshots.value[idx].report;
+        const report = submissions.value[idx].report;
         
         if (report.items.hasOwnProperty(name)) {
           countSingular += report.items[name].count;
@@ -221,8 +221,8 @@ function exportText() {
 
 function exportJson() {
   const obj = {
-    'sources': sourceStockpiles.value.map(idx => screenshots.value[idx].report),
-    'targets': targetStockpiles.value.map(idx => screenshots.value[idx].report),
+    'sources': sourceStockpiles.value.map(idx => submissions.value[idx].report),
+    'targets': targetStockpiles.value.map(idx => submissions.value[idx].report),
     'manifest': Object.fromEntries(Object.entries(shoppingList).filter(([, count]) => count > 0))
   }
 

@@ -2,12 +2,12 @@
 import { inject, ref, computed, onMounted, onUnmounted } from 'vue'
 
 const isInventory = inject('isInventory');
-const screenshots = inject('screenshots');
+const submissions = inject('submissions');
 
 const rightNow = ref(Date.now());
 
 const timeLast = computed(() => {
-  const timeString = screenshots.value[screenshots.value.length - 1].time;
+  const timeString = submissions.value[submissions.value.length - 1].time;
   return Date.parse(timeString);
 });
 
