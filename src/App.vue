@@ -164,9 +164,9 @@ onMounted(async () => {
 <template>
   <Submissions v-if="submissions.length > 0" :key="settings" />
   <template v-else>
-    <p class="ctrlv">ctrl+v a CSV</p>
+    <p class="ctrlv">ctrl+v a csv</p>
     <div class="links">
-      <a href='/tutorial.mp4'>tutorial</a>
+      <a href='/tutorial.mp4'>old tutorial</a>
       <a href='/guide/index.html'>logi guide</a>
       <a href='/changelog.txt'>changelog (v2.0.0)</a>
       <a href='https://github.com/sslotin/foxhole-tools'>github</a>
@@ -179,17 +179,15 @@ onMounted(async () => {
     </p>
 
     <p>
-      could not parse the last CSV
+      could not parse the csv
     </p>
     
     <p>
-      make sure you copied the contents of a stockpile or inventory from the game,
-      <br>the format should be: <code>Item Name,Count</code>
-      <br><br>(Crate) suffix is supported for stockpile crates
+      it might be that the game has updated (it should work for u64)
     </p>
     
     <p>
-      if it is still not working, please <a href='https://discord.com/users/___s6'>send me</a> the CSV content and your specs
+      if it is not working, please <a href='https://discord.com/users/___s6'>contact me</a>
     </p>
   </div>
   <template v-else>
