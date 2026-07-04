@@ -6,7 +6,7 @@ import Timer from './Timer.vue'
 import metadata from '../../parser/data/metadata.json'
 import { relevantItems, relevantCrates, isDisplayed } from './items.js'
 
-const screenshots = inject('screenshots');
+const submissions = inject('submissions');
 const targetStockpiles = inject('targetStockpiles');
 const sourceStockpiles = inject('sourceStockpiles');
 const isInventory = inject('isInventory');
@@ -72,7 +72,7 @@ function handleClick(event, index) {
 function handleClose(event, index) {
   event.stopPropagation();
 
-  if (index == screenshots.value.length - 1 && errorMessage.value !== undefined) {
+  if (index == submissions.value.length - 1 && errorMessage.value !== undefined) {
     errorMessage.value = undefined;
   }
 
@@ -82,14 +82,13 @@ function handleClose(event, index) {
     .map(i => (i > index ? i - 1 : i));
   }
 
-  // not sure if it can be made prettier
-  const updatedScreenshots = [...screenshots.value];
-  updatedScreenshots.splice(index, 1);
+  const updatedSubmissions = [...submissions.value];
+  updatedSubmissions.splice(index, 1);
 
   //const updateTargetStockpiles = update(targetStockpiles.value);
   //const updatedSourceStockpiles = update()
   
-  screenshots.value = updatedScreenshots;
+  submissions.value = updatedSubmissions;
   targetStockpiles.value = update(targetStockpiles.value);
   sourceStockpiles.value = update(sourceStockpiles.value);
 }
@@ -98,9 +97,9 @@ function handleClose(event, index) {
 <template>
   <div class='wrapper'>
     <FactionToggle />
-    <div class="screenshots">
+    <div class="submissions">
       <div
-        v-for="(screenshot, index) in screenshots"
+        v-for="(screenshot, index) in submissions"
         :key="index"
         :class="{ target: targetStockpiles.includes(index), source: sourceStockpiles.includes(index) }"
         @click="(event) => handleClick(event, index)"
@@ -108,21 +107,18 @@ function handleClose(event, index) {
         >
         <div class='close' @click="(event) => handleClose(event, index)">×</div>
         <div v-if="screenshot.report">
-          <span v-if="isInventory">
-            {{ screenshot.report.stockpileType }}
-            <br>
-            {{ Math.round(countInventoryCrates(screenshot.report)) }} crates
-          </span>
-          <span v-else>
-            {{ screenshot.report.stockpileName }}
-            <br>
-            {{ countStockpileCrates(screenshot.report) }} crates
-          </span>
+          <div class="subhex">{{ screenshot.report.subhex }}</div>
+          <div>{{ isInventory ? screenshot.report.stockpileType : screenshot.report.stockpileName }}</div>
         </div>
         <div v-else>
           …
         </div>
-        <div class="time">{{ screenshot.time.toLocaleTimeString('en-US', { hour12: false }) }}</div>
+        <div class="time">
+          {{ screenshot.time.toLocaleTimeString('en-US', { hour12: false }) }}
+        </div>
+        <div class="crate-count">
+          {{ isInventory ? Math.round(countInventoryCrates(screenshot.report)) : countStockpileCrates(screenshot.report) }}c
+        </div>
       </div>
     </div>
     <Timer />
@@ -134,19 +130,16 @@ function handleClose(event, index) {
   display: flex
   width: 100%
 
-.screenshots
+.submissions
   user-select: none
 
   display: flex
   flex-wrap: nowrap
   justify-content: safe center
-  //align-items: center
   overflow-x: auto
   width: 650px
   width: 100%
   width: calc(100% - 85px)
-  //width: 100%
-  //max-width: 100%
   padding-bottom: 4px
   padding-top: 2px
   gap: 3px
@@ -167,8 +160,9 @@ function handleClose(event, index) {
     padding: 2px 4px
 
     height: 59px
-    width: 108px
-    background-color: rgba(0, 0, 0, 0.7)
+    width: 88px
+    background-color: #000
+    white-space: nowrap
 
     border-radius: 4px
     border: 1px solid #222
@@ -199,9 +193,18 @@ function handleClose(event, index) {
     &:hover .close
         display: block
 
-    .time
+    .subhex
+      font-size: 12px
+
+    .time,
+    .crate-count
       position: absolute
-      top: 45px
+      top: 44px
+      color: #999
+      font-size: 12px
+
+    .crate-count
+      right: 6px
 
     .sources
       position: absolute
