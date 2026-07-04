@@ -14,13 +14,6 @@ const data = {...activeReport.items[name], ...relevantItems[name], ...metadata[n
 
 data.count = (data.count === undefined ? 0 : data.count);
 
-function formatCount(count) {
-  if (count >= 1000) {
-    return Math.floor(count / 1000) + 'k+';
-  }
-  return count;
-}
-
 function formatChange(count) {
     if (count > 0) {
         return "+" + count;
@@ -104,7 +97,7 @@ function processClick() {
     <span class='name' :class='{ warden: (data.warden !== undefined) && data.warden && !settings.warden, collie: (data.warden !== undefined) && !data.warden && settings.warden }'>{{ data.short }}</span>
     <span class='stat'>{{ props.stat }}</span>
     <span class='count' :style="{ color: color }">
-      {{ formatCount(data.count) }}
+      {{ data.count }}
       <span class="target" v-if="name == 'SoldierSupplies'"> / {{ settings.targetShirts == 1000 ? '1k' : settings.targetShirts }}</span>
     </span>
     <template v-if="name == 'SoldierSupplies'">
