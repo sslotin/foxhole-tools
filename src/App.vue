@@ -124,32 +124,18 @@ async function addCSV(text) {
   } else if (newIsInventory) {
     targetStockpiles.value = [screenshots.value.length - 1];
     sourceStockpiles.value = [];
-    
+
     let reference = undefined;
-    
-    function isSame(a, b) {
-      if (a.stockpileType != b.stockpileType) {
-        return false;
-      }
-      let matches = 0;
-      for (const name of Object.keys(a.items)) {
-        if (b.items.hasOwnProperty(name) && b.items[name].count == a.items[name].count) {
-          matches += 1;
-        }
-      }
-      //console.log('matches:', matches);
-      return matches >= 7;
-    }
 
     for (let i = screenshots.value.length - 2; i >= 0; i--) {
-      if (isSame(report, screenshots.value[i].report)) {
+      const prev = screenshots.value[i].report;
+      if (prev.hex === report.hex && prev.coords === report.coords) {
         reference = i;
         break;
       }
     }
 
     if (reference !== undefined) {
-      //console.log('reference found:', reference);
       sourceStockpiles.value = [reference];
     }
   } else {
