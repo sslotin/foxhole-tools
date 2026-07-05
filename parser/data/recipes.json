@@ -1,0 +1,7896 @@
+{
+  "_generated": "2026-07-05T01:23:44.266Z",
+  "_sources": [
+    "War/Content/Blueprints/Data/BPItemDynamicData.json — Factory/MPF crate recipes",
+    "War/Content/Blueprints/Structures/Facilities/ — facility conversion recipes",
+    "War/Content/Blueprints/Structures/Forts/ — engine room recipes"
+  ],
+  "_recipeCounts": {
+    "factoryMpfCrateRecipes": 241,
+    "facilityFiles": 19
+  },
+  "factory": {
+    "displayName": "Factory / Mass Production Factory",
+    "codeName": "Factory / MassProduction",
+    "description": "Town-based Factories and Mass Production Factories use these crate recipes.",
+    "crateRecipes": {
+      "RelicRifle": {
+        "inputs": [
+          {
+            "codeName": "Cloth",
+            "quantity": 100
+          }
+        ],
+        "outputs": [
+          {
+            "codeName": "RelicRifle",
+            "quantity": 20
+          }
+        ],
+        "duration": 70,
+        "retrieveSingle": 3.5,
+        "retrieveCrate": 14,
+        "researchLevel": 0
+      },
+      "Radio": {
+        "inputs": [
+          {
+            "codeName": "Cloth",
+            "quantity": 75
+          }
+        ],
+        "outputs": [
+          {
+            "codeName": "Radio",
+            "quantity": 5
+          }
+        ],
+        "duration": 50,
+        "retrieveSingle": 10,
+        "retrieveCrate": 10,
+        "researchLevel": 0
+      },
+      "RadioBackpack": {
+        "inputs": [
+          {
+            "codeName": "Cloth",
+            "quantity": 150
+          }
+        ],
+        "outputs": [
+          {
+            "codeName": "RadioBackpack",
+            "quantity": 5
+          }
+        ],
+        "duration": 75,
+        "retrieveSingle": 15,
+        "retrieveCrate": 16,
+        "researchLevel": 0
+      },
+      "Mortar": {
+        "inputs": [
+          {
+            "codeName": "Cloth",
+            "quantity": 100
+          },
+          {
+            "codeName": "Wood",
+            "quantity": 25
+          }
+        ],
+        "outputs": [
+          {
+            "codeName": "Mortar",
+            "quantity": 5
+          }
+        ],
+        "duration": 50,
+        "retrieveSingle": 10,
+        "retrieveCrate": 16,
+        "researchLevel": 0
+      },
+      "MGAmmo": {
+        "inputs": [
+          {
+            "codeName": "Cloth",
+            "quantity": 100
+          }
+        ],
+        "outputs": [
+          {
+            "codeName": "MGAmmo",
+            "quantity": 20
+          }
+        ],
+        "duration": 70,
+        "retrieveSingle": 3.5,
+        "retrieveCrate": 14,
+        "researchLevel": 0
+      },
+      "LightArtilleryAmmo": {
+        "inputs": [
+          {
+            "codeName": "Cloth",
+            "quantity": 120
+          },
+          {
+            "codeName": "HeavyExplosive",
+            "quantity": 10
+          }
+        ],
+        "outputs": [
+          {
+            "codeName": "LightArtilleryAmmo",
+            "quantity": 5
+          }
+        ],
+        "duration": 55,
+        "retrieveSingle": 6,
+        "retrieveCrate": 20,
+        "researchLevel": 0
+      },
+      "Sulfur": {
+        "inputs": [
+          {
+            "codeName": "Sulfur",
+            "quantity": 105
+          }
+        ],
+        "outputs": [
+          {
+            "codeName": "Sulfur",
+            "quantity": 100
+          }
+        ],
+        "duration": 200,
+        "retrieveSingle": 6,
+        "retrieveCrate": 6,
+        "researchLevel": 0
+      },
+      "Components": {
+        "inputs": [
+          {
+            "codeName": "Components",
+            "quantity": 70
+          }
+        ],
+        "outputs": [
+          {
+            "codeName": "Components",
+            "quantity": 100
+          }
+        ],
+        "duration": 200,
+        "retrieveSingle": 6,
+        "retrieveCrate": 6,
+        "researchLevel": 0
+      },
+      "UpgradePart": {
+        "inputs": [
+          {
+            "codeName": "RFuel",
+            "quantity": 20
+          }
+        ],
+        "outputs": [
+          {
+            "codeName": "UpgradePart",
+            "quantity": 1
+          }
+        ],
+        "duration": 300,
+        "retrieveSingle": 5,
+        "retrieveCrate": 5,
+        "researchLevel": 0
+      },
+      "Metal": {
+        "inputs": [
+          {
+            "codeName": "Metal",
+            "quantity": 45
+          }
+        ],
+        "outputs": [
+          {
+            "codeName": "Metal",
+            "quantity": 100
+          }
+        ],
+        "duration": 100,
+        "retrieveSingle": 3,
+        "retrieveCrate": 3,
+        "researchLevel": 0
+      },
+      "GrenadeW": {
+        "inputs": [
+          {
+            "codeName": "Cloth",
+            "quantity": 100
+          },
+          {
+            "codeName": "Explosive",
+            "quantity": 40
+          }
+        ],
+        "outputs": [
+          {
+            "codeName": "GrenadeW",
+            "quantity": 20
+          }
+        ],
+        "duration": 100,
+        "retrieveSingle": 4,
+        "retrieveCrate": 12,
+        "researchLevel": 0
+      },
+      "GasMask": {
+        "inputs": [
+          {
+            "codeName": "Cloth",
+            "quantity": 160
+          }
+        ],
+        "outputs": [
+          {
+            "codeName": "GasMask",
+            "quantity": 20
+          }
+        ],
+        "duration": 100,
+        "retrieveSingle": 4,
+        "retrieveCrate": 16,
+        "researchLevel": 0
+      },
+      "MaintenanceSupplies": {
+        "inputs": [
+          {
+            "codeName": "Cloth",
+            "quantity": 250
+          }
+        ],
+        "outputs": [
+          {
+            "codeName": "MaintenanceSupplies",
+            "quantity": 100
+          }
+        ],
+        "duration": 125,
+        "retrieveSingle": 30,
+        "retrieveCrate": 12,
+        "researchLevel": 0
+      },
+      "FirstAidKit": {
+        "inputs": [
+          {
+            "codeName": "Cloth",
+            "quantity": 60
+          }
+        ],
+        "outputs": [
+          {
+            "codeName": "FirstAidKit",
+            "quantity": 10
+          }
+        ],
+        "duration": 35,
+        "retrieveSingle": 3.5,
+        "retrieveCrate": 7,
+        "researchLevel": 0
+      },
+      "FieldMGAmmo": {
+        "inputs": [
+          {
+            "codeName": "Cloth",
+            "quantity": 100
+          }
+        ],
+        "outputs": [
+          {
+            "codeName": "FieldMGAmmo",
+            "quantity": 20
+          }
+        ],
+        "duration": 100,
+        "retrieveSingle": 5,
+        "retrieveCrate": 20,
+        "researchLevel": 0
+      },
+      "GreenAsh": {
+        "inputs": [
+          {
+            "codeName": "Cloth",
+            "quantity": 140
+          }
+        ],
+        "outputs": [
+          {
+            "codeName": "GreenAsh",
+            "quantity": 10
+          }
+        ],
+        "duration": 100,
+        "retrieveSingle": 4,
+        "retrieveCrate": 16,
+        "researchLevel": 0
+      },
+      "SatchelChargeW": {
+        "inputs": [
+          {
+            "codeName": "Cloth",
+            "quantity": 100
+          },
+          {
+            "codeName": "Explosive",
+            "quantity": 80
+          }
+        ],
+        "outputs": [
+          {
+            "codeName": "SatchelChargeW",
+            "quantity": 5
+          }
+        ],
+        "duration": 100,
+        "retrieveSingle": 10,
+        "retrieveCrate": 20,
+        "researchLevel": 0
+      },
+      "Totem": {
+        "inputs": [
+          {
+            "codeName": "Cloth",
+            "quantity": 100
+          }
+        ],
+        "outputs": [
+          {
+            "codeName": "Totem",
+            "quantity": 10
+          }
+        ],
+        "duration": 60,
+        "retrieveSingle": 6,
+        "retrieveCrate": 12,
+        "researchLevel": 0
+      },
+      "BunkerSupplies": {
+        "inputs": [
+          {
+            "codeName": "Cloth",
+            "quantity": 75
+          }
+        ],
+        "outputs": [
+          {
+            "codeName": "BunkerSupplies",
+            "quantity": 150
+          }
+        ],
+        "duration": 190,
+        "retrieveSingle": 1.5,
+        "retrieveCrate": 16,
+        "researchLevel": 0
+      },
+      "Tripod": {
+        "inputs": [
+          {
+            "codeName": "Cloth",
+            "quantity": 100
+          }
+        ],
+        "outputs": [
+          {
+            "codeName": "Tripod",
+            "quantity": 5
+          }
+        ],
+        "duration": 60,
+        "retrieveSingle": 10,
+        "retrieveCrate": 20,
+        "researchLevel": 0
+      },
+      "Cloth": {
+        "inputs": [
+          {
+            "codeName": "Cloth",
+            "quantity": 100
+          }
+        ],
+        "outputs": [
+          {
+            "codeName": "Cloth",
+            "quantity": 100
+          }
+        ],
+        "duration": 500,
+        "retrieveSingle": 5,
+        "retrieveCrate": 5,
+        "researchLevel": 0
+      },
+      "Explosive": {
+        "inputs": [
+          {
+            "codeName": "Explosive",
+            "quantity": 200
+          }
+        ],
+        "outputs": [
+          {
+            "codeName": "Explosive",
+            "quantity": 40
+          }
+        ],
+        "duration": 750,
+        "retrieveSingle": 3,
+        "retrieveCrate": 3,
+        "researchLevel": 0
+      },
+      "HeavyExplosive": {
+        "inputs": [
+          {
+            "codeName": "HeavyExplosive",
+            "quantity": 400
+          }
+        ],
+        "outputs": [
+          {
+            "codeName": "HeavyExplosive",
+            "quantity": 30
+          }
+        ],
+        "duration": 1000,
+        "retrieveSingle": 5,
+        "retrieveCrate": 5,
+        "researchLevel": 0
+      },
+      "Wood": {
+        "inputs": [
+          {
+            "codeName": "Wood",
+            "quantity": 400
+          }
+        ],
+        "outputs": [
+          {
+            "codeName": "Wood",
+            "quantity": 20
+          }
+        ],
+        "duration": 1000,
+        "retrieveSingle": 10,
+        "retrieveCrate": 10,
+        "researchLevel": 0
+      },
+      "SniperRifleAmmo": {
+        "inputs": [
+          {
+            "codeName": "Cloth",
+            "quantity": 150
+          }
+        ],
+        "outputs": [
+          {
+            "codeName": "SniperRifleAmmo",
+            "quantity": 10
+          }
+        ],
+        "duration": 100,
+        "retrieveSingle": 10,
+        "retrieveCrate": 20,
+        "researchLevel": 0
+      },
+      "ShotgunAmmo": {
+        "inputs": [
+          {
+            "codeName": "Cloth",
+            "quantity": 80
+          }
+        ],
+        "outputs": [
+          {
+            "codeName": "ShotgunAmmo",
+            "quantity": 40
+          }
+        ],
+        "duration": 50,
+        "retrieveSingle": 1.25,
+        "retrieveCrate": 10,
+        "researchLevel": 0
+      },
+      "RpgW": {
+        "inputs": [
+          {
+            "codeName": "Cloth",
+            "quantity": 100
+          },
+          {
+            "codeName": "Wood",
+            "quantity": 35
+          }
+        ],
+        "outputs": [
+          {
+            "codeName": "RpgW",
+            "quantity": 5
+          }
+        ],
+        "duration": 50,
+        "retrieveSingle": 10,
+        "retrieveCrate": 16,
+        "researchLevel": 0
+      },
+      "RpgAmmo": {
+        "inputs": [
+          {
+            "codeName": "Cloth",
+            "quantity": 60
+          },
+          {
+            "codeName": "Explosive",
+            "quantity": 90
+          }
+        ],
+        "outputs": [
+          {
+            "codeName": "RpgAmmo",
+            "quantity": 15
+          }
+        ],
+        "duration": 100,
+        "retrieveSingle": 5,
+        "retrieveCrate": 20,
+        "researchLevel": 0
+      },
+      "RifleAmmo": {
+        "inputs": [
+          {
+            "codeName": "Cloth",
+            "quantity": 80
+          }
+        ],
+        "outputs": [
+          {
+            "codeName": "RifleAmmo",
+            "quantity": 40
+          }
+        ],
+        "duration": 50,
+        "retrieveSingle": 1.25,
+        "retrieveCrate": 10,
+        "researchLevel": 0
+      },
+      "Revolver": {
+        "inputs": [
+          {
+            "codeName": "Cloth",
+            "quantity": 60
+          }
+        ],
+        "outputs": [
+          {
+            "codeName": "Revolver",
+            "quantity": 30
+          }
+        ],
+        "duration": 50,
+        "retrieveSingle": 1.5,
+        "retrieveCrate": 10,
+        "researchLevel": 0
+      },
+      "RevolverAmmo": {
+        "inputs": [
+          {
+            "codeName": "Cloth",
+            "quantity": 40
+          }
+        ],
+        "outputs": [
+          {
+            "codeName": "RevolverAmmo",
+            "quantity": 40
+          }
+        ],
+        "duration": 40,
+        "retrieveSingle": 1,
+        "retrieveCrate": 8,
+        "researchLevel": 0
+      },
+      "PistolAmmo": {
+        "inputs": [
+          {
+            "codeName": "Cloth",
+            "quantity": 40
+          }
+        ],
+        "outputs": [
+          {
+            "codeName": "PistolAmmo",
+            "quantity": 40
+          }
+        ],
+        "duration": 20,
+        "retrieveSingle": 1,
+        "retrieveCrate": 8,
+        "researchLevel": 0
+      },
+      "MortarAmmoSH": {
+        "inputs": [
+          {
+            "codeName": "Cloth",
+            "quantity": 60
+          },
+          {
+            "codeName": "Explosive",
+            "quantity": 20
+          }
+        ],
+        "outputs": [
+          {
+            "codeName": "MortarAmmoSH",
+            "quantity": 15
+          }
+        ],
+        "duration": 100,
+        "retrieveSingle": 5,
+        "retrieveCrate": 16,
+        "researchLevel": 0
+      },
+      "MortarAmmo": {
+        "inputs": [
+          {
+            "codeName": "Cloth",
+            "quantity": 60
+          },
+          {
+            "codeName": "Explosive",
+            "quantity": 70
+          }
+        ],
+        "outputs": [
+          {
+            "codeName": "MortarAmmo",
+            "quantity": 15
+          }
+        ],
+        "duration": 100,
+        "retrieveSingle": 7.5,
+        "retrieveCrate": 16,
+        "researchLevel": 0
+      },
+      "MortarAmmoFL": {
+        "inputs": [
+          {
+            "codeName": "Cloth",
+            "quantity": 60
+          },
+          {
+            "codeName": "Explosive",
+            "quantity": 15
+          }
+        ],
+        "outputs": [
+          {
+            "codeName": "MortarAmmoFL",
+            "quantity": 15
+          }
+        ],
+        "duration": 100,
+        "retrieveSingle": 5,
+        "retrieveCrate": 16,
+        "researchLevel": 0
+      },
+      "MortarTankAmmo": {
+        "inputs": [
+          {
+            "codeName": "Cloth",
+            "quantity": 120
+          },
+          {
+            "codeName": "HeavyExplosive",
+            "quantity": 100
+          }
+        ],
+        "outputs": [
+          {
+            "codeName": "MortarTankAmmo",
+            "quantity": 5
+          }
+        ],
+        "duration": 150,
+        "retrieveSingle": 10,
+        "retrieveCrate": 20,
+        "researchLevel": 0
+      },
+      "MiniTankAmmo": {
+        "inputs": [
+          {
+            "codeName": "Cloth",
+            "quantity": 80
+          },
+          {
+            "codeName": "Explosive",
+            "quantity": 40
+          }
+        ],
+        "outputs": [
+          {
+            "codeName": "MiniTankAmmo",
+            "quantity": 20
+          }
+        ],
+        "duration": 100,
+        "retrieveSingle": 5,
+        "retrieveCrate": 20,
+        "researchLevel": 0
+      },
+      "MGC": {
+        "inputs": [
+          {
+            "codeName": "Wood",
+            "quantity": 25
+          }
+        ],
+        "outputs": [
+          {
+            "codeName": "MGC",
+            "quantity": 5
+          }
+        ],
+        "duration": 100,
+        "retrieveSingle": 10,
+        "retrieveCrate": 20,
+        "researchLevel": 0
+      },
+      "LRArtilleryAmmo": {
+        "inputs": [
+          {
+            "codeName": "Cloth",
+            "quantity": 135
+          },
+          {
+            "codeName": "HeavyExplosive",
+            "quantity": 45
+          }
+        ],
+        "outputs": [
+          {
+            "codeName": "LRArtilleryAmmo",
+            "quantity": 1
+          }
+        ],
+        "duration": 125,
+        "retrieveSingle": 10,
+        "retrieveCrate": 10,
+        "researchLevel": 0
+      },
+      "StaticArtilleryAmmo": {
+        "inputs": [
+          {
+            "codeName": "Cloth",
+            "quantity": 80
+          },
+          {
+            "codeName": "HeavyExplosive",
+            "quantity": 20
+          }
+        ],
+        "outputs": [
+          {
+            "codeName": "StaticArtilleryAmmo",
+            "quantity": 20
+          }
+        ],
+        "duration": 200,
+        "retrieveSingle": 10,
+        "retrieveCrate": 40,
+        "researchLevel": 0
+      },
+      "AssaultRifleW": {
+        "inputs": [
+          {
+            "codeName": "Wood",
+            "quantity": 15
+          }
+        ],
+        "outputs": [
+          {
+            "codeName": "AssaultRifleW",
+            "quantity": 20
+          }
+        ],
+        "duration": 80,
+        "retrieveSingle": 5,
+        "retrieveCrate": 20,
+        "researchLevel": 0
+      },
+      "ISGTC": {
+        "inputs": [
+          {
+            "codeName": "Cloth",
+            "quantity": 100
+          },
+          {
+            "codeName": "Wood",
+            "quantity": 5
+          }
+        ],
+        "outputs": [
+          {
+            "codeName": "ISGTC",
+            "quantity": 5
+          }
+        ],
+        "duration": 125,
+        "retrieveSingle": 10,
+        "retrieveCrate": 10,
+        "researchLevel": 0
+      },
+      "HEGrenade": {
+        "inputs": [
+          {
+            "codeName": "Cloth",
+            "quantity": 100
+          },
+          {
+            "codeName": "Explosive",
+            "quantity": 20
+          }
+        ],
+        "outputs": [
+          {
+            "codeName": "HEGrenade",
+            "quantity": 20
+          }
+        ],
+        "duration": 80,
+        "retrieveSingle": 4,
+        "retrieveCrate": 16,
+        "researchLevel": 0
+      },
+      "Concrete": {
+        "inputs": [
+          {
+            "codeName": "StrongMaterials",
+            "quantity": 20
+          }
+        ],
+        "outputs": [
+          {
+            "codeName": "Concrete",
+            "quantity": 1
+          }
+        ],
+        "duration": 200,
+        "retrieveSingle": 1.5,
+        "retrieveCrate": 10,
+        "researchLevel": 0
+      },
+      "GasMaskFilter": {
+        "inputs": [
+          {
+            "codeName": "Cloth",
+            "quantity": 100
+          }
+        ],
+        "outputs": [
+          {
+            "codeName": "GasMaskFilter",
+            "quantity": 20
+          }
+        ],
+        "duration": 50,
+        "retrieveSingle": 2.5,
+        "retrieveCrate": 10,
+        "researchLevel": 0
+      },
+      "CriticalSoldier": {
+        "inputs": [
+          {
+            "codeName": "Cloth",
+            "quantity": 50
+          }
+        ],
+        "outputs": [
+          {
+            "codeName": "CriticalSoldier",
+            "quantity": 50
+          }
+        ],
+        "duration": 125,
+        "retrieveSingle": 2.5,
+        "retrieveCrate": 25,
+        "researchLevel": 0
+      },
+      "RifleLightW": {
+        "inputs": [
+          {
+            "codeName": "Cloth",
+            "quantity": 140
+          }
+        ],
+        "outputs": [
+          {
+            "codeName": "RifleLightW",
+            "quantity": 20
+          }
+        ],
+        "duration": 80,
+        "retrieveSingle": 3.5,
+        "retrieveCrate": 10,
+        "researchLevel": 0
+      },
+      "CarbineAmmo": {
+        "inputs": [
+          {
+            "codeName": "Cloth",
+            "quantity": 80
+          }
+        ],
+        "outputs": [
+          {
+            "codeName": "CarbineAmmo",
+            "quantity": 40
+          }
+        ],
+        "duration": 50,
+        "retrieveSingle": 1.25,
+        "retrieveCrate": 10,
+        "researchLevel": 0
+      },
+      "BloodPlasma": {
+        "inputs": [
+          {
+            "codeName": "Cloth",
+            "quantity": 80
+          }
+        ],
+        "outputs": [
+          {
+            "codeName": "BloodPlasma",
+            "quantity": 50
+          }
+        ],
+        "duration": 40,
+        "retrieveSingle": 0.5,
+        "retrieveCrate": 8,
+        "researchLevel": 0
+      },
+      "Bayonet": {
+        "inputs": [
+          {
+            "codeName": "Cloth",
+            "quantity": 40
+          }
+        ],
+        "outputs": [
+          {
+            "codeName": "Bayonet",
+            "quantity": 20
+          }
+        ],
+        "duration": 30,
+        "retrieveSingle": 1.5,
+        "retrieveCrate": 6,
+        "researchLevel": 0
+      },
+      "ATRifleW": {
+        "inputs": [
+          {
+            "codeName": "Cloth",
+            "quantity": 150
+          }
+        ],
+        "outputs": [
+          {
+            "codeName": "ATRifleW",
+            "quantity": 3
+          }
+        ],
+        "duration": 37.5,
+        "retrieveSingle": 7.5,
+        "retrieveCrate": 12,
+        "researchLevel": 0
+      },
+      "ATRifleAmmo": {
+        "inputs": [
+          {
+            "codeName": "Cloth",
+            "quantity": 100
+          }
+        ],
+        "outputs": [
+          {
+            "codeName": "ATRifleAmmo",
+            "quantity": 10
+          }
+        ],
+        "duration": 100,
+        "retrieveSingle": 7.5,
+        "retrieveCrate": 16,
+        "researchLevel": 0
+      },
+      "AssaultRifleC": {
+        "inputs": [
+          {
+            "codeName": "Wood",
+            "quantity": 15
+          }
+        ],
+        "outputs": [
+          {
+            "codeName": "AssaultRifleC",
+            "quantity": 20
+          }
+        ],
+        "duration": 80,
+        "retrieveSingle": 5,
+        "retrieveCrate": 20,
+        "researchLevel": 0
+      },
+      "AssaultRifleAmmo": {
+        "inputs": [
+          {
+            "codeName": "Cloth",
+            "quantity": 120
+          }
+        ],
+        "outputs": [
+          {
+            "codeName": "AssaultRifleAmmo",
+            "quantity": 30
+          }
+        ],
+        "duration": 60,
+        "retrieveSingle": 1.5,
+        "retrieveCrate": 12,
+        "researchLevel": 0
+      },
+      "Binoculars": {
+        "inputs": [
+          {
+            "codeName": "Cloth",
+            "quantity": 75
+          }
+        ],
+        "outputs": [
+          {
+            "codeName": "Binoculars",
+            "quantity": 5
+          }
+        ],
+        "duration": 50,
+        "retrieveSingle": 10,
+        "retrieveCrate": 10,
+        "researchLevel": 0
+      },
+      "Bandages": {
+        "inputs": [
+          {
+            "codeName": "Cloth",
+            "quantity": 80
+          }
+        ],
+        "outputs": [
+          {
+            "codeName": "Bandages",
+            "quantity": 50
+          }
+        ],
+        "duration": 40,
+        "retrieveSingle": 0.5,
+        "retrieveCrate": 8,
+        "researchLevel": 0
+      },
+      "ArtilleryAmmoHE": {
+        "inputs": [
+          {
+            "codeName": "Cloth",
+            "quantity": 200
+          },
+          {
+            "codeName": "HeavyExplosive",
+            "quantity": 200
+          }
+        ],
+        "outputs": [
+          {
+            "codeName": "ArtilleryAmmoHE",
+            "quantity": 20
+          }
+        ],
+        "duration": 200,
+        "retrieveSingle": 10,
+        "retrieveCrate": 40,
+        "researchLevel": 0
+      },
+      "ArtilleryAmmoAP": {
+        "inputs": [
+          {
+            "codeName": "Cloth",
+            "quantity": 200
+          },
+          {
+            "codeName": "Wood",
+            "quantity": 200
+          }
+        ],
+        "outputs": [
+          {
+            "codeName": "ArtilleryAmmoAP",
+            "quantity": 20
+          }
+        ],
+        "duration": 200,
+        "retrieveSingle": 10,
+        "retrieveCrate": 40,
+        "researchLevel": 0
+      },
+      "SledgeHammer": {
+        "inputs": [
+          {
+            "codeName": "Cloth",
+            "quantity": 200
+          }
+        ],
+        "outputs": [
+          {
+            "codeName": "SledgeHammer",
+            "quantity": 10
+          }
+        ],
+        "duration": 100,
+        "retrieveSingle": 10,
+        "retrieveCrate": 20,
+        "researchLevel": 0
+      },
+      "ArtilleryAmmo": {
+        "inputs": [
+          {
+            "codeName": "Cloth",
+            "quantity": 200
+          },
+          {
+            "codeName": "HeavyExplosive",
+            "quantity": 100
+          }
+        ],
+        "outputs": [
+          {
+            "codeName": "ArtilleryAmmo",
+            "quantity": 20
+          }
+        ],
+        "duration": 200,
+        "retrieveSingle": 10,
+        "retrieveCrate": 40,
+        "researchLevel": 0
+      },
+      "TraumaKit": {
+        "inputs": [
+          {
+            "codeName": "Cloth",
+            "quantity": 80
+          }
+        ],
+        "outputs": [
+          {
+            "codeName": "TraumaKit",
+            "quantity": 10
+          }
+        ],
+        "duration": 50,
+        "retrieveSingle": 5,
+        "retrieveCrate": 10,
+        "researchLevel": 0
+      },
+      "PistolC": {
+        "inputs": [
+          {
+            "codeName": "Cloth",
+            "quantity": 60
+          }
+        ],
+        "outputs": [
+          {
+            "codeName": "PistolC",
+            "quantity": 20
+          }
+        ],
+        "duration": 50,
+        "retrieveSingle": 1.5,
+        "retrieveCrate": 10,
+        "researchLevel": 0
+      },
+      "TankMine": {
+        "inputs": [
+          {
+            "codeName": "Cloth",
+            "quantity": 100
+          },
+          {
+            "codeName": "Explosive",
+            "quantity": 20
+          }
+        ],
+        "outputs": [
+          {
+            "codeName": "TankMine",
+            "quantity": 10
+          }
+        ],
+        "duration": 100,
+        "retrieveSingle": 10,
+        "retrieveCrate": 20,
+        "researchLevel": 0
+      },
+      "RifleW": {
+        "inputs": [
+          {
+            "codeName": "Cloth",
+            "quantity": 100
+          }
+        ],
+        "outputs": [
+          {
+            "codeName": "RifleW",
+            "quantity": 20
+          }
+        ],
+        "duration": 70,
+        "retrieveSingle": 3.5,
+        "retrieveCrate": 10,
+        "researchLevel": 0
+      },
+      "WorkHammer": {
+        "inputs": [
+          {
+            "codeName": "Cloth",
+            "quantity": 20
+          }
+        ],
+        "outputs": [
+          {
+            "codeName": "WorkHammer",
+            "quantity": 20
+          }
+        ],
+        "duration": 50,
+        "retrieveSingle": 4,
+        "retrieveCrate": 10,
+        "researchLevel": 0
+      },
+      "WorkWrench": {
+        "inputs": [
+          {
+            "codeName": "Cloth",
+            "quantity": 75
+          }
+        ],
+        "outputs": [
+          {
+            "codeName": "WorkWrench",
+            "quantity": 5
+          }
+        ],
+        "duration": 50,
+        "retrieveSingle": 10,
+        "retrieveCrate": 10,
+        "researchLevel": 0
+      },
+      "Shovel": {
+        "inputs": [
+          {
+            "codeName": "Cloth",
+            "quantity": 200
+          }
+        ],
+        "outputs": [
+          {
+            "codeName": "Shovel",
+            "quantity": 10
+          }
+        ],
+        "duration": 100,
+        "retrieveSingle": 7.5,
+        "retrieveCrate": 10,
+        "researchLevel": 0
+      },
+      "SmokeGrenade": {
+        "inputs": [
+          {
+            "codeName": "Cloth",
+            "quantity": 80
+          }
+        ],
+        "outputs": [
+          {
+            "codeName": "SmokeGrenade",
+            "quantity": 15
+          }
+        ],
+        "duration": 75,
+        "retrieveSingle": 4,
+        "retrieveCrate": 16,
+        "researchLevel": 0
+      },
+      "SniperRifleW": {
+        "inputs": [
+          {
+            "codeName": "Cloth",
+            "quantity": 250
+          },
+          {
+            "codeName": "Wood",
+            "quantity": 25
+          }
+        ],
+        "outputs": [
+          {
+            "codeName": "SniperRifleW",
+            "quantity": 3
+          }
+        ],
+        "duration": 250,
+        "retrieveSingle": 10,
+        "retrieveCrate": 16,
+        "researchLevel": 0
+      },
+      "SoldierSupplies": {
+        "inputs": [
+          {
+            "codeName": "Cloth",
+            "quantity": 80
+          }
+        ],
+        "outputs": [
+          {
+            "codeName": "SoldierSupplies",
+            "quantity": 10
+          }
+        ],
+        "duration": 80,
+        "retrieveSingle": 8,
+        "retrieveCrate": 16,
+        "researchLevel": 0
+      },
+      "StaticArtilleryAmmoGA": {
+        "inputs": [
+          {
+            "codeName": "Cloth",
+            "quantity": 120
+          },
+          {
+            "codeName": "Explosive",
+            "quantity": 80
+          }
+        ],
+        "outputs": [
+          {
+            "codeName": "StaticArtilleryAmmoGA",
+            "quantity": 20
+          }
+        ],
+        "duration": 200,
+        "retrieveSingle": 10,
+        "retrieveCrate": 40,
+        "researchLevel": 0
+      },
+      "StaticArtilleryAmmoSMK": {
+        "inputs": [
+          {
+            "codeName": "Cloth",
+            "quantity": 120
+          },
+          {
+            "codeName": "Explosive",
+            "quantity": 40
+          }
+        ],
+        "outputs": [
+          {
+            "codeName": "StaticArtilleryAmmoSMK",
+            "quantity": 20
+          }
+        ],
+        "duration": 200,
+        "retrieveSingle": 10,
+        "retrieveCrate": 40,
+        "researchLevel": 0
+      },
+      "StickyBomb": {
+        "inputs": [
+          {
+            "codeName": "Cloth",
+            "quantity": 50
+          },
+          {
+            "codeName": "Explosive",
+            "quantity": 100
+          }
+        ],
+        "outputs": [
+          {
+            "codeName": "StickyBomb",
+            "quantity": 10
+          }
+        ],
+        "duration": 75,
+        "retrieveSingle": 7.5,
+        "retrieveCrate": 16,
+        "researchLevel": 0
+      },
+      "SMGAmmo": {
+        "inputs": [
+          {
+            "codeName": "Cloth",
+            "quantity": 80
+          }
+        ],
+        "outputs": [
+          {
+            "codeName": "SMGAmmo",
+            "quantity": 40
+          }
+        ],
+        "duration": 50,
+        "retrieveSingle": 1.25,
+        "retrieveCrate": 10,
+        "researchLevel": 0
+      },
+      "SMGW": {
+        "inputs": [
+          {
+            "codeName": "Cloth",
+            "quantity": 120
+          }
+        ],
+        "outputs": [
+          {
+            "codeName": "SMGW",
+            "quantity": 20
+          }
+        ],
+        "duration": 80,
+        "retrieveSingle": 3.5,
+        "retrieveCrate": 10,
+        "researchLevel": 0
+      },
+      "UnexplodedOrdnance": {
+        "inputs": [
+          {
+            "codeName": "Cloth",
+            "quantity": 100
+          },
+          {
+            "codeName": "HeavyExplosive",
+            "quantity": 60
+          }
+        ],
+        "outputs": [
+          {
+            "codeName": "UnexplodedOrdnance",
+            "quantity": 5
+          }
+        ],
+        "duration": 100,
+        "retrieveSingle": 20,
+        "retrieveCrate": 20,
+        "researchLevel": 0
+      },
+      "BattleTankAmmoAP": {
+        "inputs": [
+          {
+            "codeName": "Cloth",
+            "quantity": 200
+          },
+          {
+            "codeName": "Wood",
+            "quantity": 200
+          },
+          {
+            "codeName": "Explosive",
+            "quantity": 400
+          }
+        ],
+        "outputs": [
+          {
+            "codeName": "BattleTankAmmoAP",
+            "quantity": 20
+          }
+        ],
+        "duration": 200,
+        "retrieveSingle": 10,
+        "retrieveCrate": 40,
+        "researchLevel": 0
+      },
+      "BattleTankAmmoHE": {
+        "inputs": [
+          {
+            "codeName": "Cloth",
+            "quantity": 200
+          },
+          {
+            "codeName": "HeavyExplosive",
+            "quantity": 400
+          }
+        ],
+        "outputs": [
+          {
+            "codeName": "BattleTankAmmoHE",
+            "quantity": 20
+          }
+        ],
+        "duration": 200,
+        "retrieveSingle": 10,
+        "retrieveCrate": 40,
+        "researchLevel": 0
+      },
+      "BattleTankAmmoSH": {
+        "inputs": [
+          {
+            "codeName": "Cloth",
+            "quantity": 200
+          },
+          {
+            "codeName": "Wood",
+            "quantity": 80
+          }
+        ],
+        "outputs": [
+          {
+            "codeName": "BattleTankAmmoSH",
+            "quantity": 20
+          }
+        ],
+        "duration": 200,
+        "retrieveSingle": 10,
+        "retrieveCrate": 40,
+        "researchLevel": 0
+      },
+      "LightTankAmmoAP": {
+        "inputs": [
+          {
+            "codeName": "Cloth",
+            "quantity": 160
+          },
+          {
+            "codeName": "Wood",
+            "quantity": 60
+          },
+          {
+            "codeName": "Explosive",
+            "quantity": 120
+          }
+        ],
+        "outputs": [
+          {
+            "codeName": "LightTankAmmoAP",
+            "quantity": 20
+          }
+        ],
+        "duration": 200,
+        "retrieveSingle": 10,
+        "retrieveCrate": 40,
+        "researchLevel": 0
+      },
+      "LightTankAmmoHE": {
+        "inputs": [
+          {
+            "codeName": "Cloth",
+            "quantity": 160
+          },
+          {
+            "codeName": "HeavyExplosive",
+            "quantity": 140
+          }
+        ],
+        "outputs": [
+          {
+            "codeName": "LightTankAmmoHE",
+            "quantity": 20
+          }
+        ],
+        "duration": 200,
+        "retrieveSingle": 10,
+        "retrieveCrate": 40,
+        "researchLevel": 0
+      },
+      "LightTankAmmo": {
+        "inputs": [
+          {
+            "codeName": "Cloth",
+            "quantity": 160
+          },
+          {
+            "codeName": "Explosive",
+            "quantity": 240
+          }
+        ],
+        "outputs": [
+          {
+            "codeName": "LightTankAmmo",
+            "quantity": 20
+          }
+        ],
+        "duration": 200,
+        "retrieveSingle": 10,
+        "retrieveCrate": 20,
+        "researchLevel": 0
+      },
+      "LightTankAmmoSH": {
+        "inputs": [
+          {
+            "codeName": "Cloth",
+            "quantity": 160
+          },
+          {
+            "codeName": "Wood",
+            "quantity": 40
+          }
+        ],
+        "outputs": [
+          {
+            "codeName": "LightTankAmmoSH",
+            "quantity": 20
+          }
+        ],
+        "duration": 200,
+        "retrieveSingle": 10,
+        "retrieveCrate": 40,
+        "researchLevel": 0
+      },
+      "ATAmmo": {
+        "inputs": [
+          {
+            "codeName": "Cloth",
+            "quantity": 120
+          },
+          {
+            "codeName": "Explosive",
+            "quantity": 240
+          }
+        ],
+        "outputs": [
+          {
+            "codeName": "ATAmmo",
+            "quantity": 20
+          }
+        ],
+        "duration": 200,
+        "retrieveSingle": 10,
+        "retrieveCrate": 20,
+        "researchLevel": 0
+      },
+      "IronA": {
+        "inputs": [
+          {
+            "codeName": "IronA",
+            "quantity": 20
+          }
+        ],
+        "outputs": [
+          {
+            "codeName": "IronA",
+            "quantity": 20
+          }
+        ],
+        "duration": 1000,
+        "retrieveSingle": 10,
+        "retrieveCrate": 10,
+        "researchLevel": 0
+      },
+      "CopperA": {
+        "inputs": [
+          {
+            "codeName": "CopperA",
+            "quantity": 20
+          }
+        ],
+        "outputs": [
+          {
+            "codeName": "CopperA",
+            "quantity": 20
+          }
+        ],
+        "duration": 1000,
+        "retrieveSingle": 10,
+        "retrieveCrate": 10,
+        "researchLevel": 0
+      },
+      "AluminumA": {
+        "inputs": [
+          {
+            "codeName": "AluminumA",
+            "quantity": 20
+          }
+        ],
+        "outputs": [
+          {
+            "codeName": "AluminumA",
+            "quantity": 20
+          }
+        ],
+        "duration": 1000,
+        "retrieveSingle": 10,
+        "retrieveCrate": 10,
+        "researchLevel": 0
+      },
+      "ATMortar": {
+        "inputs": [
+          {
+            "codeName": "Cloth",
+            "quantity": 100
+          },
+          {
+            "codeName": "Wood",
+            "quantity": 25
+          }
+        ],
+        "outputs": [
+          {
+            "codeName": "ATMortar",
+            "quantity": 5
+          }
+        ],
+        "duration": 50,
+        "retrieveSingle": 10,
+        "retrieveCrate": 16,
+        "researchLevel": 0
+      },
+      "SoulstoneT3": {
+        "inputs": [
+          {
+            "codeName": "Cloth",
+            "quantity": 300
+          },
+          {
+            "codeName": "HeavyExplosive",
+            "quantity": 50
+          }
+        ],
+        "outputs": [
+          {
+            "codeName": "SoulstoneT3",
+            "quantity": 3
+          }
+        ],
+        "duration": 100,
+        "retrieveSingle": 20,
+        "retrieveCrate": 20,
+        "researchLevel": 0
+      },
+      "RelicMaterials": {
+        "inputs": [
+          {
+            "codeName": "RelicMaterials",
+            "quantity": 100
+          }
+        ],
+        "outputs": [
+          {
+            "codeName": "RelicMaterials",
+            "quantity": 20
+          }
+        ],
+        "duration": 200,
+        "retrieveSingle": 6,
+        "retrieveCrate": 6,
+        "researchLevel": 0
+      },
+      "SniperRifleC": {
+        "inputs": [
+          {
+            "codeName": "Cloth",
+            "quantity": 250
+          },
+          {
+            "codeName": "Wood",
+            "quantity": 30
+          }
+        ],
+        "outputs": [
+          {
+            "codeName": "SniperRifleC",
+            "quantity": 5
+          }
+        ],
+        "duration": 250,
+        "retrieveSingle": 10,
+        "retrieveCrate": 16,
+        "researchLevel": 0
+      },
+      "GrenadeC": {
+        "inputs": [
+          {
+            "codeName": "Cloth",
+            "quantity": 100
+          },
+          {
+            "codeName": "Explosive",
+            "quantity": 40
+          }
+        ],
+        "outputs": [
+          {
+            "codeName": "GrenadeC",
+            "quantity": 25
+          }
+        ],
+        "duration": 100,
+        "retrieveSingle": 4,
+        "retrieveCrate": 12,
+        "researchLevel": 0
+      },
+      "SMGC": {
+        "inputs": [
+          {
+            "codeName": "Cloth",
+            "quantity": 80
+          }
+        ],
+        "outputs": [
+          {
+            "codeName": "SMGC",
+            "quantity": 20
+          }
+        ],
+        "duration": 80,
+        "retrieveSingle": 2.5,
+        "retrieveCrate": 10,
+        "researchLevel": 0
+      },
+      "ATRPGW": {
+        "inputs": [
+          {
+            "codeName": "Cloth",
+            "quantity": 100
+          },
+          {
+            "codeName": "Wood",
+            "quantity": 25
+          }
+        ],
+        "outputs": [
+          {
+            "codeName": "ATRPGW",
+            "quantity": 5
+          }
+        ],
+        "duration": 50,
+        "retrieveSingle": 10,
+        "retrieveCrate": 16,
+        "researchLevel": 0
+      },
+      "ATRPGAmmo": {
+        "inputs": [
+          {
+            "codeName": "Cloth",
+            "quantity": 60
+          },
+          {
+            "codeName": "Explosive",
+            "quantity": 150
+          }
+        ],
+        "outputs": [
+          {
+            "codeName": "ATRPGAmmo",
+            "quantity": 15
+          }
+        ],
+        "duration": 100,
+        "retrieveSingle": 5,
+        "retrieveCrate": 20,
+        "researchLevel": 0
+      },
+      "ATRPGLightC": {
+        "inputs": [
+          {
+            "codeName": "Cloth",
+            "quantity": 85
+          },
+          {
+            "codeName": "Explosive",
+            "quantity": 70
+          }
+        ],
+        "outputs": [
+          {
+            "codeName": "ATRPGLightC",
+            "quantity": 10
+          }
+        ],
+        "duration": 75,
+        "retrieveSingle": 5,
+        "retrieveCrate": 16,
+        "researchLevel": 0
+      },
+      "ATRPGC": {
+        "inputs": [
+          {
+            "codeName": "Cloth",
+            "quantity": 100
+          },
+          {
+            "codeName": "Wood",
+            "quantity": 15
+          }
+        ],
+        "outputs": [
+          {
+            "codeName": "ATRPGC",
+            "quantity": 5
+          }
+        ],
+        "duration": 50,
+        "retrieveSingle": 10,
+        "retrieveCrate": 16,
+        "researchLevel": 0
+      },
+      "ATRPGHeavyC": {
+        "inputs": [
+          {
+            "codeName": "Cloth",
+            "quantity": 150
+          },
+          {
+            "codeName": "Wood",
+            "quantity": 40
+          }
+        ],
+        "outputs": [
+          {
+            "codeName": "ATRPGHeavyC",
+            "quantity": 5
+          }
+        ],
+        "duration": 125,
+        "retrieveSingle": 10,
+        "retrieveCrate": 16,
+        "researchLevel": 0
+      },
+      "RifleC": {
+        "inputs": [
+          {
+            "codeName": "Cloth",
+            "quantity": 100
+          }
+        ],
+        "outputs": [
+          {
+            "codeName": "RifleC",
+            "quantity": 20
+          }
+        ],
+        "duration": 70,
+        "retrieveSingle": 3.5,
+        "retrieveCrate": 10,
+        "researchLevel": 0
+      },
+      "RifleLightC": {
+        "inputs": [
+          {
+            "codeName": "Cloth",
+            "quantity": 140
+          }
+        ],
+        "outputs": [
+          {
+            "codeName": "RifleLightC",
+            "quantity": 20
+          }
+        ],
+        "duration": 80,
+        "retrieveSingle": 3.5,
+        "retrieveCrate": 10,
+        "researchLevel": 0
+      },
+      "MGW": {
+        "inputs": [
+          {
+            "codeName": "Wood",
+            "quantity": 25
+          }
+        ],
+        "outputs": [
+          {
+            "codeName": "MGW",
+            "quantity": 5
+          }
+        ],
+        "duration": 100,
+        "retrieveSingle": 10,
+        "retrieveCrate": 20,
+        "researchLevel": 0
+      },
+      "HeavyArtilleryAmmo": {
+        "inputs": [
+          {
+            "codeName": "Cloth",
+            "quantity": 120
+          },
+          {
+            "codeName": "HeavyExplosive",
+            "quantity": 60
+          }
+        ],
+        "outputs": [
+          {
+            "codeName": "HeavyArtilleryAmmo",
+            "quantity": 5
+          }
+        ],
+        "duration": 65,
+        "retrieveSingle": 6,
+        "retrieveCrate": 20,
+        "researchLevel": 0
+      },
+      "ATRPGTW": {
+        "inputs": [
+          {
+            "codeName": "Cloth",
+            "quantity": 100
+          },
+          {
+            "codeName": "Wood",
+            "quantity": 5
+          }
+        ],
+        "outputs": [
+          {
+            "codeName": "ATRPGTW",
+            "quantity": 5
+          }
+        ],
+        "duration": 250,
+        "retrieveSingle": 10,
+        "retrieveCrate": 10,
+        "researchLevel": 0
+      },
+      "ATRPGIndirectAmmo": {
+        "inputs": [
+          {
+            "codeName": "Cloth",
+            "quantity": 60
+          },
+          {
+            "codeName": "Explosive",
+            "quantity": 150
+          }
+        ],
+        "outputs": [
+          {
+            "codeName": "ATRPGIndirectAmmo",
+            "quantity": 15
+          }
+        ],
+        "duration": 100,
+        "retrieveSingle": 5,
+        "retrieveCrate": 20,
+        "researchLevel": 0
+      },
+      "PistolLightW": {
+        "inputs": [
+          {
+            "codeName": "Cloth",
+            "quantity": 60
+          }
+        ],
+        "outputs": [
+          {
+            "codeName": "PistolLightW",
+            "quantity": 40
+          }
+        ],
+        "duration": 30,
+        "retrieveSingle": 2.5,
+        "retrieveCrate": 10,
+        "researchLevel": 0
+      },
+      "ExplosiveLightC": {
+        "inputs": [
+          {
+            "codeName": "Cloth",
+            "quantity": 100
+          },
+          {
+            "codeName": "Explosive",
+            "quantity": 80
+          }
+        ],
+        "outputs": [
+          {
+            "codeName": "ExplosiveLightC",
+            "quantity": 5
+          }
+        ],
+        "duration": 100,
+        "retrieveSingle": 10,
+        "retrieveCrate": 20,
+        "researchLevel": 0
+      },
+      "SMGHeavyW": {
+        "inputs": [
+          {
+            "codeName": "Cloth",
+            "quantity": 120
+          }
+        ],
+        "outputs": [
+          {
+            "codeName": "SMGHeavyW",
+            "quantity": 20
+          }
+        ],
+        "duration": 80,
+        "retrieveSingle": 3.5,
+        "retrieveCrate": 10,
+        "researchLevel": 0
+      },
+      "SMGHeavyC": {
+        "inputs": [
+          {
+            "codeName": "Cloth",
+            "quantity": 120
+          }
+        ],
+        "outputs": [
+          {
+            "codeName": "SMGHeavyC",
+            "quantity": 20
+          }
+        ],
+        "duration": 80,
+        "retrieveSingle": 3.5,
+        "retrieveCrate": 10,
+        "researchLevel": 0
+      },
+      "AssaultRifleHeavyW": {
+        "inputs": [
+          {
+            "codeName": "Wood",
+            "quantity": 15
+          }
+        ],
+        "outputs": [
+          {
+            "codeName": "AssaultRifleHeavyW",
+            "quantity": 20
+          }
+        ],
+        "duration": 80,
+        "retrieveSingle": 5,
+        "retrieveCrate": 20,
+        "researchLevel": 0
+      },
+      "ATGrenadeW": {
+        "inputs": [
+          {
+            "codeName": "Cloth",
+            "quantity": 100
+          },
+          {
+            "codeName": "Explosive",
+            "quantity": 80
+          }
+        ],
+        "outputs": [
+          {
+            "codeName": "ATGrenadeW",
+            "quantity": 10
+          }
+        ],
+        "duration": 75,
+        "retrieveSingle": 5,
+        "retrieveCrate": 16,
+        "researchLevel": 0
+      },
+      "AssaultRifleHeavyC": {
+        "inputs": [
+          {
+            "codeName": "Wood",
+            "quantity": 15
+          }
+        ],
+        "outputs": [
+          {
+            "codeName": "AssaultRifleHeavyC",
+            "quantity": 20
+          }
+        ],
+        "duration": 80,
+        "retrieveSingle": 5,
+        "retrieveCrate": 20,
+        "researchLevel": 0
+      },
+      "MGHeavyTW": {
+        "inputs": [
+          {
+            "codeName": "Cloth",
+            "quantity": 150
+          },
+          {
+            "codeName": "Wood",
+            "quantity": 5
+          }
+        ],
+        "outputs": [
+          {
+            "codeName": "MGHeavyTW",
+            "quantity": 5
+          }
+        ],
+        "duration": 125,
+        "retrieveSingle": 10,
+        "retrieveCrate": 10,
+        "researchLevel": 0
+      },
+      "RifleHeavyC": {
+        "inputs": [
+          {
+            "codeName": "Cloth",
+            "quantity": 100
+          }
+        ],
+        "outputs": [
+          {
+            "codeName": "RifleHeavyC",
+            "quantity": 15
+          }
+        ],
+        "duration": 90,
+        "retrieveSingle": 3.5,
+        "retrieveCrate": 10,
+        "researchLevel": 0
+      },
+      "RifleHeavyW": {
+        "inputs": [
+          {
+            "codeName": "Cloth",
+            "quantity": 125
+          }
+        ],
+        "outputs": [
+          {
+            "codeName": "RifleHeavyW",
+            "quantity": 20
+          }
+        ],
+        "duration": 80,
+        "retrieveSingle": 3.5,
+        "retrieveCrate": 10,
+        "researchLevel": 0
+      },
+      "RifleLongC": {
+        "inputs": [
+          {
+            "codeName": "Cloth",
+            "quantity": 155
+          }
+        ],
+        "outputs": [
+          {
+            "codeName": "RifleLongC",
+            "quantity": 15
+          }
+        ],
+        "duration": 90,
+        "retrieveSingle": 3.5,
+        "retrieveCrate": 10,
+        "researchLevel": 0
+      },
+      "RifleLongW": {
+        "inputs": [
+          {
+            "codeName": "Cloth",
+            "quantity": 130
+          }
+        ],
+        "outputs": [
+          {
+            "codeName": "RifleLongW",
+            "quantity": 15
+          }
+        ],
+        "duration": 90,
+        "retrieveSingle": 3.5,
+        "retrieveCrate": 10,
+        "researchLevel": 0
+      },
+      "RifleAutomaticW": {
+        "inputs": [
+          {
+            "codeName": "Cloth",
+            "quantity": 125
+          }
+        ],
+        "outputs": [
+          {
+            "codeName": "RifleAutomaticW",
+            "quantity": 20
+          }
+        ],
+        "duration": 70,
+        "retrieveSingle": 3.5,
+        "retrieveCrate": 10,
+        "researchLevel": 0
+      },
+      "HeavyATAmmo": {
+        "inputs": [
+          {
+            "codeName": "Cloth",
+            "quantity": 120
+          },
+          {
+            "codeName": "Explosive",
+            "quantity": 120
+          }
+        ],
+        "outputs": [
+          {
+            "codeName": "HeavyATAmmo",
+            "quantity": 20
+          }
+        ],
+        "duration": 200,
+        "retrieveSingle": 10,
+        "retrieveCrate": 40,
+        "researchLevel": 0
+      },
+      "MGTW": {
+        "inputs": [
+          {
+            "codeName": "Cloth",
+            "quantity": 100
+          },
+          {
+            "codeName": "Wood",
+            "quantity": 5
+          }
+        ],
+        "outputs": [
+          {
+            "codeName": "MGTW",
+            "quantity": 5
+          }
+        ],
+        "duration": 125,
+        "retrieveSingle": 10,
+        "retrieveCrate": 10,
+        "researchLevel": 0
+      },
+      "MGTC": {
+        "inputs": [
+          {
+            "codeName": "Cloth",
+            "quantity": 100
+          },
+          {
+            "codeName": "Wood",
+            "quantity": 5
+          }
+        ],
+        "outputs": [
+          {
+            "codeName": "MGTC",
+            "quantity": 5
+          }
+        ],
+        "duration": 125,
+        "retrieveSingle": 10,
+        "retrieveCrate": 10,
+        "researchLevel": 0
+      },
+      "AmmoUniformW": {
+        "inputs": [
+          {
+            "codeName": "Cloth",
+            "quantity": 100
+          }
+        ],
+        "outputs": [
+          {
+            "codeName": "AmmoUniformW",
+            "quantity": 15
+          }
+        ],
+        "duration": 90,
+        "retrieveSingle": 5,
+        "retrieveCrate": 16,
+        "researchLevel": 0
+      },
+      "ArmourUniformC": {
+        "inputs": [
+          {
+            "codeName": "Cloth",
+            "quantity": 200
+          }
+        ],
+        "outputs": [
+          {
+            "codeName": "ArmourUniformC",
+            "quantity": 10
+          }
+        ],
+        "duration": 90,
+        "retrieveSingle": 5,
+        "retrieveCrate": 16,
+        "researchLevel": 0
+      },
+      "ArmourUniformW": {
+        "inputs": [
+          {
+            "codeName": "Cloth",
+            "quantity": 150
+          }
+        ],
+        "outputs": [
+          {
+            "codeName": "ArmourUniformW",
+            "quantity": 5
+          }
+        ],
+        "duration": 90,
+        "retrieveSingle": 5,
+        "retrieveCrate": 16,
+        "researchLevel": 0
+      },
+      "ChemicalUniformW": {
+        "inputs": [
+          {
+            "codeName": "Cloth",
+            "quantity": 100
+          }
+        ],
+        "outputs": [
+          {
+            "codeName": "ChemicalUniformW",
+            "quantity": 15
+          }
+        ],
+        "duration": 90,
+        "retrieveSingle": 5,
+        "retrieveCrate": 16,
+        "researchLevel": 0
+      },
+      "EngineerUniformC": {
+        "inputs": [
+          {
+            "codeName": "Cloth",
+            "quantity": 100
+          }
+        ],
+        "outputs": [
+          {
+            "codeName": "EngineerUniformC",
+            "quantity": 15
+          }
+        ],
+        "duration": 90,
+        "retrieveSingle": 5,
+        "retrieveCrate": 16,
+        "researchLevel": 0
+      },
+      "EngineerUniformW": {
+        "inputs": [
+          {
+            "codeName": "Cloth",
+            "quantity": 100
+          }
+        ],
+        "outputs": [
+          {
+            "codeName": "EngineerUniformW",
+            "quantity": 15
+          }
+        ],
+        "duration": 90,
+        "retrieveSingle": 5,
+        "retrieveCrate": 16,
+        "researchLevel": 0
+      },
+      "GrenadeUniformC": {
+        "inputs": [
+          {
+            "codeName": "Cloth",
+            "quantity": 100
+          }
+        ],
+        "outputs": [
+          {
+            "codeName": "GrenadeUniformC",
+            "quantity": 15
+          }
+        ],
+        "duration": 90,
+        "retrieveSingle": 5,
+        "retrieveCrate": 16,
+        "researchLevel": 0
+      },
+      "MedicUniformC": {
+        "inputs": [
+          {
+            "codeName": "Cloth",
+            "quantity": 100
+          }
+        ],
+        "outputs": [
+          {
+            "codeName": "MedicUniformC",
+            "quantity": 15
+          }
+        ],
+        "duration": 90,
+        "retrieveSingle": 5,
+        "retrieveCrate": 16,
+        "researchLevel": 0
+      },
+      "MedicUniformW": {
+        "inputs": [
+          {
+            "codeName": "Cloth",
+            "quantity": 100
+          }
+        ],
+        "outputs": [
+          {
+            "codeName": "MedicUniformW",
+            "quantity": 15
+          }
+        ],
+        "duration": 90,
+        "retrieveSingle": 5,
+        "retrieveCrate": 16,
+        "researchLevel": 0
+      },
+      "OfficerUniformC": {
+        "inputs": [
+          {
+            "codeName": "Cloth",
+            "quantity": 100
+          }
+        ],
+        "outputs": [
+          {
+            "codeName": "OfficerUniformC",
+            "quantity": 3
+          }
+        ],
+        "duration": 90,
+        "retrieveSingle": 5,
+        "retrieveCrate": 16,
+        "researchLevel": 0
+      },
+      "OfficerUniformW": {
+        "inputs": [
+          {
+            "codeName": "Cloth",
+            "quantity": 100
+          }
+        ],
+        "outputs": [
+          {
+            "codeName": "OfficerUniformW",
+            "quantity": 3
+          }
+        ],
+        "duration": 90,
+        "retrieveSingle": 5,
+        "retrieveCrate": 16,
+        "researchLevel": 0
+      },
+      "RainUniformC": {
+        "inputs": [
+          {
+            "codeName": "Cloth",
+            "quantity": 100
+          }
+        ],
+        "outputs": [
+          {
+            "codeName": "RainUniformC",
+            "quantity": 15
+          }
+        ],
+        "duration": 90,
+        "retrieveSingle": 5,
+        "retrieveCrate": 16,
+        "researchLevel": 0
+      },
+      "ScoutUniformC": {
+        "inputs": [
+          {
+            "codeName": "Cloth",
+            "quantity": 100
+          }
+        ],
+        "outputs": [
+          {
+            "codeName": "ScoutUniformC",
+            "quantity": 15
+          }
+        ],
+        "duration": 90,
+        "retrieveSingle": 5,
+        "retrieveCrate": 16,
+        "researchLevel": 0
+      },
+      "ScoutUniformW": {
+        "inputs": [
+          {
+            "codeName": "Cloth",
+            "quantity": 100
+          }
+        ],
+        "outputs": [
+          {
+            "codeName": "ScoutUniformW",
+            "quantity": 15
+          }
+        ],
+        "duration": 90,
+        "retrieveSingle": 5,
+        "retrieveCrate": 16,
+        "researchLevel": 0
+      },
+      "SnowUniformC": {
+        "inputs": [
+          {
+            "codeName": "Cloth",
+            "quantity": 100
+          }
+        ],
+        "outputs": [
+          {
+            "codeName": "SnowUniformC",
+            "quantity": 15
+          }
+        ],
+        "duration": 90,
+        "retrieveSingle": 5,
+        "retrieveCrate": 16,
+        "researchLevel": 0
+      },
+      "SnowUniformW": {
+        "inputs": [
+          {
+            "codeName": "Cloth",
+            "quantity": 100
+          }
+        ],
+        "outputs": [
+          {
+            "codeName": "SnowUniformW",
+            "quantity": 15
+          }
+        ],
+        "duration": 90,
+        "retrieveSingle": 5,
+        "retrieveCrate": 16,
+        "researchLevel": 0
+      },
+      "SoldierUniformC": {
+        "inputs": [
+          {
+            "codeName": "Cloth",
+            "quantity": 100
+          }
+        ],
+        "outputs": [
+          {
+            "codeName": "SoldierUniformC",
+            "quantity": 15
+          }
+        ],
+        "duration": 90,
+        "retrieveSingle": 5,
+        "retrieveCrate": 16,
+        "researchLevel": 0
+      },
+      "SoldierUniformW": {
+        "inputs": [
+          {
+            "codeName": "Cloth",
+            "quantity": 100
+          }
+        ],
+        "outputs": [
+          {
+            "codeName": "SoldierUniformW",
+            "quantity": 15
+          }
+        ],
+        "duration": 90,
+        "retrieveSingle": 5,
+        "retrieveCrate": 16,
+        "researchLevel": 0
+      },
+      "TankUniformC": {
+        "inputs": [
+          {
+            "codeName": "Cloth",
+            "quantity": 100
+          }
+        ],
+        "outputs": [
+          {
+            "codeName": "TankUniformC",
+            "quantity": 15
+          }
+        ],
+        "duration": 90,
+        "retrieveSingle": 5,
+        "retrieveCrate": 16,
+        "researchLevel": 0
+      },
+      "TankUniformW": {
+        "inputs": [
+          {
+            "codeName": "Cloth",
+            "quantity": 100
+          }
+        ],
+        "outputs": [
+          {
+            "codeName": "TankUniformW",
+            "quantity": 15
+          }
+        ],
+        "duration": 90,
+        "retrieveSingle": 5,
+        "retrieveCrate": 16,
+        "researchLevel": 0
+      },
+      "ListeningKit": {
+        "inputs": [
+          {
+            "codeName": "Cloth",
+            "quantity": 150
+          }
+        ],
+        "outputs": [
+          {
+            "codeName": "ListeningKit",
+            "quantity": 5
+          }
+        ],
+        "duration": 60,
+        "retrieveSingle": 10,
+        "retrieveCrate": 20,
+        "researchLevel": 0
+      },
+      "SandbagMaterials": {
+        "inputs": [
+          {
+            "codeName": "Cloth",
+            "quantity": 15
+          }
+        ],
+        "outputs": [
+          {
+            "codeName": "SandbagMaterials",
+            "quantity": 5
+          }
+        ],
+        "duration": 15,
+        "retrieveSingle": 1.5,
+        "retrieveCrate": 6,
+        "researchLevel": 0
+      },
+      "BarbedWireMaterials": {
+        "inputs": [
+          {
+            "codeName": "Cloth",
+            "quantity": 15
+          }
+        ],
+        "outputs": [
+          {
+            "codeName": "BarbedWireMaterials",
+            "quantity": 5
+          }
+        ],
+        "duration": 15,
+        "retrieveSingle": 1.5,
+        "retrieveCrate": 6,
+        "researchLevel": 0
+      },
+      "MetalBeamMaterials": {
+        "inputs": [
+          {
+            "codeName": "Cloth",
+            "quantity": 25
+          }
+        ],
+        "outputs": [
+          {
+            "codeName": "MetalBeamMaterials",
+            "quantity": 5
+          }
+        ],
+        "duration": 20,
+        "retrieveSingle": 1.5,
+        "retrieveCrate": 6,
+        "researchLevel": 0
+      },
+      "PistolW": {
+        "inputs": [
+          {
+            "codeName": "Cloth",
+            "quantity": 60
+          }
+        ],
+        "outputs": [
+          {
+            "codeName": "PistolW",
+            "quantity": 20
+          }
+        ],
+        "duration": 50,
+        "retrieveSingle": 1.5,
+        "retrieveCrate": 10,
+        "researchLevel": 0
+      },
+      "ATRifleTC": {
+        "inputs": [
+          {
+            "codeName": "Cloth",
+            "quantity": 100
+          },
+          {
+            "codeName": "Wood",
+            "quantity": 5
+          }
+        ],
+        "outputs": [
+          {
+            "codeName": "ATRifleTC",
+            "quantity": 5
+          }
+        ],
+        "duration": 125,
+        "retrieveSingle": 10,
+        "retrieveCrate": 10,
+        "researchLevel": 0
+      },
+      "RPGTW": {
+        "inputs": [
+          {
+            "codeName": "Cloth",
+            "quantity": 100
+          },
+          {
+            "codeName": "Wood",
+            "quantity": 5
+          }
+        ],
+        "outputs": [
+          {
+            "codeName": "RPGTW",
+            "quantity": 5
+          }
+        ],
+        "duration": 250,
+        "retrieveSingle": 10,
+        "retrieveCrate": 10,
+        "researchLevel": 0
+      },
+      "GrenadeLauncherC": {
+        "inputs": [
+          {
+            "codeName": "Cloth",
+            "quantity": 50
+          },
+          {
+            "codeName": "Wood",
+            "quantity": 15
+          }
+        ],
+        "outputs": [
+          {
+            "codeName": "GrenadeLauncherC",
+            "quantity": 5
+          }
+        ],
+        "duration": 100,
+        "retrieveSingle": 10,
+        "retrieveCrate": 20,
+        "researchLevel": 0
+      },
+      "GrenadeAdapter": {
+        "inputs": [
+          {
+            "codeName": "Cloth",
+            "quantity": 85
+          },
+          {
+            "codeName": "Wood",
+            "quantity": 10
+          }
+        ],
+        "outputs": [
+          {
+            "codeName": "GrenadeAdapter",
+            "quantity": 20
+          }
+        ],
+        "duration": 100,
+        "retrieveSingle": 10,
+        "retrieveCrate": 20,
+        "researchLevel": 0
+      },
+      "HELaunchedGrenade": {
+        "inputs": [
+          {
+            "codeName": "Cloth",
+            "quantity": 75
+          },
+          {
+            "codeName": "Explosive",
+            "quantity": 100
+          }
+        ],
+        "outputs": [
+          {
+            "codeName": "HELaunchedGrenade",
+            "quantity": 20
+          }
+        ],
+        "duration": 80,
+        "retrieveSingle": 4,
+        "retrieveCrate": 16,
+        "researchLevel": 0
+      },
+      "GroundMaterials": {
+        "inputs": [
+          {
+            "codeName": "Coal",
+            "quantity": 100
+          }
+        ],
+        "outputs": [
+          {
+            "codeName": "GroundMaterials",
+            "quantity": 20
+          }
+        ],
+        "duration": 500,
+        "retrieveSingle": 3,
+        "retrieveCrate": 3,
+        "researchLevel": 0
+      },
+      "ATLargeAmmo": {
+        "inputs": [
+          {
+            "codeName": "Cloth",
+            "quantity": 200
+          },
+          {
+            "codeName": "HeavyExplosive",
+            "quantity": 20
+          }
+        ],
+        "outputs": [
+          {
+            "codeName": "ATLargeAmmo",
+            "quantity": 1
+          }
+        ],
+        "duration": 125,
+        "retrieveSingle": 12,
+        "retrieveCrate": 20,
+        "researchLevel": 0
+      },
+      "BattleTankAmmo": {
+        "inputs": [
+          {
+            "codeName": "Cloth",
+            "quantity": 200
+          },
+          {
+            "codeName": "HeavyExplosive",
+            "quantity": 20
+          }
+        ],
+        "outputs": [
+          {
+            "codeName": "BattleTankAmmo",
+            "quantity": 1
+          }
+        ],
+        "duration": 125,
+        "retrieveSingle": 12,
+        "retrieveCrate": 20,
+        "researchLevel": 0
+      },
+      "FireRocketAmmo": {
+        "inputs": [
+          {
+            "codeName": "Cloth",
+            "quantity": 60
+          },
+          {
+            "codeName": "Explosive",
+            "quantity": 15
+          }
+        ],
+        "outputs": [
+          {
+            "codeName": "FireRocketAmmo",
+            "quantity": 1
+          }
+        ],
+        "duration": 55,
+        "retrieveSingle": 6,
+        "retrieveCrate": 20,
+        "researchLevel": 0
+      },
+      "HERocketAmmo": {
+        "inputs": [
+          {
+            "codeName": "Cloth",
+            "quantity": 60
+          },
+          {
+            "codeName": "Explosive",
+            "quantity": 15
+          }
+        ],
+        "outputs": [
+          {
+            "codeName": "HERocketAmmo",
+            "quantity": 1
+          }
+        ],
+        "duration": 55,
+        "retrieveSingle": 6,
+        "retrieveCrate": 20,
+        "researchLevel": 0
+      },
+      "Oil": {
+        "inputs": [
+          {
+            "codeName": "Oil",
+            "quantity": 2
+          }
+        ],
+        "outputs": [
+          {
+            "codeName": "Oil",
+            "quantity": 1
+          }
+        ],
+        "duration": 15,
+        "retrieveSingle": 1.5,
+        "retrieveCrate": 3,
+        "researchLevel": 0
+      },
+      "PipeMaterials": {
+        "inputs": [
+          {
+            "codeName": "Cloth",
+            "quantity": 50
+          }
+        ],
+        "outputs": [
+          {
+            "codeName": "PipeMaterials",
+            "quantity": 2
+          }
+        ],
+        "duration": 15,
+        "retrieveSingle": 1.5,
+        "retrieveCrate": 10,
+        "researchLevel": 0
+      },
+      "Water": {
+        "inputs": [
+          {
+            "codeName": "Water",
+            "quantity": 2
+          }
+        ],
+        "outputs": [
+          {
+            "codeName": "Water",
+            "quantity": 1
+          }
+        ],
+        "duration": 15,
+        "retrieveSingle": 1.5,
+        "retrieveCrate": 3,
+        "researchLevel": 0
+      },
+      "Coal": {
+        "inputs": [
+          {
+            "codeName": "Coal",
+            "quantity": 100
+          }
+        ],
+        "outputs": [
+          {
+            "codeName": "Coal",
+            "quantity": 100
+          }
+        ],
+        "duration": 15,
+        "retrieveSingle": 1.5,
+        "retrieveCrate": 10,
+        "researchLevel": 0
+      },
+      "WaterBucket": {
+        "inputs": [
+          {
+            "codeName": "Cloth",
+            "quantity": 80
+          }
+        ],
+        "outputs": [
+          {
+            "codeName": "WaterBucket",
+            "quantity": 50
+          }
+        ],
+        "duration": 40,
+        "retrieveSingle": 5,
+        "retrieveCrate": 8,
+        "researchLevel": 0
+      },
+      "FlameAmmo": {
+        "inputs": [
+          {
+            "codeName": "Cloth",
+            "quantity": 60
+          },
+          {
+            "codeName": "Explosive",
+            "quantity": 45
+          }
+        ],
+        "outputs": [
+          {
+            "codeName": "FlameAmmo",
+            "quantity": 1
+          }
+        ],
+        "duration": 125,
+        "retrieveSingle": 7.5,
+        "retrieveCrate": 20,
+        "researchLevel": 0
+      },
+      "FacilityMaterials1": {
+        "inputs": [
+          {
+            "codeName": "Cloth",
+            "quantity": 50
+          }
+        ],
+        "outputs": [
+          {
+            "codeName": "FacilityMaterials1",
+            "quantity": 20
+          }
+        ],
+        "duration": 15,
+        "retrieveSingle": 1.5,
+        "retrieveCrate": 10,
+        "researchLevel": 0
+      },
+      "FacilityMaterials2": {
+        "inputs": [
+          {
+            "codeName": "Cloth",
+            "quantity": 50
+          }
+        ],
+        "outputs": [
+          {
+            "codeName": "FacilityMaterials2",
+            "quantity": 1
+          }
+        ],
+        "duration": 15,
+        "retrieveSingle": 1.5,
+        "retrieveCrate": 10,
+        "researchLevel": 0
+      },
+      "FacilityMaterials3": {
+        "inputs": [
+          {
+            "codeName": "Cloth",
+            "quantity": 50
+          }
+        ],
+        "outputs": [
+          {
+            "codeName": "FacilityMaterials3",
+            "quantity": 1
+          }
+        ],
+        "duration": 15,
+        "retrieveSingle": 1.5,
+        "retrieveCrate": 10,
+        "researchLevel": 0
+      },
+      "FacilityMaterials4": {
+        "inputs": [
+          {
+            "codeName": "Cloth",
+            "quantity": 50
+          }
+        ],
+        "outputs": [
+          {
+            "codeName": "FacilityMaterials4",
+            "quantity": 1
+          }
+        ],
+        "duration": 15,
+        "retrieveSingle": 1.5,
+        "retrieveCrate": 10,
+        "researchLevel": 0
+      },
+      "FacilityMaterials5": {
+        "inputs": [
+          {
+            "codeName": "Cloth",
+            "quantity": 50
+          }
+        ],
+        "outputs": [
+          {
+            "codeName": "FacilityMaterials5",
+            "quantity": 1
+          }
+        ],
+        "duration": 15,
+        "retrieveSingle": 1.5,
+        "retrieveCrate": 10,
+        "researchLevel": 0
+      },
+      "FacilityOil1": {
+        "inputs": [
+          {
+            "codeName": "Cloth",
+            "quantity": 50
+          }
+        ],
+        "outputs": [
+          {
+            "codeName": "FacilityOil1",
+            "quantity": 1
+          }
+        ],
+        "duration": 15,
+        "retrieveSingle": 1.5,
+        "retrieveCrate": 3,
+        "researchLevel": 0
+      },
+      "FacilityOil2": {
+        "inputs": [
+          {
+            "codeName": "Cloth",
+            "quantity": 50
+          }
+        ],
+        "outputs": [
+          {
+            "codeName": "FacilityOil2",
+            "quantity": 1
+          }
+        ],
+        "duration": 15,
+        "retrieveSingle": 1.5,
+        "retrieveCrate": 3,
+        "researchLevel": 0
+      },
+      "FacilityCoal1": {
+        "inputs": [
+          {
+            "codeName": "Cloth",
+            "quantity": 1
+          }
+        ],
+        "outputs": [
+          {
+            "codeName": "FacilityCoal1",
+            "quantity": 1
+          }
+        ],
+        "duration": 15,
+        "retrieveSingle": 1.5,
+        "retrieveCrate": 10,
+        "researchLevel": 0
+      },
+      "FacilityMaterials6": {
+        "inputs": [
+          {
+            "codeName": "Cloth",
+            "quantity": 50
+          }
+        ],
+        "outputs": [
+          {
+            "codeName": "FacilityMaterials6",
+            "quantity": 1
+          }
+        ],
+        "duration": 15,
+        "retrieveSingle": 1.5,
+        "retrieveCrate": 10,
+        "researchLevel": 0
+      },
+      "FacilityMaterials7": {
+        "inputs": [
+          {
+            "codeName": "Cloth",
+            "quantity": 50
+          }
+        ],
+        "outputs": [
+          {
+            "codeName": "FacilityMaterials7",
+            "quantity": 1
+          }
+        ],
+        "duration": 15,
+        "retrieveSingle": 1.5,
+        "retrieveCrate": 10,
+        "researchLevel": 0
+      },
+      "FacilityMaterials8": {
+        "inputs": [
+          {
+            "codeName": "Cloth",
+            "quantity": 50
+          }
+        ],
+        "outputs": [
+          {
+            "codeName": "FacilityMaterials8",
+            "quantity": 1
+          }
+        ],
+        "duration": 15,
+        "retrieveSingle": 1.5,
+        "retrieveCrate": 10,
+        "researchLevel": 0
+      },
+      "FacilityMaterials9": {
+        "inputs": [
+          {
+            "codeName": "Cloth",
+            "quantity": 50
+          }
+        ],
+        "outputs": [
+          {
+            "codeName": "FacilityMaterials9",
+            "quantity": 1
+          }
+        ],
+        "duration": 15,
+        "retrieveSingle": 1.5,
+        "retrieveCrate": 10,
+        "researchLevel": 0
+      },
+      "FacilityMaterials10": {
+        "inputs": [
+          {
+            "codeName": "Cloth",
+            "quantity": 50
+          }
+        ],
+        "outputs": [
+          {
+            "codeName": "FacilityMaterials10",
+            "quantity": 1
+          }
+        ],
+        "duration": 15,
+        "retrieveSingle": 1.5,
+        "retrieveCrate": 10,
+        "researchLevel": 0
+      },
+      "FacilityMaterials11": {
+        "inputs": [
+          {
+            "codeName": "Cloth",
+            "quantity": 50
+          }
+        ],
+        "outputs": [
+          {
+            "codeName": "FacilityMaterials11",
+            "quantity": 1
+          }
+        ],
+        "duration": 15,
+        "retrieveSingle": 1.5,
+        "retrieveCrate": 10,
+        "researchLevel": 0
+      },
+      "FlameBackpackC": {
+        "inputs": [
+          {
+            "codeName": "Cloth",
+            "quantity": 160
+          },
+          {
+            "codeName": "HeavyExplosive",
+            "quantity": 20
+          }
+        ],
+        "outputs": [
+          {
+            "codeName": "FlameBackpackC",
+            "quantity": 10
+          }
+        ],
+        "duration": 100,
+        "retrieveSingle": 5,
+        "retrieveCrate": 16,
+        "researchLevel": 0
+      },
+      "FlameBackpackW": {
+        "inputs": [
+          {
+            "codeName": "Cloth",
+            "quantity": 135
+          },
+          {
+            "codeName": "HeavyExplosive",
+            "quantity": 20
+          }
+        ],
+        "outputs": [
+          {
+            "codeName": "FlameBackpackW",
+            "quantity": 10
+          }
+        ],
+        "duration": 100,
+        "retrieveSingle": 5,
+        "retrieveCrate": 16,
+        "researchLevel": 0
+      },
+      "FlameTorchC": {
+        "inputs": [
+          {
+            "codeName": "Cloth",
+            "quantity": 185
+          },
+          {
+            "codeName": "Wood",
+            "quantity": 25
+          }
+        ],
+        "outputs": [
+          {
+            "codeName": "FlameTorchC",
+            "quantity": 10
+          }
+        ],
+        "duration": 50,
+        "retrieveSingle": 10,
+        "retrieveCrate": 16,
+        "researchLevel": 0
+      },
+      "FlameTorchW": {
+        "inputs": [
+          {
+            "codeName": "Cloth",
+            "quantity": 165
+          },
+          {
+            "codeName": "Wood",
+            "quantity": 30
+          }
+        ],
+        "outputs": [
+          {
+            "codeName": "FlameTorchW",
+            "quantity": 10
+          }
+        ],
+        "duration": 50,
+        "retrieveSingle": 10,
+        "retrieveCrate": 16,
+        "researchLevel": 0
+      },
+      "FacilityComponents1": {
+        "inputs": [
+          {
+            "codeName": "Components",
+            "quantity": 70
+          }
+        ],
+        "outputs": [
+          {
+            "codeName": "FacilityComponents1",
+            "quantity": 100
+          }
+        ],
+        "duration": 200,
+        "retrieveSingle": 6,
+        "retrieveCrate": 6,
+        "researchLevel": 0
+      },
+      "GrenadeLauncherTC": {
+        "inputs": [
+          {
+            "codeName": "Cloth",
+            "quantity": 100
+          },
+          {
+            "codeName": "Wood",
+            "quantity": 5
+          }
+        ],
+        "outputs": [
+          {
+            "codeName": "GrenadeLauncherTC",
+            "quantity": 5
+          }
+        ],
+        "duration": 125,
+        "retrieveSingle": 10,
+        "retrieveCrate": 10,
+        "researchLevel": 0
+      },
+      "Excavation": {
+        "inputs": [
+          {
+            "codeName": "Cloth",
+            "quantity": 200
+          }
+        ],
+        "outputs": [
+          {
+            "codeName": "Excavation",
+            "quantity": 10
+          }
+        ],
+        "duration": 100,
+        "retrieveSingle": 7.5,
+        "retrieveCrate": 10,
+        "researchLevel": 0
+      },
+      "ExplosiveTripod": {
+        "inputs": [
+          {
+            "codeName": "Cloth",
+            "quantity": 75
+          },
+          {
+            "codeName": "HeavyExplosive",
+            "quantity": 40
+          }
+        ],
+        "outputs": [
+          {
+            "codeName": "ExplosiveTripod",
+            "quantity": 5
+          }
+        ],
+        "duration": 60,
+        "retrieveSingle": 10,
+        "retrieveCrate": 10,
+        "researchLevel": 0
+      },
+      "SatchelChargeT": {
+        "inputs": [
+          {
+            "codeName": "Cloth",
+            "quantity": 75
+          },
+          {
+            "codeName": "HeavyExplosive",
+            "quantity": 20
+          }
+        ],
+        "outputs": [
+          {
+            "codeName": "SatchelChargeT",
+            "quantity": 5
+          }
+        ],
+        "duration": 60,
+        "retrieveSingle": 10,
+        "retrieveCrate": 10,
+        "researchLevel": 0
+      },
+      "RifleAutomaticC": {
+        "inputs": [
+          {
+            "codeName": "Cloth",
+            "quantity": 120
+          }
+        ],
+        "outputs": [
+          {
+            "codeName": "RifleAutomaticC",
+            "quantity": 15
+          }
+        ],
+        "duration": 90,
+        "retrieveSingle": 3.5,
+        "retrieveCrate": 10,
+        "researchLevel": 0
+      },
+      "RifleShortW": {
+        "inputs": [
+          {
+            "codeName": "Cloth",
+            "quantity": 70
+          }
+        ],
+        "outputs": [
+          {
+            "codeName": "RifleShortW",
+            "quantity": 15
+          }
+        ],
+        "duration": 60,
+        "retrieveSingle": 2.5,
+        "retrieveCrate": 10,
+        "researchLevel": 0
+      },
+      "DepthChargeAmmo": {
+        "inputs": [
+          {
+            "codeName": "Cloth",
+            "quantity": 100
+          }
+        ],
+        "outputs": [
+          {
+            "codeName": "DepthChargeAmmo",
+            "quantity": 1
+          }
+        ],
+        "duration": 0,
+        "retrieveSingle": 10,
+        "retrieveCrate": 10,
+        "researchLevel": 0
+      },
+      "RareMetal": {
+        "inputs": [
+          {
+            "codeName": "Components",
+            "quantity": 100
+          }
+        ],
+        "outputs": [
+          {
+            "codeName": "RareMetal",
+            "quantity": 100
+          }
+        ],
+        "duration": 100,
+        "retrieveSingle": 6,
+        "retrieveCrate": 6,
+        "researchLevel": 0
+      },
+      "WaterMine": {
+        "inputs": [
+          {
+            "codeName": "wood",
+            "quantity": 40
+          }
+        ],
+        "outputs": [
+          {
+            "codeName": "WaterMine",
+            "quantity": 1
+          }
+        ],
+        "duration": 0,
+        "retrieveSingle": 10,
+        "retrieveCrate": 10,
+        "researchLevel": 0
+      },
+      "TorpedoAmmo": {
+        "inputs": [
+          {
+            "codeName": "Cloth",
+            "quantity": 100
+          }
+        ],
+        "outputs": [
+          {
+            "codeName": "TorpedoAmmo",
+            "quantity": 1
+          }
+        ],
+        "duration": 80,
+        "retrieveSingle": 10,
+        "retrieveCrate": 10,
+        "researchLevel": 0
+      },
+      "WindsockT": {
+        "inputs": [
+          {
+            "codeName": "Cloth",
+            "quantity": 150
+          }
+        ],
+        "outputs": [
+          {
+            "codeName": "WindsockT",
+            "quantity": 5
+          }
+        ],
+        "duration": 60,
+        "retrieveSingle": 10,
+        "retrieveCrate": 20,
+        "researchLevel": 0
+      },
+      "SwordC": {
+        "inputs": [
+          {
+            "codeName": "Cloth",
+            "quantity": 200
+          }
+        ],
+        "outputs": [
+          {
+            "codeName": "SwordC",
+            "quantity": 10
+          }
+        ],
+        "duration": 100,
+        "retrieveSingle": 2.5,
+        "retrieveCrate": 10,
+        "researchLevel": 0
+      },
+      "MaceW": {
+        "inputs": [
+          {
+            "codeName": "Cloth",
+            "quantity": 200
+          }
+        ],
+        "outputs": [
+          {
+            "codeName": "MaceW",
+            "quantity": 10
+          }
+        ],
+        "duration": 100,
+        "retrieveSingle": 2.5,
+        "retrieveCrate": 10,
+        "researchLevel": 0
+      },
+      "MortarAmmoFlame": {
+        "inputs": [
+          {
+            "codeName": "Cloth",
+            "quantity": 60
+          },
+          {
+            "codeName": "Explosive",
+            "quantity": 70
+          }
+        ],
+        "outputs": [
+          {
+            "codeName": "MortarAmmoFlame",
+            "quantity": 15
+          }
+        ],
+        "duration": 100,
+        "retrieveSingle": 7.5,
+        "retrieveCrate": 16,
+        "researchLevel": 0
+      },
+      "ATRifleAssaultW": {
+        "inputs": [
+          {
+            "codeName": "Cloth",
+            "quantity": 150
+          }
+        ],
+        "outputs": [
+          {
+            "codeName": "ATRifleAssaultW",
+            "quantity": 5
+          }
+        ],
+        "duration": 37.5,
+        "retrieveSingle": 7.5,
+        "retrieveCrate": 12,
+        "researchLevel": 0
+      },
+      "ATRifleSniperC": {
+        "inputs": [
+          {
+            "codeName": "Cloth",
+            "quantity": 150
+          }
+        ],
+        "outputs": [
+          {
+            "codeName": "ATRifleSniperC",
+            "quantity": 3
+          }
+        ],
+        "duration": 37.5,
+        "retrieveSingle": 7.5,
+        "retrieveCrate": 12,
+        "researchLevel": 0
+      },
+      "ATRifleAutomaticW": {
+        "inputs": [
+          {
+            "codeName": "Cloth",
+            "quantity": 150
+          }
+        ],
+        "outputs": [
+          {
+            "codeName": "ATRifleAutomaticW",
+            "quantity": 3
+          }
+        ],
+        "duration": 37.5,
+        "retrieveSingle": 7.5,
+        "retrieveCrate": 12,
+        "researchLevel": 0
+      },
+      "ATRifleLightC": {
+        "inputs": [
+          {
+            "codeName": "Cloth",
+            "quantity": 150
+          }
+        ],
+        "outputs": [
+          {
+            "codeName": "ATRifleLightC",
+            "quantity": 3
+          }
+        ],
+        "duration": 37.5,
+        "retrieveSingle": 7.5,
+        "retrieveCrate": 12,
+        "researchLevel": 0
+      },
+      "ShotgunC": {
+        "inputs": [
+          {
+            "codeName": "Cloth",
+            "quantity": 130
+          }
+        ],
+        "outputs": [
+          {
+            "codeName": "ShotgunC",
+            "quantity": 15
+          }
+        ],
+        "duration": 150,
+        "retrieveSingle": 3.5,
+        "retrieveCrate": 10,
+        "researchLevel": 0
+      },
+      "ShotgunW": {
+        "inputs": [
+          {
+            "codeName": "Cloth",
+            "quantity": 80
+          }
+        ],
+        "outputs": [
+          {
+            "codeName": "ShotgunW",
+            "quantity": 15
+          }
+        ],
+        "duration": 100,
+        "retrieveSingle": 2,
+        "retrieveCrate": 10,
+        "researchLevel": 0
+      },
+      "ATLaunchedGrenadeW": {
+        "inputs": [
+          {
+            "codeName": "Cloth",
+            "quantity": 95
+          },
+          {
+            "codeName": "Explosive",
+            "quantity": 125
+          }
+        ],
+        "outputs": [
+          {
+            "codeName": "ATLaunchedGrenadeW",
+            "quantity": 20
+          }
+        ],
+        "duration": 80,
+        "retrieveSingle": 4,
+        "retrieveCrate": 16,
+        "researchLevel": 0
+      },
+      "InfantryMine": {
+        "inputs": [
+          {
+            "codeName": "Cloth",
+            "quantity": 100
+          },
+          {
+            "codeName": "Explosive",
+            "quantity": 20
+          }
+        ],
+        "outputs": [
+          {
+            "codeName": "InfantryMine",
+            "quantity": 10
+          }
+        ],
+        "duration": 100,
+        "retrieveSingle": 10,
+        "retrieveCrate": 20,
+        "researchLevel": 0
+      },
+      "ATRPGHeavyW": {
+        "inputs": [
+          {
+            "codeName": "Cloth",
+            "quantity": 125
+          },
+          {
+            "codeName": "Wood",
+            "quantity": 15
+          }
+        ],
+        "outputs": [
+          {
+            "codeName": "ATRPGHeavyW",
+            "quantity": 5
+          }
+        ],
+        "duration": 75,
+        "retrieveSingle": 10,
+        "retrieveCrate": 16,
+        "researchLevel": 0
+      },
+      "BannerTC": {
+        "inputs": [
+          {
+            "codeName": "Cloth",
+            "quantity": 150
+          }
+        ],
+        "outputs": [
+          {
+            "codeName": "BannerTC",
+            "quantity": 5
+          }
+        ],
+        "duration": 60,
+        "retrieveSingle": 10,
+        "retrieveCrate": 20,
+        "researchLevel": 0
+      },
+      "BannerTW": {
+        "inputs": [
+          {
+            "codeName": "Cloth",
+            "quantity": 150
+          }
+        ],
+        "outputs": [
+          {
+            "codeName": "BannerTW",
+            "quantity": 5
+          }
+        ],
+        "duration": 60,
+        "retrieveSingle": 10,
+        "retrieveCrate": 20,
+        "researchLevel": 0
+      },
+      "ReservePower": {
+        "inputs": [
+          {
+            "codeName": "Cloth",
+            "quantity": 200
+          }
+        ],
+        "outputs": [
+          {
+            "codeName": "ReservePower",
+            "quantity": 10
+          }
+        ],
+        "duration": 100,
+        "retrieveSingle": 7.5,
+        "retrieveCrate": 10,
+        "researchLevel": 0
+      },
+      "MortarTankAmmoBR": {
+        "inputs": [
+          {
+            "codeName": "Cloth",
+            "quantity": 250
+          },
+          {
+            "codeName": "HeavyExplosive",
+            "quantity": 200
+          }
+        ],
+        "outputs": [
+          {
+            "codeName": "MortarTankAmmoBR",
+            "quantity": 5
+          }
+        ],
+        "duration": 250,
+        "retrieveSingle": 10,
+        "retrieveCrate": 20,
+        "researchLevel": 0
+      },
+      "DemolitionRocketAmmo": {
+        "inputs": [
+          {
+            "codeName": "Cloth",
+            "quantity": 250
+          },
+          {
+            "codeName": "HeavyExplosive",
+            "quantity": 250
+          }
+        ],
+        "outputs": [
+          {
+            "codeName": "DemolitionRocketAmmo",
+            "quantity": 5
+          }
+        ],
+        "duration": 250,
+        "retrieveSingle": 6,
+        "retrieveCrate": 20,
+        "researchLevel": 0
+      },
+      "NavalUniformW": {
+        "inputs": [
+          {
+            "codeName": "Cloth",
+            "quantity": 100
+          }
+        ],
+        "outputs": [
+          {
+            "codeName": "NavalUniformW",
+            "quantity": 15
+          }
+        ],
+        "duration": 90,
+        "retrieveSingle": 5,
+        "retrieveCrate": 16,
+        "researchLevel": 0
+      },
+      "NavalUniformC": {
+        "inputs": [
+          {
+            "codeName": "Cloth",
+            "quantity": 100
+          }
+        ],
+        "outputs": [
+          {
+            "codeName": "NavalUniformC",
+            "quantity": 15
+          }
+        ],
+        "duration": 90,
+        "retrieveSingle": 5,
+        "retrieveCrate": 16,
+        "researchLevel": 0
+      },
+      "RadioAircraft": {
+        "inputs": [
+          {
+            "codeName": "Cloth",
+            "quantity": 75
+          }
+        ],
+        "outputs": [
+          {
+            "codeName": "RadioAircraft",
+            "quantity": 5
+          }
+        ],
+        "duration": 50,
+        "retrieveSingle": 10,
+        "retrieveCrate": 10,
+        "researchLevel": 0
+      },
+      "SurfaceWaterMine": {
+        "inputs": [
+          {
+            "codeName": "Cloth",
+            "quantity": 125
+          },
+          {
+            "codeName": "Explosive",
+            "quantity": 35
+          }
+        ],
+        "outputs": [
+          {
+            "codeName": "SurfaceWaterMine",
+            "quantity": 5
+          }
+        ],
+        "duration": 125,
+        "retrieveSingle": 6,
+        "retrieveCrate": 20,
+        "researchLevel": 0
+      },
+      "BomberAmmo": {
+        "inputs": [
+          {
+            "codeName": "Cloth",
+            "quantity": 200
+          }
+        ],
+        "outputs": [
+          {
+            "codeName": "BomberAmmo",
+            "quantity": 5
+          }
+        ],
+        "duration": 65,
+        "retrieveSingle": 6,
+        "retrieveCrate": 20,
+        "researchLevel": 0
+      },
+      "PilotUniformC": {
+        "inputs": [
+          {
+            "codeName": "Cloth",
+            "quantity": 150
+          }
+        ],
+        "outputs": [
+          {
+            "codeName": "PilotUniformC",
+            "quantity": 1
+          }
+        ],
+        "duration": 90,
+        "retrieveSingle": 5,
+        "retrieveCrate": 5,
+        "researchLevel": 0
+      },
+      "PilotUniformW": {
+        "inputs": [
+          {
+            "codeName": "Cloth",
+            "quantity": 150
+          }
+        ],
+        "outputs": [
+          {
+            "codeName": "PilotUniformW",
+            "quantity": 1
+          }
+        ],
+        "duration": 90,
+        "retrieveSingle": 5,
+        "retrieveCrate": 5,
+        "researchLevel": 0
+      },
+      "DiveBomberAmmo": {
+        "inputs": [
+          {
+            "codeName": "Cloth",
+            "quantity": 120
+          }
+        ],
+        "outputs": [
+          {
+            "codeName": "DiveBomberAmmo",
+            "quantity": 5
+          }
+        ],
+        "duration": 65,
+        "retrieveSingle": 6,
+        "retrieveCrate": 20,
+        "researchLevel": 0
+      },
+      "AAAmmo": {
+        "inputs": [
+          {
+            "codeName": "Cloth",
+            "quantity": 100
+          },
+          {
+            "codeName": "HeavyExplosive",
+            "quantity": 15
+          }
+        ],
+        "outputs": [
+          {
+            "codeName": "AAAmmo",
+            "quantity": 5
+          }
+        ],
+        "duration": 65,
+        "retrieveSingle": 6,
+        "retrieveCrate": 20,
+        "researchLevel": 0
+      },
+      "ParatrooperBackpack": {
+        "inputs": [
+          {
+            "codeName": "Cloth",
+            "quantity": 100
+          }
+        ],
+        "outputs": [
+          {
+            "codeName": "ParatrooperBackpack",
+            "quantity": 10
+          }
+        ],
+        "duration": 100,
+        "retrieveSingle": 5,
+        "retrieveCrate": 15,
+        "researchLevel": 0
+      },
+      "ParatrooperUniformC": {
+        "inputs": [
+          {
+            "codeName": "Cloth",
+            "quantity": 150
+          }
+        ],
+        "outputs": [
+          {
+            "codeName": "ParatrooperUniformC",
+            "quantity": 15
+          }
+        ],
+        "duration": 90,
+        "retrieveSingle": 5,
+        "retrieveCrate": 16,
+        "researchLevel": 0
+      },
+      "ParatrooperUniformW": {
+        "inputs": [
+          {
+            "codeName": "Cloth",
+            "quantity": 150
+          }
+        ],
+        "outputs": [
+          {
+            "codeName": "ParatrooperUniformW",
+            "quantity": 15
+          }
+        ],
+        "duration": 90,
+        "retrieveSingle": 5,
+        "retrieveCrate": 16,
+        "researchLevel": 0
+      },
+      "MiniTorpedoAmmo": {
+        "inputs": [
+          {
+            "codeName": "Cloth",
+            "quantity": 125
+          },
+          {
+            "codeName": "Explosive",
+            "quantity": 75
+          }
+        ],
+        "outputs": [
+          {
+            "codeName": "MiniTorpedoAmmo",
+            "quantity": 5
+          }
+        ],
+        "duration": 125,
+        "retrieveSingle": 10,
+        "retrieveCrate": 20,
+        "researchLevel": 0
+      },
+      "AircraftPartSmallEngineW": {
+        "inputs": [
+          {
+            "codeName": "Cloth",
+            "quantity": 100
+          }
+        ],
+        "outputs": [
+          {
+            "codeName": "AircraftPartSmallEngineW",
+            "quantity": 1
+          }
+        ],
+        "duration": 80,
+        "retrieveSingle": 10,
+        "retrieveCrate": 10,
+        "researchLevel": 0
+      },
+      "AircraftPartSmallEngineC": {
+        "inputs": [
+          {
+            "codeName": "Cloth",
+            "quantity": 100
+          }
+        ],
+        "outputs": [
+          {
+            "codeName": "AircraftPartSmallEngineC",
+            "quantity": 1
+          }
+        ],
+        "duration": 80,
+        "retrieveSingle": 10,
+        "retrieveCrate": 10,
+        "researchLevel": 0
+      },
+      "AircraftPartSmallMechanicalW": {
+        "inputs": [
+          {
+            "codeName": "Cloth",
+            "quantity": 100
+          }
+        ],
+        "outputs": [
+          {
+            "codeName": "AircraftPartSmallMechanicalW",
+            "quantity": 1
+          }
+        ],
+        "duration": 80,
+        "retrieveSingle": 10,
+        "retrieveCrate": 10,
+        "researchLevel": 0
+      },
+      "AircraftPartSmallMechanicalC": {
+        "inputs": [
+          {
+            "codeName": "Cloth",
+            "quantity": 100
+          }
+        ],
+        "outputs": [
+          {
+            "codeName": "AircraftPartSmallMechanicalC",
+            "quantity": 1
+          }
+        ],
+        "duration": 80,
+        "retrieveSingle": 10,
+        "retrieveCrate": 10,
+        "researchLevel": 0
+      },
+      "AircraftPartSmallEngineWreckedW": {
+        "inputs": [
+          {
+            "codeName": "Cloth",
+            "quantity": 100
+          }
+        ],
+        "outputs": [
+          {
+            "codeName": "AircraftPartSmallEngineWreckedW",
+            "quantity": 1
+          }
+        ],
+        "duration": 80,
+        "retrieveSingle": 10,
+        "retrieveCrate": 10,
+        "researchLevel": 0
+      },
+      "AircraftPartSmallEngineWreckedC": {
+        "inputs": [
+          {
+            "codeName": "Cloth",
+            "quantity": 100
+          }
+        ],
+        "outputs": [
+          {
+            "codeName": "AircraftPartSmallEngineWreckedC",
+            "quantity": 1
+          }
+        ],
+        "duration": 80,
+        "retrieveSingle": 10,
+        "retrieveCrate": 10,
+        "researchLevel": 0
+      },
+      "AircraftPartSmallMechanicalWreckedW": {
+        "inputs": [
+          {
+            "codeName": "Cloth",
+            "quantity": 100
+          }
+        ],
+        "outputs": [
+          {
+            "codeName": "AircraftPartSmallMechanicalWreckedW",
+            "quantity": 1
+          }
+        ],
+        "duration": 80,
+        "retrieveSingle": 10,
+        "retrieveCrate": 10,
+        "researchLevel": 0
+      },
+      "AircraftPartSmallMechanicalWreckedC": {
+        "inputs": [
+          {
+            "codeName": "Cloth",
+            "quantity": 100
+          }
+        ],
+        "outputs": [
+          {
+            "codeName": "AircraftPartSmallMechanicalWreckedC",
+            "quantity": 1
+          }
+        ],
+        "duration": 80,
+        "retrieveSingle": 10,
+        "retrieveCrate": 10,
+        "researchLevel": 0
+      },
+      "AircraftPartLargeEngineC": {
+        "inputs": [
+          {
+            "codeName": "Cloth",
+            "quantity": 100
+          }
+        ],
+        "outputs": [
+          {
+            "codeName": "AircraftPartLargeEngineC",
+            "quantity": 1
+          }
+        ],
+        "duration": 80,
+        "retrieveSingle": 10,
+        "retrieveCrate": 10,
+        "researchLevel": 0
+      },
+      "AircraftPartLargeEngineW": {
+        "inputs": [
+          {
+            "codeName": "Cloth",
+            "quantity": 100
+          }
+        ],
+        "outputs": [
+          {
+            "codeName": "AircraftPartLargeEngineW",
+            "quantity": 1
+          }
+        ],
+        "duration": 80,
+        "retrieveSingle": 10,
+        "retrieveCrate": 10,
+        "researchLevel": 0
+      },
+      "AircraftPartLargeMechanicalC": {
+        "inputs": [
+          {
+            "codeName": "Cloth",
+            "quantity": 100
+          }
+        ],
+        "outputs": [
+          {
+            "codeName": "AircraftPartLargeMechanicalC",
+            "quantity": 1
+          }
+        ],
+        "duration": 80,
+        "retrieveSingle": 10,
+        "retrieveCrate": 10,
+        "researchLevel": 0
+      },
+      "AircraftPartLargeMechanicalW": {
+        "inputs": [
+          {
+            "codeName": "Cloth",
+            "quantity": 100
+          }
+        ],
+        "outputs": [
+          {
+            "codeName": "AircraftPartLargeMechanicalW",
+            "quantity": 1
+          }
+        ],
+        "duration": 80,
+        "retrieveSingle": 10,
+        "retrieveCrate": 10,
+        "researchLevel": 0
+      },
+      "AircraftPartLargeEngineWreckedC": {
+        "inputs": [
+          {
+            "codeName": "Cloth",
+            "quantity": 100
+          }
+        ],
+        "outputs": [
+          {
+            "codeName": "AircraftPartLargeEngineWreckedC",
+            "quantity": 1
+          }
+        ],
+        "duration": 80,
+        "retrieveSingle": 10,
+        "retrieveCrate": 10,
+        "researchLevel": 0
+      },
+      "AircraftPartLargeEngineWreckedW": {
+        "inputs": [
+          {
+            "codeName": "Cloth",
+            "quantity": 100
+          }
+        ],
+        "outputs": [
+          {
+            "codeName": "AircraftPartLargeEngineWreckedW",
+            "quantity": 1
+          }
+        ],
+        "duration": 80,
+        "retrieveSingle": 10,
+        "retrieveCrate": 10,
+        "researchLevel": 0
+      },
+      "AircraftPartLargeMechanicalWreckedC": {
+        "inputs": [
+          {
+            "codeName": "Cloth",
+            "quantity": 100
+          }
+        ],
+        "outputs": [
+          {
+            "codeName": "AircraftPartLargeMechanicalWreckedC",
+            "quantity": 1
+          }
+        ],
+        "duration": 80,
+        "retrieveSingle": 10,
+        "retrieveCrate": 10,
+        "researchLevel": 0
+      },
+      "AircraftPartLargeMechanicalWreckedW": {
+        "inputs": [
+          {
+            "codeName": "Cloth",
+            "quantity": 100
+          }
+        ],
+        "outputs": [
+          {
+            "codeName": "AircraftPartLargeMechanicalWreckedW",
+            "quantity": 1
+          }
+        ],
+        "duration": 80,
+        "retrieveSingle": 10,
+        "retrieveCrate": 10,
+        "researchLevel": 0
+      },
+      "AircraftAmmo": {
+        "inputs": [
+          {
+            "codeName": "Cloth",
+            "quantity": 120
+          }
+        ],
+        "outputs": [
+          {
+            "codeName": "AircraftAmmo",
+            "quantity": 5
+          }
+        ],
+        "duration": 55,
+        "retrieveSingle": 3.5,
+        "retrieveCrate": 14,
+        "researchLevel": 0
+      },
+      "FacilityMaterials12": {
+        "inputs": [
+          {
+            "codeName": "Cloth",
+            "quantity": 50
+          }
+        ],
+        "outputs": [
+          {
+            "codeName": "FacilityMaterials12",
+            "quantity": 1
+          }
+        ],
+        "duration": 15,
+        "retrieveSingle": 1.5,
+        "retrieveCrate": 10,
+        "researchLevel": 0
+      },
+      "LightAAAmmo": {
+        "inputs": [
+          {
+            "codeName": "Cloth",
+            "quantity": 150
+          },
+          {
+            "codeName": "Explosive",
+            "quantity": 160
+          }
+        ],
+        "outputs": [
+          {
+            "codeName": "LightAAAmmo",
+            "quantity": 5
+          }
+        ],
+        "duration": 55,
+        "retrieveSingle": 10,
+        "retrieveCrate": 20,
+        "researchLevel": 0
+      },
+      "AircraftTorpedoAmmo": {
+        "inputs": [
+          {
+            "codeName": "Cloth",
+            "quantity": 100
+          }
+        ],
+        "outputs": [
+          {
+            "codeName": "AircraftTorpedoAmmo",
+            "quantity": 1
+          }
+        ],
+        "duration": 80,
+        "retrieveSingle": 10,
+        "retrieveCrate": 10,
+        "researchLevel": 0
+      }
+    }
+  },
+  "facilities": {
+    "FacilityFactoryAmmo": {
+      "displayName": "Ammunition Factory",
+      "codeName": "FacilityFactoryAmmo",
+      "baseRecipes": [
+        {
+          "inputs": [
+            {
+              "codeName": "HeavyExplosive",
+              "quantity": 4,
+              "limit": 0
+            },
+            {
+              "codeName": "FacilityMaterials1",
+              "quantity": 1,
+              "limit": 0
+            }
+          ],
+          "outputs": [
+            {
+              "codeName": "FlameAmmo",
+              "quantity": 1,
+              "limit": 0
+            }
+          ],
+          "duration": 25,
+          "powerDelta": 0,
+          "consumeResourceNodes": false
+        },
+        {
+          "inputs": [
+            {
+              "codeName": "HeavyExplosive",
+              "quantity": 24,
+              "limit": 0
+            },
+            {
+              "codeName": "FacilityMaterials1",
+              "quantity": 5,
+              "limit": 0
+            }
+          ],
+          "outputs": [
+            {
+              "codeName": "MortarTankAmmo",
+              "quantity": 1,
+              "limit": 0
+            }
+          ],
+          "duration": 30,
+          "powerDelta": 0,
+          "consumeResourceNodes": false
+        },
+        {
+          "inputs": [
+            {
+              "codeName": "Explosive",
+              "quantity": 2,
+              "limit": 32000
+            },
+            {
+              "codeName": "FacilityMaterials1",
+              "quantity": 2,
+              "limit": 32000
+            }
+          ],
+          "outputs": [
+            {
+              "codeName": "InfantryMine",
+              "quantity": 1,
+              "limit": 3500
+            }
+          ],
+          "duration": 25,
+          "powerDelta": 0,
+          "consumeResourceNodes": false
+        },
+        {
+          "inputs": [
+            {
+              "codeName": "HeavyExplosive",
+              "quantity": 2,
+              "limit": 32000
+            },
+            {
+              "codeName": "FacilityMaterials1",
+              "quantity": 2,
+              "limit": 32000
+            }
+          ],
+          "outputs": [
+            {
+              "codeName": "TankMine",
+              "quantity": 1,
+              "limit": 3500
+            }
+          ],
+          "duration": 25,
+          "powerDelta": 0,
+          "consumeResourceNodes": false
+        },
+        {
+          "inputs": [
+            {
+              "codeName": "HeavyExplosive",
+              "quantity": 8,
+              "limit": 0
+            },
+            {
+              "codeName": "FacilityMaterials1",
+              "quantity": 1,
+              "limit": 0
+            }
+          ],
+          "outputs": [
+            {
+              "codeName": "WaterMine",
+              "quantity": 1,
+              "limit": 0
+            }
+          ],
+          "duration": 90,
+          "powerDelta": 0,
+          "consumeResourceNodes": false
+        },
+        {
+          "inputs": [
+            {
+              "codeName": "FacilityMaterials1",
+              "quantity": 2,
+              "limit": 0
+            },
+            {
+              "codeName": "FacilityMaterials7",
+              "quantity": 5,
+              "limit": 0
+            }
+          ],
+          "outputs": [
+            {
+              "codeName": "FacilityMaterials11",
+              "quantity": 1,
+              "limit": 0
+            }
+          ],
+          "duration": 1500,
+          "powerDelta": 0,
+          "consumeResourceNodes": false
+        },
+        {
+          "inputs": [
+            {
+              "codeName": "FacilityMaterials1",
+              "quantity": 15,
+              "limit": 0
+            },
+            {
+              "codeName": "HeavyExplosive",
+              "quantity": 24,
+              "limit": 0
+            },
+            {
+              "codeName": "MortarTankAmmo",
+              "quantity": 1,
+              "limit": 0
+            }
+          ],
+          "outputs": [
+            {
+              "codeName": "MortarTankAmmoBR",
+              "quantity": 1,
+              "limit": 0
+            }
+          ],
+          "duration": 30,
+          "powerDelta": 0,
+          "consumeResourceNodes": false
+        },
+        {
+          "inputs": [
+            {
+              "codeName": "FacilityMaterials1",
+              "quantity": 8,
+              "limit": 32000
+            }
+          ],
+          "outputs": [
+            {
+              "codeName": "SurfaceWaterMine",
+              "quantity": 1,
+              "limit": 3500
+            }
+          ],
+          "duration": 25,
+          "powerDelta": 0,
+          "consumeResourceNodes": false
+        },
+        {
+          "inputs": [
+            {
+              "codeName": "FacilityMaterials1",
+              "quantity": 4,
+              "limit": 0
+            }
+          ],
+          "outputs": [
+            {
+              "codeName": "AircraftAmmo",
+              "quantity": 1,
+              "limit": 0
+            }
+          ],
+          "duration": 10,
+          "powerDelta": 0,
+          "consumeResourceNodes": false
+        },
+        {
+          "inputs": [
+            {
+              "codeName": "FacilityMaterials1",
+              "quantity": 12,
+              "limit": 32000
+            }
+          ],
+          "outputs": [
+            {
+              "codeName": "MiniTorpedoAmmo",
+              "quantity": 1,
+              "limit": 3500
+            }
+          ],
+          "duration": 25,
+          "powerDelta": 0,
+          "consumeResourceNodes": false
+        }
+      ],
+      "modifications": {
+        "RocketFactory": {
+          "recipes": [
+            {
+              "inputs": [
+                {
+                  "codeName": "HeavyExplosive",
+                  "quantity": 4,
+                  "limit": 0
+                },
+                {
+                  "codeName": "FacilityMaterials1",
+                  "quantity": 2,
+                  "limit": 0
+                }
+              ],
+              "outputs": [
+                {
+                  "codeName": "HERocketAmmo",
+                  "quantity": 1,
+                  "limit": 0
+                }
+              ],
+              "duration": 25,
+              "powerDelta": 0,
+              "consumeResourceNodes": false
+            },
+            {
+              "inputs": [
+                {
+                  "codeName": "HeavyExplosive",
+                  "quantity": 4,
+                  "limit": 0
+                },
+                {
+                  "codeName": "FacilityMaterials1",
+                  "quantity": 2,
+                  "limit": 0
+                }
+              ],
+              "outputs": [
+                {
+                  "codeName": "FireRocketAmmo",
+                  "quantity": 1,
+                  "limit": 0
+                }
+              ],
+              "duration": 25,
+              "powerDelta": 0,
+              "consumeResourceNodes": false
+            },
+            {
+              "inputs": [
+                {
+                  "codeName": "HeavyExplosive",
+                  "quantity": 8,
+                  "limit": 0
+                },
+                {
+                  "codeName": "FlameAmmo",
+                  "quantity": 3,
+                  "limit": 0
+                }
+              ],
+              "outputs": [
+                {
+                  "codeName": "FacilityMaterials10",
+                  "quantity": 1,
+                  "limit": 0
+                }
+              ],
+              "duration": 1800,
+              "powerDelta": -5000,
+              "consumeResourceNodes": false
+            },
+            {
+              "inputs": [
+                {
+                  "codeName": "HeavyExplosive",
+                  "quantity": 28,
+                  "limit": 0
+                },
+                {
+                  "codeName": "FacilityMaterials1",
+                  "quantity": 15,
+                  "limit": 0
+                }
+              ],
+              "outputs": [
+                {
+                  "codeName": "DemolitionRocketAmmo",
+                  "quantity": 1,
+                  "limit": 0
+                }
+              ],
+              "duration": 25,
+              "powerDelta": 0,
+              "consumeResourceNodes": false
+            }
+          ]
+        },
+        "LargeShellFactory": {
+          "recipes": [
+            {
+              "inputs": [
+                {
+                  "codeName": "HeavyExplosive",
+                  "quantity": 8,
+                  "limit": 0
+                },
+                {
+                  "codeName": "FacilityMaterials1",
+                  "quantity": 2,
+                  "limit": 0
+                }
+              ],
+              "outputs": [
+                {
+                  "codeName": "BattleTankAmmo",
+                  "quantity": 1,
+                  "limit": 0
+                }
+              ],
+              "duration": 60,
+              "powerDelta": 0,
+              "consumeResourceNodes": false
+            },
+            {
+              "inputs": [
+                {
+                  "codeName": "HeavyExplosive",
+                  "quantity": 8,
+                  "limit": 0
+                },
+                {
+                  "codeName": "FacilityMaterials1",
+                  "quantity": 2,
+                  "limit": 0
+                }
+              ],
+              "outputs": [
+                {
+                  "codeName": "ATLargeAmmo",
+                  "quantity": 1,
+                  "limit": 0
+                }
+              ],
+              "duration": 60,
+              "powerDelta": 0,
+              "consumeResourceNodes": false
+            },
+            {
+              "inputs": [
+                {
+                  "codeName": "FacilityMaterials10",
+                  "quantity": 2,
+                  "limit": 0
+                },
+                {
+                  "codeName": "FacilityMaterials7",
+                  "quantity": 10,
+                  "limit": 0
+                }
+              ],
+              "outputs": [
+                {
+                  "codeName": "LRArtilleryAmmo",
+                  "quantity": 1,
+                  "limit": 0
+                }
+              ],
+              "duration": 120,
+              "powerDelta": -6000,
+              "consumeResourceNodes": false
+            },
+            {
+              "inputs": [
+                {
+                  "codeName": "HeavyExplosive",
+                  "quantity": 2,
+                  "limit": 0
+                },
+                {
+                  "codeName": "FacilityMaterials1",
+                  "quantity": 2,
+                  "limit": 0
+                }
+              ],
+              "outputs": [
+                {
+                  "codeName": "lightartilleryammo",
+                  "quantity": 1,
+                  "limit": 0
+                }
+              ],
+              "duration": 25,
+              "powerDelta": 0,
+              "consumeResourceNodes": false
+            },
+            {
+              "inputs": [
+                {
+                  "codeName": "HeavyExplosive",
+                  "quantity": 12,
+                  "limit": 0
+                },
+                {
+                  "codeName": "FacilityMaterials1",
+                  "quantity": 3,
+                  "limit": 0
+                }
+              ],
+              "outputs": [
+                {
+                  "codeName": "heavyartilleryammo",
+                  "quantity": 1,
+                  "limit": 0
+                }
+              ],
+              "duration": 40,
+              "powerDelta": 0,
+              "consumeResourceNodes": false
+            },
+            {
+              "inputs": [
+                {
+                  "codeName": "HeavyExplosive",
+                  "quantity": 8,
+                  "limit": 0
+                },
+                {
+                  "codeName": "FacilityMaterials1",
+                  "quantity": 2,
+                  "limit": 0
+                }
+              ],
+              "outputs": [
+                {
+                  "codeName": "DepthChargeAmmo",
+                  "quantity": 1,
+                  "limit": 0
+                }
+              ],
+              "duration": 25,
+              "powerDelta": 0,
+              "consumeResourceNodes": false
+            },
+            {
+              "inputs": [
+                {
+                  "codeName": "HeavyExplosive",
+                  "quantity": 16,
+                  "limit": 0
+                },
+                {
+                  "codeName": "FacilityMaterials2",
+                  "quantity": 2,
+                  "limit": 0
+                }
+              ],
+              "outputs": [
+                {
+                  "codeName": "TorpedoAmmo",
+                  "quantity": 1,
+                  "limit": 0
+                }
+              ],
+              "duration": 240,
+              "powerDelta": -6000,
+              "consumeResourceNodes": false
+            },
+            {
+              "inputs": [
+                {
+                  "codeName": "HeavyExplosive",
+                  "quantity": 16,
+                  "limit": 32000
+                },
+                {
+                  "codeName": "FacilityMaterials2",
+                  "quantity": 1,
+                  "limit": 32000
+                }
+              ],
+              "outputs": [
+                {
+                  "codeName": "BomberAmmo",
+                  "quantity": 1,
+                  "limit": 32000
+                }
+              ],
+              "duration": 120,
+              "powerDelta": -4000,
+              "consumeResourceNodes": false
+            },
+            {
+              "inputs": [
+                {
+                  "codeName": "HeavyExplosive",
+                  "quantity": 3,
+                  "limit": 0
+                },
+                {
+                  "codeName": "FacilityMaterials1",
+                  "quantity": 2,
+                  "limit": 0
+                }
+              ],
+              "outputs": [
+                {
+                  "codeName": "AAAmmo",
+                  "quantity": 1,
+                  "limit": 0
+                }
+              ],
+              "duration": 25,
+              "powerDelta": 0,
+              "consumeResourceNodes": false
+            },
+            {
+              "inputs": [
+                {
+                  "codeName": "HeavyExplosive",
+                  "quantity": 12,
+                  "limit": 32000
+                },
+                {
+                  "codeName": "FacilityMaterials2",
+                  "quantity": 1,
+                  "limit": 32000
+                }
+              ],
+              "outputs": [
+                {
+                  "codeName": "DiveBomberAmmo",
+                  "quantity": 1,
+                  "limit": 32000
+                }
+              ],
+              "duration": 90,
+              "powerDelta": -4000,
+              "consumeResourceNodes": false
+            },
+            {
+              "inputs": [
+                {
+                  "codeName": "HeavyExplosive",
+                  "quantity": 14,
+                  "limit": 0
+                },
+                {
+                  "codeName": "FacilityMaterials2",
+                  "quantity": 2,
+                  "limit": 0
+                }
+              ],
+              "outputs": [
+                {
+                  "codeName": "AircraftTorpedoAmmo",
+                  "quantity": 1,
+                  "limit": 0
+                }
+              ],
+              "duration": 240,
+              "powerDelta": -6000,
+              "consumeResourceNodes": false
+            }
+          ]
+        },
+        "TripodFactory": {
+          "recipes": [
+            {
+              "inputs": [
+                {
+                  "codeName": "FacilityMaterials1",
+                  "quantity": 2,
+                  "limit": 0
+                }
+              ],
+              "outputs": [
+                {
+                  "codeName": "Tripod",
+                  "quantity": 1,
+                  "limit": 0
+                }
+              ],
+              "duration": 25,
+              "powerDelta": 0,
+              "consumeResourceNodes": false
+            },
+            {
+              "inputs": [
+                {
+                  "codeName": "FacilityMaterials1",
+                  "quantity": 3,
+                  "limit": 0
+                }
+              ],
+              "outputs": [
+                {
+                  "codeName": "ISGTC",
+                  "quantity": 1,
+                  "limit": 0
+                }
+              ],
+              "duration": 25,
+              "powerDelta": 0,
+              "consumeResourceNodes": false
+            },
+            {
+              "inputs": [
+                {
+                  "codeName": "FacilityMaterials1",
+                  "quantity": 3,
+                  "limit": 0
+                }
+              ],
+              "outputs": [
+                {
+                  "codeName": "ATRifleTC",
+                  "quantity": 1,
+                  "limit": 0
+                }
+              ],
+              "duration": 25,
+              "powerDelta": 0,
+              "consumeResourceNodes": false
+            },
+            {
+              "inputs": [
+                {
+                  "codeName": "FacilityMaterials1",
+                  "quantity": 3,
+                  "limit": 0
+                }
+              ],
+              "outputs": [
+                {
+                  "codeName": "MGTC",
+                  "quantity": 1,
+                  "limit": 0
+                }
+              ],
+              "duration": 25,
+              "powerDelta": 0,
+              "consumeResourceNodes": false
+            },
+            {
+              "inputs": [
+                {
+                  "codeName": "FacilityMaterials1",
+                  "quantity": 3,
+                  "limit": 0
+                }
+              ],
+              "outputs": [
+                {
+                  "codeName": "GrenadeLauncherTC",
+                  "quantity": 1,
+                  "limit": 0
+                }
+              ],
+              "duration": 25,
+              "powerDelta": 0,
+              "consumeResourceNodes": false
+            },
+            {
+              "inputs": [
+                {
+                  "codeName": "FacilityMaterials1",
+                  "quantity": 3,
+                  "limit": 0
+                }
+              ],
+              "outputs": [
+                {
+                  "codeName": "RPGTW",
+                  "quantity": 1,
+                  "limit": 0
+                }
+              ],
+              "duration": 25,
+              "powerDelta": 0,
+              "consumeResourceNodes": false
+            },
+            {
+              "inputs": [
+                {
+                  "codeName": "FacilityMaterials1",
+                  "quantity": 3,
+                  "limit": 0
+                }
+              ],
+              "outputs": [
+                {
+                  "codeName": "ATRPGTW",
+                  "quantity": 1,
+                  "limit": 0
+                }
+              ],
+              "duration": 25,
+              "powerDelta": 0,
+              "consumeResourceNodes": false
+            },
+            {
+              "inputs": [
+                {
+                  "codeName": "FacilityMaterials1",
+                  "quantity": 3,
+                  "limit": 0
+                }
+              ],
+              "outputs": [
+                {
+                  "codeName": "MGTW",
+                  "quantity": 1,
+                  "limit": 0
+                }
+              ],
+              "duration": 25,
+              "powerDelta": 0,
+              "consumeResourceNodes": false
+            },
+            {
+              "inputs": [
+                {
+                  "codeName": "FacilityMaterials1",
+                  "quantity": 1,
+                  "limit": 0
+                },
+                {
+                  "codeName": "FacilityMaterials4",
+                  "quantity": 1,
+                  "limit": 0
+                }
+              ],
+              "outputs": [
+                {
+                  "codeName": "BannerTC",
+                  "quantity": 1,
+                  "limit": 0
+                }
+              ],
+              "duration": 25,
+              "powerDelta": 0,
+              "consumeResourceNodes": false
+            },
+            {
+              "inputs": [
+                {
+                  "codeName": "FacilityMaterials1",
+                  "quantity": 1,
+                  "limit": 0
+                },
+                {
+                  "codeName": "FacilityMaterials4",
+                  "quantity": 1,
+                  "limit": 0
+                }
+              ],
+              "outputs": [
+                {
+                  "codeName": "BannerTW",
+                  "quantity": 1,
+                  "limit": 0
+                }
+              ],
+              "duration": 25,
+              "powerDelta": 0,
+              "consumeResourceNodes": false
+            }
+          ]
+        }
+      }
+    },
+    "FacilityFactorySmallArms": {
+      "displayName": "Infantry Kit Factory",
+      "codeName": "FacilityFactorySmallArms",
+      "baseRecipes": [
+        {
+          "inputs": [
+            {
+              "codeName": "FacilityMaterials1",
+              "quantity": 220,
+              "limit": 32000
+            }
+          ],
+          "outputs": [],
+          "duration": 8100,
+          "powerDelta": -12000,
+          "consumeResourceNodes": false
+        },
+        {
+          "inputs": [
+            {
+              "codeName": "FacilityMaterials1",
+              "quantity": 220,
+              "limit": 32000
+            }
+          ],
+          "outputs": [],
+          "duration": 8100,
+          "powerDelta": -12000,
+          "consumeResourceNodes": false
+        },
+        {
+          "inputs": [
+            {
+              "codeName": "FacilityMaterials1",
+              "quantity": 110,
+              "limit": 32000
+            }
+          ],
+          "outputs": [],
+          "duration": 8100,
+          "powerDelta": -12000,
+          "consumeResourceNodes": false
+        },
+        {
+          "inputs": [
+            {
+              "codeName": "FacilityMaterials1",
+              "quantity": 110,
+              "limit": 32000
+            }
+          ],
+          "outputs": [],
+          "duration": 8100,
+          "powerDelta": -12000,
+          "consumeResourceNodes": false
+        },
+        {
+          "inputs": [
+            {
+              "codeName": "FacilityMaterials1",
+              "quantity": 110,
+              "limit": 32000
+            }
+          ],
+          "outputs": [],
+          "duration": 8100,
+          "powerDelta": -12000,
+          "consumeResourceNodes": false
+        },
+        {
+          "inputs": [
+            {
+              "codeName": "FacilityMaterials1",
+              "quantity": 110,
+              "limit": 32000
+            }
+          ],
+          "outputs": [],
+          "duration": 8100,
+          "powerDelta": -12000,
+          "consumeResourceNodes": false
+        },
+        {
+          "inputs": [
+            {
+              "codeName": "FacilityMaterials1",
+              "quantity": 110,
+              "limit": 32000
+            }
+          ],
+          "outputs": [],
+          "duration": 8100,
+          "powerDelta": -12000,
+          "consumeResourceNodes": false
+        },
+        {
+          "inputs": [
+            {
+              "codeName": "FacilityMaterials1",
+              "quantity": 110,
+              "limit": 32000
+            }
+          ],
+          "outputs": [],
+          "duration": 8100,
+          "powerDelta": -12000,
+          "consumeResourceNodes": false
+        },
+        {
+          "inputs": [
+            {
+              "codeName": "FacilityMaterials1",
+              "quantity": 110,
+              "limit": 32000
+            }
+          ],
+          "outputs": [],
+          "duration": 8100,
+          "powerDelta": -12000,
+          "consumeResourceNodes": false
+        },
+        {
+          "inputs": [
+            {
+              "codeName": "FacilityMaterials1",
+              "quantity": 110,
+              "limit": 32000
+            }
+          ],
+          "outputs": [],
+          "duration": 8100,
+          "powerDelta": -12000,
+          "consumeResourceNodes": false
+        },
+        {
+          "inputs": [
+            {
+              "codeName": "FacilityMaterials1",
+              "quantity": 110,
+              "limit": 32000
+            }
+          ],
+          "outputs": [],
+          "duration": 8100,
+          "powerDelta": -12000,
+          "consumeResourceNodes": false
+        },
+        {
+          "inputs": [
+            {
+              "codeName": "FacilityMaterials1",
+              "quantity": 110,
+              "limit": 32000
+            }
+          ],
+          "outputs": [],
+          "duration": 8100,
+          "powerDelta": -12000,
+          "consumeResourceNodes": false
+        },
+        {
+          "inputs": [
+            {
+              "codeName": "FacilityMaterials1",
+              "quantity": 110,
+              "limit": 32000
+            }
+          ],
+          "outputs": [],
+          "duration": 8100,
+          "powerDelta": -12000,
+          "consumeResourceNodes": false
+        },
+        {
+          "inputs": [
+            {
+              "codeName": "FacilityMaterials1",
+              "quantity": 110,
+              "limit": 32000
+            }
+          ],
+          "outputs": [],
+          "duration": 8100,
+          "powerDelta": -12000,
+          "consumeResourceNodes": false
+        },
+        {
+          "inputs": [
+            {
+              "codeName": "FacilityMaterials1",
+              "quantity": 110,
+              "limit": 32000
+            }
+          ],
+          "outputs": [],
+          "duration": 8100,
+          "powerDelta": -12000,
+          "consumeResourceNodes": false
+        },
+        {
+          "inputs": [
+            {
+              "codeName": "FacilityMaterials1",
+              "quantity": 110,
+              "limit": 32000
+            }
+          ],
+          "outputs": [],
+          "duration": 8100,
+          "powerDelta": -12000,
+          "consumeResourceNodes": false
+        },
+        {
+          "inputs": [
+            {
+              "codeName": "FacilityMaterials1",
+              "quantity": 110,
+              "limit": 32000
+            }
+          ],
+          "outputs": [],
+          "duration": 8100,
+          "powerDelta": -12000,
+          "consumeResourceNodes": false
+        },
+        {
+          "inputs": [
+            {
+              "codeName": "FacilityMaterials1",
+              "quantity": 110,
+              "limit": 32000
+            }
+          ],
+          "outputs": [],
+          "duration": 8100,
+          "powerDelta": -12000,
+          "consumeResourceNodes": false
+        },
+        {
+          "inputs": [
+            {
+              "codeName": "FacilityMaterials1",
+              "quantity": 110,
+              "limit": 32000
+            }
+          ],
+          "outputs": [],
+          "duration": 8100,
+          "powerDelta": -12000,
+          "consumeResourceNodes": false
+        }
+      ],
+      "modifications": {
+        "InfantryAmmo": {
+          "recipes": [
+            {
+              "inputs": [
+                {
+                  "codeName": "Explosive",
+                  "quantity": 110,
+                  "limit": 32000
+                },
+                {
+                  "codeName": "FacilityMaterials1",
+                  "quantity": 65,
+                  "limit": 32000
+                }
+              ],
+              "outputs": [],
+              "duration": 9000,
+              "powerDelta": -12000,
+              "consumeResourceNodes": false
+            },
+            {
+              "inputs": [
+                {
+                  "codeName": "Explosive",
+                  "quantity": 80,
+                  "limit": 32000
+                },
+                {
+                  "codeName": "FacilityMaterials1",
+                  "quantity": 65,
+                  "limit": 32000
+                }
+              ],
+              "outputs": [],
+              "duration": 9000,
+              "powerDelta": -12000,
+              "consumeResourceNodes": false
+            },
+            {
+              "inputs": [
+                {
+                  "codeName": "Explosive",
+                  "quantity": 385,
+                  "limit": 32000
+                },
+                {
+                  "codeName": "FacilityMaterials1",
+                  "quantity": 65,
+                  "limit": 32000
+                }
+              ],
+              "outputs": [],
+              "duration": 9000,
+              "powerDelta": -12000,
+              "consumeResourceNodes": false
+            },
+            {
+              "inputs": [
+                {
+                  "codeName": "Explosive",
+                  "quantity": 385,
+                  "limit": 32000
+                },
+                {
+                  "codeName": "FacilityMaterials1",
+                  "quantity": 95,
+                  "limit": 32000
+                }
+              ],
+              "outputs": [],
+              "duration": 6900,
+              "powerDelta": -12000,
+              "consumeResourceNodes": false
+            },
+            {
+              "inputs": [
+                {
+                  "codeName": "Explosive",
+                  "quantity": 440,
+                  "limit": 32000
+                },
+                {
+                  "codeName": "FacilityMaterials1",
+                  "quantity": 110,
+                  "limit": 32000
+                }
+              ],
+              "outputs": [],
+              "duration": 6900,
+              "powerDelta": -12000,
+              "consumeResourceNodes": false
+            },
+            {
+              "inputs": [
+                {
+                  "codeName": "Explosive",
+                  "quantity": 550,
+                  "limit": 32000
+                },
+                {
+                  "codeName": "FacilityMaterials1",
+                  "quantity": 55,
+                  "limit": 32000
+                }
+              ],
+              "outputs": [],
+              "duration": 6900,
+              "powerDelta": -12000,
+              "consumeResourceNodes": false
+            },
+            {
+              "inputs": [
+                {
+                  "codeName": "FacilityMaterials1",
+                  "quantity": 110,
+                  "limit": 32000
+                }
+              ],
+              "outputs": [],
+              "duration": 9000,
+              "powerDelta": -12000,
+              "consumeResourceNodes": false
+            },
+            {
+              "inputs": [
+                {
+                  "codeName": "FacilityMaterials1",
+                  "quantity": 135,
+                  "limit": 32000
+                }
+              ],
+              "outputs": [],
+              "duration": 6900,
+              "powerDelta": -12000,
+              "consumeResourceNodes": false
+            }
+          ]
+        },
+        "SpecialWeapons": {
+          "recipes": [
+            {
+              "inputs": [
+                {
+                  "codeName": "FacilityMaterials1",
+                  "quantity": 50,
+                  "limit": 32000
+                },
+                {
+                  "codeName": "FacilityMaterials2",
+                  "quantity": 40,
+                  "limit": 32000
+                }
+              ],
+              "outputs": [],
+              "duration": 100,
+              "powerDelta": -2000,
+              "consumeResourceNodes": false
+            },
+            {
+              "inputs": [
+                {
+                  "codeName": "FacilityMaterials1",
+                  "quantity": 50,
+                  "limit": 32000
+                },
+                {
+                  "codeName": "FacilityMaterials2",
+                  "quantity": 40,
+                  "limit": 32000
+                }
+              ],
+              "outputs": [],
+              "duration": 100,
+              "powerDelta": -2000,
+              "consumeResourceNodes": false
+            },
+            {
+              "inputs": [
+                {
+                  "codeName": "FacilityMaterials2",
+                  "quantity": 25,
+                  "limit": 32000
+                },
+                {
+                  "codeName": "FacilityMaterials4",
+                  "quantity": 5,
+                  "limit": 32000
+                }
+              ],
+              "outputs": [],
+              "duration": 120,
+              "powerDelta": -4000,
+              "consumeResourceNodes": false
+            },
+            {
+              "inputs": [
+                {
+                  "codeName": "FacilityMaterials2",
+                  "quantity": 3,
+                  "limit": 32000
+                },
+                {
+                  "codeName": "FacilityMaterials5",
+                  "quantity": 5,
+                  "limit": 32000
+                }
+              ],
+              "outputs": [],
+              "duration": 75,
+              "powerDelta": -4000,
+              "consumeResourceNodes": false
+            },
+            {
+              "inputs": [
+                {
+                  "codeName": "FacilityMaterials2",
+                  "quantity": 3,
+                  "limit": 32000
+                },
+                {
+                  "codeName": "FacilityMaterials4",
+                  "quantity": 5,
+                  "limit": 32000
+                }
+              ],
+              "outputs": [],
+              "duration": 75,
+              "powerDelta": -4000,
+              "consumeResourceNodes": false
+            },
+            {
+              "inputs": [
+                {
+                  "codeName": "FacilityMaterials2",
+                  "quantity": 3,
+                  "limit": 32000
+                },
+                {
+                  "codeName": "FacilityMaterials5",
+                  "quantity": 5,
+                  "limit": 32000
+                }
+              ],
+              "outputs": [],
+              "duration": 75,
+              "powerDelta": -4000,
+              "consumeResourceNodes": false
+            },
+            {
+              "inputs": [
+                {
+                  "codeName": "FacilityMaterials1",
+                  "quantity": 5,
+                  "limit": 32000
+                },
+                {
+                  "codeName": "FlameAmmo",
+                  "quantity": 1,
+                  "limit": 32000
+                }
+              ],
+              "outputs": [],
+              "duration": 75,
+              "powerDelta": -2000,
+              "consumeResourceNodes": false
+            },
+            {
+              "inputs": [
+                {
+                  "codeName": "FacilityMaterials2",
+                  "quantity": 10,
+                  "limit": 32000
+                }
+              ],
+              "outputs": [],
+              "duration": 120,
+              "powerDelta": -4000,
+              "consumeResourceNodes": false
+            },
+            {
+              "inputs": [
+                {
+                  "codeName": "FacilityMaterials2",
+                  "quantity": 10,
+                  "limit": 32000
+                }
+              ],
+              "outputs": [],
+              "duration": 120,
+              "powerDelta": -4000,
+              "consumeResourceNodes": false
+            },
+            {
+              "inputs": [
+                {
+                  "codeName": "FacilityMaterials12",
+                  "quantity": 2,
+                  "limit": 1000
+                }
+              ],
+              "outputs": [],
+              "duration": 120,
+              "powerDelta": -4000,
+              "consumeResourceNodes": false
+            },
+            {
+              "inputs": [
+                {
+                  "codeName": "FacilityMaterials12",
+                  "quantity": 2,
+                  "limit": 1000
+                }
+              ],
+              "outputs": [],
+              "duration": 120,
+              "powerDelta": -4000,
+              "consumeResourceNodes": false
+            },
+            {
+              "inputs": [
+                {
+                  "codeName": "FacilityMaterials1",
+                  "quantity": 20,
+                  "limit": 32000
+                }
+              ],
+              "outputs": [],
+              "duration": 60,
+              "powerDelta": -2000,
+              "consumeResourceNodes": false
+            }
+          ]
+        },
+        "HeavyAmmo": {
+          "recipes": [
+            {
+              "inputs": [
+                {
+                  "codeName": "FacilityMaterials1",
+                  "quantity": 175,
+                  "limit": 32000
+                },
+                {
+                  "codeName": "Explosive",
+                  "quantity": 1320,
+                  "limit": 32000
+                }
+              ],
+              "outputs": [],
+              "duration": 18000,
+              "powerDelta": -24000,
+              "consumeResourceNodes": false
+            },
+            {
+              "inputs": [
+                {
+                  "codeName": "FacilityMaterials1",
+                  "quantity": 130,
+                  "limit": 32000
+                },
+                {
+                  "codeName": "Explosive",
+                  "quantity": 1320,
+                  "limit": 32000
+                }
+              ],
+              "outputs": [],
+              "duration": 18000,
+              "powerDelta": -24000,
+              "consumeResourceNodes": false
+            },
+            {
+              "inputs": [
+                {
+                  "codeName": "FacilityMaterials1",
+                  "quantity": 45,
+                  "limit": 32000
+                },
+                {
+                  "codeName": "Explosive",
+                  "quantity": 220,
+                  "limit": 32000
+                }
+              ],
+              "outputs": [],
+              "duration": 9000,
+              "powerDelta": -24000,
+              "consumeResourceNodes": false
+            },
+            {
+              "inputs": [
+                {
+                  "codeName": "FacilityMaterials1",
+                  "quantity": 65,
+                  "limit": 32000
+                },
+                {
+                  "codeName": "Explosive",
+                  "quantity": 825,
+                  "limit": 32000
+                }
+              ],
+              "outputs": [],
+              "duration": 9000,
+              "powerDelta": -24000,
+              "consumeResourceNodes": false
+            },
+            {
+              "inputs": [
+                {
+                  "codeName": "FacilityMaterials1",
+                  "quantity": 65,
+                  "limit": 32000
+                },
+                {
+                  "codeName": "Explosive",
+                  "quantity": 825,
+                  "limit": 32000
+                }
+              ],
+              "outputs": [],
+              "duration": 9000,
+              "powerDelta": -24000,
+              "consumeResourceNodes": false
+            },
+            {
+              "inputs": [
+                {
+                  "codeName": "FacilityMaterials1",
+                  "quantity": 65,
+                  "limit": 32000
+                },
+                {
+                  "codeName": "Explosive",
+                  "quantity": 495,
+                  "limit": 32000
+                }
+              ],
+              "outputs": [],
+              "duration": 9000,
+              "powerDelta": -24000,
+              "consumeResourceNodes": false
+            },
+            {
+              "inputs": [
+                {
+                  "codeName": "FacilityMaterials1",
+                  "quantity": 80,
+                  "limit": 32000
+                },
+                {
+                  "codeName": "Explosive",
+                  "quantity": 550,
+                  "limit": 32000
+                }
+              ],
+              "outputs": [],
+              "duration": 7200,
+              "powerDelta": -24000,
+              "consumeResourceNodes": false
+            },
+            {
+              "inputs": [
+                {
+                  "codeName": "FacilityMaterials1",
+                  "quantity": 105,
+                  "limit": 32000
+                },
+                {
+                  "codeName": "Explosive",
+                  "quantity": 685,
+                  "limit": 32000
+                }
+              ],
+              "outputs": [],
+              "duration": 7200,
+              "powerDelta": -24000,
+              "consumeResourceNodes": false
+            }
+          ]
+        }
+      }
+    },
+    "FacilityFactoryAircraft": {
+      "displayName": "Aircraft Maintenance Factory",
+      "codeName": "FacilityFactoryAircraft",
+      "baseRecipes": [
+        {
+          "inputs": [
+            {
+              "codeName": "FacilityMaterials2",
+              "quantity": 35,
+              "limit": 1000
+            },
+            {
+              "codeName": "FacilityMaterials6",
+              "quantity": 25,
+              "limit": 1000
+            }
+          ],
+          "outputs": [
+            {
+              "codeName": "AircraftPartSmallMechanicalW",
+              "quantity": 1,
+              "limit": 1000
+            }
+          ],
+          "duration": 1200,
+          "powerDelta": -10000,
+          "consumeResourceNodes": false
+        },
+        {
+          "inputs": [
+            {
+              "codeName": "FacilityMaterials2",
+              "quantity": 1,
+              "limit": 1000
+            },
+            {
+              "codeName": "FacilityMaterials6",
+              "quantity": 1,
+              "limit": 1000
+            },
+            {
+              "codeName": "AircraftPartSmallMechanicalWreckedW",
+              "quantity": 1,
+              "limit": 1000
+            }
+          ],
+          "outputs": [
+            {
+              "codeName": "AircraftPartSmallMechanicalW",
+              "quantity": 1,
+              "limit": 1000
+            }
+          ],
+          "duration": 300,
+          "powerDelta": -4000,
+          "consumeResourceNodes": false
+        },
+        {
+          "inputs": [
+            {
+              "codeName": "FacilityMaterials2",
+              "quantity": 95,
+              "limit": 1000
+            },
+            {
+              "codeName": "FacilityMaterials7",
+              "quantity": 25,
+              "limit": 1000
+            }
+          ],
+          "outputs": [
+            {
+              "codeName": "AircraftPartSmallEngineW",
+              "quantity": 1,
+              "limit": 1000
+            }
+          ],
+          "duration": 1200,
+          "powerDelta": -10000,
+          "consumeResourceNodes": false
+        },
+        {
+          "inputs": [
+            {
+              "codeName": "FacilityMaterials2",
+              "quantity": 1,
+              "limit": 1000
+            },
+            {
+              "codeName": "FacilityMaterials7",
+              "quantity": 1,
+              "limit": 1000
+            },
+            {
+              "codeName": "AircraftPartSmallEngineWreckedW",
+              "quantity": 1,
+              "limit": 1000
+            }
+          ],
+          "outputs": [
+            {
+              "codeName": "AircraftPartSmallEngineW",
+              "quantity": 1,
+              "limit": 1000
+            }
+          ],
+          "duration": 300,
+          "powerDelta": -4000,
+          "consumeResourceNodes": false
+        },
+        {
+          "inputs": [
+            {
+              "codeName": "FacilityMaterials2",
+              "quantity": 35,
+              "limit": 1000
+            },
+            {
+              "codeName": "FacilityMaterials6",
+              "quantity": 25,
+              "limit": 1000
+            }
+          ],
+          "outputs": [
+            {
+              "codeName": "AircraftPartSmallMechanicalC",
+              "quantity": 1,
+              "limit": 1000
+            }
+          ],
+          "duration": 1200,
+          "powerDelta": -10000,
+          "consumeResourceNodes": false
+        },
+        {
+          "inputs": [
+            {
+              "codeName": "FacilityMaterials2",
+              "quantity": 1,
+              "limit": 1000
+            },
+            {
+              "codeName": "FacilityMaterials6",
+              "quantity": 1,
+              "limit": 1000
+            },
+            {
+              "codeName": "AircraftPartSmallMechanicalWreckedC",
+              "quantity": 1,
+              "limit": 1000
+            }
+          ],
+          "outputs": [
+            {
+              "codeName": "AircraftPartSmallMechanicalC",
+              "quantity": 1,
+              "limit": 1000
+            }
+          ],
+          "duration": 300,
+          "powerDelta": -4000,
+          "consumeResourceNodes": false
+        },
+        {
+          "inputs": [
+            {
+              "codeName": "FacilityMaterials2",
+              "quantity": 95,
+              "limit": 1000
+            },
+            {
+              "codeName": "FacilityMaterials7",
+              "quantity": 25,
+              "limit": 1000
+            }
+          ],
+          "outputs": [
+            {
+              "codeName": "AircraftPartSmallEngineC",
+              "quantity": 1,
+              "limit": 1000
+            }
+          ],
+          "duration": 1200,
+          "powerDelta": -10000,
+          "consumeResourceNodes": false
+        },
+        {
+          "inputs": [
+            {
+              "codeName": "FacilityMaterials2",
+              "quantity": 1,
+              "limit": 1000
+            },
+            {
+              "codeName": "FacilityMaterials7",
+              "quantity": 1,
+              "limit": 1000
+            },
+            {
+              "codeName": "AircraftPartSmallEngineWreckedC",
+              "quantity": 1,
+              "limit": 1000
+            }
+          ],
+          "outputs": [
+            {
+              "codeName": "AircraftPartSmallEngineC",
+              "quantity": 1,
+              "limit": 1000
+            }
+          ],
+          "duration": 300,
+          "powerDelta": -4000,
+          "consumeResourceNodes": false
+        }
+      ],
+      "modifications": {
+        "AircraftStrategic": {
+          "recipes": [
+            {
+              "inputs": [
+                {
+                  "codeName": "FacilityMaterials2",
+                  "quantity": 35,
+                  "limit": 1000
+                },
+                {
+                  "codeName": "FacilityMaterials6",
+                  "quantity": 25,
+                  "limit": 1000
+                },
+                {
+                  "codeName": "FacilityMaterials11",
+                  "quantity": 1,
+                  "limit": 1000
+                }
+              ],
+              "outputs": [
+                {
+                  "codeName": "AircraftPartLargeMechanicalC",
+                  "quantity": 1,
+                  "limit": 1000
+                }
+              ],
+              "duration": 1200,
+              "powerDelta": -10000,
+              "consumeResourceNodes": false
+            },
+            {
+              "inputs": [
+                {
+                  "codeName": "FacilityMaterials2",
+                  "quantity": 5,
+                  "limit": 1000
+                },
+                {
+                  "codeName": "FacilityMaterials6",
+                  "quantity": 5,
+                  "limit": 1000
+                },
+                {
+                  "codeName": "AircraftPartLargeMechanicalWreckedC",
+                  "quantity": 1,
+                  "limit": 1000
+                }
+              ],
+              "outputs": [
+                {
+                  "codeName": "AircraftPartLargeMechanicalC",
+                  "quantity": 1,
+                  "limit": 1000
+                }
+              ],
+              "duration": 300,
+              "powerDelta": -4000,
+              "consumeResourceNodes": false
+            },
+            {
+              "inputs": [
+                {
+                  "codeName": "FacilityMaterials2",
+                  "quantity": 95,
+                  "limit": 1000
+                },
+                {
+                  "codeName": "FacilityMaterials7",
+                  "quantity": 25,
+                  "limit": 1000
+                },
+                {
+                  "codeName": "FacilityMaterials11",
+                  "quantity": 1,
+                  "limit": 1000
+                }
+              ],
+              "outputs": [
+                {
+                  "codeName": "AircraftPartLargeEngineC",
+                  "quantity": 1,
+                  "limit": 1000
+                }
+              ],
+              "duration": 1200,
+              "powerDelta": -10000,
+              "consumeResourceNodes": false
+            },
+            {
+              "inputs": [
+                {
+                  "codeName": "FacilityMaterials2",
+                  "quantity": 5,
+                  "limit": 10000
+                },
+                {
+                  "codeName": "FacilityMaterials7",
+                  "quantity": 5,
+                  "limit": 1000
+                },
+                {
+                  "codeName": "AircraftPartLargeEngineWreckedC",
+                  "quantity": 1,
+                  "limit": 1000
+                }
+              ],
+              "outputs": [
+                {
+                  "codeName": "AircraftPartLargeEngineC",
+                  "quantity": 1,
+                  "limit": 1000
+                }
+              ],
+              "duration": 300,
+              "powerDelta": -4000,
+              "consumeResourceNodes": false
+            },
+            {
+              "inputs": [
+                {
+                  "codeName": "FacilityMaterials2",
+                  "quantity": 35,
+                  "limit": 1000
+                },
+                {
+                  "codeName": "FacilityMaterials6",
+                  "quantity": 25,
+                  "limit": 1000
+                },
+                {
+                  "codeName": "FacilityMaterials11",
+                  "quantity": 1,
+                  "limit": 1000
+                }
+              ],
+              "outputs": [
+                {
+                  "codeName": "AircraftPartLargeMechanicalW",
+                  "quantity": 1,
+                  "limit": 1000
+                }
+              ],
+              "duration": 1200,
+              "powerDelta": -10000,
+              "consumeResourceNodes": false
+            },
+            {
+              "inputs": [
+                {
+                  "codeName": "FacilityMaterials2",
+                  "quantity": 5,
+                  "limit": 1000
+                },
+                {
+                  "codeName": "FacilityMaterials6",
+                  "quantity": 5,
+                  "limit": 1000
+                },
+                {
+                  "codeName": "AircraftPartLargeMechanicalWreckedW",
+                  "quantity": 1,
+                  "limit": 1000
+                }
+              ],
+              "outputs": [
+                {
+                  "codeName": "AircraftPartLargeMechanicalW",
+                  "quantity": 1,
+                  "limit": 1000
+                }
+              ],
+              "duration": 300,
+              "powerDelta": -4000,
+              "consumeResourceNodes": false
+            },
+            {
+              "inputs": [
+                {
+                  "codeName": "FacilityMaterials2",
+                  "quantity": 95,
+                  "limit": 1000
+                },
+                {
+                  "codeName": "FacilityMaterials7",
+                  "quantity": 25,
+                  "limit": 1000
+                },
+                {
+                  "codeName": "FacilityMaterials11",
+                  "quantity": 1,
+                  "limit": 1000
+                }
+              ],
+              "outputs": [
+                {
+                  "codeName": "AircraftPartLargeEngineW",
+                  "quantity": 1,
+                  "limit": 1000
+                }
+              ],
+              "duration": 1200,
+              "powerDelta": -10000,
+              "consumeResourceNodes": false
+            },
+            {
+              "inputs": [
+                {
+                  "codeName": "FacilityMaterials2",
+                  "quantity": 5,
+                  "limit": 10000
+                },
+                {
+                  "codeName": "FacilityMaterials7",
+                  "quantity": 5,
+                  "limit": 1000
+                },
+                {
+                  "codeName": "AircraftPartLargeEngineWreckedW",
+                  "quantity": 1,
+                  "limit": 1000
+                }
+              ],
+              "outputs": [
+                {
+                  "codeName": "AircraftPartLargeEngineW",
+                  "quantity": 1,
+                  "limit": 1000
+                }
+              ],
+              "duration": 300,
+              "powerDelta": -4000,
+              "consumeResourceNodes": false
+            }
+          ]
+        }
+      }
+    },
+    "FacilityRefinery1": {
+      "displayName": "Materials Factory",
+      "codeName": "FacilityRefinery1",
+      "baseRecipes": [
+        {
+          "inputs": [
+            {
+              "codeName": "Metal",
+              "quantity": 10,
+              "limit": 32000
+            }
+          ],
+          "outputs": [
+            {
+              "codeName": "FacilityMaterials1",
+              "quantity": 1,
+              "limit": 3200
+            }
+          ],
+          "duration": 25,
+          "powerDelta": 0,
+          "consumeResourceNodes": false
+        },
+        {
+          "inputs": [
+            {
+              "codeName": "Metal",
+              "quantity": 150,
+              "limit": 32000
+            }
+          ],
+          "outputs": [
+            {
+              "codeName": "MaintenanceSupplies",
+              "quantity": 20,
+              "limit": 32000
+            }
+          ],
+          "duration": 40,
+          "powerDelta": -3000,
+          "consumeResourceNodes": false
+        }
+      ],
+      "modifications": {
+        "Forge": {
+          "recipes": [
+            {
+              "inputs": [
+                {
+                  "codeName": "Metal",
+                  "quantity": 15,
+                  "limit": 32000
+                },
+                {
+                  "codeName": "FacilityCoal1",
+                  "quantity": 75,
+                  "limit": 32000
+                }
+              ],
+              "outputs": [
+                {
+                  "codeName": "FacilityMaterials4",
+                  "quantity": 1,
+                  "limit": 425
+                }
+              ],
+              "duration": 60,
+              "powerDelta": 0,
+              "consumeResourceNodes": false
+            },
+            {
+              "inputs": [
+                {
+                  "codeName": "Metal",
+                  "quantity": 15,
+                  "limit": 32000
+                }
+              ],
+              "outputs": [
+                {
+                  "codeName": "FacilityMaterials5",
+                  "quantity": 1,
+                  "limit": 425
+                }
+              ],
+              "duration": 60,
+              "powerDelta": 0,
+              "consumeResourceNodes": false
+            }
+          ]
+        },
+        "MetalPress": {
+          "recipes": [
+            {
+              "inputs": [
+                {
+                  "codeName": "Metal",
+                  "quantity": 15,
+                  "limit": 32000
+                }
+              ],
+              "outputs": [
+                {
+                  "codeName": "FacilityMaterials1",
+                  "quantity": 3,
+                  "limit": 3840
+                }
+              ],
+              "duration": 25,
+              "powerDelta": -4000,
+              "consumeResourceNodes": false
+            }
+          ]
+        },
+        "Recycler": {
+          "recipes": [
+            {
+              "inputs": [
+                {
+                  "codeName": "Metal",
+                  "quantity": 25,
+                  "limit": 32000
+                }
+              ],
+              "outputs": [
+                {
+                  "codeName": "FacilityMaterials1",
+                  "quantity": 1,
+                  "limit": 1280
+                },
+                {
+                  "codeName": "SandbagMaterials",
+                  "quantity": 5,
+                  "limit": 6400
+                }
+              ],
+              "duration": 25,
+              "powerDelta": 0,
+              "consumeResourceNodes": false
+            },
+            {
+              "inputs": [
+                {
+                  "codeName": "Metal",
+                  "quantity": 25,
+                  "limit": 32000
+                }
+              ],
+              "outputs": [
+                {
+                  "codeName": "FacilityMaterials1",
+                  "quantity": 1,
+                  "limit": 6400
+                },
+                {
+                  "codeName": "BarbedWireMaterials",
+                  "quantity": 5,
+                  "limit": 6400
+                }
+              ],
+              "duration": 25,
+              "powerDelta": 0,
+              "consumeResourceNodes": false
+            },
+            {
+              "inputs": [
+                {
+                  "codeName": "Metal",
+                  "quantity": 25,
+                  "limit": 32000
+                }
+              ],
+              "outputs": [
+                {
+                  "codeName": "FacilityMaterials1",
+                  "quantity": 1,
+                  "limit": 1280
+                },
+                {
+                  "codeName": "MetalBeamMaterials",
+                  "quantity": 1,
+                  "limit": 1280
+                }
+              ],
+              "duration": 25,
+              "powerDelta": 0,
+              "consumeResourceNodes": false
+            }
+          ]
+        },
+        "Smelter": {
+          "recipes": [
+            {
+              "inputs": [
+                {
+                  "codeName": "Metal",
+                  "quantity": 15,
+                  "limit": 32000
+                },
+                {
+                  "codeName": "FacilityCoal1",
+                  "quantity": 25,
+                  "limit": 32000
+                }
+              ],
+              "outputs": [
+                {
+                  "codeName": "FacilityMaterials1",
+                  "quantity": 3,
+                  "limit": 3840
+                }
+              ],
+              "duration": 25,
+              "powerDelta": -4000,
+              "consumeResourceNodes": false
+            }
+          ]
+        }
+      }
+    },
+    "FacilityRefinery2": {
+      "displayName": "Metalworks Factory",
+      "codeName": "FacilityRefinery2",
+      "baseRecipes": [
+        {
+          "inputs": [
+            {
+              "codeName": "FacilityMaterials1",
+              "quantity": 3,
+              "limit": 32000
+            },
+            {
+              "codeName": "Components",
+              "quantity": 20,
+              "limit": 32000
+            }
+          ],
+          "outputs": [
+            {
+              "codeName": "FacilityMaterials2",
+              "quantity": 1,
+              "limit": 1600
+            }
+          ],
+          "duration": 60,
+          "powerDelta": 0,
+          "consumeResourceNodes": false
+        },
+        {
+          "inputs": [
+            {
+              "codeName": "FacilityMaterials2",
+              "quantity": 3,
+              "limit": 32000
+            }
+          ],
+          "outputs": [
+            {
+              "codeName": "PipeMaterials",
+              "quantity": 1,
+              "limit": 10665
+            }
+          ],
+          "duration": 120,
+          "powerDelta": 0,
+          "consumeResourceNodes": false
+        }
+      ],
+      "modifications": {
+        "Recycler": {
+          "recipes": [
+            {
+              "inputs": [
+                {
+                  "codeName": "FacilityMaterials1",
+                  "quantity": 15,
+                  "limit": 32000
+                },
+                {
+                  "codeName": "MetalBeamMaterials",
+                  "quantity": 1,
+                  "limit": 32000
+                }
+              ],
+              "outputs": [
+                {
+                  "codeName": "FacilityMaterials2",
+                  "quantity": 1,
+                  "limit": 2130
+                }
+              ],
+              "duration": 90,
+              "powerDelta": -8000,
+              "consumeResourceNodes": false
+            },
+            {
+              "inputs": [
+                {
+                  "codeName": "FacilityComponents1",
+                  "quantity": 75,
+                  "limit": 32000
+                }
+              ],
+              "outputs": [
+                {
+                  "codeName": "Components",
+                  "quantity": 5,
+                  "limit": 2130
+                }
+              ],
+              "duration": 25,
+              "powerDelta": -4000,
+              "consumeResourceNodes": false
+            }
+          ]
+        },
+        "BlastFurnace": {
+          "recipes": [
+            {
+              "inputs": [
+                {
+                  "codeName": "FacilityMaterials2",
+                  "quantity": 1,
+                  "limit": 32000
+                }
+              ],
+              "outputs": [
+                {
+                  "codeName": "FacilityMaterials7",
+                  "quantity": 1,
+                  "limit": 1600
+                }
+              ],
+              "duration": 120,
+              "powerDelta": 0,
+              "consumeResourceNodes": false
+            },
+            {
+              "inputs": [
+                {
+                  "codeName": "FacilityMaterials1",
+                  "quantity": 3,
+                  "limit": 32000
+                },
+                {
+                  "codeName": "Sulfur",
+                  "quantity": 20,
+                  "limit": 32000
+                }
+              ],
+              "outputs": [
+                {
+                  "codeName": "FacilityMaterials6",
+                  "quantity": 1,
+                  "limit": 1600
+                }
+              ],
+              "duration": 120,
+              "powerDelta": 0,
+              "consumeResourceNodes": false
+            },
+            {
+              "inputs": [
+                {
+                  "codeName": "FacilityMaterials1",
+                  "quantity": 3,
+                  "limit": 32000
+                },
+                {
+                  "codeName": "Components",
+                  "quantity": 55,
+                  "limit": 32000
+                }
+              ],
+              "outputs": [
+                {
+                  "codeName": "FacilityMaterials2",
+                  "quantity": 3,
+                  "limit": 1715
+                }
+              ],
+              "duration": 60,
+              "powerDelta": -8000,
+              "consumeResourceNodes": false
+            },
+            {
+              "inputs": [
+                {
+                  "codeName": "RareMetal",
+                  "quantity": 20,
+                  "limit": 32000
+                },
+                {
+                  "codeName": "FacilityMaterials2",
+                  "quantity": 5,
+                  "limit": 32000
+                },
+                {
+                  "codeName": "FacilityCoal1",
+                  "quantity": 60,
+                  "limit": 32000
+                }
+              ],
+              "outputs": [
+                {
+                  "codeName": "FacilityMaterials9",
+                  "quantity": 1,
+                  "limit": 530
+                }
+              ],
+              "duration": 180,
+              "powerDelta": -10000,
+              "consumeResourceNodes": false
+            },
+            {
+              "inputs": [
+                {
+                  "codeName": "RareMetal",
+                  "quantity": 1,
+                  "limit": 32000
+                },
+                {
+                  "codeName": "FacilityMaterials1",
+                  "quantity": 5,
+                  "limit": 32000
+                }
+              ],
+              "outputs": [
+                {
+                  "codeName": "FacilityMaterials12",
+                  "quantity": 1,
+                  "limit": 530
+                }
+              ],
+              "duration": 180,
+              "powerDelta": 0,
+              "consumeResourceNodes": false
+            }
+          ]
+        },
+        "EngineeringStation": {
+          "recipes": [
+            {
+              "inputs": [
+                {
+                  "codeName": "FacilityMaterials2",
+                  "quantity": 3,
+                  "limit": 32000
+                },
+                {
+                  "codeName": "FacilityCoal1",
+                  "quantity": 200,
+                  "limit": 32000
+                },
+                {
+                  "codeName": "Sulfur",
+                  "quantity": 65,
+                  "limit": 32000
+                }
+              ],
+              "outputs": [
+                {
+                  "codeName": "FacilityMaterials3",
+                  "quantity": 1,
+                  "limit": 160
+                }
+              ],
+              "duration": 90,
+              "powerDelta": -9000,
+              "consumeResourceNodes": false
+            },
+            {
+              "inputs": [
+                {
+                  "codeName": "FacilityMaterials2",
+                  "quantity": 9,
+                  "limit": 32000
+                },
+                {
+                  "codeName": "FacilityCoal1",
+                  "quantity": 375,
+                  "limit": 32000
+                }
+              ],
+              "outputs": [
+                {
+                  "codeName": "FacilityMaterials3",
+                  "quantity": 3,
+                  "limit": 130
+                }
+              ],
+              "duration": 90,
+              "powerDelta": -12000,
+              "consumeResourceNodes": false
+            },
+            {
+              "inputs": [
+                {
+                  "codeName": "FacilityMaterials3",
+                  "quantity": 3,
+                  "limit": 32000
+                },
+                {
+                  "codeName": "FacilityCoal1",
+                  "quantity": 245,
+                  "limit": 32000
+                },
+                {
+                  "codeName": "FacilityMaterials4",
+                  "quantity": 10,
+                  "limit": 32000
+                },
+                {
+                  "codeName": "FacilityMaterials5",
+                  "quantity": 10,
+                  "limit": 32000
+                }
+              ],
+              "outputs": [
+                {
+                  "codeName": "FacilityMaterials8",
+                  "quantity": 1,
+                  "limit": 130
+                }
+              ],
+              "duration": 120,
+              "powerDelta": -8000,
+              "consumeResourceNodes": false
+            }
+          ]
+        }
+      }
+    },
+    "FacilityRefineryCoal": {
+      "displayName": "Coal Refinery",
+      "codeName": "FacilityRefineryCoal",
+      "baseRecipes": [
+        {
+          "inputs": [
+            {
+              "codeName": "Coal",
+              "quantity": 200,
+              "limit": 32000
+            }
+          ],
+          "outputs": [
+            {
+              "codeName": "FacilityCoal1",
+              "quantity": 180,
+              "limit": 0
+            }
+          ],
+          "duration": 270,
+          "powerDelta": 0,
+          "consumeResourceNodes": false
+        }
+      ],
+      "modifications": {
+        "CokeFurnace": {
+          "recipes": [
+            {
+              "inputs": [
+                {
+                  "codeName": "Coal",
+                  "quantity": 200,
+                  "limit": 32000
+                }
+              ],
+              "outputs": [
+                {
+                  "codeName": "FacilityCoal1",
+                  "quantity": 165,
+                  "limit": 26400
+                },
+                {
+                  "codeName": "Sulfur",
+                  "quantity": 15,
+                  "limit": 2400
+                }
+              ],
+              "duration": 270,
+              "powerDelta": 0,
+              "consumeResourceNodes": false
+            }
+          ]
+        },
+        "CoalLiquefier": {
+          "recipes": [
+            {
+              "inputs": [
+                {
+                  "codeName": "Coal",
+                  "quantity": 300,
+                  "limit": 32000
+                }
+              ],
+              "outputs": [
+                {
+                  "codeName": "Concrete",
+                  "quantity": 1,
+                  "limit": 105
+                },
+                {
+                  "codeName": "Sulfur",
+                  "quantity": 10,
+                  "limit": 1050
+                }
+              ],
+              "duration": 270,
+              "powerDelta": -6000,
+              "consumeResourceNodes": false
+            }
+          ]
+        },
+        "AdvCoalLiquefier": {
+          "recipes": [
+            {
+              "inputs": [
+                {
+                  "codeName": "Coal",
+                  "quantity": 300,
+                  "limit": 32000
+                }
+              ],
+              "outputs": [
+                {
+                  "codeName": "FacilityCoal1",
+                  "quantity": 260,
+                  "limit": 27300
+                }
+              ],
+              "duration": 405,
+              "powerDelta": -6000,
+              "consumeResourceNodes": false
+            },
+            {
+              "inputs": [
+                {
+                  "codeName": "Coal",
+                  "quantity": 300,
+                  "limit": 32000
+                }
+              ],
+              "outputs": [
+                {
+                  "codeName": "Concrete",
+                  "quantity": 1,
+                  "limit": 105
+                },
+                {
+                  "codeName": "Sulfur",
+                  "quantity": 15,
+                  "limit": 1575
+                }
+              ],
+              "duration": 270,
+              "powerDelta": -6000,
+              "consumeResourceNodes": false
+            }
+          ]
+        }
+      }
+    },
+    "FacilityRefineryOil": {
+      "displayName": "Oil Refinery",
+      "codeName": "FacilityRefineryOil",
+      "baseRecipes": [
+        {
+          "inputs": [],
+          "outputs": [],
+          "duration": 50,
+          "powerDelta": 0,
+          "consumeResourceNodes": false
+        }
+      ],
+      "modifications": {
+        "Reformer": {
+          "recipes": [
+            {
+              "inputs": [],
+              "outputs": [],
+              "duration": 50,
+              "powerDelta": 0,
+              "consumeResourceNodes": false
+            }
+          ]
+        },
+        "CrackingUnit": {
+          "recipes": [
+            {
+              "inputs": [],
+              "outputs": [],
+              "duration": 55,
+              "powerDelta": -1500,
+              "consumeResourceNodes": false
+            }
+          ]
+        },
+        "PetrochemicalPlant": {
+          "recipes": [
+            {
+              "inputs": [
+                {
+                  "codeName": "Sulfur",
+                  "quantity": 60,
+                  "limit": 32000
+                }
+              ],
+              "outputs": [],
+              "duration": 200,
+              "powerDelta": -6000,
+              "consumeResourceNodes": false
+            }
+          ]
+        }
+      }
+    },
+    "ConcreteMixer": {
+      "displayName": "Concrete Mixer",
+      "codeName": "ConcreteMixer",
+      "baseRecipes": [
+        {
+          "inputs": [
+            {
+              "codeName": "Components",
+              "quantity": 20,
+              "limit": 2400
+            }
+          ],
+          "outputs": [
+            {
+              "codeName": "Concrete",
+              "quantity": 1,
+              "limit": 120
+            }
+          ],
+          "duration": 20,
+          "powerDelta": 0,
+          "consumeResourceNodes": false
+        },
+        {
+          "inputs": [
+            {
+              "codeName": "Coal",
+              "quantity": 100,
+              "limit": 12000
+            }
+          ],
+          "outputs": [
+            {
+              "codeName": "GroundMaterials",
+              "quantity": 20,
+              "limit": 2400
+            }
+          ],
+          "duration": 40,
+          "powerDelta": 0,
+          "consumeResourceNodes": false
+        },
+        {
+          "inputs": [
+            {
+              "codeName": "Metal",
+              "quantity": 120,
+              "limit": 9600
+            }
+          ],
+          "outputs": [
+            {
+              "codeName": "GroundMaterials",
+              "quantity": 20,
+              "limit": 2400
+            }
+          ],
+          "duration": 90,
+          "powerDelta": 0,
+          "consumeResourceNodes": false
+        }
+      ],
+      "modifications": {}
+    },
+    "FacilityPowerDiesel": {
+      "displayName": "Diesel Power Plant",
+      "codeName": "FacilityPowerDiesel",
+      "baseRecipes": [
+        {
+          "inputs": [],
+          "outputs": [],
+          "duration": 45,
+          "powerDelta": 0,
+          "consumeResourceNodes": false
+        }
+      ],
+      "modifications": {
+        "Petrol": {
+          "recipes": [
+            {
+              "inputs": [],
+              "outputs": [],
+              "duration": 90,
+              "powerDelta": 12000,
+              "consumeResourceNodes": false
+            }
+          ]
+        },
+        "Coal": {
+          "recipes": [
+            {
+              "inputs": [
+                {
+                  "codeName": "coal",
+                  "quantity": 60,
+                  "limit": 32000
+                }
+              ],
+              "outputs": [],
+              "duration": 90,
+              "powerDelta": 5000,
+              "consumeResourceNodes": false
+            }
+          ]
+        }
+      }
+    },
+    "FacilityPowerOil": {
+      "displayName": "Power Station",
+      "codeName": "FacilityPowerOil",
+      "baseRecipes": [
+        {
+          "inputs": [],
+          "outputs": [],
+          "duration": 90,
+          "powerDelta": 10000,
+          "consumeResourceNodes": false
+        },
+        {
+          "inputs": [
+            {
+              "codeName": "Coal",
+              "quantity": 30,
+              "limit": 32000
+            }
+          ],
+          "outputs": [],
+          "duration": 90,
+          "powerDelta": 10000,
+          "consumeResourceNodes": false
+        }
+      ],
+      "modifications": {
+        "SulfuricReactor": {
+          "recipes": [
+            {
+              "inputs": [],
+              "outputs": [
+                {
+                  "codeName": "Sulfur",
+                  "quantity": 5,
+                  "limit": 5330
+                }
+              ],
+              "duration": 120,
+              "powerDelta": 16000,
+              "consumeResourceNodes": false
+            },
+            {
+              "inputs": [
+                {
+                  "codeName": "FacilityCoal1",
+                  "quantity": 30,
+                  "limit": 32000
+                }
+              ],
+              "outputs": [
+                {
+                  "codeName": "Sulfur",
+                  "quantity": 5,
+                  "limit": 5330
+                }
+              ],
+              "duration": 120,
+              "powerDelta": 16000,
+              "consumeResourceNodes": false
+            }
+          ]
+        }
+      }
+    },
+    "FacilityMineResource1": {
+      "displayName": "Stationary Harvester (Salvage)",
+      "codeName": "FacilityMineResource1",
+      "baseRecipes": [
+        {
+          "inputs": [],
+          "outputs": [
+            {
+              "codeName": "Metal",
+              "quantity": 50,
+              "limit": 1850
+            }
+          ],
+          "duration": 18,
+          "powerDelta": 0,
+          "consumeResourceNodes": true
+        }
+      ],
+      "modifications": {
+        "Excavator": {
+          "recipes": [
+            {
+              "inputs": [],
+              "outputs": [
+                {
+                  "codeName": "metal",
+                  "quantity": 15,
+                  "limit": 555
+                }
+              ],
+              "duration": 18,
+              "powerDelta": 0,
+              "consumeResourceNodes": false
+            }
+          ]
+        }
+      }
+    },
+    "FacilityMineResource2": {
+      "displayName": "Stationary Harvester (Components)",
+      "codeName": "FacilityMineResource2",
+      "baseRecipes": [
+        {
+          "inputs": [],
+          "outputs": [
+            {
+              "codeName": "Components",
+              "quantity": 6,
+              "limit": 300
+            }
+          ],
+          "duration": 12,
+          "powerDelta": 0,
+          "consumeResourceNodes": true
+        }
+      ],
+      "modifications": {
+        "Excavator": {
+          "recipes": [
+            {
+              "inputs": [],
+              "outputs": [
+                {
+                  "codeName": "FacilityComponents1",
+                  "quantity": 18,
+                  "limit": 1200
+                }
+              ],
+              "duration": 12,
+              "powerDelta": 0,
+              "consumeResourceNodes": false
+            }
+          ]
+        }
+      }
+    },
+    "FacilityMineResource3": {
+      "displayName": "Stationary Harvester (Sulfur)",
+      "codeName": "FacilityMineResource3",
+      "baseRecipes": [
+        {
+          "inputs": [],
+          "outputs": [
+            {
+              "codeName": "Sulfur",
+              "quantity": 6,
+              "limit": 300
+            }
+          ],
+          "duration": 12,
+          "powerDelta": 0,
+          "consumeResourceNodes": true
+        }
+      ],
+      "modifications": {
+        "Excavator": {
+          "recipes": [
+            {
+              "inputs": [],
+              "outputs": [
+                {
+                  "codeName": "Sulfur",
+                  "quantity": 2,
+                  "limit": 100
+                },
+                {
+                  "codeName": "Coal",
+                  "quantity": 5,
+                  "limit": 250
+                }
+              ],
+              "duration": 18,
+              "powerDelta": 0,
+              "consumeResourceNodes": false
+            }
+          ]
+        }
+      }
+    },
+    "FacilityMineResource4": {
+      "displayName": "Stationary Harvester (Coal)",
+      "codeName": "FacilityMineResource4",
+      "baseRecipes": [
+        {
+          "inputs": [],
+          "outputs": [
+            {
+              "codeName": "Coal",
+              "quantity": 50,
+              "limit": 1850
+            }
+          ],
+          "duration": 18,
+          "powerDelta": 0,
+          "consumeResourceNodes": true
+        }
+      ],
+      "modifications": {
+        "Excavator": {
+          "recipes": [
+            {
+              "inputs": [],
+              "outputs": [
+                {
+                  "codeName": "Coal",
+                  "quantity": 15,
+                  "limit": 555
+                }
+              ],
+              "duration": 18,
+              "powerDelta": 0,
+              "consumeResourceNodes": false
+            }
+          ]
+        }
+      }
+    },
+    "FacilityMineOil": {
+      "displayName": "Oil Well",
+      "codeName": "FacilityMineOil",
+      "baseRecipes": [
+        {
+          "inputs": [],
+          "outputs": [],
+          "duration": 50,
+          "powerDelta": 0,
+          "consumeResourceNodes": false
+        }
+      ],
+      "modifications": {
+        "Electric": {
+          "recipes": [
+            {
+              "inputs": [],
+              "outputs": [],
+              "duration": 26,
+              "powerDelta": -2000,
+              "consumeResourceNodes": false
+            }
+          ]
+        },
+        "Fracker": {
+          "recipes": [
+            {
+              "inputs": [],
+              "outputs": [],
+              "duration": 40,
+              "powerDelta": -3000,
+              "consumeResourceNodes": false
+            }
+          ]
+        }
+      }
+    },
+    "FacilityMineOilRig": {
+      "displayName": "Offshore Platform",
+      "codeName": "FacilityMineOilRig",
+      "baseRecipes": [
+        {
+          "inputs": [],
+          "outputs": [],
+          "duration": 50,
+          "powerDelta": 0,
+          "consumeResourceNodes": false
+        },
+        {
+          "inputs": [
+            {
+              "codeName": "coal",
+              "quantity": 100,
+              "limit": 32000
+            }
+          ],
+          "outputs": [],
+          "duration": 90,
+          "powerDelta": 0,
+          "consumeResourceNodes": false
+        }
+      ],
+      "modifications": {}
+    },
+    "FacilityMineWater": {
+      "displayName": "Water Pump",
+      "codeName": "FacilityMineWater",
+      "baseRecipes": [
+        {
+          "inputs": [],
+          "outputs": [],
+          "duration": 50,
+          "powerDelta": 0,
+          "consumeResourceNodes": false
+        }
+      ],
+      "modifications": {
+        "Electric": {
+          "recipes": []
+        }
+      }
+    },
+    "EngineRoomT2": {
+      "displayName": "Engine Room (Tier 2)",
+      "codeName": "EngineRoomT2",
+      "baseRecipes": [
+        {
+          "inputs": [],
+          "outputs": [
+            {
+              "codeName": "ReservePower",
+              "quantity": 1,
+              "limit": 0
+            }
+          ],
+          "duration": 144,
+          "powerDelta": 0,
+          "consumeResourceNodes": false
+        },
+        {
+          "inputs": [],
+          "outputs": [
+            {
+              "codeName": "ReservePower",
+              "quantity": 1,
+              "limit": 0
+            }
+          ],
+          "duration": 144,
+          "powerDelta": 0,
+          "consumeResourceNodes": false
+        },
+        {
+          "inputs": [],
+          "outputs": [
+            {
+              "codeName": "ReservePower",
+              "quantity": 1,
+              "limit": 0
+            }
+          ],
+          "duration": 144,
+          "powerDelta": -100,
+          "consumeResourceNodes": false
+        }
+      ],
+      "modifications": {}
+    },
+    "EngineRoomT3": {
+      "displayName": "Engine Room (Tier 3)",
+      "codeName": "EngineRoomT3",
+      "baseRecipes": [
+        {
+          "inputs": [],
+          "outputs": [
+            {
+              "codeName": "ReservePower",
+              "quantity": 1,
+              "limit": 0
+            }
+          ],
+          "duration": 144,
+          "powerDelta": 0,
+          "consumeResourceNodes": false
+        },
+        {
+          "inputs": [],
+          "outputs": [
+            {
+              "codeName": "ReservePower",
+              "quantity": 1,
+              "limit": 0
+            }
+          ],
+          "duration": 144,
+          "powerDelta": 0,
+          "consumeResourceNodes": false
+        },
+        {
+          "inputs": [],
+          "outputs": [
+            {
+              "codeName": "ReservePower",
+              "quantity": 1,
+              "limit": 0
+            }
+          ],
+          "duration": 144,
+          "powerDelta": -100,
+          "consumeResourceNodes": false
+        }
+      ],
+      "modifications": {}
+    }
+  }
+}

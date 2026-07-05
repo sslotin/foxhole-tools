@@ -96,6 +96,7 @@ Paste → App.vue.addCSV(text) → parser/csv-parser.parseCSV(text)
 | `npm run build` | Production build |
 | `npm run test` | Vitest (no test files yet) |
 | `node parser/scripts/process-game-data.js` | Extract icons + metadata from `game_data/` exports (~60s, rarely needed) |
+| `node parser/scripts/generate-recipes.js` | Generate `parser/data/recipes.json` from game data (all production recipes grouped by facility, ~215 Factory/MPF + 14 Refinery + 12 Facility + 19 facility files). Filters: self-referential (Refinery) and non-factory-input (Facility) entries are excluded from `factory.crateRecipes`. |
 
 ---
 
@@ -122,3 +123,163 @@ Paste → App.vue.addCSV(text) → parser/csv-parser.parseCSV(text)
 4. **InventoryReport.vue categories** — may miss newer items
 5. **No tests** — unit or integration tests don't exist
 6. **Guide** — `public/guide/` static HTML may be out of sync with app features
+
+---
+
+## Game Recipe Data (19 files)
+
+All recipe files are under `game_data/content/Output/Exports/War/Content/Blueprints/`.
+
+### Two Recipe Styles
+
+| Style | Where | Format |
+|---|---|---|
+| **Crate-based** (`CostPerCrate`) | `Data/BPItemDynamicData.json` | Factory/MPF — inputs per crate, outputs `QuantityPerCrate` items |
+| **Per-unit** (`ConversionEntries`) | Facility blueprints | Player-built facilities — ItemInput[] → ItemOutput[], per cycle |
+
+### 1. Factory / MPF (crate recipes)
+
+**File:** `Data/BPItemDynamicData.json`
+
+DataTable with 278 rows. **Not all are Factory/MPF recipes.** Filtering:
+
+| Filter | Count | Examples | Where produced |
+|---|---|---|---|
+| **Self-referential** (input codeName == output codeName) | 14 | Cloth→Cloth, Components→Components, Sulfur→Sulfur, Explosive→Explosive, HeavyExplosive→HeavyExplosive | **Refinery** (crate-packaging from bulk)
+| **Non-factory inputs** (no Cloth/Wood/Explosive/HeavyExplosive) | 12 | FacilityMaterials1 (Metal→), Concrete (StrongMaterials→), UpgradePart (RFuel→), GroundMaterials (Coal→), RareMetal (Components→) | **Facilities** (Concrete Mixer, Materials Factory, etc.)
+| **Actual Factory/MPF** (uses Basic Materials, RMats, Explosive, or HE) | ~215 | Rifles, ammo, grenades, medical, utility | **Factory** or **Mass Production Factory** |
+
+**Code name mapping:**
+- `Cloth` = Basic Materials (Bmats) — salvage → Refinery
+- `Wood` = Refined Materials (RMats) — Components → Refinery
+- `Explosive` = Explosive Powder — Sulfur → Refinery
+- `HeavyExplosive` = Heavy Explosive Powder — Sulfur → Refinery
+- `Components` = Components (salvage) — mined/collected
+- `FacilityMaterials1` = Construction Materials (Cmats) — Materials Factory
+- `FacilityMaterials2` = Processed Construction Materials — Metalworks Factory
+- `Metal` = Metal — refined from Iron at Refinery
+
+Each Factory row:
+```json
+"LightArtilleryAmmo": {
+  "CostPerCrate": [
+    { "ItemCodeName": "Cloth", "Quantity": 120 },
+    { "ItemCodeName": "HeavyExplosive", "Quantity": 10 }
+  ],
+  "QuantityPerCrate": 5,
+  "CrateProductionTime": 55.0,
+  "SingleRetrieveTime": 6.0,
+  "CrateRetrieveTime": 20.0,
+  "ResearchLevel": 0
+}
+```
+Used by: town **Factory** (`BPFactory.json`, class `SpecializedFactory`) and **Mass Production Factory** (`BPMassProduction.json`, adds queue/bonuses). The Factory accepts **only**: Basic Materials (Cloth), Refined Materials (Wood), Explosive Powder, Heavy Explosive Powder.
+
+**Self-referential entries** (14) are **Refinery** crate-packaging recipes, not Factory recipes:
+- `Cloth: 100 Cloth → 100 Cloth` (packaging loose Bmats into crates)
+- `Components: 70 Components → 100 Components` (packaging components scrap into crates)
+- `Sulfur: 105 Sulfur → 100 Sulfur` (packaging sulfur into crates)
+- `Explosive: 200 Explosive → 40 Explosive` (packaging EP into crates)
+- `HeavyExplosive: 400 HeavyExplosive → 30 HeavyExplosive` (packaging HE into crates)
+
+**Non-factory-input entries** (12) are **Facility** recipes:
+- `FacilityMaterials1: Metal(10) → 1` (Materials Factory: Metal → Cmats)
+- `Concrete: StrongMaterials(20) → 1` (Concrete Mixer)
+- `GroundMaterials: Coal(100) → 20` (Concrete Mixer: Coal → Gravel)
+- `UpgradePart: RFuel(20) → 1` (Facility)
+- `RareMetal: Components(100) → 100` (Facility)
+- `FacilityComponents1: Components(70) → 100` (Facility)
+- Weapons costing only `Wood` (refined materials): AssaultRifleW/C, MGW/C, etc. — these ARE Factory/MPF recipes
+
+### 2. Ammunition Factory
+
+**File:** `Structures/Facilities/BPFacilityFactoryAmmo.json`
+
+Base structure `FacilityFactoryAmmo` (Ammunition Factory). Contains `ConversionEntries` + `Modifications`.
+
+| Section | Recipes | Examples |
+|---|---|---|
+| **Base** | 10 | Flame ammo, mortar tank, mines, aircraft ammo, torpedo, naval mines |
+| **+ RocketFactory** | 4 | HE rocket, fire rocket, demolition rocket, unstable substances |
+| **+ LargeShellFactory** | **11** | 120mm, 150mm, Battle Tank ammo, AT large, LR artillery, depth charge, torpedo, bomber ammo, dive bomber, AA, aircraft torpedo |
+| **+ TripodFactory** | 10 | Tripod, ISG, AT rifle TC, MG TC, grenade launcher TC, RPG TW, ATRPG TW, MG TW, banners |
+
+Each recipe:
+```json
+{
+  "ItemInput": [
+    { "CodeName": "HeavyExplosive", "Quantity": 2 },
+    { "CodeName": "FacilityMaterials1", "Quantity": 2 }
+  ],
+  "ItemOutput": [
+    { "CodeName": "lightartilleryammo", "Quantity": 1 }
+  ],
+  "Duration": 25,
+  "PowerDelta": 0
+}
+```
+
+### 3. Infantry Kit Factory
+
+**File:** `Structures/Facilities/BPFacilityFactorySmallArms.json`
+
+| Section | Recipes | Examples |
+|---|---|---|
+| **Base** | 19 | Rifles, SMGs, pistols, shotguns, mortar, launchers, grenades |
+| **+ InfantryAmmo** | 8 | Rifle/SMG/Pistol/Shotgun ammo, bayonets, bandages, trauma kits |
+| **+ SpecialWeapons** | 12 | AT rifles, snipers, carbines, ATRPGs |
+| **+ HeavyAmmo** | 8 | MG ammo, AT rifle ammo, AT RPG ammo |
+
+### 4. Aircraft Maintenance Factory
+
+**File:** `Structures/Facilities/BPFacilityFactoryAircraft.json`
+
+| Section | Recipes | Examples |
+|---|---|---|
+| **Base** | 8 | Aircraft parts |
+| **+ AircraftStrategic** | 8 | Strategic aircraft parts |
+
+### 5. Refineries & Processing
+
+| File | Structure | Recipes |
+|---|---|---|
+| `Facilities/BPFacilityRefinery1.json` | Materials Factory | 2 — Metal → Construction Materials / Maintenance Supplies |
+| `Facilities/BPFacilityRefinery2.json` | Metalworks Factory | 2 — Const. Materials + Components → Processed Const. Materials → Pipe Mats. |
+| `Facilities/BPFacilityRefineryCoal.json` | Coal Refinery | 1 — Coal → Processed Coal |
+| `Facilities/BPFacilityRefineryOil.json` | Oil Refinery | 1 — Liquid processing |
+
+### 6. Concrete Mixer
+
+**File:** `Structures/Facilities/BPConcreteMixer.json`
+
+| Input | Output | Duration |
+|---|---|---|
+| 20 Components | 1 Concrete | 20s |
+| 100 Coal | 20 Ground Materials | 40s |
+| 120 Metal | 20 Ground Materials | 90s |
+
+### 7. Power Plants
+
+| File | Structure | Recipes |
+|---|---|---|
+| `Facilities/BPFacilityPowerDiesel.json` | Diesel Power Plant | 1 |
+| `Facilities/BPFacilityPowerOil.json` | Power Station | 2 |
+
+### 8. Resource Mines
+
+| File | Structure | Recipes |
+|---|---|---|
+| `Facilities/BPFacilityMineResource1.json` | Stationary Harvester (Salvage) | 1 |
+| `Facilities/BPFacilityMineResource2.json` | Stationary Harvester (Components) | 1 |
+| `Facilities/BPFacilityMineResource3.json` | Stationary Harvester (Sulfur) | 1 |
+| `Facilities/BPFacilityMineResource4.json` | Stationary Harvester (Coal) | 1 |
+| `Facilities/BPFacilityMineOil.json` | Oil Well | 1 |
+| `Facilities/BPFacilityMineOilRig.json` | Offshore Platform | 2 |
+| `Facilities/BPFacilityMineWater.json` | Water Pump | 1 |
+
+### 9. Fort Engine Rooms
+
+| File | Structure | Recipes |
+|---|---|---|
+| `Forts/BPEngineRoomT2.json` | Engine Room T2 | 3 — Reserve Power generation |
+| `Forts/BPEngineRoomT3.json` | Engine Room T3 | 3 — Reserve Power generation |
