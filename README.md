@@ -43,7 +43,7 @@ Get FModel: https://fmodel.app/ and open the .pak file with it. For Linux/Mac, y
 DOTNET_BUNDLE_EXTRACT_BASE_DIR=. WINEPREFIX=~/.wine64 wine FModel.exe
 ```
 
-The game is running UE 4.26 or at least something that seems compatible.
+You may need to open settings and point it to directory with .pak and specify UE version. The game is running UE 4.26 or at least something that seems compatible.
 
 Switch to "Folders", right click "War" and export all as json, then export only textures from War/Content/Textures/UI.
 

@@ -8,8 +8,8 @@
     "build": "vite build",
     "preview": "vite preview",
     "test": "vitest run",
-    "generate-positions": "node parser/scripts/generate-positions.mjs",
-    "check-diff": "node parser/scripts/generate-positions.mjs --check"
+    "generate-positions": "node parser/scripts/generate-positions.js",
+    "check-diff": "node parser/scripts/generate-positions.js --check"
   },
   "dependencies": {
     "canvas": "^3.2.3",

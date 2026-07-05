@@ -1,9 +1,8 @@
 {
-  "_generated": "2026-07-05T01:23:44.266Z",
+  "_generated": "2026-07-05T15:41:56.359Z",
   "_sources": [
     "War/Content/Blueprints/Data/BPItemDynamicData.json — Factory/MPF crate recipes",
-    "War/Content/Blueprints/Structures/Facilities/ — facility conversion recipes",
-    "War/Content/Blueprints/Structures/Forts/ — engine room recipes"
+    "War/Content/Blueprints/Structures/ — facility conversion recipes"
   ],
   "_recipeCounts": {
     "factoryMpfCrateRecipes": 241,
@@ -12,7 +11,6 @@
   "factory": {
     "displayName": "Factory / Mass Production Factory",
     "codeName": "Factory / MassProduction",
-    "description": "Town-based Factories and Mass Production Factories use these crate recipes.",
     "crateRecipes": {
       "RelicRifle": {
         "inputs": [

@@ -1,6 +1,6 @@
 # MEMORY.md — Project Context & Status
 
-Last updated: Jul 5, 2026.
+Last updated: Jul 5, 2026 (scripts consolidated).
 
 ## Product Context
 
@@ -20,21 +20,22 @@ Items must be logically grouped (consumption is correlated). Also hosts an advan
 foxhole/
 ├── parser/                 # CSV/metadata module (Vue-independent)
 │   ├── csv-parser.js       # CSV → structured items
-│   ├── metadata.json       # 433 items: codeName → {displayName, icon, type, cost, ...}
+│   ├── metadata.json       # 662 items: codeName → {displayName, stats, recipes, ...}
 │   ├── data/
-│   │   ├── positions-stockpile.js   # 358 mapped positions
-│   │   └── positions-inventory.js   # 219 mapped positions
+│   │   ├── positions-stockpile.js   # 433 stockpile positions mapped
+│   │   ├── positions-inventory.js   # 219 inventory positions mapped
+│   │   ├── recipes.json            # Factory/MPF crate + facility conversion recipes
+│   │   ├── missing.txt             # Missing game icon files & inconsistencies
 │   ├── scripts/
-│   │   ├── generate-positions.mjs   # Rebuild positions + --check mode
-│   │   ├── process-game-data.js     # Extract icons + metadata (canvas + glob, build-time)
+│   │   ├── process-game-data.js    # ⭐ Unified: metadata + icons + recipes from game exports
+│   │   ├── generate-positions.js   # Rebuild positions from CSVs + --check mode
 │   │   └── README.md
 │   └── examples/           # 7 sample CSVs (5 English, 2 Russian)
 ├── src/                    # Vue 3 app (Composition API, `<script setup>`)
 │   ├── main.js → App.vue → components/
 │   └── components/         # Item, Crate, Shippable, InventoryReport, StockpileReport, Filter, etc.
 ├── public/
-│   ├── icons/              # 430+ item icons (100×100 PNGs)
-│   ├── subtypes/           # Subtype overlay icons
+│   ├── icons/              # Item icons (100×100 PNGs, subtype overlay composited in)
 │   ├── guide/              # Advanced logi guide (static HTML)
 │   └── tutorial.mp4
 └── game_data/              # Game data exports (for process-game-data.js)
@@ -67,13 +68,70 @@ Paste → App.vue.addCSV(text) → parser/csv-parser.parseCSV(text)
 
 ## Key Data Structures
 
-**`metadata.json`:** codeName → `{ displayName, description, quantityPerCrate, factoryCost, itemType, warden }`
+### `metadata.json` — Full Item Catalog (662 items)
 
-**`data/positions-*.js`:** `["AssaultRifleAmmo", "RifleAmmo", ...]` — `positions[i-1]` for 1-based index. Empty strings = unmapped.
+Keyed by `codeName`. Each entry contains:
 
-**`src/components/items.js`:** codeName → `{ short, target }` — hardcoded targets, needs audit vs latest metadata.
+| Field | Type | Description |
+|---|---|---|
+| `displayName` | string | Human-readable name (English) |
+| `description` | string | Item description |
+| `iconPath` | string | Relative PNG path (e.g., `War/Content/Textures/UI/ItemIcons/RifleCIcon.png`) |
+| `itemType` | `"item"` / `"vehicle"` / `"structure"` | Classification |
+| `faction` | `"Wardens"` / `"Colonials"` / `null` | Faction lock (null = both) |
+| `requiresTech` | boolean | Whether tech-unlockable |
+| `encumbrance` | number | Carry weight |
+| `equipmentSlot` | string | Slot type (Primary, Secondary, Large, etc.) |
+| `itemCategory` | string | Category enum cleaned |
+| `itemProfileType` | string | Profile enum cleaned |
+| `uiCategory` | string | Computed UI grouping |
+| `isStockpilable` | boolean | Can be stored in stockpile |
+| `cratesExist` | boolean | Has crate form |
+| `effectiveQuantityPerCrate` | number | Computed crate yield |
+| `objectPath` | string | Source blueprint file reference |
 
-**Report object:**
+**Stats sub-objects** (present only for relevant item types):
+
+| Sub-object | Contains | Applies to |
+|---|---|---|
+| `weaponData` | `suppressionMultiplier`, `maxAmmo`, `maxApexHalfAngle`, `baselineApexHalfAngle`, `stabilityCostPerShot`, `agility`, `shoulderingDuration`, `stabilityGainRate`, `coverProvided`, `maximumRange`, `maximumReachability`, `damageMultiplier`, `artilleryAccuracyMinDist`, `artilleryAccuracyMaxDist` | Rifles, SMGs, pistols, etc. |
+| `ammoData` | `damage`, `suppression`, `explosionRadius`, `damageInnerRadius`, `damageFalloff`, `accuracyRadius`, `damageType` (with nested type info), `breachingModifier` | Ammo, grenades, shells |
+| `grenadeData` | `minTossSpeed`, `maxTossSpeed`, `grenadeFuseTimer`, `grenadeRangeLimit`, `armourDamageModifier` | Grenades, thrown weapons |
+| `meleeData` | `chargingMaxSpeedModifier`, `blockingMaxSpeedModifier`, `quickAttack`, `longAttack` (each with stamina/damage/delay) | Bayonets, swords, hammers |
+| `vehicleData` | `maxHealth`, `minorDamagePercent`, `majorDamagePercent`, `repairCost`, `fuelCapacity`, `fuelConsumptionPerSecond`, `engineForce`, `massOverride`, `tankArmour`, `tankArmourMinPenetrationChance`, `rotationRate`, `reverseSpeedModifier`, `defaultSurfaceMovementRate`, `hasTierUpgrades`, `buildCost`, `altBuildCost` | All vehicles |
+| `vehicleProfile` | `usesRollTrace`, `canTriggerMine`, `usesGas`, `drivingSpeedThreshold`, `maxVehicleAngle`, `enableStealth`, etc. | Vehicle behavior profile |
+| `vehicleMovementProfile` | `mass`, `brakeForce`, `handbrakeForce`, `airResistance`, `rollingResistance`, `lowSpeedEngineForceMultiplier`, `lowGearCutoff`, `centerOfGravityHeight`, `usesDifferentialSteering` | Vehicle handling |
+| `airData` | `enginePower`, `maxSpeed`, `maxSpeedFromEngine`, `maxEngineRPM`, `overspeedEngineRPM`, `simulationScale`, `wheelBrakeCoefficient`, `assistModeMaxRoll`, `assistModeMaxPitch`, `minSpeedFlaps`, etc. | Aircraft |
+| `shipData` | `secondsToMaxRPM`, `maxPropellerRPM`, `maxRudderAngle`, `rudderTurnRate`, `thrustVectoringPercent`, `ballastFloodRate`, `ballastBlowRate`, `maxDivePlaneAngle`, etc. | Ships |
+| `structureData` | `maxHealth`, `decayStartHours`, `decayDurationHours`, `repairCost`, `structuralIntegrity`, `storedItemCapacity`, `buildCost` | Structures, defenses |
+| `structureProfile` | `supportsAdvancedConstruction`, `isRepairable`, `isRuinable`, `enableStealth`, `bypassesRapidDecay`, etc. | Structure behavior |
+| `mountData` | `suppressionMultiplier`, `maxHorizontalDeviation`, `maxVerticalDeviation`, `coverProvided`, `maxAmmo`, `reloadTime`, `firingCone` info | Deployed weapons (tripod, ISG, etc.) |
+| `aircraftPartData` | `maxHealth`, `maxIntegrity`, `criticalIntegrity`, `partType`, `slotType`, `enginePowerModifier`, `liftModifier`, `dragModifier`, `structureMassModifier` | Aircraft components |
+| `armourProfile` | `health`, `penetrationResistanceChance`, `penetrationResistanceReduction`, `subsystemDisableChanceMultiplier`, `canBePenetrated` | Armour/damage profiles |
+| `itemComponent` | `firingMode`, `firingRate`, `maxAmmo`, `reloadTime`, `compatibleAmmoCodeName`, `equippedGripType`, `deployCodeName`, `projectileClass` (nested with explosive/detonation info) | Weapon component data |
+| `itemProfile` | `isStockpilable`, `isStackable`, `isConvertibleToCrate`, `isCratable`, `usableInVehicle`, `stackTransferLimit`, `retrieveQuantity`, `reserveStockpileMaxQuantity` | Item behavior flags |
+| `productionCategories` | `factory`, `massProduction` | Factory/MPF queue type enum |
+| `crateCost` | Array of `{codeName, quantity, displayName}` | Factory/MPF crate inputs |
+
+### `data/positions-*.js`
+```js
+["AssaultRifleAmmo", "RifleAmmo", ...]  // positions[i-1] for 1-based index
+```
+Empty strings = unmapped positions.
+
+# `parser/data/recipes.json` — Production Recipe Index
+
+| Section | Contents |
+|---|---|
+| `factory.crateRecipes` | 241 Factory/MPF crate recipes — codeName → `{inputs, outputs, duration, retrieveTimes, researchLevel}` |
+| `facilities.{key}` | 19 facility blueprints with `baseRecipes` + per-modification recipes |
+
+### `src/components/items.js`
+```js
+codeName → { short, target }  // hardcoded targets, needs audit vs latest metadata
+```
+
+### Report object
 ```js
 { hex, subhex, stockpileName, stockpileType, coords,
   items: { "RifleW": { count: 10 } }  // or "RifleW-crated" in stockpile
@@ -88,15 +146,21 @@ Paste → App.vue.addCSV(text) → parser/csv-parser.parseCSV(text)
 
 ## Scripts Reference
 
+### Primary (use these)
+
 | Command | Action |
 |---|---|
+| `node parser/scripts/process-game-data.js` | ⭐ Regenerate `metadata.json` + `recipes.json` + `public/icons/` from `game_data/` exports. Walks all blueprint files, extracts full stats + profiles + icons + recipes in one pass. |
 | `npm run generate-positions` | Rebuild `parser/data/positions-*.js` from `examples/u64_stockpile.csv` + `u64_base.csv` |
 | `npm run check-diff -- <csv>` | Compare CSV display names vs `metadata.json` (exit 0 = all known) |
+
+### Utility
+
+| Command | Action |
+|---|---|
 | `npm run dev` | Vite dev server |
 | `npm run build` | Production build |
 | `npm run test` | Vitest (no test files yet) |
-| `node parser/scripts/process-game-data.js` | Extract icons + metadata from `game_data/` exports (~60s, rarely needed) |
-| `node parser/scripts/generate-recipes.js` | Generate `parser/data/recipes.json` from game data (all production recipes grouped by facility, ~215 Factory/MPF + 14 Refinery + 12 Facility + 19 facility files). Filters: self-referential (Refinery) and non-factory-input (Facility) entries are excluded from `factory.crateRecipes`. |
 
 ---
 
@@ -104,14 +168,15 @@ Paste → App.vue.addCSV(text) → parser/csv-parser.parseCSV(text)
 
 | Metric | Value |
 |---|---|
-| `metadata.json` items | **433** (224 items, 176 vehicles, 33 structures) |
-| Stockpile positions | **358** unique codeNames |
-| Inventory positions | **219** unique codeNames |
-| Combined coverage | **380/433** (88%) |
-| Missing from positions | **53** — event vehicles, super/battle tanks, trains, ships not in standard CSVs |
-| Missing icons | 235 (structures/lore), 6 source PNGs absent |
+| `metadata.json` items | **662** (243 items, 172 vehicles, 247 structures) |
+| Stockpile positions | **433** positions, **429** unique codeNames mapped |
+| Inventory positions | **219** positions, **219** unique codeNames mapped |
+| Combined coverage | **380/662** (57%) — many new structures not in standard CSVs |
+| Missing from positions | **282** — facilities, bunker pieces, emplacements not in standard stockpile CSVs |
+| Missing icons | **6** genuinely missing source PNG files (typos in game data, event-only content) — **fixed Jul 5:** path construction bug in `process-game-data.js`, see `parser/scripts/README.md` |
+| Production recipes | **241** crate recipes (Factory/MPF) + **19** facility conversion files |
 
-**All 5 English CSVs pass `check-diff`** — zero unknown items.
+**All 5 English CSVs pass `check-diff`** — zero unknown items (only 4 duplicates from crate detection).
 
 ---
 
@@ -123,12 +188,12 @@ Paste → App.vue.addCSV(text) → parser/csv-parser.parseCSV(text)
 4. **InventoryReport.vue categories** — may miss newer items
 5. **No tests** — unit or integration tests don't exist
 6. **Guide** — `public/guide/` static HTML may be out of sync with app features
+7. ~~**Icon extraction**~~ — **Fixed Jul 5:** `process-game-data.js` now correctly resolves icon paths via `EXPORTS_ROOT` instead of `Blueprints/`. 6 genuinely missing files remain (typos/event-only content). 656 icons extracted successfully.
+8. **Ship interior components** — 12 ship engine rooms/parts rooms missing from export (sub-items, not standalone)
 
 ---
 
-## Game Recipe Data (19 files)
-
-All recipe files are under `game_data/content/Output/Exports/War/Content/Blueprints/`.
+## Game Recipe Data
 
 ### Two Recipe Styles
 
@@ -139,147 +204,42 @@ All recipe files are under `game_data/content/Output/Exports/War/Content/Bluepri
 
 ### 1. Factory / MPF (crate recipes)
 
-**File:** `Data/BPItemDynamicData.json`
+**File:** `Data/BPItemDynamicData.json` — 278 rows. 241 are actual Factory/MPF recipes after filtering refinery and facility entries.
 
-DataTable with 278 rows. **Not all are Factory/MPF recipes.** Filtering:
+**Code name → material mapping:**
+- `Cloth` = Basic Materials (Bmats)
+- `Wood` = Refined Materials (RMats)
+- `Components` = Components
+- `Sulfur` = Sulfur
+- `Explosive` = Explosive Powder
+- `HeavyExplosive` = Heavy Explosive Powder
+- `Metal` = Metal
+- `FacilityMaterials1` = Construction Materials (Cmats)
+- `FacilityMaterials2` = Processed Construction Materials
+- `FacilityMaterials3` = Assembly Materials
 
-| Filter | Count | Examples | Where produced |
-|---|---|---|---|
-| **Self-referential** (input codeName == output codeName) | 14 | Cloth→Cloth, Components→Components, Sulfur→Sulfur, Explosive→Explosive, HeavyExplosive→HeavyExplosive | **Refinery** (crate-packaging from bulk)
-| **Non-factory inputs** (no Cloth/Wood/Explosive/HeavyExplosive) | 12 | FacilityMaterials1 (Metal→), Concrete (StrongMaterials→), UpgradePart (RFuel→), GroundMaterials (Coal→), RareMetal (Components→) | **Facilities** (Concrete Mixer, Materials Factory, etc.)
-| **Actual Factory/MPF** (uses Basic Materials, RMats, Explosive, or HE) | ~215 | Rifles, ammo, grenades, medical, utility | **Factory** or **Mass Production Factory** |
+### 2. Facility Recipes (19 facility files)
 
-**Code name mapping:**
-- `Cloth` = Basic Materials (Bmats) — salvage → Refinery
-- `Wood` = Refined Materials (RMats) — Components → Refinery
-- `Explosive` = Explosive Powder — Sulfur → Refinery
-- `HeavyExplosive` = Heavy Explosive Powder — Sulfur → Refinery
-- `Components` = Components (salvage) — mined/collected
-- `FacilityMaterials1` = Construction Materials (Cmats) — Materials Factory
-- `FacilityMaterials2` = Processed Construction Materials — Metalworks Factory
-- `Metal` = Metal — refined from Iron at Refinery
+See `parser/data/recipes.json` for complete listing per facility with all modification tiers.
 
-Each Factory row:
-```json
-"LightArtilleryAmmo": {
-  "CostPerCrate": [
-    { "ItemCodeName": "Cloth", "Quantity": 120 },
-    { "ItemCodeName": "HeavyExplosive", "Quantity": 10 }
-  ],
-  "QuantityPerCrate": 5,
-  "CrateProductionTime": 55.0,
-  "SingleRetrieveTime": 6.0,
-  "CrateRetrieveTime": 20.0,
-  "ResearchLevel": 0
-}
-```
-Used by: town **Factory** (`BPFactory.json`, class `SpecializedFactory`) and **Mass Production Factory** (`BPMassProduction.json`, adds queue/bonuses). The Factory accepts **only**: Basic Materials (Cloth), Refined Materials (Wood), Explosive Powder, Heavy Explosive Powder.
-
-**Self-referential entries** (14) are **Refinery** crate-packaging recipes, not Factory recipes:
-- `Cloth: 100 Cloth → 100 Cloth` (packaging loose Bmats into crates)
-- `Components: 70 Components → 100 Components` (packaging components scrap into crates)
-- `Sulfur: 105 Sulfur → 100 Sulfur` (packaging sulfur into crates)
-- `Explosive: 200 Explosive → 40 Explosive` (packaging EP into crates)
-- `HeavyExplosive: 400 HeavyExplosive → 30 HeavyExplosive` (packaging HE into crates)
-
-**Non-factory-input entries** (12) are **Facility** recipes:
-- `FacilityMaterials1: Metal(10) → 1` (Materials Factory: Metal → Cmats)
-- `Concrete: StrongMaterials(20) → 1` (Concrete Mixer)
-- `GroundMaterials: Coal(100) → 20` (Concrete Mixer: Coal → Gravel)
-- `UpgradePart: RFuel(20) → 1` (Facility)
-- `RareMetal: Components(100) → 100` (Facility)
-- `FacilityComponents1: Components(70) → 100` (Facility)
-- Weapons costing only `Wood` (refined materials): AssaultRifleW/C, MGW/C, etc. — these ARE Factory/MPF recipes
-
-### 2. Ammunition Factory
-
-**File:** `Structures/Facilities/BPFacilityFactoryAmmo.json`
-
-Base structure `FacilityFactoryAmmo` (Ammunition Factory). Contains `ConversionEntries` + `Modifications`.
-
-| Section | Recipes | Examples |
+| Facility | Base Recipes | Modification Tiers |
 |---|---|---|
-| **Base** | 10 | Flame ammo, mortar tank, mines, aircraft ammo, torpedo, naval mines |
-| **+ RocketFactory** | 4 | HE rocket, fire rocket, demolition rocket, unstable substances |
-| **+ LargeShellFactory** | **11** | 120mm, 150mm, Battle Tank ammo, AT large, LR artillery, depth charge, torpedo, bomber ammo, dive bomber, AA, aircraft torpedo |
-| **+ TripodFactory** | 10 | Tripod, ISG, AT rifle TC, MG TC, grenade launcher TC, RPG TW, ATRPG TW, MG TW, banners |
-
-Each recipe:
-```json
-{
-  "ItemInput": [
-    { "CodeName": "HeavyExplosive", "Quantity": 2 },
-    { "CodeName": "FacilityMaterials1", "Quantity": 2 }
-  ],
-  "ItemOutput": [
-    { "CodeName": "lightartilleryammo", "Quantity": 1 }
-  ],
-  "Duration": 25,
-  "PowerDelta": 0
-}
-```
-
-### 3. Infantry Kit Factory
-
-**File:** `Structures/Facilities/BPFacilityFactorySmallArms.json`
-
-| Section | Recipes | Examples |
-|---|---|---|
-| **Base** | 19 | Rifles, SMGs, pistols, shotguns, mortar, launchers, grenades |
-| **+ InfantryAmmo** | 8 | Rifle/SMG/Pistol/Shotgun ammo, bayonets, bandages, trauma kits |
-| **+ SpecialWeapons** | 12 | AT rifles, snipers, carbines, ATRPGs |
-| **+ HeavyAmmo** | 8 | MG ammo, AT rifle ammo, AT RPG ammo |
-
-### 4. Aircraft Maintenance Factory
-
-**File:** `Structures/Facilities/BPFacilityFactoryAircraft.json`
-
-| Section | Recipes | Examples |
-|---|---|---|
-| **Base** | 8 | Aircraft parts |
-| **+ AircraftStrategic** | 8 | Strategic aircraft parts |
-
-### 5. Refineries & Processing
-
-| File | Structure | Recipes |
-|---|---|---|
-| `Facilities/BPFacilityRefinery1.json` | Materials Factory | 2 — Metal → Construction Materials / Maintenance Supplies |
-| `Facilities/BPFacilityRefinery2.json` | Metalworks Factory | 2 — Const. Materials + Components → Processed Const. Materials → Pipe Mats. |
-| `Facilities/BPFacilityRefineryCoal.json` | Coal Refinery | 1 — Coal → Processed Coal |
-| `Facilities/BPFacilityRefineryOil.json` | Oil Refinery | 1 — Liquid processing |
-
-### 6. Concrete Mixer
-
-**File:** `Structures/Facilities/BPConcreteMixer.json`
-
-| Input | Output | Duration |
-|---|---|---|
-| 20 Components | 1 Concrete | 20s |
-| 100 Coal | 20 Ground Materials | 40s |
-| 120 Metal | 20 Ground Materials | 90s |
-
-### 7. Power Plants
-
-| File | Structure | Recipes |
-|---|---|---|
-| `Facilities/BPFacilityPowerDiesel.json` | Diesel Power Plant | 1 |
-| `Facilities/BPFacilityPowerOil.json` | Power Station | 2 |
-
-### 8. Resource Mines
-
-| File | Structure | Recipes |
-|---|---|---|
-| `Facilities/BPFacilityMineResource1.json` | Stationary Harvester (Salvage) | 1 |
-| `Facilities/BPFacilityMineResource2.json` | Stationary Harvester (Components) | 1 |
-| `Facilities/BPFacilityMineResource3.json` | Stationary Harvester (Sulfur) | 1 |
-| `Facilities/BPFacilityMineResource4.json` | Stationary Harvester (Coal) | 1 |
-| `Facilities/BPFacilityMineOil.json` | Oil Well | 1 |
-| `Facilities/BPFacilityMineOilRig.json` | Offshore Platform | 2 |
-| `Facilities/BPFacilityMineWater.json` | Water Pump | 1 |
-
-### 9. Fort Engine Rooms
-
-| File | Structure | Recipes |
-|---|---|---|
-| `Forts/BPEngineRoomT2.json` | Engine Room T2 | 3 — Reserve Power generation |
-| `Forts/BPEngineRoomT3.json` | Engine Room T3 | 3 — Reserve Power generation |
+| Ammunition Factory | 10 | +RocketFactory, +LargeShellFactory, +TripodFactory |
+| Infantry Kit Factory | 19 | +InfantryAmmo, +SpecialWeapons, +HeavyAmmo |
+| Aircraft Maintenance Factory | 8 | +AircraftStrategic |
+| Materials Factory | 2 | — |
+| Metalworks Factory | 2 | — |
+| Coal Refinery | 1 | — |
+| Oil Refinery | 1 | — |
+| Concrete Mixer | 3 | — |
+| Diesel Power Plant | 1 | — |
+| Power Station | 2 | — |
+| Salvage Mine | 1 | — |
+| Components Mine | 1 | — |
+| Sulfur Mine | 1 | — |
+| Coal Mine | 1 | — |
+| Oil Well | 1 | — |
+| Offshore Platform | 2 | — |
+| Water Pump | 1 | — |
+| Engine Room T2 | 3 | — |
+| Engine Room T3 | 3 | — |
