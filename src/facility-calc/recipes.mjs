@@ -23,6 +23,9 @@ const CANON = {
   coal: 'Coal',
   heavyartilleryammo: 'HeavyArtilleryAmmo',
   lightartilleryammo: 'LightArtilleryAmmo',
+  lighttankammo: 'LightTankAmmo',
+  stickybomb: 'StickyBomb',
+  rpgammo: 'RpgAmmo',
 }
 const canon = c => CANON[c] || c
 

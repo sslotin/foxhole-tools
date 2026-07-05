@@ -206,7 +206,7 @@ codeName → { short, target }  // hardcoded targets, needs audit vs latest meta
 
 ---
 
-## Data Freshness (Jul 5, 2026)
+## Data Freshness (Jul 6, 2026)
 
 | Metric | Value |
 |---|---|
@@ -219,6 +219,14 @@ codeName → { short, target }  // hardcoded targets, needs audit vs latest meta
 | Production recipes | **241** crate recipes (Factory/MPF) + **19** facility conversion files |
 
 **All 5 English CSVs pass `check-diff`** — zero unknown items (only 4 duplicates from crate detection).
+
+### Jul 6 — Infantry Kit Factory facility recipes now included
+
+**Root cause:** `process-game-data.js` `parseConversion()` only read `ItemOutput`/`ItemInput` from facility conversion entries. The Infantry Kit Factory (`BPFacilityFactorySmallArms.json`) uses `CrateOutput`/`CrateInput` instead — its 19 base recipes (uniforms) and 28 modification recipes (Small Arms Workshop, Special Weapons, Heavy Ammo) were silently emitted with empty `outputs[]`.
+
+**Fix:** `parseConversion()` now also reads `CrateOutput`, `CrateInput`, `LiquidOutput`, `LiquidInput`.
+
+**Canonicalization:** Added `Stickybomb` → `StickyBomb` and `RPGAmmo` → `RpgAmmo` to the `CANON` map in `recipes.mjs` (the game data uses lowercase/inconsistent casing for some CrateOutput code names).
 
 ---
 

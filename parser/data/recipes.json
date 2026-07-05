@@ -1,5 +1,5 @@
 {
-  "_generated": "2026-07-05T21:11:47.686Z",
+  "_generated": "2026-07-05T21:40:35.311Z",
   "_sources": [
     "War/Content/Blueprints/Data/BPItemDynamicData.json — Factory/MPF crate recipes",
     "War/Content/Blueprints/Structures/ — facility conversion recipes"
@@ -5494,7 +5494,13 @@
               "limit": 32000
             }
           ],
-          "outputs": [],
+          "outputs": [
+            {
+              "codeName": "ArmourUniformC",
+              "quantity": 10,
+              "limit": 100
+            }
+          ],
           "duration": 8100,
           "powerDelta": -12000,
           "consumeResourceNodes": false
@@ -5507,7 +5513,13 @@
               "limit": 32000
             }
           ],
-          "outputs": [],
+          "outputs": [
+            {
+              "codeName": "ArmourUniformW",
+              "quantity": 10,
+              "limit": 100
+            }
+          ],
           "duration": 8100,
           "powerDelta": -12000,
           "consumeResourceNodes": false
@@ -5520,7 +5532,13 @@
               "limit": 32000
             }
           ],
-          "outputs": [],
+          "outputs": [
+            {
+              "codeName": "EngineerUniformC",
+              "quantity": 10,
+              "limit": 100
+            }
+          ],
           "duration": 8100,
           "powerDelta": -12000,
           "consumeResourceNodes": false
@@ -5533,7 +5551,13 @@
               "limit": 32000
             }
           ],
-          "outputs": [],
+          "outputs": [
+            {
+              "codeName": "EngineerUniformW",
+              "quantity": 10,
+              "limit": 100
+            }
+          ],
           "duration": 8100,
           "powerDelta": -12000,
           "consumeResourceNodes": false
@@ -5546,7 +5570,13 @@
               "limit": 32000
             }
           ],
-          "outputs": [],
+          "outputs": [
+            {
+              "codeName": "GrenadeUniformC",
+              "quantity": 10,
+              "limit": 100
+            }
+          ],
           "duration": 8100,
           "powerDelta": -12000,
           "consumeResourceNodes": false
@@ -5559,7 +5589,13 @@
               "limit": 32000
             }
           ],
-          "outputs": [],
+          "outputs": [
+            {
+              "codeName": "AmmoUniformW",
+              "quantity": 10,
+              "limit": 100
+            }
+          ],
           "duration": 8100,
           "powerDelta": -12000,
           "consumeResourceNodes": false
@@ -5572,7 +5608,13 @@
               "limit": 32000
             }
           ],
-          "outputs": [],
+          "outputs": [
+            {
+              "codeName": "MedicUniformC",
+              "quantity": 10,
+              "limit": 100
+            }
+          ],
           "duration": 8100,
           "powerDelta": -12000,
           "consumeResourceNodes": false
@@ -5585,7 +5627,13 @@
               "limit": 32000
             }
           ],
-          "outputs": [],
+          "outputs": [
+            {
+              "codeName": "MedicUniformW",
+              "quantity": 10,
+              "limit": 100
+            }
+          ],
           "duration": 8100,
           "powerDelta": -12000,
           "consumeResourceNodes": false
@@ -5598,7 +5646,13 @@
               "limit": 32000
             }
           ],
-          "outputs": [],
+          "outputs": [
+            {
+              "codeName": "OfficerUniformC",
+              "quantity": 10,
+              "limit": 100
+            }
+          ],
           "duration": 8100,
           "powerDelta": -12000,
           "consumeResourceNodes": false
@@ -5611,7 +5665,13 @@
               "limit": 32000
             }
           ],
-          "outputs": [],
+          "outputs": [
+            {
+              "codeName": "OfficerUniformW",
+              "quantity": 10,
+              "limit": 100
+            }
+          ],
           "duration": 8100,
           "powerDelta": -12000,
           "consumeResourceNodes": false
@@ -5624,7 +5684,13 @@
               "limit": 32000
             }
           ],
-          "outputs": [],
+          "outputs": [
+            {
+              "codeName": "RainUniformC",
+              "quantity": 10,
+              "limit": 100
+            }
+          ],
           "duration": 8100,
           "powerDelta": -12000,
           "consumeResourceNodes": false
@@ -5637,7 +5703,13 @@
               "limit": 32000
             }
           ],
-          "outputs": [],
+          "outputs": [
+            {
+              "codeName": "ScoutUniformC",
+              "quantity": 10,
+              "limit": 100
+            }
+          ],
           "duration": 8100,
           "powerDelta": -12000,
           "consumeResourceNodes": false
@@ -5650,7 +5722,13 @@
               "limit": 32000
             }
           ],
-          "outputs": [],
+          "outputs": [
+            {
+              "codeName": "ScoutUniformW",
+              "quantity": 10,
+              "limit": 100
+            }
+          ],
           "duration": 8100,
           "powerDelta": -12000,
           "consumeResourceNodes": false
@@ -5663,7 +5741,13 @@
               "limit": 32000
             }
           ],
-          "outputs": [],
+          "outputs": [
+            {
+              "codeName": "SnowUniformC",
+              "quantity": 10,
+              "limit": 100
+            }
+          ],
           "duration": 8100,
           "powerDelta": -12000,
           "consumeResourceNodes": false
@@ -5676,7 +5760,13 @@
               "limit": 32000
             }
           ],
-          "outputs": [],
+          "outputs": [
+            {
+              "codeName": "SnowUniformW",
+              "quantity": 10,
+              "limit": 100
+            }
+          ],
           "duration": 8100,
           "powerDelta": -12000,
           "consumeResourceNodes": false
@@ -5689,7 +5779,13 @@
               "limit": 32000
             }
           ],
-          "outputs": [],
+          "outputs": [
+            {
+              "codeName": "TankUniformC",
+              "quantity": 10,
+              "limit": 100
+            }
+          ],
           "duration": 8100,
           "powerDelta": -12000,
           "consumeResourceNodes": false
@@ -5702,7 +5798,13 @@
               "limit": 32000
             }
           ],
-          "outputs": [],
+          "outputs": [
+            {
+              "codeName": "TankUniformW",
+              "quantity": 10,
+              "limit": 100
+            }
+          ],
           "duration": 8100,
           "powerDelta": -12000,
           "consumeResourceNodes": false
@@ -5715,7 +5817,13 @@
               "limit": 32000
             }
           ],
-          "outputs": [],
+          "outputs": [
+            {
+              "codeName": "NavalUniformC",
+              "quantity": 10,
+              "limit": 100
+            }
+          ],
           "duration": 8100,
           "powerDelta": -12000,
           "consumeResourceNodes": false
@@ -5728,7 +5836,13 @@
               "limit": 32000
             }
           ],
-          "outputs": [],
+          "outputs": [
+            {
+              "codeName": "NavalUniformW",
+              "quantity": 10,
+              "limit": 100
+            }
+          ],
           "duration": 8100,
           "powerDelta": -12000,
           "consumeResourceNodes": false
@@ -5751,7 +5865,13 @@
                   "limit": 32000
                 }
               ],
-              "outputs": [],
+              "outputs": [
+                {
+                  "codeName": "MortarAmmoSH",
+                  "quantity": 10,
+                  "limit": 100
+                }
+              ],
               "duration": 9000,
               "powerDelta": -12000,
               "consumeResourceNodes": false
@@ -5769,7 +5889,13 @@
                   "limit": 32000
                 }
               ],
-              "outputs": [],
+              "outputs": [
+                {
+                  "codeName": "MortarAmmoFL",
+                  "quantity": 10,
+                  "limit": 100
+                }
+              ],
               "duration": 9000,
               "powerDelta": -12000,
               "consumeResourceNodes": false
@@ -5787,7 +5913,13 @@
                   "limit": 32000
                 }
               ],
-              "outputs": [],
+              "outputs": [
+                {
+                  "codeName": "MortarAmmo",
+                  "quantity": 10,
+                  "limit": 100
+                }
+              ],
               "duration": 9000,
               "powerDelta": -12000,
               "consumeResourceNodes": false
@@ -5805,7 +5937,13 @@
                   "limit": 32000
                 }
               ],
-              "outputs": [],
+              "outputs": [
+                {
+                  "codeName": "ATRPGLightC",
+                  "quantity": 10,
+                  "limit": 150
+                }
+              ],
               "duration": 6900,
               "powerDelta": -12000,
               "consumeResourceNodes": false
@@ -5823,7 +5961,13 @@
                   "limit": 32000
                 }
               ],
-              "outputs": [],
+              "outputs": [
+                {
+                  "codeName": "ATGrenadeW",
+                  "quantity": 10,
+                  "limit": 150
+                }
+              ],
               "duration": 6900,
               "powerDelta": -12000,
               "consumeResourceNodes": false
@@ -5841,7 +5985,13 @@
                   "limit": 32000
                 }
               ],
-              "outputs": [],
+              "outputs": [
+                {
+                  "codeName": "Stickybomb",
+                  "quantity": 10,
+                  "limit": 150
+                }
+              ],
               "duration": 6900,
               "powerDelta": -12000,
               "consumeResourceNodes": false
@@ -5854,7 +6004,13 @@
                   "limit": 32000
                 }
               ],
-              "outputs": [],
+              "outputs": [
+                {
+                  "codeName": "ATRifleAmmo",
+                  "quantity": 10,
+                  "limit": 100
+                }
+              ],
               "duration": 9000,
               "powerDelta": -12000,
               "consumeResourceNodes": false
@@ -5867,7 +6023,13 @@
                   "limit": 32000
                 }
               ],
-              "outputs": [],
+              "outputs": [
+                {
+                  "codeName": "SmokeGrenade",
+                  "quantity": 10,
+                  "limit": 100
+                }
+              ],
               "duration": 6900,
               "powerDelta": -12000,
               "consumeResourceNodes": false
@@ -5888,9 +6050,20 @@
                   "codeName": "FacilityMaterials2",
                   "quantity": 40,
                   "limit": 32000
+                },
+                {
+                  "codeName": "RifleC",
+                  "quantity": 1,
+                  "limit": 32000
                 }
               ],
-              "outputs": [],
+              "outputs": [
+                {
+                  "codeName": "SniperRifleC",
+                  "quantity": 1,
+                  "limit": 100
+                }
+              ],
               "duration": 100,
               "powerDelta": -2000,
               "consumeResourceNodes": false
@@ -5906,9 +6079,20 @@
                   "codeName": "FacilityMaterials2",
                   "quantity": 40,
                   "limit": 32000
+                },
+                {
+                  "codeName": "RifleW",
+                  "quantity": 1,
+                  "limit": 32000
                 }
               ],
-              "outputs": [],
+              "outputs": [
+                {
+                  "codeName": "SniperRifleW",
+                  "quantity": 1,
+                  "limit": 100
+                }
+              ],
               "duration": 100,
               "powerDelta": -2000,
               "consumeResourceNodes": false
@@ -5924,9 +6108,20 @@
                   "codeName": "FacilityMaterials4",
                   "quantity": 5,
                   "limit": 32000
+                },
+                {
+                  "codeName": "AssaultRifleC",
+                  "quantity": 1,
+                  "limit": 32000
                 }
               ],
-              "outputs": [],
+              "outputs": [
+                {
+                  "codeName": "ATRifleSniperC",
+                  "quantity": 1,
+                  "limit": 750
+                }
+              ],
               "duration": 120,
               "powerDelta": -4000,
               "consumeResourceNodes": false
@@ -5942,9 +6137,20 @@
                   "codeName": "FacilityMaterials5",
                   "quantity": 5,
                   "limit": 32000
+                },
+                {
+                  "codeName": "AssaultRifleHeavyC",
+                  "quantity": 1,
+                  "limit": 32000
                 }
               ],
-              "outputs": [],
+              "outputs": [
+                {
+                  "codeName": "ATRifleLightC",
+                  "quantity": 1,
+                  "limit": 1150
+                }
+              ],
               "duration": 75,
               "powerDelta": -4000,
               "consumeResourceNodes": false
@@ -5960,9 +6166,20 @@
                   "codeName": "FacilityMaterials4",
                   "quantity": 5,
                   "limit": 32000
+                },
+                {
+                  "codeName": "AssaultRifleHeavyW",
+                  "quantity": 1,
+                  "limit": 32000
                 }
               ],
-              "outputs": [],
+              "outputs": [
+                {
+                  "codeName": "ATRifleAutomaticW",
+                  "quantity": 1,
+                  "limit": 1150
+                }
+              ],
               "duration": 75,
               "powerDelta": -4000,
               "consumeResourceNodes": false
@@ -5978,9 +6195,20 @@
                   "codeName": "FacilityMaterials5",
                   "quantity": 5,
                   "limit": 32000
+                },
+                {
+                  "codeName": "ATRifleW",
+                  "quantity": 1,
+                  "limit": 32000
                 }
               ],
-              "outputs": [],
+              "outputs": [
+                {
+                  "codeName": "ATRifleAssaultW",
+                  "quantity": 1,
+                  "limit": 1150
+                }
+              ],
               "duration": 75,
               "powerDelta": -4000,
               "consumeResourceNodes": false
@@ -5996,9 +6224,20 @@
                   "codeName": "FlameAmmo",
                   "quantity": 1,
                   "limit": 32000
+                },
+                {
+                  "codeName": "MortarAmmoSH",
+                  "quantity": 1,
+                  "limit": 32000
                 }
               ],
-              "outputs": [],
+              "outputs": [
+                {
+                  "codeName": "MortarAmmoFlame",
+                  "quantity": 1,
+                  "limit": 1150
+                }
+              ],
               "duration": 75,
               "powerDelta": -2000,
               "consumeResourceNodes": false
@@ -6009,9 +6248,20 @@
                   "codeName": "FacilityMaterials2",
                   "quantity": 10,
                   "limit": 32000
+                },
+                {
+                  "codeName": "ScoutUniformC",
+                  "quantity": 1,
+                  "limit": 32000
                 }
               ],
-              "outputs": [],
+              "outputs": [
+                {
+                  "codeName": "ParatrooperUniformC",
+                  "quantity": 1,
+                  "limit": 100
+                }
+              ],
               "duration": 120,
               "powerDelta": -4000,
               "consumeResourceNodes": false
@@ -6022,9 +6272,20 @@
                   "codeName": "FacilityMaterials2",
                   "quantity": 10,
                   "limit": 32000
+                },
+                {
+                  "codeName": "ScoutUniformW",
+                  "quantity": 1,
+                  "limit": 32000
                 }
               ],
-              "outputs": [],
+              "outputs": [
+                {
+                  "codeName": "ParatrooperUniformW",
+                  "quantity": 1,
+                  "limit": 100
+                }
+              ],
               "duration": 120,
               "powerDelta": -4000,
               "consumeResourceNodes": false
@@ -6035,9 +6296,20 @@
                   "codeName": "FacilityMaterials12",
                   "quantity": 2,
                   "limit": 1000
+                },
+                {
+                  "codeName": "OfficerUniformC",
+                  "quantity": 1,
+                  "limit": 100
                 }
               ],
-              "outputs": [],
+              "outputs": [
+                {
+                  "codeName": "PilotUniformC",
+                  "quantity": 1,
+                  "limit": 0
+                }
+              ],
               "duration": 120,
               "powerDelta": -4000,
               "consumeResourceNodes": false
@@ -6048,9 +6320,20 @@
                   "codeName": "FacilityMaterials12",
                   "quantity": 2,
                   "limit": 1000
+                },
+                {
+                  "codeName": "OfficerUniformW",
+                  "quantity": 1,
+                  "limit": 100
                 }
               ],
-              "outputs": [],
+              "outputs": [
+                {
+                  "codeName": "PilotUniformW",
+                  "quantity": 1,
+                  "limit": 0
+                }
+              ],
               "duration": 120,
               "powerDelta": -4000,
               "consumeResourceNodes": false
@@ -6063,7 +6346,13 @@
                   "limit": 32000
                 }
               ],
-              "outputs": [],
+              "outputs": [
+                {
+                  "codeName": "ParatrooperBackpack",
+                  "quantity": 1,
+                  "limit": 100
+                }
+              ],
               "duration": 60,
               "powerDelta": -2000,
               "consumeResourceNodes": false
@@ -6086,7 +6375,13 @@
                   "limit": 32000
                 }
               ],
-              "outputs": [],
+              "outputs": [
+                {
+                  "codeName": "lighttankammo",
+                  "quantity": 10,
+                  "limit": 100
+                }
+              ],
               "duration": 18000,
               "powerDelta": -24000,
               "consumeResourceNodes": false
@@ -6104,7 +6399,13 @@
                   "limit": 32000
                 }
               ],
-              "outputs": [],
+              "outputs": [
+                {
+                  "codeName": "ATAmmo",
+                  "quantity": 10,
+                  "limit": 100
+                }
+              ],
               "duration": 18000,
               "powerDelta": -24000,
               "consumeResourceNodes": false
@@ -6122,7 +6423,13 @@
                   "limit": 32000
                 }
               ],
-              "outputs": [],
+              "outputs": [
+                {
+                  "codeName": "MiniTankAmmo",
+                  "quantity": 10,
+                  "limit": 100
+                }
+              ],
               "duration": 9000,
               "powerDelta": -24000,
               "consumeResourceNodes": false
@@ -6140,7 +6447,13 @@
                   "limit": 32000
                 }
               ],
-              "outputs": [],
+              "outputs": [
+                {
+                  "codeName": "ATRPGAmmo",
+                  "quantity": 10,
+                  "limit": 100
+                }
+              ],
               "duration": 9000,
               "powerDelta": -24000,
               "consumeResourceNodes": false
@@ -6158,7 +6471,13 @@
                   "limit": 32000
                 }
               ],
-              "outputs": [],
+              "outputs": [
+                {
+                  "codeName": "ATRPGIndirectAmmo",
+                  "quantity": 10,
+                  "limit": 100
+                }
+              ],
               "duration": 9000,
               "powerDelta": -24000,
               "consumeResourceNodes": false
@@ -6176,7 +6495,13 @@
                   "limit": 32000
                 }
               ],
-              "outputs": [],
+              "outputs": [
+                {
+                  "codeName": "RPGAmmo",
+                  "quantity": 10,
+                  "limit": 100
+                }
+              ],
               "duration": 9000,
               "powerDelta": -24000,
               "consumeResourceNodes": false
@@ -6194,7 +6519,13 @@
                   "limit": 32000
                 }
               ],
-              "outputs": [],
+              "outputs": [
+                {
+                  "codeName": "HELaunchedGrenade",
+                  "quantity": 10,
+                  "limit": 100
+                }
+              ],
               "duration": 7200,
               "powerDelta": -24000,
               "consumeResourceNodes": false
@@ -6212,7 +6543,13 @@
                   "limit": 32000
                 }
               ],
-              "outputs": [],
+              "outputs": [
+                {
+                  "codeName": "ATLaunchedGrenadeW",
+                  "quantity": 10,
+                  "limit": 100
+                }
+              ],
               "duration": 7200,
               "powerDelta": -24000,
               "consumeResourceNodes": false
@@ -6755,6 +7092,11 @@
                   "codeName": "Metal",
                   "quantity": 15,
                   "limit": 32000
+                },
+                {
+                  "codeName": "Petrol",
+                  "quantity": 50,
+                  "limit": 32000
                 }
               ],
               "outputs": [
@@ -6778,6 +7120,11 @@
                 {
                   "codeName": "Metal",
                   "quantity": 15,
+                  "limit": 32000
+                },
+                {
+                  "codeName": "Petrol",
+                  "quantity": 25,
                   "limit": 32000
                 }
               ],
@@ -6965,6 +7312,11 @@
                   "codeName": "MetalBeamMaterials",
                   "quantity": 1,
                   "limit": 32000
+                },
+                {
+                  "codeName": "FacilityOil1",
+                  "quantity": 10,
+                  "limit": 32000
                 }
               ],
               "outputs": [
@@ -7007,6 +7359,11 @@
                 {
                   "codeName": "FacilityMaterials2",
                   "quantity": 1,
+                  "limit": 32000
+                },
+                {
+                  "codeName": "FacilityOil1",
+                  "quantity": 66,
                   "limit": 32000
                 }
               ],
@@ -7055,6 +7412,11 @@
                 {
                   "codeName": "Components",
                   "quantity": 55,
+                  "limit": 32000
+                },
+                {
+                  "codeName": "FacilityOil1",
+                  "quantity": 6,
                   "limit": 32000
                 }
               ],
@@ -7143,6 +7505,11 @@
                   "codeName": "Sulfur",
                   "quantity": 65,
                   "limit": 32000
+                },
+                {
+                  "codeName": "FacilityOil1",
+                  "quantity": 35,
+                  "limit": 32000
                 }
               ],
               "outputs": [
@@ -7166,6 +7533,16 @@
                 {
                   "codeName": "FacilityCoal1",
                   "quantity": 375,
+                  "limit": 32000
+                },
+                {
+                  "codeName": "FacilityOil2",
+                  "quantity": 90,
+                  "limit": 32000
+                },
+                {
+                  "codeName": "Water",
+                  "quantity": 100,
                   "limit": 32000
                 }
               ],
@@ -7281,6 +7658,11 @@
                   "codeName": "Coal",
                   "quantity": 300,
                   "limit": 32000
+                },
+                {
+                  "codeName": "Water",
+                  "quantity": 50,
+                  "limit": 32000
                 }
               ],
               "outputs": [
@@ -7293,6 +7675,11 @@
                   "codeName": "Sulfur",
                   "quantity": 10,
                   "limit": 1050
+                },
+                {
+                  "codeName": "Oil",
+                  "quantity": 50,
+                  "limit": 5330
                 }
               ],
               "duration": 270,
@@ -7310,6 +7697,11 @@
                   "codeName": "Coal",
                   "quantity": 300,
                   "limit": 32000
+                },
+                {
+                  "codeName": "Water",
+                  "quantity": 100,
+                  "limit": 32000
                 }
               ],
               "outputs": [
@@ -7317,6 +7709,11 @@
                   "codeName": "FacilityCoal1",
                   "quantity": 260,
                   "limit": 27300
+                },
+                {
+                  "codeName": "FacilityOil1",
+                  "quantity": 60,
+                  "limit": 6300
                 }
               ],
               "duration": 405,
@@ -7328,6 +7725,11 @@
                 {
                   "codeName": "Coal",
                   "quantity": 300,
+                  "limit": 32000
+                },
+                {
+                  "codeName": "Water",
+                  "quantity": 100,
                   "limit": 32000
                 }
               ],
@@ -7341,6 +7743,11 @@
                   "codeName": "Sulfur",
                   "quantity": 15,
                   "limit": 1575
+                },
+                {
+                  "codeName": "Oil",
+                  "quantity": 100,
+                  "limit": 10500
                 }
               ],
               "duration": 270,
@@ -7356,8 +7763,20 @@
       "codeName": "FacilityRefineryOil",
       "baseRecipes": [
         {
-          "inputs": [],
-          "outputs": [],
+          "inputs": [
+            {
+              "codeName": "Oil",
+              "quantity": 50,
+              "limit": 32000
+            }
+          ],
+          "outputs": [
+            {
+              "codeName": "Petrol",
+              "quantity": 50,
+              "limit": 32000
+            }
+          ],
           "duration": 50,
           "powerDelta": 0,
           "consumeResourceNodes": false
@@ -7368,8 +7787,25 @@
           "displayName": "Reformer",
           "recipes": [
             {
-              "inputs": [],
-              "outputs": [],
+              "inputs": [
+                {
+                  "codeName": "Oil",
+                  "quantity": 40,
+                  "limit": 32000
+                },
+                {
+                  "codeName": "Water",
+                  "quantity": 10,
+                  "limit": 32000
+                }
+              ],
+              "outputs": [
+                {
+                  "codeName": "Petrol",
+                  "quantity": 50,
+                  "limit": 32000
+                }
+              ],
               "duration": 50,
               "powerDelta": 0,
               "consumeResourceNodes": false
@@ -7380,8 +7816,20 @@
           "displayName": "Cracking Unit",
           "recipes": [
             {
-              "inputs": [],
-              "outputs": [],
+              "inputs": [
+                {
+                  "codeName": "Oil",
+                  "quantity": 50,
+                  "limit": 32000
+                }
+              ],
+              "outputs": [
+                {
+                  "codeName": "FacilityOil1",
+                  "quantity": 30,
+                  "limit": 19200
+                }
+              ],
               "duration": 55,
               "powerDelta": -1500,
               "consumeResourceNodes": false
@@ -7397,9 +7845,20 @@
                   "codeName": "Sulfur",
                   "quantity": 60,
                   "limit": 32000
+                },
+                {
+                  "codeName": "FacilityOil1",
+                  "quantity": 30,
+                  "limit": 32000
                 }
               ],
-              "outputs": [],
+              "outputs": [
+                {
+                  "codeName": "FacilityOil2",
+                  "quantity": 30,
+                  "limit": 16000
+                }
+              ],
               "duration": 200,
               "powerDelta": -6000,
               "consumeResourceNodes": false
@@ -7477,7 +7936,13 @@
       "codeName": "FacilityPowerDiesel",
       "baseRecipes": [
         {
-          "inputs": [],
+          "inputs": [
+            {
+              "codeName": "Diesel",
+              "quantity": 25,
+              "limit": 1000
+            }
+          ],
           "outputs": [],
           "duration": 45,
           "powerDelta": 0,
@@ -7489,7 +7954,13 @@
           "displayName": "Petrol Power Plant",
           "recipes": [
             {
-              "inputs": [],
+              "inputs": [
+                {
+                  "codeName": "Petrol",
+                  "quantity": 50,
+                  "limit": 1000
+                }
+              ],
               "outputs": [],
               "duration": 90,
               "powerDelta": 12000,
@@ -7522,7 +7993,13 @@
       "codeName": "FacilityPowerOil",
       "baseRecipes": [
         {
-          "inputs": [],
+          "inputs": [
+            {
+              "codeName": "Oil",
+              "quantity": 50,
+              "limit": 1000
+            }
+          ],
           "outputs": [],
           "duration": 90,
           "powerDelta": 10000,
@@ -7534,6 +8011,11 @@
               "codeName": "Coal",
               "quantity": 30,
               "limit": 32000
+            },
+            {
+              "codeName": "Water",
+              "quantity": 1,
+              "limit": 1000
             }
           ],
           "outputs": [],
@@ -7547,7 +8029,13 @@
           "displayName": "Sulfuric Reactor",
           "recipes": [
             {
-              "inputs": [],
+              "inputs": [
+                {
+                  "codeName": "FacilityOil1",
+                  "quantity": 50,
+                  "limit": 1000
+                }
+              ],
               "outputs": [
                 {
                   "codeName": "Sulfur",
@@ -7565,6 +8053,11 @@
                   "codeName": "FacilityCoal1",
                   "quantity": 30,
                   "limit": 32000
+                },
+                {
+                  "codeName": "Water",
+                  "quantity": 1,
+                  "limit": 1000
                 }
               ],
               "outputs": [
@@ -7587,7 +8080,13 @@
       "codeName": "FacilityMineResource1",
       "baseRecipes": [
         {
-          "inputs": [],
+          "inputs": [
+            {
+              "codeName": "Petrol",
+              "quantity": 4,
+              "limit": 200
+            }
+          ],
           "outputs": [
             {
               "codeName": "Metal",
@@ -7605,7 +8104,13 @@
           "displayName": "Excavator",
           "recipes": [
             {
-              "inputs": [],
+              "inputs": [
+                {
+                  "codeName": "Petrol",
+                  "quantity": 6,
+                  "limit": 300
+                }
+              ],
               "outputs": [
                 {
                   "codeName": "metal",
@@ -7626,7 +8131,13 @@
       "codeName": "FacilityMineResource2",
       "baseRecipes": [
         {
-          "inputs": [],
+          "inputs": [
+            {
+              "codeName": "FacilityOil1",
+              "quantity": 4,
+              "limit": 200
+            }
+          ],
           "outputs": [
             {
               "codeName": "Components",
@@ -7644,7 +8155,13 @@
           "displayName": "Excavator",
           "recipes": [
             {
-              "inputs": [],
+              "inputs": [
+                {
+                  "codeName": "FacilityOil1",
+                  "quantity": 3,
+                  "limit": 200
+                }
+              ],
               "outputs": [
                 {
                   "codeName": "FacilityComponents1",
@@ -7665,7 +8182,13 @@
       "codeName": "FacilityMineResource3",
       "baseRecipes": [
         {
-          "inputs": [],
+          "inputs": [
+            {
+              "codeName": "FacilityOil1",
+              "quantity": 4,
+              "limit": 200
+            }
+          ],
           "outputs": [
             {
               "codeName": "Sulfur",
@@ -7683,7 +8206,13 @@
           "displayName": "Excavator",
           "recipes": [
             {
-              "inputs": [],
+              "inputs": [
+                {
+                  "codeName": "FacilityOil1",
+                  "quantity": 6,
+                  "limit": 200
+                }
+              ],
               "outputs": [
                 {
                   "codeName": "Sulfur",
@@ -7709,7 +8238,13 @@
       "codeName": "FacilityMineResource4",
       "baseRecipes": [
         {
-          "inputs": [],
+          "inputs": [
+            {
+              "codeName": "Petrol",
+              "quantity": 1,
+              "limit": 50
+            }
+          ],
           "outputs": [
             {
               "codeName": "Coal",
@@ -7727,7 +8262,13 @@
           "displayName": "Excavator",
           "recipes": [
             {
-              "inputs": [],
+              "inputs": [
+                {
+                  "codeName": "Petrol",
+                  "quantity": 2,
+                  "limit": 100
+                }
+              ],
               "outputs": [
                 {
                   "codeName": "Coal",
@@ -7749,7 +8290,13 @@
       "baseRecipes": [
         {
           "inputs": [],
-          "outputs": [],
+          "outputs": [
+            {
+              "codeName": "Oil",
+              "quantity": 50,
+              "limit": 2500
+            }
+          ],
           "duration": 50,
           "powerDelta": 0,
           "consumeResourceNodes": false
@@ -7761,7 +8308,13 @@
           "recipes": [
             {
               "inputs": [],
-              "outputs": [],
+              "outputs": [
+                {
+                  "codeName": "Oil",
+                  "quantity": 50,
+                  "limit": 2500
+                }
+              ],
               "duration": 26,
               "powerDelta": -2000,
               "consumeResourceNodes": false
@@ -7772,8 +8325,20 @@
           "displayName": "Fracker",
           "recipes": [
             {
-              "inputs": [],
-              "outputs": [],
+              "inputs": [
+                {
+                  "codeName": "Water",
+                  "quantity": 25,
+                  "limit": 32000
+                }
+              ],
+              "outputs": [
+                {
+                  "codeName": "Oil",
+                  "quantity": 100,
+                  "limit": 2500
+                }
+              ],
               "duration": 40,
               "powerDelta": -3000,
               "consumeResourceNodes": false
@@ -7788,7 +8353,13 @@
       "baseRecipes": [
         {
           "inputs": [],
-          "outputs": [],
+          "outputs": [
+            {
+              "codeName": "FacilityOil1",
+              "quantity": 30,
+              "limit": 3000
+            }
+          ],
           "duration": 50,
           "powerDelta": 0,
           "consumeResourceNodes": false
@@ -7801,7 +8372,13 @@
               "limit": 32000
             }
           ],
-          "outputs": [],
+          "outputs": [
+            {
+              "codeName": "FacilityOil2",
+              "quantity": 30,
+              "limit": 3000
+            }
+          ],
           "duration": 90,
           "powerDelta": 0,
           "consumeResourceNodes": false
@@ -7815,7 +8392,13 @@
       "baseRecipes": [
         {
           "inputs": [],
-          "outputs": [],
+          "outputs": [
+            {
+              "codeName": "Water",
+              "quantity": 50,
+              "limit": 2500
+            }
+          ],
           "duration": 50,
           "powerDelta": 0,
           "consumeResourceNodes": false
@@ -7833,7 +8416,13 @@
       "codeName": "EngineRoomT2",
       "baseRecipes": [
         {
-          "inputs": [],
+          "inputs": [
+            {
+              "codeName": "Diesel",
+              "quantity": 0.5,
+              "limit": 1000
+            }
+          ],
           "outputs": [
             {
               "codeName": "ReservePower",
@@ -7846,7 +8435,13 @@
           "consumeResourceNodes": false
         },
         {
-          "inputs": [],
+          "inputs": [
+            {
+              "codeName": "Petrol",
+              "quantity": 0.5,
+              "limit": 1000
+            }
+          ],
           "outputs": [
             {
               "codeName": "ReservePower",
@@ -7879,7 +8474,13 @@
       "codeName": "EngineRoomT3",
       "baseRecipes": [
         {
-          "inputs": [],
+          "inputs": [
+            {
+              "codeName": "Diesel",
+              "quantity": 0.5,
+              "limit": 1000
+            }
+          ],
           "outputs": [
             {
               "codeName": "ReservePower",
@@ -7892,7 +8493,13 @@
           "consumeResourceNodes": false
         },
         {
-          "inputs": [],
+          "inputs": [
+            {
+              "codeName": "Petrol",
+              "quantity": 0.5,
+              "limit": 1000
+            }
+          ],
           "outputs": [
             {
               "codeName": "ReservePower",

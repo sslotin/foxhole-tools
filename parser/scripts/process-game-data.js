@@ -869,8 +869,16 @@ const FACILITY_FILES = [
 
 function parseConversion(entry) {
   return {
-    inputs: (entry.ItemInput || []).map(i => ({ codeName: i.CodeName, quantity: i.Quantity, limit: i.Limit || 0 })),
-    outputs: (entry.ItemOutput || []).map(o => ({ codeName: o.CodeName, quantity: o.Quantity, limit: o.Limit || 0 })),
+    inputs: [
+      ...(entry.ItemInput || []).map(i => ({ codeName: i.CodeName, quantity: i.Quantity, limit: i.Limit || 0 })),
+      ...(entry.CrateInput || []).map(c => ({ codeName: c.CodeName, quantity: c.Quantity, limit: c.Limit || 0 })),
+      ...(entry.LiquidInput || []).map(l => ({ codeName: l.CodeName, quantity: l.Quantity, limit: l.Limit || 0 })),
+    ],
+    outputs: [
+      ...(entry.ItemOutput || []).map(o => ({ codeName: o.CodeName, quantity: o.Quantity, limit: o.Limit || 0 })),
+      ...(entry.CrateOutput || []).map(c => ({ codeName: c.CodeName, quantity: c.Quantity, limit: c.Limit || 0 })),
+      ...(entry.LiquidOutput || []).map(l => ({ codeName: l.CodeName, quantity: l.Quantity, limit: l.Limit || 0 })),
+    ],
     duration: entry.Duration,
     powerDelta: entry.PowerDelta,
     consumeResourceNodes: entry.bConsumeResourceNodes,
