@@ -889,6 +889,23 @@ for (const { path, key } of FACILITY_FILES) {
   const baseConversions = props.ConversionEntries || [];
   const modifications = props.Modifications || [];
 
+  // Modification display names live in a sibling *_UpgradeSlotComponent.json
+  // file (the facility file's own DisplayName is null). Load it and build a
+  // modKey→name map so we emit the in-game name (e.g. enum "Recycler" →
+  // "Assembly Bay", "RocketFactory" → "Rocket Battery Workshop") instead of a
+  // prettified enum key.
+  const slotPath = `Structures/Facilities/Modifications/Data/BP${key}_UpgradeSlotComponent.json`;
+  const modNames = {};
+  if (fs.existsSync(GAME_DATA + '/' + slotPath)) {
+    const slotData = readJSON(GAME_DATA + '/' + slotPath);
+    const slotEntry = findDefaultEntry(slotData);
+    for (const m of (slotEntry?.Properties?.Modifications || [])) {
+      const mk = m.Key ? m.Key.replace('EFortModificationType::', '') : '?';
+      const name = m.Value?.DisplayName?.SourceString;
+      if (name && mk !== 'Default') modNames[mk] = name;
+    }
+  }
+
   const facility = {
     displayName: getDisplayName(data),
     codeName: getCodeName(data),
@@ -899,7 +916,7 @@ for (const { path, key } of FACILITY_FILES) {
     const modKey = mod.Key ? mod.Key.replace('EFortModificationType::', '') : '?';
     const modValue = mod.Value || {};
     facility.modifications[modKey] = {
-      displayName: modValue.DisplayName?.SourceString,
+      displayName: modNames[modKey] || modValue.DisplayName?.SourceString || null,
       recipes: (modValue.ConversionEntries || []).map(parseConversion),
     };
   }

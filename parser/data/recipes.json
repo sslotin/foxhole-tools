@@ -1,5 +1,5 @@
 {
-  "_generated": "2026-07-05T15:41:56.359Z",
+  "_generated": "2026-07-05T21:11:47.686Z",
   "_sources": [
     "War/Content/Blueprints/Data/BPItemDynamicData.json — Factory/MPF crate recipes",
     "War/Content/Blueprints/Structures/ — facility conversion recipes"
@@ -4906,6 +4906,7 @@
       ],
       "modifications": {
         "RocketFactory": {
+          "displayName": "Rocket Battery Workshop",
           "recipes": [
             {
               "inputs": [
@@ -5006,6 +5007,7 @@
           ]
         },
         "LargeShellFactory": {
+          "displayName": "Large Shell Factory",
           "recipes": [
             {
               "inputs": [
@@ -5274,6 +5276,7 @@
           ]
         },
         "TripodFactory": {
+          "displayName": "Tripod Factory",
           "recipes": [
             {
               "inputs": [
@@ -5733,6 +5736,7 @@
       ],
       "modifications": {
         "InfantryAmmo": {
+          "displayName": "Small Arms Workshop",
           "recipes": [
             {
               "inputs": [
@@ -5871,6 +5875,7 @@
           ]
         },
         "SpecialWeapons": {
+          "displayName": "Special-Issue Firearms Assembly",
           "recipes": [
             {
               "inputs": [
@@ -6066,6 +6071,7 @@
           ]
         },
         "HeavyAmmo": {
+          "displayName": "Heavy Munitions Foundry",
           "recipes": [
             {
               "inputs": [
@@ -6434,6 +6440,7 @@
       ],
       "modifications": {
         "AircraftStrategic": {
+          "displayName": "Strategic Maintenance Hangar",
           "recipes": [
             {
               "inputs": [
@@ -6716,6 +6723,7 @@
       ],
       "modifications": {
         "Forge": {
+          "displayName": "Forge",
           "recipes": [
             {
               "inputs": [
@@ -6763,6 +6771,7 @@
           ]
         },
         "MetalPress": {
+          "displayName": "Metal Press",
           "recipes": [
             {
               "inputs": [
@@ -6786,6 +6795,7 @@
           ]
         },
         "Recycler": {
+          "displayName": "Assembly Bay",
           "recipes": [
             {
               "inputs": [
@@ -6862,6 +6872,7 @@
           ]
         },
         "Smelter": {
+          "displayName": "Smelter",
           "recipes": [
             {
               "inputs": [
@@ -6941,6 +6952,7 @@
       ],
       "modifications": {
         "Recycler": {
+          "displayName": "Recycler",
           "recipes": [
             {
               "inputs": [
@@ -6988,6 +7000,7 @@
           ]
         },
         "BlastFurnace": {
+          "displayName": "Blast Furnace",
           "recipes": [
             {
               "inputs": [
@@ -7112,6 +7125,7 @@
           ]
         },
         "EngineeringStation": {
+          "displayName": "Engineering Station",
           "recipes": [
             {
               "inputs": [
@@ -7230,6 +7244,7 @@
       ],
       "modifications": {
         "CokeFurnace": {
+          "displayName": "Coke Furnace",
           "recipes": [
             {
               "inputs": [
@@ -7258,6 +7273,7 @@
           ]
         },
         "CoalLiquefier": {
+          "displayName": "Coal Liquefier",
           "recipes": [
             {
               "inputs": [
@@ -7286,6 +7302,7 @@
           ]
         },
         "AdvCoalLiquefier": {
+          "displayName": "Advanced Coal Liquefier",
           "recipes": [
             {
               "inputs": [
@@ -7348,6 +7365,7 @@
       ],
       "modifications": {
         "Reformer": {
+          "displayName": "Reformer",
           "recipes": [
             {
               "inputs": [],
@@ -7359,6 +7377,7 @@
           ]
         },
         "CrackingUnit": {
+          "displayName": "Cracking Unit",
           "recipes": [
             {
               "inputs": [],
@@ -7370,6 +7389,7 @@
           ]
         },
         "PetrochemicalPlant": {
+          "displayName": "Petrochemical Plant",
           "recipes": [
             {
               "inputs": [
@@ -7466,6 +7486,7 @@
       ],
       "modifications": {
         "Petrol": {
+          "displayName": "Petrol Power Plant",
           "recipes": [
             {
               "inputs": [],
@@ -7477,6 +7498,7 @@
           ]
         },
         "Coal": {
+          "displayName": "Coal Power Plant",
           "recipes": [
             {
               "inputs": [
@@ -7522,6 +7544,7 @@
       ],
       "modifications": {
         "SulfuricReactor": {
+          "displayName": "Sulfuric Reactor",
           "recipes": [
             {
               "inputs": [],
@@ -7579,6 +7602,7 @@
       ],
       "modifications": {
         "Excavator": {
+          "displayName": "Excavator",
           "recipes": [
             {
               "inputs": [],
@@ -7617,6 +7641,7 @@
       ],
       "modifications": {
         "Excavator": {
+          "displayName": "Excavator",
           "recipes": [
             {
               "inputs": [],
@@ -7655,6 +7680,7 @@
       ],
       "modifications": {
         "Excavator": {
+          "displayName": "Excavator",
           "recipes": [
             {
               "inputs": [],
@@ -7698,6 +7724,7 @@
       ],
       "modifications": {
         "Excavator": {
+          "displayName": "Excavator",
           "recipes": [
             {
               "inputs": [],
@@ -7730,6 +7757,7 @@
       ],
       "modifications": {
         "Electric": {
+          "displayName": "Electric Oil Well",
           "recipes": [
             {
               "inputs": [],
@@ -7741,6 +7769,7 @@
           ]
         },
         "Fracker": {
+          "displayName": "Fracker",
           "recipes": [
             {
               "inputs": [],
@@ -7794,6 +7823,7 @@
       ],
       "modifications": {
         "Electric": {
+          "displayName": "Piped Water Pump",
           "recipes": []
         }
       }

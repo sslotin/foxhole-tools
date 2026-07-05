@@ -1,6 +1,6 @@
 # MEMORY.md — Project Context & Status
 
-Last updated: Jul 5, 2026 (scripts consolidated; search mode added).
+Last updated: Jul 5, 2026 (scripts consolidated; search mode added; facility cost calculator added; mod display names now sourced from game data).
 
 ## Product Context
 
@@ -64,6 +64,47 @@ Paste → App.vue.addCSV(text) → parser/csv-parser.parseCSV(text)
 | Inventory | ~220 | Single report, delta tracking, compact groups, "live guns" min(guns, ammo/3) |
 | Stockpile | ~430 | Multi-source/target, crate planning, category filters, shopping list auto-fill, export |
 | **Search** | — | **Default landing view (`src/components/Search.vue`)**, shown when `submissions.length === 0`. Left panel: search bar + live results (icon + `displayName`, all 662 items/vehicles/structures). Case-insensitive substring match on `displayName` only; results list hidden until you type. Click an entry → right panel shows pretty-printed raw metadata JSON (max-width 1000px, centered). × button clears the search; emptying the box resets to the default placeholder view. Paste still works globally to switch to CSV modes. |
+
+**Facility cost calculator** (sub-mode of Search): each result row for a *facility-produced* item shows a green **+** button (`src/facility-calc/`). Clicking it pins the item to the top of the left panel (`src/components/FacDesired.vue`, green-tinted row matching the search-result row height/styling, editable quantity + remove) and reveals the calculator (`src/components/FacilityCalc.vue`) in the right panel. Removing the last pinned item closes the calculator (no title/close button). The calculator resolves the recipe graph bottom-up through the 158 facility recipes (base + modification tiers; mines = raw-from-node leaves) and shows **two panels**: **left** = Raw resources + Intermediate resources; **right** = building/modification groups. Recipes run at **fractional scale** (no integer-run rounding, no discretization leftovers); byproducts are produced exactly and reused to offset downstream demand, but final surplus is ignored (not shown). Only the **production time** is shown per active recipe (not run counts). Headers are grey (`#999`, matching the stockpile report's secondary label shade), not green.
+
+  The right panel groups recipes by **building modification** (label = mod display name, e.g. "Metal Press", "Assembly Bay", "Rocket Battery Workshop"; for harvester facilities the facility's parenthetical distinguishes same-named mods across facilities, giving e.g. "Excavator (Coal)", "Excavator (Sulfur)"; base recipes show the facility name). **Modification display names come from the game data** (`*_UpgradeSlotComponent.json` files, sourced by `parser/scripts/process-game-data.js`), not prettified enum keys — the enum key `Recycler` is the in-game "Assembly Bay", `RocketFactory` is "Rocket Battery Workshop", etc. The recipe object carries `modName` (the in-game name) and `mod` (the enum key); `modLabel` uses `modName`. The displayed recipe set is the **stable closure** of all recipes that could possibly be involved (`reachableRecipes` in `resolver.mjs`, independent of `selectedRecipes`) — so toggling a recipe choice never adds/removes sections, only flips lit/dim. Recipes are presented under their **demanded output** (a multi-output recipe co-producing a byproduct is shown under the demanded item, e.g. the Excavator Sulfur mine — which also makes Coal — appears as a Coal recipe). Each recipe row is **clickable to select it** (no radio buttons). Dimming is driven by **activatability**, not by active-ness: a recipe is *activatable* (rendered full-bright) iff the item it's presented under is actually produced in the current plan (`activeItems = new Set(plan.processes.map(p => p.item))`, which includes gathered raws since mines create processes too); recipes presented under items not in the plan (e.g. Coke/Coal recipes while the base Cmats recipe — which needs no Coke — is selected, or Components recipes pulled in by the Recycler alternative) are **dimmed** (`opacity: 0.4`, un-dim on hover) because clicking them would change nothing. The currently-selected recipe (the one in the active plan) additionally gets a green background (`#2a5a2a`) and shows its production time; activatable alternatives stay full-bright so they're clearly clickable. Selecting a recipe that newly needs an item (e.g. the Smelter Cmats recipe, which needs Coke) flips that item's recipes from dim to activatable. **Building/modification group headings stay constant** (`#999`) regardless of in-use state. Building groups are ordered with any group that contains a **target-producing recipe** (one whose output is a pinned/desired item) sorted first, then alphabetical by facility/mod — so the building that actually makes what you pinned sits at the top. Within each group, recipes producing a target output also sort above intermediate producers. Aggregated resource counts are **ceiled** for display (you must source a whole unit even if the fractional plan needs less) via `Math.ceil(n - 1e-6)`; the resolver still runs fractionally so byproduct reuse and timings stay exact. Left panel sections: **Raw resources**, **Intermediate resources**, **By-products** (leftover co-produced surplus not reused downstream, in its own section). Modification names come from the game data (e.g. "Advanced Coal Liquefier") — `prettifyMod` is only a fallback for mods missing a display name.
+
+  **Reactivity gotcha (solved):** recipe objects are stored in reactive `calc.selectedRecipes` and read back inside the resolver's computed. Vue 3 deep-reactivity wraps them in proxies on read, so the object the resolver sees is a *different reference* than the raw objects returned by `recipesFor()` in the template — breaking identity-based `activeRecipes.has(entry.r)` and making the selected recipe never light up. Fix: every recipe object is `markRaw(...)` at construction in `recipes.mjs`, so Vue never proxies them and identity is preserved. State lives in a shared reactive store (`src/facility-calc/store.mjs`); the resolver is a FIFO worklist (`src/facility-calc/resolver.mjs`). **codeName canonicalization:** four facility-recipe codeNames are lowercase in the raw export (`metal`, `coal`, `heavyartilleryammo`, `lightartilleryammo`) but their icons + metadata exist only under PascalCase; `recipes.mjs` `CANON` canonicalizes all four on read so icon paths and metadata lookups resolve. |
+
+### Facility Cost Calculator — Algorithm
+
+**Inputs:** `desired = [{codeName, qty}]` (pinned items) + `selectedRecipes = {item → recipe}` (user's per-item recipe override; defaults via `defaultRecipe` = base recipe, else first available).
+
+**`resolvePlan`** (`resolver.mjs`) — FIFO worklist, fractional-scale resolution:
+
+1. Seed queue with `desired` items (each flagged `root: true`).
+2. Pop an item/qty. **Reuse surplus first**: subtract any accumulated `excess[item]` (byproduct surplus from earlier steps) from `need`; if that satisfies it, skip manufacturing.
+3. Pick the recipe: `selectedRecipes[item]` or `defaultRecipe(item)`. If none exists → it's a **leaf**: add to `raw` (you must source it).
+4. `runs = need / outObj.quantity` (fractional — no integer rounding, no discretization excess).
+5. Record/merge a process at key `procKey(recipe, item)` (accumulate `runs` + `time = duration × runs` if the same recipe+item recurs).
+6. **Mines** (recipe with `inputs.length === 0`) → output is *gathered* from a resource node: add to `raw` (never intermediate), and stop (no inputs to recurse).
+7. **Real manufacturing** (has inputs): if the item is non-root → add to `intermediate` (net, after byproduct reuse).
+8. **Byproducts → surplus**: every *other* output of the recipe accumulates into `excess[otherCodeName] += runs × other.quantity` (reused in step 2 by any downstream demand for that item).
+9. Enqueue each input as `{item, qty: input.quantity × runs, root: false}`.
+10. Cycle guard: bail after 200k iterations (the recipe graph is acyclic in practice).
+11. Returns `{ raw, intermediate, byproducts, processes, involved }`:
+    - `raw` — leaves with no recipe, or gathered from nodes (mines).
+    - `intermediate` — manufactured items (net of byproduct reuse), excluding the root/desired outputs.
+    - `byproducts` — leftover `excess` entries (> EPS) after all demand is met: co-produced surplus that nothing consumed.
+    - `processes` — every recipe step that ran, `{recipe, runs, time, item}`, sorted by `facLabel` then item.
+    - `involved` — Set of every manufactured item (roots + intermediates).
+
+**`reachableRecipes`** (`resolver.mjs`) — **graph closure**, independent of `selectedRecipes` (for stable UI sections):
+
+1. Seed BFS with `desired` codeNames.
+2. For each item, walk *all* `recipesFor(item)` (every alternative, not the chosen one), mark each recipe reachable and recurse into all its inputs.
+3. Returns `Map<recipe, presentedItem>` where `presentedItem` = the demanded output the recipe is reached through (so a co-producing recipe is shown under the item you're actually making, e.g. Excavator Sulfur mine → shown as a Coal recipe). After BFS, re-scan to prefer the first output that is itself demanded.
+
+**Display rules** (in `FacilityCalc.vue`):
+- `activeItems = new Set(plan.processes.map(p => p.item))` — drives **activatability** (lit vs dim) of each recipe row.
+- Counts ceiled for display via `Math.ceil(n - 1e-6)`; the resolver stays fractional.
+- Left panel: **Raw resources** / **Intermediate resources** (only if non-empty) / **By-products** (only if non-empty, its own section).
+- Right panel: recipes grouped by `modLabel` (mod display name, harvester-paren disambiguation), sorted target-producers-first.
 
 ---
 
@@ -151,7 +192,7 @@ codeName → { short, target }  // hardcoded targets, needs audit vs latest meta
 
 | Command | Action |
 |---|---|
-| `node parser/scripts/process-game-data.js` | ⭐ Regenerate `metadata.json` + `recipes.json` + `public/icons/` from `game_data/` exports. Walks all blueprint files, extracts full stats + profiles + icons + recipes in one pass. |
+| `node parser/scripts/process-game-data.js` | ⭐ Regenerate `metadata.json` + `recipes.json` + `public/icons/` from `game_data/` exports. Walks all blueprint files, extracts full stats + profiles + icons + recipes in one pass. Also reads sibling `*_UpgradeSlotComponent.json` files for in-game modification display names (e.g. enum `Recycler` → "Assembly Bay"). **⚠️ Restart `npm run dev` afterward** — the parser does `rmSync`+`mkdirSync` on `public/icons/`, which Vite's chokidar watcher loses track of, causing icons to vanish (served as SPA-fallback HTML) until the dev server restarts. |
 | `npm run generate-positions` | Rebuild `parser/data/positions-*.js` from `examples/u64_stockpile.csv` + `u64_base.csv` |
 | `npm run check-diff -- <csv>` | Compare CSV display names vs `metadata.json` (exit 0 = all known) |
 

@@ -55,6 +55,10 @@ node parser/scripts/process-game-data.js
 
 This re-generates `metadata.json`, `recipes.json`, and all icons from the game export files.
 
+**Note — facility modification display names:** in-game mod names live in sibling `Structures/Facilities/Modifications/Data/BP<FacilityKey>_UpgradeSlotComponent.json` files, NOT in the facility file itself (whose `Modifications[].Value.DisplayName` is null). The parser reads both: it builds a `modKey → DisplayName.SourceString` map from the UpgradeSlot file and uses it as each modification's `displayName` in `recipes.json` (falling back to the camelCase enum key). This is why enum key `Recycler` becomes in-game "Assembly Bay", `RocketFactory` becomes "Rocket Battery Workshop", `SpecialWeapons` becomes "Special-Issue Firearms Assembly", etc.
+
+**⚠️ Dev server caveat:** `process-game-data.js` deletes & recreates `public/icons/` (`rmSync` + `mkdirSync`). Vite's chokidar watcher (long-running dev server) can lose track of the recreated directory and start serving SPA-fallback HTML for icon requests (icons vanish app-wide). **Restart `npm run dev` after running the parser.**
+
 ### 5. Iterative fixes
 
 After adding new items to `metadata.json`, re-run:

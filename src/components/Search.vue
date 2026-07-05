@@ -1,6 +1,10 @@
 <script setup>
 import { ref, computed, watch } from 'vue'
 import metadata from '../../parser/data/metadata.json'
+import { facilityProduced, displayName } from '../facility-calc/recipes.mjs'
+import { calc, addDesired } from '../facility-calc/store.mjs'
+import FacilityCalc from './FacilityCalc.vue'
+import FacDesired from './FacDesired.vue'
 
 const query = ref('')
 const selectedCodeName = ref(undefined)
@@ -12,14 +16,31 @@ const entries = Object.entries(metadata).map(([codeName, data]) => ({
 }))
 
 // Case-insensitive substring match on displayName only.
+// Items already pinned for production are hidden from the results.
+const pinned = computed(() => new Set(calc.desired.map(d => d.codeName)))
 const results = computed(() => {
   const q = query.value.trim().toLowerCase()
-  if (!q) return entries
-  return entries.filter(e => e.displayName.toLowerCase().includes(q))
+  const base = !q ? entries : entries.filter(e => e.displayName.toLowerCase().includes(q))
+  const filtered = base.filter(e => !pinned.value.has(e.codeName))
+  if (!calc.active) return filtered
+  // When the calculator is active, surface facility-produced items first
+  // (preserving existing order within each group).
+  const fac = [], other = []
+  for (const e of filtered) (facilityProduced.has(e.codeName) ? fac : other).push(e)
+  return [...fac, ...other]
+})
+
+// Pinned items are hidden from `results`, but a query that matches one of them
+// is still a real match — used to suppress the "no matches" message.
+const pinnedMatches = computed(() => {
+  const q = query.value.trim().toLowerCase()
+  if (!q) return 0
+  return calc.desired.filter(d => displayName(d.codeName).toLowerCase().includes(q)).length
 })
 
 function select(codeName) {
-  selectedCodeName.value = codeName
+  // Clicking the already-active row toggles it off (exits metadata view).
+  selectedCodeName.value = selectedCodeName.value === codeName ? undefined : codeName
 }
 
 // Empty search box → return to the default (empty) view.
@@ -47,6 +68,7 @@ const selected = computed(() =>
           <div class="x">×</div>
         </div>
       </div>
+      <FacDesired :selected="selectedCodeName" @select="select" />
       <div class="results" v-if="query.trim()">
         <div
           v-for="e in results"
@@ -60,24 +82,33 @@ const selected = computed(() =>
             @error="$event.target.style.visibility = 'hidden'"
           />
           <span class="name">{{ e.displayName }}</span>
+          <button
+            v-if="facilityProduced.has(e.codeName)"
+            class="add-fac"
+            @click.stop="addDesired(e.codeName)"
+            title="add to facility cost calculator"
+          >+</button>
         </div>
-        <p v-if="results.length === 0" class="no-results">no matches</p>
+        <p v-if="results.length === 0 && pinnedMatches === 0" class="no-results">no matches</p>
       </div>
     </div>
     <div class="detail">
-      <div class="content">
-        <template v-if="selected">
-          <div class="header">
-            <h2>{{ selected.displayName }}</h2>
-            <code>{{ selectedCodeName }}</code>
-          </div>
-          <pre>{{ JSON.stringify(selected, null, 2) }}</pre>
-        </template>
-        <div v-else class="empty">
+      <div class="content" v-if="selected">
+        <div class="header">
+          <h2>{{ selected.displayName }}</h2>
+          <code>{{ selectedCodeName }}</code>
+        </div>
+        <pre>{{ JSON.stringify(selected, null, 2) }}</pre>
+      </div>
+      <div class="content" v-else-if="calc.active">
+        <FacilityCalc />
+      </div>
+      <div class="content" v-else>
+        <div class="empty">
           <p>ctrl+v a csv or use search</p>
         </div>
       </div>
-      <div v-if="!selected" class="links">
+      <div v-if="!selected && !calc.active" class="links">
         <a href='/tutorial.mp4'>old tutorial</a>
         <a href='/guide/index.html'>logi guide</a>
         <a href='/changelog.txt'>changelog</a>
@@ -95,7 +126,7 @@ const selected = computed(() =>
   height: calc(100vh - 8px)
 
 .panel
-  width: 320px
+  width: 370px
   flex-shrink: 0
   display: flex
   flex-direction: column
@@ -164,9 +195,6 @@ const selected = computed(() =>
   &.active
     background: #333
 
-    .name
-      font-weight: bold
-
   img
     width: 32px
     height: 32px
@@ -179,6 +207,21 @@ const selected = computed(() =>
     white-space: nowrap
     overflow: hidden
     text-overflow: ellipsis
+
+  .add-fac
+    flex-shrink: 0
+    width: 22px
+    height: 22px
+    border: none
+    border-radius: 4px
+    background: #2a5a2a
+    color: #bfe6bf
+    font-size: 16px
+    line-height: 1
+    cursor: pointer
+
+    &:hover
+      background: #3a7a3a
 
 .no-results
   padding: 16px 10px
