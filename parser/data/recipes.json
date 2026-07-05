@@ -1,5 +1,5 @@
 {
-  "_generated": "2026-07-05T22:03:00.675Z",
+  "_generated": "2026-07-05T22:11:41.623Z",
   "_sources": [
     "War/Content/Blueprints/Data/BPItemDynamicData.json — Factory/MPF crate recipes",
     "War/Content/Blueprints/Structures/ — facility conversion recipes"
@@ -5096,7 +5096,7 @@
               ],
               "outputs": [
                 {
-                  "codeName": "lightartilleryammo",
+                  "codeName": "LightArtilleryAmmo",
                   "quantity": 1,
                   "limit": 0
                 }
@@ -5120,7 +5120,7 @@
               ],
               "outputs": [
                 {
-                  "codeName": "heavyartilleryammo",
+                  "codeName": "HeavyArtilleryAmmo",
                   "quantity": 1,
                   "limit": 0
                 }
@@ -5987,7 +5987,7 @@
               ],
               "outputs": [
                 {
-                  "codeName": "Stickybomb",
+                  "codeName": "StickyBomb",
                   "quantity": 10,
                   "limit": 150
                 }
@@ -6377,7 +6377,7 @@
               ],
               "outputs": [
                 {
-                  "codeName": "lighttankammo",
+                  "codeName": "LightTankAmmo",
                   "quantity": 10,
                   "limit": 100
                 }
@@ -6497,7 +6497,7 @@
               ],
               "outputs": [
                 {
-                  "codeName": "RPGAmmo",
+                  "codeName": "RpgAmmo",
                   "quantity": 10,
                   "limit": 100
                 }
@@ -7974,7 +7974,7 @@
             {
               "inputs": [
                 {
-                  "codeName": "coal",
+                  "codeName": "Coal",
                   "quantity": 60,
                   "limit": 32000
                 }
@@ -8113,7 +8113,7 @@
               ],
               "outputs": [
                 {
-                  "codeName": "metal",
+                  "codeName": "Metal",
                   "quantity": 15,
                   "limit": 555
                 }
@@ -8367,7 +8367,7 @@
         {
           "inputs": [
             {
-              "codeName": "coal",
+              "codeName": "Coal",
               "quantity": 100,
               "limit": 32000
             }
@@ -8557,7 +8557,7 @@
             },
             {
               "codeName": "FacilityMaterials1",
-              "quantity": 80
+              "quantity": 5
             }
           ],
           "requires": "MotorcycleC"
@@ -8577,7 +8577,7 @@
             },
             {
               "codeName": "FacilityMaterials1",
-              "quantity": 150
+              "quantity": 10
             }
           ],
           "requires": "TruckC"
@@ -8597,7 +8597,7 @@
             },
             {
               "codeName": "FacilityMaterials1",
-              "quantity": 150
+              "quantity": 10
             }
           ],
           "requires": "TruckC"
@@ -8617,7 +8617,7 @@
             },
             {
               "codeName": "FacilityMaterials1",
-              "quantity": 150
+              "quantity": 10
             }
           ],
           "requires": "TruckW"
@@ -8637,7 +8637,7 @@
             },
             {
               "codeName": "FacilityMaterials1",
-              "quantity": 150
+              "quantity": 10
             }
           ],
           "requires": "TruckW"
@@ -8729,11 +8729,11 @@
             },
             {
               "codeName": "FacilityMaterials1",
-              "quantity": 150
+              "quantity": 15
             },
             {
               "codeName": "FacilityMaterials5",
-              "quantity": 10
+              "quantity": 5
             }
           ],
           "requires": "AmbulanceC"
@@ -8753,11 +8753,11 @@
             },
             {
               "codeName": "FacilityMaterials1",
-              "quantity": 150
+              "quantity": 15
             },
             {
               "codeName": "FacilityMaterials5",
-              "quantity": 10
+              "quantity": 5
             }
           ],
           "requires": "AmbulanceW"
@@ -8829,16 +8829,12 @@
                   "quantity": 1
                 },
                 {
-                  "codeName": "FacilityMaterials2",
-                  "quantity": 50
+                  "codeName": "FacilityMaterials1",
+                  "quantity": 10
                 },
                 {
                   "codeName": "FacilityMaterials4",
-                  "quantity": 20
-                },
-                {
-                  "codeName": "FacilityMaterials1",
-                  "quantity": 20
+                  "quantity": 10
                 }
               ],
               "requires": "ArmoredCarC"
@@ -8858,15 +8854,11 @@
                 },
                 {
                   "codeName": "FacilityMaterials1",
-                  "quantity": 20
-                },
-                {
-                  "codeName": "FacilityMaterials2",
-                  "quantity": 50
+                  "quantity": 10
                 },
                 {
                   "codeName": "FacilityMaterials4",
-                  "quantity": 20
+                  "quantity": 10
                 }
               ],
               "requires": "ArmoredCarC"
@@ -8886,15 +8878,11 @@
                 },
                 {
                   "codeName": "FacilityMaterials1",
-                  "quantity": 20
-                },
-                {
-                  "codeName": "FacilityMaterials2",
-                  "quantity": 70
+                  "quantity": 10
                 },
                 {
                   "codeName": "FacilityMaterials4",
-                  "quantity": 30
+                  "quantity": 15
                 }
               ],
               "requires": "TanketteC"
@@ -8914,11 +8902,11 @@
                 },
                 {
                   "codeName": "FacilityMaterials2",
-                  "quantity": 90
+                  "quantity": 10
                 },
                 {
                   "codeName": "FacilityMaterials4",
-                  "quantity": 30
+                  "quantity": 15
                 }
               ],
               "requires": "TanketteC"
@@ -8938,11 +8926,7 @@
                 },
                 {
                   "codeName": "FacilityMaterials1",
-                  "quantity": 6
-                },
-                {
-                  "codeName": "FacilityMaterials2",
-                  "quantity": 20
+                  "quantity": 3
                 }
               ],
               "requires": "ScoutVehicleMobilityC"
@@ -8962,15 +8946,11 @@
                 },
                 {
                   "codeName": "FacilityMaterials1",
-                  "quantity": 6
-                },
-                {
-                  "codeName": "FacilityMaterials2",
-                  "quantity": 20
+                  "quantity": 3
                 },
                 {
                   "codeName": "FacilityMaterials5",
-                  "quantity": 20
+                  "quantity": 10
                 }
               ],
               "requires": "ScoutVehicleMobilityC"
@@ -8990,15 +8970,11 @@
                 },
                 {
                   "codeName": "FacilityMaterials2",
-                  "quantity": 70
+                  "quantity": 10
                 },
                 {
                   "codeName": "FacilityMaterials4",
-                  "quantity": 20
-                },
-                {
-                  "codeName": "FacilityMaterials1",
-                  "quantity": 20
+                  "quantity": 10
                 }
               ],
               "requires": "ArmoredCarW"
@@ -9018,15 +8994,11 @@
                 },
                 {
                   "codeName": "FacilityMaterials1",
-                  "quantity": 10
-                },
-                {
-                  "codeName": "FacilityMaterials2",
-                  "quantity": 50
+                  "quantity": 5
                 },
                 {
                   "codeName": "FacilityMaterials4",
-                  "quantity": 10
+                  "quantity": 5
                 }
               ],
               "requires": "ArmoredCarW"
@@ -9045,16 +9017,12 @@
                   "quantity": 1
                 },
                 {
-                  "codeName": "FacilityMaterials2",
-                  "quantity": 50
+                  "codeName": "FacilityMaterials1",
+                  "quantity": 10
                 },
                 {
                   "codeName": "FacilityMaterials4",
-                  "quantity": 20
-                },
-                {
-                  "codeName": "FacilityMaterials1",
-                  "quantity": 20
+                  "quantity": 10
                 }
               ],
               "requires": "ArmoredCarW"
@@ -9074,15 +9042,11 @@
                 },
                 {
                   "codeName": "FacilityMaterials1",
-                  "quantity": 30
-                },
-                {
-                  "codeName": "FacilityMaterials2",
-                  "quantity": 50
+                  "quantity": 15
                 },
                 {
                   "codeName": "FacilityMaterials4",
-                  "quantity": 30
+                  "quantity": 15
                 }
               ],
               "requires": "ArmoredCar2TwinW"
@@ -9102,15 +9066,11 @@
                 },
                 {
                   "codeName": "FacilityMaterials1",
-                  "quantity": 6
-                },
-                {
-                  "codeName": "FacilityMaterials2",
-                  "quantity": 20
+                  "quantity": 3
                 },
                 {
                   "codeName": "FacilityMaterials5",
-                  "quantity": 20
+                  "quantity": 10
                 }
               ],
               "requires": "ScoutVehicleW"
@@ -9130,15 +9090,11 @@
                 },
                 {
                   "codeName": "FacilityMaterials1",
-                  "quantity": 6
-                },
-                {
-                  "codeName": "FacilityMaterials2",
-                  "quantity": 20
+                  "quantity": 3
                 },
                 {
                   "codeName": "FacilityMaterials5",
-                  "quantity": 10
+                  "quantity": 5
                 }
               ],
               "requires": "ScoutVehicleW"
@@ -9158,15 +9114,11 @@
                 },
                 {
                   "codeName": "FacilityMaterials1",
-                  "quantity": 60
-                },
-                {
-                  "codeName": "FacilityMaterials2",
-                  "quantity": 40
+                  "quantity": 30
                 },
                 {
                   "codeName": "FacilityMaterials5",
-                  "quantity": 40
+                  "quantity": 20
                 }
               ],
               "requires": "FieldMGC"
@@ -9186,15 +9138,11 @@
                 },
                 {
                   "codeName": "FacilityMaterials1",
-                  "quantity": 60
-                },
-                {
-                  "codeName": "FacilityMaterials2",
-                  "quantity": 40
+                  "quantity": 30
                 },
                 {
                   "codeName": "FacilityMaterials5",
-                  "quantity": 40
+                  "quantity": 20
                 }
               ],
               "requires": "FieldMGW"
@@ -9219,15 +9167,15 @@
                 },
                 {
                   "codeName": "FacilityMaterials2",
-                  "quantity": 140
+                  "quantity": 70
                 },
                 {
                   "codeName": "FacilityMaterials4",
-                  "quantity": 20
+                  "quantity": 10
                 },
                 {
                   "codeName": "FacilityMaterials6",
-                  "quantity": 16
+                  "quantity": 8
                 }
               ],
               "requires": "TruckC"
@@ -9322,15 +9270,15 @@
                 },
                 {
                   "codeName": "FacilityMaterials3",
-                  "quantity": 15
+                  "quantity": 5
                 },
                 {
                   "codeName": "FacilityMaterials4",
-                  "quantity": 30
+                  "quantity": 15
                 },
                 {
                   "codeName": "FacilityMaterials6",
-                  "quantity": 6
+                  "quantity": 3
                 }
               ],
               "requires": "ScoutTankW"
@@ -9350,15 +9298,15 @@
                 },
                 {
                   "codeName": "FacilityMaterials2",
-                  "quantity": 40
+                  "quantity": 20
                 },
                 {
                   "codeName": "FacilityMaterials4",
-                  "quantity": 30
+                  "quantity": 15
                 },
                 {
                   "codeName": "FacilityMaterials6",
-                  "quantity": 6
+                  "quantity": 3
                 }
               ],
               "requires": "TanketteC"
@@ -9378,11 +9326,11 @@
                 },
                 {
                   "codeName": "FacilityMaterials2",
-                  "quantity": 130
+                  "quantity": 5
                 },
                 {
                   "codeName": "FacilityMaterials7",
-                  "quantity": 10
+                  "quantity": 5
                 }
               ],
               "requires": "HalftrackW"
@@ -9426,15 +9374,15 @@
                 },
                 {
                   "codeName": "FacilityMaterials2",
-                  "quantity": 150
+                  "quantity": 35
                 },
                 {
                   "codeName": "FacilityMaterials4",
-                  "quantity": 20
+                  "quantity": 10
                 },
                 {
                   "codeName": "FacilityMaterials6",
-                  "quantity": 16
+                  "quantity": 8
                 }
               ],
               "requires": "ArmoredCar2TwinW"
@@ -9498,6 +9446,10 @@
                 {
                   "codeName": "Construction",
                   "quantity": 1
+                },
+                {
+                  "codeName": "FacilityMaterials2",
+                  "quantity": 10
                 }
               ],
               "requires": "Construction"
@@ -9517,11 +9469,11 @@
                 },
                 {
                   "codeName": "FacilityMaterials2",
-                  "quantity": 50
+                  "quantity": 5
                 },
                 {
                   "codeName": "FacilityMaterials6",
-                  "quantity": 6
+                  "quantity": 3
                 }
               ],
               "requires": "LandingCraftC"
@@ -9541,11 +9493,11 @@
                 },
                 {
                   "codeName": "FacilityMaterials2",
-                  "quantity": 50
+                  "quantity": 5
                 },
                 {
                   "codeName": "FacilityMaterials7",
-                  "quantity": 10
+                  "quantity": 5
                 }
               ],
               "requires": "FieldATC"
@@ -9565,11 +9517,11 @@
                 },
                 {
                   "codeName": "FacilityMaterials2",
-                  "quantity": 150
+                  "quantity": 5
                 },
                 {
                   "codeName": "FacilityMaterials6",
-                  "quantity": 10
+                  "quantity": 5
                 }
               ],
               "requires": "ScoutTankW"
@@ -9589,11 +9541,11 @@
                 },
                 {
                   "codeName": "FacilityMaterials2",
-                  "quantity": 50
+                  "quantity": 5
                 },
                 {
                   "codeName": "FacilityMaterials7",
-                  "quantity": 10
+                  "quantity": 5
                 }
               ],
               "requires": "FieldATW"
@@ -9650,15 +9602,15 @@
                 },
                 {
                   "codeName": "FacilityMaterials2",
-                  "quantity": 340
+                  "quantity": 10
                 },
                 {
                   "codeName": "FacilityMaterials5",
-                  "quantity": 20
+                  "quantity": 10
                 },
                 {
                   "codeName": "FacilityMaterials6",
-                  "quantity": 30
+                  "quantity": 15
                 }
               ],
               "requires": "DestroyerTankW"
@@ -9678,15 +9630,15 @@
                 },
                 {
                   "codeName": "FacilityMaterials2",
-                  "quantity": 255
+                  "quantity": 8
                 },
                 {
                   "codeName": "FacilityMaterials5",
-                  "quantity": 40
+                  "quantity": 20
                 },
                 {
                   "codeName": "FacilityMaterials6",
-                  "quantity": 10
+                  "quantity": 5
                 }
               ],
               "requires": "LightTankC"
@@ -9706,15 +9658,15 @@
                 },
                 {
                   "codeName": "FacilityMaterials2",
-                  "quantity": 245
+                  "quantity": 8
                 },
                 {
                   "codeName": "FacilityMaterials5",
-                  "quantity": 40
+                  "quantity": 20
                 },
                 {
                   "codeName": "FacilityMaterials6",
-                  "quantity": 10
+                  "quantity": 5
                 }
               ],
               "requires": "LightTankC"
@@ -9734,15 +9686,15 @@
                 },
                 {
                   "codeName": "FacilityMaterials2",
-                  "quantity": 240
+                  "quantity": 5
                 },
                 {
                   "codeName": "FacilityMaterials4",
-                  "quantity": 40
+                  "quantity": 20
                 },
                 {
                   "codeName": "FacilityMaterials7",
-                  "quantity": 10
+                  "quantity": 5
                 }
               ],
               "requires": "LightTankC"
@@ -9762,15 +9714,15 @@
                 },
                 {
                   "codeName": "FacilityMaterials2",
-                  "quantity": 285
+                  "quantity": 12
                 },
                 {
                   "codeName": "FacilityMaterials4",
-                  "quantity": 20
+                  "quantity": 10
                 },
                 {
                   "codeName": "FacilityMaterials7",
-                  "quantity": 16
+                  "quantity": 8
                 }
               ],
               "requires": "MediumTankC"
@@ -9790,15 +9742,15 @@
                 },
                 {
                   "codeName": "FacilityMaterials2",
-                  "quantity": 350
+                  "quantity": 10
                 },
                 {
                   "codeName": "FacilityMaterials5",
-                  "quantity": 20
+                  "quantity": 10
                 },
                 {
                   "codeName": "FacilityMaterials6",
-                  "quantity": 30
+                  "quantity": 10
                 }
               ],
               "requires": "MediumTank2C"
@@ -9829,15 +9781,15 @@
                 },
                 {
                   "codeName": "FacilityMaterials2",
-                  "quantity": 255
+                  "quantity": 8
                 },
                 {
                   "codeName": "FacilityMaterials5",
-                  "quantity": 40
+                  "quantity": 20
                 },
                 {
                   "codeName": "FacilityMaterials6",
-                  "quantity": 10
+                  "quantity": 5
                 }
               ],
               "requires": "LightTankW"
@@ -9857,15 +9809,15 @@
                 },
                 {
                   "codeName": "FacilityMaterials2",
-                  "quantity": 245
+                  "quantity": 3
                 },
                 {
                   "codeName": "FacilityMaterials4",
-                  "quantity": 40
+                  "quantity": 20
                 },
                 {
                   "codeName": "FacilityMaterials7",
-                  "quantity": 6
+                  "quantity": 3
                 }
               ],
               "requires": "LightTankW"
@@ -9885,15 +9837,15 @@
                 },
                 {
                   "codeName": "FacilityMaterials2",
-                  "quantity": 320
+                  "quantity": 5
                 },
                 {
                   "codeName": "FacilityMaterials4",
-                  "quantity": 20
+                  "quantity": 10
                 },
                 {
                   "codeName": "FacilityMaterials7",
-                  "quantity": 16
+                  "quantity": 8
                 }
               ],
               "requires": "MediumTankW"
@@ -9913,15 +9865,15 @@
                 },
                 {
                   "codeName": "FacilityMaterials2",
-                  "quantity": 310
+                  "quantity": 5
                 },
                 {
                   "codeName": "FacilityMaterials5",
-                  "quantity": 20
+                  "quantity": 10
                 },
                 {
                   "codeName": "FacilityMaterials6",
-                  "quantity": 10
+                  "quantity": 5
                 }
               ],
               "requires": "MediumTank2W"
@@ -9952,15 +9904,15 @@
                 },
                 {
                   "codeName": "FacilityMaterials2",
-                  "quantity": 300
+                  "quantity": 10
                 },
                 {
                   "codeName": "FacilityMaterials4",
-                  "quantity": 20
+                  "quantity": 10
                 },
                 {
                   "codeName": "FacilityMaterials7",
-                  "quantity": 20
+                  "quantity": 10
                 }
               ],
               "requires": "MediumTank2W"
@@ -9980,11 +9932,11 @@
                 },
                 {
                   "codeName": "FacilityMaterials2",
-                  "quantity": 230
+                  "quantity": 15
                 },
                 {
                   "codeName": "FacilityMaterials5",
-                  "quantity": 30
+                  "quantity": 15
                 }
               ],
               "requires": "LightTank2InfantryC"
@@ -10008,20 +9960,20 @@
                   "quantity": 1
                 },
                 {
-                  "codeName": "FacilityMaterials2",
-                  "quantity": 300
+                  "codeName": "FacilityMaterials3",
+                  "quantity": 3
                 },
                 {
                   "codeName": "FacilityMaterials4",
-                  "quantity": 20
+                  "quantity": 10
                 },
                 {
                   "codeName": "FacilityMaterials7",
-                  "quantity": 30
+                  "quantity": 15
                 },
                 {
                   "codeName": "FacilityMaterials6",
-                  "quantity": 30
+                  "quantity": 15
                 }
               ],
               "requires": "MediumTankC"
@@ -10041,19 +9993,19 @@
                 },
                 {
                   "codeName": "FacilityMaterials2",
-                  "quantity": 390
+                  "quantity": 60
                 },
                 {
                   "codeName": "FacilityMaterials4",
-                  "quantity": 20
+                  "quantity": 10
                 },
                 {
                   "codeName": "FacilityMaterials7",
-                  "quantity": 30
+                  "quantity": 15
                 },
                 {
                   "codeName": "FacilityMaterials6",
-                  "quantity": 30
+                  "quantity": 15
                 }
               ],
               "requires": "MediumTank2W"
@@ -10073,15 +10025,15 @@
                 },
                 {
                   "codeName": "FacilityMaterials3",
-                  "quantity": 86
+                  "quantity": 15
                 },
                 {
                   "codeName": "FacilityMaterials5",
-                  "quantity": 30
+                  "quantity": 25
                 },
                 {
                   "codeName": "FacilityMaterials6",
-                  "quantity": 50
+                  "quantity": 25
                 }
               ],
               "requires": "MediumTankW"
@@ -10101,15 +10053,15 @@
                 },
                 {
                   "codeName": "FacilityMaterials3",
-                  "quantity": 36
+                  "quantity": 15
                 },
                 {
                   "codeName": "FacilityMaterials5",
-                  "quantity": 40
+                  "quantity": 20
                 },
                 {
                   "codeName": "FacilityMaterials6",
-                  "quantity": 30
+                  "quantity": 15
                 }
               ],
               "requires": "FieldATC"
@@ -10129,15 +10081,15 @@
                 },
                 {
                   "codeName": "FacilityMaterials3",
-                  "quantity": 36
+                  "quantity": 15
                 },
                 {
                   "codeName": "FacilityMaterials5",
-                  "quantity": 40
+                  "quantity": 20
                 },
                 {
                   "codeName": "FacilityMaterials6",
-                  "quantity": 30
+                  "quantity": 15
                 }
               ],
               "requires": "FieldCannonW"
@@ -10157,15 +10109,15 @@
                 },
                 {
                   "codeName": "FacilityMaterials3",
-                  "quantity": 36
+                  "quantity": 10
                 },
                 {
                   "codeName": "FacilityMaterials5",
-                  "quantity": 40
+                  "quantity": 20
                 },
                 {
                   "codeName": "FacilityMaterials6",
-                  "quantity": 30
+                  "quantity": 15
                 }
               ],
               "requires": "FieldMortarC"

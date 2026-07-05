@@ -870,17 +870,31 @@ const FACILITY_FILES = [
   { path: 'Structures/Facilities/BPFacilityVehicleFactory3.json', key: 'FacilityVehicleFactory3' },
 ];
 
+// Canonicalize code names from game data — some CrateOutput code names have
+// inconsistent casing (e.g. "Stickybomb" vs "StickyBomb", "lighttankammo" vs
+// "LightTankAmmo") that must match metadata keys for lookups to work.
+const CANON = {
+  stickybomb: 'StickyBomb',
+  lighttankammo: 'LightTankAmmo',
+  rpgammo: 'RpgAmmo',
+  metal: 'Metal',
+  coal: 'Coal',
+  heavyartilleryammo: 'HeavyArtilleryAmmo',
+  lightartilleryammo: 'LightArtilleryAmmo',
+}
+const canon = c => CANON[c.toLowerCase()] || c
+
 function parseConversion(entry) {
   return {
     inputs: [
-      ...(entry.ItemInput || []).map(i => ({ codeName: i.CodeName, quantity: i.Quantity, limit: i.Limit || 0 })),
-      ...(entry.CrateInput || []).map(c => ({ codeName: c.CodeName, quantity: c.Quantity, limit: c.Limit || 0 })),
-      ...(entry.LiquidInput || []).map(l => ({ codeName: l.CodeName, quantity: l.Quantity, limit: l.Limit || 0 })),
+      ...(entry.ItemInput || []).map(i => ({ codeName: canon(i.CodeName), quantity: i.Quantity, limit: i.Limit || 0 })),
+      ...(entry.CrateInput || []).map(c => ({ codeName: canon(c.CodeName), quantity: c.Quantity, limit: c.Limit || 0 })),
+      ...(entry.LiquidInput || []).map(l => ({ codeName: canon(l.CodeName), quantity: l.Quantity, limit: l.Limit || 0 })),
     ],
     outputs: [
-      ...(entry.ItemOutput || []).map(o => ({ codeName: o.CodeName, quantity: o.Quantity, limit: o.Limit || 0 })),
-      ...(entry.CrateOutput || []).map(c => ({ codeName: c.CodeName, quantity: c.Quantity, limit: c.Limit || 0 })),
-      ...(entry.LiquidOutput || []).map(l => ({ codeName: l.CodeName, quantity: l.Quantity, limit: l.Limit || 0 })),
+      ...(entry.ItemOutput || []).map(o => ({ codeName: canon(o.CodeName), quantity: o.Quantity, limit: o.Limit || 0 })),
+      ...(entry.CrateOutput || []).map(c => ({ codeName: canon(c.CodeName), quantity: c.Quantity, limit: c.Limit || 0 })),
+      ...(entry.LiquidOutput || []).map(l => ({ codeName: canon(l.CodeName), quantity: l.Quantity, limit: l.Limit || 0 })),
     ],
     duration: entry.Duration,
     powerDelta: entry.PowerDelta,
@@ -985,34 +999,24 @@ function buildRecipeWithInputs(item, resourceInputs, upgradeInputs) {
 function parseAssemblyItem(item) {
   const recipes = [];
   const row = vehicleData[item.CodeName];
-  const isUpgrade = item.RequiredCodeName && item.RequiredCodeName !== 'None';
 
-  if (isUpgrade) {
-    // Upgrades: only UpgradeResourceAmounts + the prerequisite vehicle
-    const upgradeInputs = extractUpgradeInputs(item.CodeName);
-    if (upgradeInputs) {
-      recipes.push(buildRecipeWithInputs(item, null, upgradeInputs));
+  // For ALL vehicle pad recipes (scratch builds and upgrades alike),
+  // use AltResourceAmounts. ResourceAmounts (RMats/Bmats) are for MPF,
+  // and UpgradeResourceAmounts is for garage upgrades, not pads.
+  if (row && hasRealResources(row.AltResourceAmounts)) {
+    const altInputs = extractAltResourceInputs(item.CodeName);
+    if (altInputs) {
+      recipes.push(buildRecipeWithInputs(item, altInputs, null));
+    }
+  }
+  // Fallback: no alt resources, use base ResourceAmounts
+  if (recipes.length === 0) {
+    const baseInputs = extractResourceInputs(item.CodeName);
+    if (baseInputs) {
+      recipes.push(buildRecipeWithInputs(item, baseInputs, null));
     } else {
-      // Upgrade with no extra material cost (just the prerequisite)
+      // No cost data at all (e.g. ship parts, fort parts)
       recipes.push(buildRecipeWithInputs(item, null, null));
-    }
-  } else {
-    // Scratch builds (built from scratch on the pad): only AltResourceAmounts
-    if (row && hasRealResources(row.AltResourceAmounts)) {
-      const altInputs = extractAltResourceInputs(item.CodeName);
-      if (altInputs) {
-        recipes.push(buildRecipeWithInputs(item, altInputs, null));
-      }
-    }
-    // Fallback: if no alt resources, use base ResourceAmounts
-    if (recipes.length === 0) {
-      const baseInputs = extractResourceInputs(item.CodeName);
-      if (baseInputs) {
-        recipes.push(buildRecipeWithInputs(item, baseInputs, null));
-      } else {
-        // No cost data at all (e.g. ship parts, fort parts)
-        recipes.push(buildRecipeWithInputs(item, null, null));
-      }
     }
   }
 
