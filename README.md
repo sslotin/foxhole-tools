@@ -1,6 +1,8 @@
 # Foxhole Tools
 
-Mostly-vibecoded logistics-oriented tools for video game Foxhole. Looking for another maintainer.
+Mostly-vibecoded logistics-oriented tools for video game Foxhole. Some of the documentation is "maintained" by a coding agent so don't rely on it.
+
+Looking for another maintainer.
 
 ## Project Setup
 
