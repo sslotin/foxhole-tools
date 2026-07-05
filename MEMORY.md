@@ -216,7 +216,7 @@ codeName → { short, target }  // hardcoded targets, needs audit vs latest meta
 | Combined coverage | **380/662** (57%) — many new structures not in standard CSVs |
 | Missing from positions | **282** — facilities, bunker pieces, emplacements not in standard stockpile CSVs |
 | Missing icons | **6** genuinely missing source PNG files (typos in game data, event-only content) — **fixed Jul 5:** path construction bug in `process-game-data.js`, see `parser/scripts/README.md` |
-| Production recipes | **241** crate recipes (Factory/MPF) + **19** facility conversion files |
+| Production recipes | **241** crate recipes (Factory/MPF) + **22** facility files (**276** conversion entries) |
 
 **All 5 English CSVs pass `check-diff`** — zero unknown items (only 4 duplicates from crate detection).
 
@@ -227,6 +227,14 @@ codeName → { short, target }  // hardcoded targets, needs audit vs latest meta
 **Fix:** `parseConversion()` now also reads `CrateOutput`, `CrateInput`, `LiquidOutput`, `LiquidInput`.
 
 **Canonicalization:** Added `Stickybomb` → `StickyBomb` and `RPGAmmo` → `RpgAmmo` to the `CANON` map in `recipes.mjs` (the game data uses lowercase/inconsistent casing for some CrateOutput code names).
+
+### Jul 6 — Vehicle factory facilities now included (Small/Large Assembly Station, Dry Dock)
+
+**Root cause:** The 3 vehicle factory facilities (`BPFacilityVehicleFactory1/2/3.json`) were missing from `FACILITY_FILES` entirely. They use a different recipe format (`AssemblyItems`) instead of `ConversionEntries`, with input costs stored in `BPVehicleDynamicData.json` (`ResourceAmounts`, `AltResourceAmounts`, `UpgradeResourceAmounts`).
+
+**Fix:** Added VF1/VF2/VF3 to `FACILITY_FILES`. Added `parseAssemblyItem()` which reads the `AssemblyItems` format, looks up resource costs from the vehicle dynamic data, and combines base + alt + upgrade costs. Modifications also use `AssemblyItems` (stored inline in each mod's value), so the loop now checks for `AssemblyItems` first before falling back to `ConversionEntries`.
+
+**Stats:** +29 base recipes + 89 modification recipes = **118 new vehicle/assembly recipes**. Items without vehicle data (ship parts, fort parts, rocket parts) emit with just outputs + duration (no inputs).
 
 ---
 
@@ -268,7 +276,7 @@ codeName → { short, target }  // hardcoded targets, needs audit vs latest meta
 - `FacilityMaterials2` = Processed Construction Materials
 - `FacilityMaterials3` = Assembly Materials
 
-### 2. Facility Recipes (19 facility files)
+### 2. Facility Recipes (22 facility files, 276 conversion entries)
 
 See `parser/data/recipes.json` for complete listing per facility with all modification tiers.
 
@@ -293,3 +301,6 @@ See `parser/data/recipes.json` for complete listing per facility with all modifi
 | Water Pump | 1 | — |
 | Engine Room T2 | 3 | — |
 | Engine Room T3 | 3 | — |
+| Small Assembly Station | 13 | +MotorPool, +ArtilleryFactory, +LightVehicleAssembly, +TankAssembly, +WeaponsPlatformAssembly, +RocketAssembly, +ShipAssembly |
+| Large Assembly Station | 5 | +TrainAssembly, +HeavyTankAssembly, +AircraftAssembly |
+| Dry Dock | 11 | — |

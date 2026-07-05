@@ -1,12 +1,12 @@
 {
-  "_generated": "2026-07-05T21:40:35.311Z",
+  "_generated": "2026-07-05T21:53:27.428Z",
   "_sources": [
     "War/Content/Blueprints/Data/BPItemDynamicData.json — Factory/MPF crate recipes",
     "War/Content/Blueprints/Structures/ — facility conversion recipes"
   ],
   "_recipeCounts": {
     "factoryMpfCrateRecipes": 241,
-    "facilityFiles": 19
+    "facilityFiles": 22
   },
   "factory": {
     "displayName": "Factory / Mass Production Factory",
@@ -8523,6 +8523,3197 @@
           "duration": 144,
           "powerDelta": -100,
           "consumeResourceNodes": false
+        }
+      ],
+      "modifications": {}
+    },
+    "FacilityVehicleFactory1": {
+      "displayName": "Small Assembly Station",
+      "codeName": "FacilityVehicleFactory1",
+      "baseRecipes": [
+        {
+          "outputs": [
+            {
+              "codeName": "MaterialPlatform",
+              "quantity": 1
+            }
+          ],
+          "duration": 15,
+          "inputs": [],
+          "requires": null
+        },
+        {
+          "outputs": [
+            {
+              "codeName": "MotorcycleOffensiveC",
+              "quantity": 1
+            }
+          ],
+          "duration": 180,
+          "inputs": [
+            {
+              "codeName": "MotorcycleC",
+              "quantity": 1
+            },
+            {
+              "codeName": "Cloth",
+              "quantity": 110
+            },
+            {
+              "codeName": "FacilityMaterials1",
+              "quantity": 85
+            }
+          ],
+          "requires": "MotorcycleC"
+        },
+        {
+          "outputs": [
+            {
+              "codeName": "TruckMobilityC",
+              "quantity": 1
+            }
+          ],
+          "duration": 300,
+          "inputs": [
+            {
+              "codeName": "TruckC",
+              "quantity": 1
+            },
+            {
+              "codeName": "Cloth",
+              "quantity": 100
+            },
+            {
+              "codeName": "FacilityMaterials1",
+              "quantity": 160
+            }
+          ],
+          "requires": "TruckC"
+        },
+        {
+          "outputs": [
+            {
+              "codeName": "TruckOffensiveC",
+              "quantity": 1
+            }
+          ],
+          "duration": 300,
+          "inputs": [
+            {
+              "codeName": "TruckC",
+              "quantity": 1
+            },
+            {
+              "codeName": "Cloth",
+              "quantity": 145
+            },
+            {
+              "codeName": "FacilityMaterials1",
+              "quantity": 160
+            }
+          ],
+          "requires": "TruckC"
+        },
+        {
+          "outputs": [
+            {
+              "codeName": "TruckDefensiveW",
+              "quantity": 1
+            }
+          ],
+          "duration": 300,
+          "inputs": [
+            {
+              "codeName": "TruckW",
+              "quantity": 1
+            },
+            {
+              "codeName": "Cloth",
+              "quantity": 145
+            },
+            {
+              "codeName": "FacilityMaterials1",
+              "quantity": 160
+            }
+          ],
+          "requires": "TruckW"
+        },
+        {
+          "outputs": [
+            {
+              "codeName": "TruckMobilityW",
+              "quantity": 1
+            }
+          ],
+          "duration": 300,
+          "inputs": [
+            {
+              "codeName": "TruckW",
+              "quantity": 1
+            },
+            {
+              "codeName": "Cloth",
+              "quantity": 120
+            },
+            {
+              "codeName": "FacilityMaterials1",
+              "quantity": 160
+            }
+          ],
+          "requires": "TruckW"
+        },
+        {
+          "outputs": [
+            {
+              "codeName": "SmallTrainEngine",
+              "quantity": 1
+            }
+          ],
+          "duration": 900,
+          "inputs": [
+            {
+              "codeName": "Cloth",
+              "quantity": 200
+            },
+            {
+              "codeName": "FacilityMaterials1",
+              "quantity": 125
+            },
+            {
+              "codeName": "FacilityMaterials4",
+              "quantity": 10
+            },
+            {
+              "codeName": "FacilityMaterials5",
+              "quantity": 20
+            }
+          ],
+          "requires": null
+        },
+        {
+          "outputs": [
+            {
+              "codeName": "SmallTrainResource",
+              "quantity": 1
+            }
+          ],
+          "duration": 300,
+          "inputs": [
+            {
+              "codeName": "Cloth",
+              "quantity": 200
+            },
+            {
+              "codeName": "FacilityMaterials1",
+              "quantity": 35
+            },
+            {
+              "codeName": "FacilityMaterials4",
+              "quantity": 15
+            },
+            {
+              "codeName": "FacilityMaterials5",
+              "quantity": 5
+            }
+          ],
+          "requires": null
+        },
+        {
+          "outputs": [
+            {
+              "codeName": "SmallTrainMaterial",
+              "quantity": 1
+            }
+          ],
+          "duration": 300,
+          "inputs": [
+            {
+              "codeName": "Cloth",
+              "quantity": 200
+            },
+            {
+              "codeName": "FacilityMaterials1",
+              "quantity": 35
+            },
+            {
+              "codeName": "FacilityMaterials4",
+              "quantity": 15
+            },
+            {
+              "codeName": "FacilityMaterials5",
+              "quantity": 5
+            }
+          ],
+          "requires": null
+        },
+        {
+          "outputs": [
+            {
+              "codeName": "AmbulanceFlameC",
+              "quantity": 1
+            }
+          ],
+          "duration": 300,
+          "inputs": [
+            {
+              "codeName": "AmbulanceC",
+              "quantity": 1
+            },
+            {
+              "codeName": "Cloth",
+              "quantity": 150
+            },
+            {
+              "codeName": "FacilityMaterials1",
+              "quantity": 165
+            },
+            {
+              "codeName": "FacilityMaterials5",
+              "quantity": 15
+            }
+          ],
+          "requires": "AmbulanceC"
+        },
+        {
+          "outputs": [
+            {
+              "codeName": "AmbulanceFlameW",
+              "quantity": 1
+            }
+          ],
+          "duration": 300,
+          "inputs": [
+            {
+              "codeName": "AmbulanceW",
+              "quantity": 1
+            },
+            {
+              "codeName": "Cloth",
+              "quantity": 150
+            },
+            {
+              "codeName": "FacilityMaterials1",
+              "quantity": 165
+            },
+            {
+              "codeName": "FacilityMaterials5",
+              "quantity": 15
+            }
+          ],
+          "requires": "AmbulanceW"
+        },
+        {
+          "outputs": [
+            {
+              "codeName": "SmallTrainLiquid",
+              "quantity": 1
+            }
+          ],
+          "duration": 300,
+          "inputs": [
+            {
+              "codeName": "Cloth",
+              "quantity": 200
+            },
+            {
+              "codeName": "FacilityMaterials1",
+              "quantity": 35
+            },
+            {
+              "codeName": "FacilityMaterials4",
+              "quantity": 5
+            },
+            {
+              "codeName": "FacilityMaterials5",
+              "quantity": 15
+            }
+          ],
+          "requires": null
+        },
+        {
+          "outputs": [
+            {
+              "codeName": "SmallTrainShipping",
+              "quantity": 1
+            }
+          ],
+          "duration": 300,
+          "inputs": [
+            {
+              "codeName": "Cloth",
+              "quantity": 200
+            },
+            {
+              "codeName": "FacilityMaterials1",
+              "quantity": 35
+            },
+            {
+              "codeName": "FacilityMaterials4",
+              "quantity": 5
+            },
+            {
+              "codeName": "FacilityMaterials5",
+              "quantity": 15
+            }
+          ],
+          "requires": null
+        }
+      ],
+      "modifications": {
+        "MotorPool": {
+          "displayName": "Motor Pool",
+          "recipes": [
+            {
+              "outputs": [
+                {
+                  "codeName": "ArmoredCarOffensiveC",
+                  "quantity": 1
+                }
+              ],
+              "duration": 300,
+              "inputs": [
+                {
+                  "codeName": "ArmoredCarC",
+                  "quantity": 1
+                },
+                {
+                  "codeName": "Wood",
+                  "quantity": 40
+                },
+                {
+                  "codeName": "FacilityMaterials1",
+                  "quantity": 30
+                },
+                {
+                  "codeName": "FacilityMaterials4",
+                  "quantity": 30
+                },
+                {
+                  "codeName": "FacilityMaterials2",
+                  "quantity": 50
+                }
+              ],
+              "requires": "ArmoredCarC"
+            },
+            {
+              "outputs": [
+                {
+                  "codeName": "ArmoredCarTwinC",
+                  "quantity": 1
+                }
+              ],
+              "duration": 300,
+              "inputs": [
+                {
+                  "codeName": "ArmoredCarC",
+                  "quantity": 1
+                },
+                {
+                  "codeName": "Wood",
+                  "quantity": 45
+                },
+                {
+                  "codeName": "FacilityMaterials1",
+                  "quantity": 30
+                },
+                {
+                  "codeName": "FacilityMaterials4",
+                  "quantity": 30
+                },
+                {
+                  "codeName": "FacilityMaterials2",
+                  "quantity": 50
+                }
+              ],
+              "requires": "ArmoredCarC"
+            },
+            {
+              "outputs": [
+                {
+                  "codeName": "TanketteOffensiveC",
+                  "quantity": 1
+                }
+              ],
+              "duration": 300,
+              "inputs": [
+                {
+                  "codeName": "TanketteC",
+                  "quantity": 1
+                },
+                {
+                  "codeName": "Wood",
+                  "quantity": 60
+                },
+                {
+                  "codeName": "FacilityMaterials1",
+                  "quantity": 30
+                },
+                {
+                  "codeName": "FacilityMaterials4",
+                  "quantity": 45
+                },
+                {
+                  "codeName": "FacilityMaterials2",
+                  "quantity": 70
+                }
+              ],
+              "requires": "TanketteC"
+            },
+            {
+              "outputs": [
+                {
+                  "codeName": "TanketteFlameC",
+                  "quantity": 1
+                }
+              ],
+              "duration": 600,
+              "inputs": [
+                {
+                  "codeName": "TanketteC",
+                  "quantity": 1
+                },
+                {
+                  "codeName": "Wood",
+                  "quantity": 60
+                },
+                {
+                  "codeName": "FacilityMaterials2",
+                  "quantity": 100
+                },
+                {
+                  "codeName": "FacilityMaterials4",
+                  "quantity": 45
+                }
+              ],
+              "requires": "TanketteC"
+            },
+            {
+              "outputs": [
+                {
+                  "codeName": "ScoutVehicleUtilityC",
+                  "quantity": 1
+                }
+              ],
+              "duration": 180,
+              "inputs": [
+                {
+                  "codeName": "ScoutVehicleMobilityC",
+                  "quantity": 1
+                },
+                {
+                  "codeName": "Wood",
+                  "quantity": 10
+                },
+                {
+                  "codeName": "FacilityMaterials1",
+                  "quantity": 9
+                },
+                {
+                  "codeName": "FacilityMaterials2",
+                  "quantity": 20
+                }
+              ],
+              "requires": "ScoutVehicleMobilityC"
+            },
+            {
+              "outputs": [
+                {
+                  "codeName": "ScoutVehicleOffensiveC",
+                  "quantity": 1
+                }
+              ],
+              "duration": 180,
+              "inputs": [
+                {
+                  "codeName": "ScoutVehicleMobilityC",
+                  "quantity": 1
+                },
+                {
+                  "codeName": "Wood",
+                  "quantity": 25
+                },
+                {
+                  "codeName": "FacilityMaterials1",
+                  "quantity": 9
+                },
+                {
+                  "codeName": "FacilityMaterials5",
+                  "quantity": 30
+                },
+                {
+                  "codeName": "FacilityMaterials2",
+                  "quantity": 20
+                }
+              ],
+              "requires": "ScoutVehicleMobilityC"
+            },
+            {
+              "outputs": [
+                {
+                  "codeName": "ArmoredCarATW",
+                  "quantity": 1
+                }
+              ],
+              "duration": 300,
+              "inputs": [
+                {
+                  "codeName": "ArmoredCarW",
+                  "quantity": 1
+                },
+                {
+                  "codeName": "Wood",
+                  "quantity": 45
+                },
+                {
+                  "codeName": "FacilityMaterials2",
+                  "quantity": 80
+                },
+                {
+                  "codeName": "FacilityMaterials4",
+                  "quantity": 30
+                },
+                {
+                  "codeName": "FacilityMaterials1",
+                  "quantity": 20
+                }
+              ],
+              "requires": "ArmoredCarW"
+            },
+            {
+              "outputs": [
+                {
+                  "codeName": "ArmoredCarMobilityW",
+                  "quantity": 1
+                }
+              ],
+              "duration": 300,
+              "inputs": [
+                {
+                  "codeName": "ArmoredCarW",
+                  "quantity": 1
+                },
+                {
+                  "codeName": "Wood",
+                  "quantity": 40
+                },
+                {
+                  "codeName": "FacilityMaterials1",
+                  "quantity": 15
+                },
+                {
+                  "codeName": "FacilityMaterials4",
+                  "quantity": 15
+                },
+                {
+                  "codeName": "FacilityMaterials2",
+                  "quantity": 50
+                }
+              ],
+              "requires": "ArmoredCarW"
+            },
+            {
+              "outputs": [
+                {
+                  "codeName": "ArmoredCarFlameW",
+                  "quantity": 1
+                }
+              ],
+              "duration": 300,
+              "inputs": [
+                {
+                  "codeName": "ArmoredCarW",
+                  "quantity": 1
+                },
+                {
+                  "codeName": "Wood",
+                  "quantity": 40
+                },
+                {
+                  "codeName": "FacilityMaterials1",
+                  "quantity": 30
+                },
+                {
+                  "codeName": "FacilityMaterials4",
+                  "quantity": 30
+                },
+                {
+                  "codeName": "FacilityMaterials2",
+                  "quantity": 50
+                }
+              ],
+              "requires": "ArmoredCarW"
+            },
+            {
+              "outputs": [
+                {
+                  "codeName": "ArmoredCar2LargeW",
+                  "quantity": 1
+                }
+              ],
+              "duration": 300,
+              "inputs": [
+                {
+                  "codeName": "ArmoredCar2TwinW",
+                  "quantity": 1
+                },
+                {
+                  "codeName": "Wood",
+                  "quantity": 60
+                },
+                {
+                  "codeName": "FacilityMaterials1",
+                  "quantity": 45
+                },
+                {
+                  "codeName": "FacilityMaterials4",
+                  "quantity": 45
+                },
+                {
+                  "codeName": "FacilityMaterials2",
+                  "quantity": 50
+                }
+              ],
+              "requires": "ArmoredCar2TwinW"
+            },
+            {
+              "outputs": [
+                {
+                  "codeName": "ScoutVehicleOffensiveW",
+                  "quantity": 1
+                }
+              ],
+              "duration": 180,
+              "inputs": [
+                {
+                  "codeName": "ScoutVehicleW",
+                  "quantity": 1
+                },
+                {
+                  "codeName": "Wood",
+                  "quantity": 15
+                },
+                {
+                  "codeName": "FacilityMaterials1",
+                  "quantity": 9
+                },
+                {
+                  "codeName": "FacilityMaterials5",
+                  "quantity": 30
+                },
+                {
+                  "codeName": "FacilityMaterials2",
+                  "quantity": 20
+                }
+              ],
+              "requires": "ScoutVehicleW"
+            },
+            {
+              "outputs": [
+                {
+                  "codeName": "ScoutVehicleUtilityW",
+                  "quantity": 1
+                }
+              ],
+              "duration": 180,
+              "inputs": [
+                {
+                  "codeName": "ScoutVehicleW",
+                  "quantity": 1
+                },
+                {
+                  "codeName": "Wood",
+                  "quantity": 10
+                },
+                {
+                  "codeName": "FacilityMaterials1",
+                  "quantity": 9
+                },
+                {
+                  "codeName": "FacilityMaterials5",
+                  "quantity": 15
+                },
+                {
+                  "codeName": "FacilityMaterials2",
+                  "quantity": 20
+                }
+              ],
+              "requires": "ScoutVehicleW"
+            },
+            {
+              "outputs": [
+                {
+                  "codeName": "FieldAT2C",
+                  "quantity": 1
+                }
+              ],
+              "duration": 600,
+              "inputs": [
+                {
+                  "codeName": "FieldMGC",
+                  "quantity": 1
+                },
+                {
+                  "codeName": "Wood",
+                  "quantity": 20
+                },
+                {
+                  "codeName": "FacilityMaterials1",
+                  "quantity": 90
+                },
+                {
+                  "codeName": "FacilityMaterials5",
+                  "quantity": 60
+                },
+                {
+                  "codeName": "FacilityMaterials2",
+                  "quantity": 40
+                }
+              ],
+              "requires": "FieldMGC"
+            },
+            {
+              "outputs": [
+                {
+                  "codeName": "FieldAT2W",
+                  "quantity": 1
+                }
+              ],
+              "duration": 600,
+              "inputs": [
+                {
+                  "codeName": "FieldMGW",
+                  "quantity": 1
+                },
+                {
+                  "codeName": "Wood",
+                  "quantity": 20
+                },
+                {
+                  "codeName": "FacilityMaterials1",
+                  "quantity": 90
+                },
+                {
+                  "codeName": "FacilityMaterials5",
+                  "quantity": 60
+                },
+                {
+                  "codeName": "FacilityMaterials2",
+                  "quantity": 40
+                }
+              ],
+              "requires": "FieldMGW"
+            }
+          ]
+        },
+        "ArtilleryFactory": {
+          "displayName": "Battery Line",
+          "recipes": [
+            {
+              "outputs": [
+                {
+                  "codeName": "TruckMultiC",
+                  "quantity": 1
+                }
+              ],
+              "duration": 300,
+              "inputs": [
+                {
+                  "codeName": "TruckC",
+                  "quantity": 1
+                },
+                {
+                  "codeName": "Cloth",
+                  "quantity": 100
+                },
+                {
+                  "codeName": "FacilityMaterials2",
+                  "quantity": 210
+                },
+                {
+                  "codeName": "FacilityMaterials4",
+                  "quantity": 30
+                },
+                {
+                  "codeName": "FacilityMaterials6",
+                  "quantity": 24
+                }
+              ],
+              "requires": "TruckC"
+            },
+            {
+              "outputs": [
+                {
+                  "codeName": "EmplacedMultiC",
+                  "quantity": 1
+                }
+              ],
+              "duration": 600,
+              "inputs": [],
+              "requires": null
+            },
+            {
+              "outputs": [
+                {
+                  "codeName": "HalftrackMultiW",
+                  "quantity": 1
+                }
+              ],
+              "duration": 300,
+              "inputs": [
+                {
+                  "codeName": "HalftrackW",
+                  "quantity": 1
+                }
+              ],
+              "requires": "HalftrackW"
+            },
+            {
+              "outputs": [
+                {
+                  "codeName": "HalftrackDefensiveC",
+                  "quantity": 1
+                }
+              ],
+              "duration": 300,
+              "inputs": [
+                {
+                  "codeName": "HalftrackC",
+                  "quantity": 1
+                }
+              ],
+              "requires": "HalftrackC"
+            },
+            {
+              "outputs": [
+                {
+                  "codeName": "HalftrackArtilleryC",
+                  "quantity": 1
+                }
+              ],
+              "duration": 300,
+              "inputs": [
+                {
+                  "codeName": "HalftrackC",
+                  "quantity": 1
+                }
+              ],
+              "requires": "HalftrackC"
+            },
+            {
+              "outputs": [
+                {
+                  "codeName": "HalftrackOffensiveW",
+                  "quantity": 1
+                }
+              ],
+              "duration": 300,
+              "inputs": [
+                {
+                  "codeName": "HalftrackW",
+                  "quantity": 1
+                }
+              ],
+              "requires": "HalftrackW"
+            },
+            {
+              "outputs": [
+                {
+                  "codeName": "ScoutTankMultiW",
+                  "quantity": 1
+                }
+              ],
+              "duration": 600,
+              "inputs": [
+                {
+                  "codeName": "ScoutTankW",
+                  "quantity": 1
+                },
+                {
+                  "codeName": "Wood",
+                  "quantity": 90
+                },
+                {
+                  "codeName": "FacilityMaterials3",
+                  "quantity": 20
+                },
+                {
+                  "codeName": "FacilityMaterials4",
+                  "quantity": 45
+                },
+                {
+                  "codeName": "FacilityMaterials6",
+                  "quantity": 9
+                }
+              ],
+              "requires": "ScoutTankW"
+            },
+            {
+              "outputs": [
+                {
+                  "codeName": "TanketteMultiC",
+                  "quantity": 1
+                }
+              ],
+              "duration": 600,
+              "inputs": [
+                {
+                  "codeName": "TanketteC",
+                  "quantity": 1
+                },
+                {
+                  "codeName": "Wood",
+                  "quantity": 60
+                },
+                {
+                  "codeName": "FacilityMaterials2",
+                  "quantity": 60
+                },
+                {
+                  "codeName": "FacilityMaterials4",
+                  "quantity": 45
+                },
+                {
+                  "codeName": "FacilityMaterials6",
+                  "quantity": 9
+                }
+              ],
+              "requires": "TanketteC"
+            },
+            {
+              "outputs": [
+                {
+                  "codeName": "HalftrackTwinW",
+                  "quantity": 1
+                }
+              ],
+              "duration": 300,
+              "inputs": [
+                {
+                  "codeName": "HalftrackW",
+                  "quantity": 1
+                },
+                {
+                  "codeName": "Wood",
+                  "quantity": 60
+                },
+                {
+                  "codeName": "FacilityMaterials2",
+                  "quantity": 135
+                },
+                {
+                  "codeName": "FacilityMaterials7",
+                  "quantity": 15
+                }
+              ],
+              "requires": "HalftrackW"
+            },
+            {
+              "outputs": [
+                {
+                  "codeName": "LargeFieldMultiW",
+                  "quantity": 1
+                }
+              ],
+              "duration": 600,
+              "inputs": [
+                {
+                  "codeName": "Wood",
+                  "quantity": 30
+                },
+                {
+                  "codeName": "FacilityMaterials2",
+                  "quantity": 20
+                },
+                {
+                  "codeName": "FacilityMaterials5",
+                  "quantity": 15
+                },
+                {
+                  "codeName": "FacilityMaterials7",
+                  "quantity": 3
+                }
+              ],
+              "requires": null
+            },
+            {
+              "outputs": [
+                {
+                  "codeName": "ArmoredCar2MultiW",
+                  "quantity": 1
+                }
+              ],
+              "duration": 300,
+              "inputs": [
+                {
+                  "codeName": "ArmoredCar2TwinW",
+                  "quantity": 1
+                },
+                {
+                  "codeName": "Wood",
+                  "quantity": 60
+                },
+                {
+                  "codeName": "FacilityMaterials2",
+                  "quantity": 185
+                },
+                {
+                  "codeName": "FacilityMaterials4",
+                  "quantity": 30
+                },
+                {
+                  "codeName": "FacilityMaterials6",
+                  "quantity": 24
+                }
+              ],
+              "requires": "ArmoredCar2TwinW"
+            },
+            {
+              "outputs": [
+                {
+                  "codeName": "EmplacedAircraftC",
+                  "quantity": 1
+                }
+              ],
+              "duration": 600,
+              "inputs": [],
+              "requires": null
+            },
+            {
+              "outputs": [
+                {
+                  "codeName": "EmplacedAircraftW",
+                  "quantity": 1
+                }
+              ],
+              "duration": 600,
+              "inputs": [],
+              "requires": null
+            }
+          ]
+        },
+        "LightVehicleAssembly": {
+          "displayName": "Field Station",
+          "recipes": [
+            {
+              "outputs": [
+                {
+                  "codeName": "Harvester",
+                  "quantity": 1
+                }
+              ],
+              "duration": 900,
+              "inputs": [
+                {
+                  "codeName": "Wood",
+                  "quantity": 120
+                },
+                {
+                  "codeName": "FacilityMaterials2",
+                  "quantity": 90
+                },
+                {
+                  "codeName": "FacilityMaterials7",
+                  "quantity": 25
+                }
+              ],
+              "requires": null
+            },
+            {
+              "outputs": [
+                {
+                  "codeName": "ConstructionUtility",
+                  "quantity": 1
+                }
+              ],
+              "duration": 900,
+              "inputs": [
+                {
+                  "codeName": "Construction",
+                  "quantity": 1
+                },
+                {
+                  "codeName": "Cloth",
+                  "quantity": 100
+                },
+                {
+                  "codeName": "FacilityMaterials2",
+                  "quantity": 10
+                }
+              ],
+              "requires": "Construction"
+            },
+            {
+              "outputs": [
+                {
+                  "codeName": "LandingCraftOffensiveC",
+                  "quantity": 1
+                }
+              ],
+              "duration": 300,
+              "inputs": [
+                {
+                  "codeName": "LandingCraftC",
+                  "quantity": 1
+                },
+                {
+                  "codeName": "Wood",
+                  "quantity": 45
+                },
+                {
+                  "codeName": "FacilityMaterials2",
+                  "quantity": 55
+                },
+                {
+                  "codeName": "FacilityMaterials6",
+                  "quantity": 9
+                }
+              ],
+              "requires": "LandingCraftC"
+            },
+            {
+              "outputs": [
+                {
+                  "codeName": "FieldCannonDamageC",
+                  "quantity": 1
+                }
+              ],
+              "duration": 300,
+              "inputs": [
+                {
+                  "codeName": "FieldATC",
+                  "quantity": 1
+                },
+                {
+                  "codeName": "Wood",
+                  "quantity": 40
+                },
+                {
+                  "codeName": "FacilityMaterials2",
+                  "quantity": 55
+                },
+                {
+                  "codeName": "FacilityMaterials7",
+                  "quantity": 15
+                }
+              ],
+              "requires": "FieldATC"
+            },
+            {
+              "outputs": [
+                {
+                  "codeName": "ScoutTankOffensiveW",
+                  "quantity": 1
+                }
+              ],
+              "duration": 300,
+              "inputs": [
+                {
+                  "codeName": "ScoutTankW",
+                  "quantity": 1
+                },
+                {
+                  "codeName": "Wood",
+                  "quantity": 90
+                },
+                {
+                  "codeName": "FacilityMaterials2",
+                  "quantity": 155
+                },
+                {
+                  "codeName": "FacilityMaterials6",
+                  "quantity": 15
+                }
+              ],
+              "requires": "ScoutTankW"
+            },
+            {
+              "outputs": [
+                {
+                  "codeName": "FieldATDamageW",
+                  "quantity": 1
+                }
+              ],
+              "duration": 300,
+              "inputs": [
+                {
+                  "codeName": "FieldATW",
+                  "quantity": 1
+                },
+                {
+                  "codeName": "Wood",
+                  "quantity": 40
+                },
+                {
+                  "codeName": "FacilityMaterials2",
+                  "quantity": 55
+                },
+                {
+                  "codeName": "FacilityMaterials7",
+                  "quantity": 15
+                }
+              ],
+              "requires": "FieldATW"
+            },
+            {
+              "outputs": [
+                {
+                  "codeName": "HeavyTruckC",
+                  "quantity": 1
+                }
+              ],
+              "duration": 600,
+              "inputs": [
+                {
+                  "codeName": "Wood",
+                  "quantity": 30
+                },
+                {
+                  "codeName": "FacilityMaterials2",
+                  "quantity": 40
+                }
+              ],
+              "requires": null
+            },
+            {
+              "outputs": [
+                {
+                  "codeName": "HeavyTruckW",
+                  "quantity": 1
+                }
+              ],
+              "duration": 600,
+              "inputs": [
+                {
+                  "codeName": "Wood",
+                  "quantity": 30
+                },
+                {
+                  "codeName": "FacilityMaterials2",
+                  "quantity": 40
+                }
+              ],
+              "requires": null
+            }
+          ]
+        },
+        "TankAssembly": {
+          "displayName": "Tank Factory",
+          "recipes": [
+            {
+              "outputs": [
+                {
+                  "codeName": "DestroyerTankFlameW",
+                  "quantity": 1
+                }
+              ],
+              "duration": 420,
+              "inputs": [
+                {
+                  "codeName": "DestroyerTankW",
+                  "quantity": 1
+                },
+                {
+                  "codeName": "Wood",
+                  "quantity": 160
+                },
+                {
+                  "codeName": "FacilityMaterials2",
+                  "quantity": 350
+                },
+                {
+                  "codeName": "FacilityMaterials5",
+                  "quantity": 30
+                },
+                {
+                  "codeName": "FacilityMaterials6",
+                  "quantity": 45
+                }
+              ],
+              "requires": "DestroyerTankW"
+            },
+            {
+              "outputs": [
+                {
+                  "codeName": "LightTankFlameC",
+                  "quantity": 1
+                }
+              ],
+              "duration": 300,
+              "inputs": [
+                {
+                  "codeName": "LightTankC",
+                  "quantity": 1
+                },
+                {
+                  "codeName": "Wood",
+                  "quantity": 135
+                },
+                {
+                  "codeName": "FacilityMaterials2",
+                  "quantity": 263
+                },
+                {
+                  "codeName": "FacilityMaterials5",
+                  "quantity": 60
+                },
+                {
+                  "codeName": "FacilityMaterials6",
+                  "quantity": 15
+                }
+              ],
+              "requires": "LightTankC"
+            },
+            {
+              "outputs": [
+                {
+                  "codeName": "LightTankOffensiveC",
+                  "quantity": 1
+                }
+              ],
+              "duration": 300,
+              "inputs": [
+                {
+                  "codeName": "LightTankC",
+                  "quantity": 1
+                },
+                {
+                  "codeName": "Wood",
+                  "quantity": 145
+                },
+                {
+                  "codeName": "FacilityMaterials2",
+                  "quantity": 253
+                },
+                {
+                  "codeName": "FacilityMaterials5",
+                  "quantity": 60
+                },
+                {
+                  "codeName": "FacilityMaterials6",
+                  "quantity": 15
+                }
+              ],
+              "requires": "LightTankC"
+            },
+            {
+              "outputs": [
+                {
+                  "codeName": "LightTankMobilityC",
+                  "quantity": 1
+                }
+              ],
+              "duration": 300,
+              "inputs": [
+                {
+                  "codeName": "LightTankC",
+                  "quantity": 1
+                },
+                {
+                  "codeName": "Wood",
+                  "quantity": 160
+                },
+                {
+                  "codeName": "FacilityMaterials2",
+                  "quantity": 245
+                },
+                {
+                  "codeName": "FacilityMaterials4",
+                  "quantity": 60
+                },
+                {
+                  "codeName": "FacilityMaterials7",
+                  "quantity": 15
+                }
+              ],
+              "requires": "LightTankC"
+            },
+            {
+              "outputs": [
+                {
+                  "codeName": "MediumTankOffensiveC",
+                  "quantity": 1
+                }
+              ],
+              "duration": 420,
+              "inputs": [
+                {
+                  "codeName": "MediumTankC",
+                  "quantity": 1
+                },
+                {
+                  "codeName": "Wood",
+                  "quantity": 165
+                },
+                {
+                  "codeName": "FacilityMaterials2",
+                  "quantity": 297
+                },
+                {
+                  "codeName": "FacilityMaterials4",
+                  "quantity": 30
+                },
+                {
+                  "codeName": "FacilityMaterials7",
+                  "quantity": 24
+                }
+              ],
+              "requires": "MediumTankC"
+            },
+            {
+              "outputs": [
+                {
+                  "codeName": "MediumTank2TwinC",
+                  "quantity": 1
+                }
+              ],
+              "duration": 420,
+              "inputs": [
+                {
+                  "codeName": "MediumTank2C",
+                  "quantity": 1
+                },
+                {
+                  "codeName": "Wood",
+                  "quantity": 185
+                },
+                {
+                  "codeName": "FacilityMaterials2",
+                  "quantity": 360
+                },
+                {
+                  "codeName": "FacilityMaterials5",
+                  "quantity": 30
+                },
+                {
+                  "codeName": "FacilityMaterials6",
+                  "quantity": 40
+                }
+              ],
+              "requires": "MediumTank2C"
+            },
+            {
+              "outputs": [
+                {
+                  "codeName": "EmplacedCannonLargeC",
+                  "quantity": 1
+                }
+              ],
+              "duration": 600,
+              "inputs": [],
+              "requires": null
+            },
+            {
+              "outputs": [
+                {
+                  "codeName": "LightTankDefensiveW",
+                  "quantity": 1
+                }
+              ],
+              "duration": 300,
+              "inputs": [
+                {
+                  "codeName": "LightTankW",
+                  "quantity": 1
+                },
+                {
+                  "codeName": "Wood",
+                  "quantity": 150
+                },
+                {
+                  "codeName": "FacilityMaterials2",
+                  "quantity": 263
+                },
+                {
+                  "codeName": "FacilityMaterials5",
+                  "quantity": 60
+                },
+                {
+                  "codeName": "FacilityMaterials6",
+                  "quantity": 15
+                }
+              ],
+              "requires": "LightTankW"
+            },
+            {
+              "outputs": [
+                {
+                  "codeName": "LightTankArtilleryW",
+                  "quantity": 1
+                }
+              ],
+              "duration": 300,
+              "inputs": [
+                {
+                  "codeName": "LightTankW",
+                  "quantity": 1
+                },
+                {
+                  "codeName": "Wood",
+                  "quantity": 150
+                },
+                {
+                  "codeName": "FacilityMaterials2",
+                  "quantity": 248
+                },
+                {
+                  "codeName": "FacilityMaterials4",
+                  "quantity": 60
+                },
+                {
+                  "codeName": "FacilityMaterials7",
+                  "quantity": 9
+                }
+              ],
+              "requires": "LightTankW"
+            },
+            {
+              "outputs": [
+                {
+                  "codeName": "MediumTankSiegeW",
+                  "quantity": 1
+                }
+              ],
+              "duration": 420,
+              "inputs": [
+                {
+                  "codeName": "MediumTankW",
+                  "quantity": 1
+                },
+                {
+                  "codeName": "Wood",
+                  "quantity": 185
+                },
+                {
+                  "codeName": "FacilityMaterials2",
+                  "quantity": 325
+                },
+                {
+                  "codeName": "FacilityMaterials4",
+                  "quantity": 30
+                },
+                {
+                  "codeName": "FacilityMaterials7",
+                  "quantity": 24
+                }
+              ],
+              "requires": "MediumTankW"
+            },
+            {
+              "outputs": [
+                {
+                  "codeName": "MediumTank2MultiW",
+                  "quantity": 1
+                }
+              ],
+              "duration": 420,
+              "inputs": [
+                {
+                  "codeName": "MediumTank2W",
+                  "quantity": 1
+                },
+                {
+                  "codeName": "Wood",
+                  "quantity": 150
+                },
+                {
+                  "codeName": "FacilityMaterials2",
+                  "quantity": 315
+                },
+                {
+                  "codeName": "FacilityMaterials5",
+                  "quantity": 30
+                },
+                {
+                  "codeName": "FacilityMaterials6",
+                  "quantity": 15
+                }
+              ],
+              "requires": "MediumTank2W"
+            },
+            {
+              "outputs": [
+                {
+                  "codeName": "EmplacedATLargeW",
+                  "quantity": 1
+                }
+              ],
+              "duration": 600,
+              "inputs": [],
+              "requires": null
+            },
+            {
+              "outputs": [
+                {
+                  "codeName": "MediumTank2RangeW",
+                  "quantity": 1
+                }
+              ],
+              "duration": 420,
+              "inputs": [
+                {
+                  "codeName": "MediumTank2W",
+                  "quantity": 1
+                },
+                {
+                  "codeName": "Wood",
+                  "quantity": 150
+                },
+                {
+                  "codeName": "FacilityMaterials2",
+                  "quantity": 310
+                },
+                {
+                  "codeName": "FacilityMaterials4",
+                  "quantity": 30
+                },
+                {
+                  "codeName": "FacilityMaterials7",
+                  "quantity": 30
+                }
+              ],
+              "requires": "MediumTank2W"
+            },
+            {
+              "outputs": [
+                {
+                  "codeName": "MortarTankC",
+                  "quantity": 1
+                }
+              ],
+              "duration": 180,
+              "inputs": [
+                {
+                  "codeName": "LightTank2InfantryC",
+                  "quantity": 1
+                },
+                {
+                  "codeName": "Wood",
+                  "quantity": 155
+                },
+                {
+                  "codeName": "FacilityMaterials2",
+                  "quantity": 245
+                },
+                {
+                  "codeName": "FacilityMaterials5",
+                  "quantity": 45
+                }
+              ],
+              "requires": "LightTank2InfantryC"
+            }
+          ]
+        },
+        "WeaponsPlatformAssembly": {
+          "displayName": "Weapons Platform",
+          "recipes": [
+            {
+              "outputs": [
+                {
+                  "codeName": "MediumTankLargeC",
+                  "quantity": 1
+                }
+              ],
+              "duration": 600,
+              "inputs": [
+                {
+                  "codeName": "MediumTankC",
+                  "quantity": 1
+                },
+                {
+                  "codeName": "Wood",
+                  "quantity": 165
+                },
+                {
+                  "codeName": "FacilityMaterials3",
+                  "quantity": 3
+                },
+                {
+                  "codeName": "FacilityMaterials4",
+                  "quantity": 30
+                },
+                {
+                  "codeName": "FacilityMaterials7",
+                  "quantity": 45
+                },
+                {
+                  "codeName": "FacilityMaterials6",
+                  "quantity": 45
+                },
+                {
+                  "codeName": "FacilityMaterials2",
+                  "quantity": 300
+                }
+              ],
+              "requires": "MediumTankC"
+            },
+            {
+              "outputs": [
+                {
+                  "codeName": "MediumTank2IndirectW",
+                  "quantity": 1
+                }
+              ],
+              "duration": 600,
+              "inputs": [
+                {
+                  "codeName": "MediumTank2W",
+                  "quantity": 1
+                },
+                {
+                  "codeName": "Wood",
+                  "quantity": 150
+                },
+                {
+                  "codeName": "FacilityMaterials2",
+                  "quantity": 450
+                },
+                {
+                  "codeName": "FacilityMaterials4",
+                  "quantity": 30
+                },
+                {
+                  "codeName": "FacilityMaterials7",
+                  "quantity": 45
+                },
+                {
+                  "codeName": "FacilityMaterials6",
+                  "quantity": 45
+                }
+              ],
+              "requires": "MediumTank2W"
+            },
+            {
+              "outputs": [
+                {
+                  "codeName": "MediumTankATW",
+                  "quantity": 1
+                }
+              ],
+              "duration": 600,
+              "inputs": [
+                {
+                  "codeName": "MediumTankW",
+                  "quantity": 1
+                },
+                {
+                  "codeName": "Wood",
+                  "quantity": 155
+                },
+                {
+                  "codeName": "FacilityMaterials3",
+                  "quantity": 101
+                },
+                {
+                  "codeName": "FacilityMaterials5",
+                  "quantity": 55
+                },
+                {
+                  "codeName": "FacilityMaterials6",
+                  "quantity": 75
+                }
+              ],
+              "requires": "MediumTankW"
+            },
+            {
+              "outputs": [
+                {
+                  "codeName": "LargeFieldATC",
+                  "quantity": 1
+                }
+              ],
+              "duration": 420,
+              "inputs": [
+                {
+                  "codeName": "FieldATC",
+                  "quantity": 1
+                },
+                {
+                  "codeName": "Wood",
+                  "quantity": 40
+                },
+                {
+                  "codeName": "FacilityMaterials3",
+                  "quantity": 51
+                },
+                {
+                  "codeName": "FacilityMaterials5",
+                  "quantity": 60
+                },
+                {
+                  "codeName": "FacilityMaterials6",
+                  "quantity": 45
+                }
+              ],
+              "requires": "FieldATC"
+            },
+            {
+              "outputs": [
+                {
+                  "codeName": "LargeFieldCannonW",
+                  "quantity": 1
+                }
+              ],
+              "duration": 420,
+              "inputs": [
+                {
+                  "codeName": "FieldCannonW",
+                  "quantity": 1
+                },
+                {
+                  "codeName": "Wood",
+                  "quantity": 40
+                },
+                {
+                  "codeName": "FacilityMaterials3",
+                  "quantity": 51
+                },
+                {
+                  "codeName": "FacilityMaterials5",
+                  "quantity": 60
+                },
+                {
+                  "codeName": "FacilityMaterials6",
+                  "quantity": 45
+                }
+              ],
+              "requires": "FieldCannonW"
+            },
+            {
+              "outputs": [
+                {
+                  "codeName": "LargeFieldMortarC",
+                  "quantity": 1
+                }
+              ],
+              "duration": 420,
+              "inputs": [
+                {
+                  "codeName": "FieldMortarC",
+                  "quantity": 1
+                },
+                {
+                  "codeName": "Wood",
+                  "quantity": 35
+                },
+                {
+                  "codeName": "FacilityMaterials3",
+                  "quantity": 46
+                },
+                {
+                  "codeName": "FacilityMaterials5",
+                  "quantity": 60
+                },
+                {
+                  "codeName": "FacilityMaterials6",
+                  "quantity": 45
+                }
+              ],
+              "requires": "FieldMortarC"
+            }
+          ]
+        },
+        "RocketAssembly": {
+          "displayName": "Advanced Structure Manufactory",
+          "recipes": [
+            {
+              "outputs": [
+                {
+                  "codeName": "RocketPartBottom",
+                  "quantity": 1
+                }
+              ],
+              "duration": 86400,
+              "inputs": [],
+              "requires": null
+            },
+            {
+              "outputs": [
+                {
+                  "codeName": "RocketPartCenter",
+                  "quantity": 1
+                }
+              ],
+              "duration": 86400,
+              "inputs": [],
+              "requires": null
+            },
+            {
+              "outputs": [
+                {
+                  "codeName": "RocketPartTop",
+                  "quantity": 1
+                }
+              ],
+              "duration": 86400,
+              "inputs": [],
+              "requires": null
+            },
+            {
+              "outputs": [
+                {
+                  "codeName": "FortConstructionPart",
+                  "quantity": 1
+                }
+              ],
+              "duration": 300,
+              "inputs": [],
+              "requires": null
+            },
+            {
+              "outputs": [
+                {
+                  "codeName": "FortStructurePart",
+                  "quantity": 1
+                }
+              ],
+              "duration": 300,
+              "inputs": [],
+              "requires": null
+            },
+            {
+              "outputs": [
+                {
+                  "codeName": "FortLRArtilleryPart",
+                  "quantity": 1
+                }
+              ],
+              "duration": 1500,
+              "inputs": [],
+              "requires": null
+            },
+            {
+              "outputs": [
+                {
+                  "codeName": "FortIntelCenterPart",
+                  "quantity": 1
+                }
+              ],
+              "duration": 1500,
+              "inputs": [],
+              "requires": null
+            },
+            {
+              "outputs": [
+                {
+                  "codeName": "FortWeatherStationPart",
+                  "quantity": 1
+                }
+              ],
+              "duration": 1500,
+              "inputs": [],
+              "requires": null
+            },
+            {
+              "outputs": [
+                {
+                  "codeName": "FortGarrisonStationPart",
+                  "quantity": 1
+                }
+              ],
+              "duration": 1500,
+              "inputs": [],
+              "requires": null
+            },
+            {
+              "outputs": [
+                {
+                  "codeName": "FortLargeRadarPart",
+                  "quantity": 1
+                }
+              ],
+              "duration": 1500,
+              "inputs": [],
+              "requires": null
+            }
+          ]
+        },
+        "ShipAssembly": {
+          "displayName": "Naval Works",
+          "recipes": [
+            {
+              "outputs": [
+                {
+                  "codeName": "ShipPart1",
+                  "quantity": 1
+                }
+              ],
+              "duration": 1500,
+              "inputs": [],
+              "requires": null
+            },
+            {
+              "outputs": [
+                {
+                  "codeName": "ShipPart2",
+                  "quantity": 1
+                }
+              ],
+              "duration": 300,
+              "inputs": [],
+              "requires": null
+            },
+            {
+              "outputs": [
+                {
+                  "codeName": "ShipPart3",
+                  "quantity": 1
+                }
+              ],
+              "duration": 43200,
+              "inputs": [],
+              "requires": null
+            }
+          ]
+        }
+      }
+    },
+    "FacilityVehicleFactory2": {
+      "displayName": "Large Assembly Station",
+      "codeName": "FacilityVehicleFactory2",
+      "baseRecipes": [
+        {
+          "outputs": [
+            {
+              "codeName": "TrainEngine",
+              "quantity": 1
+            }
+          ],
+          "duration": 21600,
+          "inputs": [
+            {
+              "codeName": "Cloth",
+              "quantity": 5
+            },
+            {
+              "codeName": "FacilityMaterials2",
+              "quantity": 200
+            },
+            {
+              "codeName": "FacilityMaterials4",
+              "quantity": 60
+            },
+            {
+              "codeName": "FacilityMaterials7",
+              "quantity": 50
+            }
+          ],
+          "requires": null
+        },
+        {
+          "outputs": [
+            {
+              "codeName": "TrainCoal",
+              "quantity": 1
+            }
+          ],
+          "duration": 1800,
+          "inputs": [
+            {
+              "codeName": "Cloth",
+              "quantity": 5
+            },
+            {
+              "codeName": "FacilityMaterials2",
+              "quantity": 20
+            },
+            {
+              "codeName": "FacilityMaterials5",
+              "quantity": 15
+            },
+            {
+              "codeName": "FacilityMaterials6",
+              "quantity": 5
+            }
+          ],
+          "requires": null
+        },
+        {
+          "outputs": [
+            {
+              "codeName": "TrainInfantry",
+              "quantity": 1
+            }
+          ],
+          "duration": 1800,
+          "inputs": [
+            {
+              "codeName": "Cloth",
+              "quantity": 5
+            },
+            {
+              "codeName": "FacilityMaterials2",
+              "quantity": 20
+            },
+            {
+              "codeName": "FacilityMaterials5",
+              "quantity": 15
+            },
+            {
+              "codeName": "FacilityMaterials6",
+              "quantity": 5
+            }
+          ],
+          "requires": null
+        },
+        {
+          "outputs": [
+            {
+              "codeName": "TrainFlatbed",
+              "quantity": 1
+            }
+          ],
+          "duration": 1800,
+          "inputs": [
+            {
+              "codeName": "Cloth",
+              "quantity": 5
+            },
+            {
+              "codeName": "FacilityMaterials2",
+              "quantity": 20
+            },
+            {
+              "codeName": "FacilityMaterials5",
+              "quantity": 15
+            },
+            {
+              "codeName": "FacilityMaterials6",
+              "quantity": 10
+            }
+          ],
+          "requires": null
+        },
+        {
+          "outputs": [
+            {
+              "codeName": "TrainCaboose",
+              "quantity": 1
+            }
+          ],
+          "duration": 1800,
+          "inputs": [
+            {
+              "codeName": "Cloth",
+              "quantity": 5
+            },
+            {
+              "codeName": "FacilityMaterials2",
+              "quantity": 20
+            },
+            {
+              "codeName": "FacilityMaterials5",
+              "quantity": 15
+            },
+            {
+              "codeName": "FacilityMaterials6",
+              "quantity": 5
+            }
+          ],
+          "requires": null
+        }
+      ],
+      "modifications": {
+        "TrainAssembly": {
+          "displayName": "Train Assembly",
+          "recipes": [
+            {
+              "outputs": [
+                {
+                  "codeName": "TrainCombatCarC",
+                  "quantity": 1
+                }
+              ],
+              "duration": 1800,
+              "inputs": [
+                {
+                  "codeName": "Cloth",
+                  "quantity": 5
+                },
+                {
+                  "codeName": "FacilityMaterials3",
+                  "quantity": 30
+                },
+                {
+                  "codeName": "FacilityMaterials4",
+                  "quantity": 30
+                },
+                {
+                  "codeName": "FacilityMaterials7",
+                  "quantity": 30
+                }
+              ],
+              "requires": null
+            },
+            {
+              "outputs": [
+                {
+                  "codeName": "TrainCombatCarW",
+                  "quantity": 1
+                }
+              ],
+              "duration": 1800,
+              "inputs": [
+                {
+                  "codeName": "Cloth",
+                  "quantity": 5
+                },
+                {
+                  "codeName": "FacilityMaterials3",
+                  "quantity": 30
+                },
+                {
+                  "codeName": "FacilityMaterials4",
+                  "quantity": 30
+                },
+                {
+                  "codeName": "FacilityMaterials7",
+                  "quantity": 30
+                }
+              ],
+              "requires": null
+            },
+            {
+              "outputs": [
+                {
+                  "codeName": "TrainHospital",
+                  "quantity": 1
+                }
+              ],
+              "duration": 129600,
+              "inputs": [
+                {
+                  "codeName": "Cloth",
+                  "quantity": 5
+                },
+                {
+                  "codeName": "FacilityMaterials3",
+                  "quantity": 60
+                },
+                {
+                  "codeName": "FacilityMaterials6",
+                  "quantity": 45
+                },
+                {
+                  "codeName": "FacilityMaterials7",
+                  "quantity": 55
+                },
+                {
+                  "codeName": "FacilityMaterials8",
+                  "quantity": 40
+                },
+                {
+                  "codeName": "FacilityMaterials9",
+                  "quantity": 2
+                }
+              ],
+              "requires": null
+            },
+            {
+              "outputs": [
+                {
+                  "codeName": "TrainLRArtillery",
+                  "quantity": 1
+                }
+              ],
+              "duration": 259200,
+              "inputs": [
+                {
+                  "codeName": "Cloth",
+                  "quantity": 5
+                },
+                {
+                  "codeName": "FacilityMaterials3",
+                  "quantity": 285
+                },
+                {
+                  "codeName": "FacilityMaterials6",
+                  "quantity": 95
+                },
+                {
+                  "codeName": "FacilityMaterials7",
+                  "quantity": 105
+                },
+                {
+                  "codeName": "FacilityMaterials8",
+                  "quantity": 105
+                },
+                {
+                  "codeName": "FacilityMaterials9",
+                  "quantity": 35
+                },
+                {
+                  "codeName": "FacilityMaterials11",
+                  "quantity": 45
+                }
+              ],
+              "requires": null
+            }
+          ]
+        },
+        "HeavyTankAssembly": {
+          "displayName": "Heavy Tank Assembly",
+          "recipes": [
+            {
+              "outputs": [
+                {
+                  "codeName": "BattleTankC",
+                  "quantity": 1
+                }
+              ],
+              "duration": 64800,
+              "inputs": [
+                {
+                  "codeName": "Wood",
+                  "quantity": 175
+                },
+                {
+                  "codeName": "FacilityMaterials3",
+                  "quantity": 50
+                },
+                {
+                  "codeName": "FacilityMaterials6",
+                  "quantity": 30
+                },
+                {
+                  "codeName": "FacilityMaterials7",
+                  "quantity": 60
+                },
+                {
+                  "codeName": "FacilityMaterials8",
+                  "quantity": 35
+                }
+              ],
+              "requires": null
+            },
+            {
+              "outputs": [
+                {
+                  "codeName": "BattleTankW",
+                  "quantity": 1
+                }
+              ],
+              "duration": 64800,
+              "inputs": [
+                {
+                  "codeName": "Wood",
+                  "quantity": 200
+                },
+                {
+                  "codeName": "FacilityMaterials3",
+                  "quantity": 50
+                },
+                {
+                  "codeName": "FacilityMaterials6",
+                  "quantity": 30
+                },
+                {
+                  "codeName": "FacilityMaterials7",
+                  "quantity": 60
+                },
+                {
+                  "codeName": "FacilityMaterials8",
+                  "quantity": 35
+                }
+              ],
+              "requires": null
+            },
+            {
+              "outputs": [
+                {
+                  "codeName": "BattleTankATC",
+                  "quantity": 1
+                }
+              ],
+              "duration": 86400,
+              "inputs": [
+                {
+                  "codeName": "Wood",
+                  "quantity": 200
+                },
+                {
+                  "codeName": "FacilityMaterials3",
+                  "quantity": 60
+                },
+                {
+                  "codeName": "FacilityMaterials6",
+                  "quantity": 65
+                },
+                {
+                  "codeName": "FacilityMaterials7",
+                  "quantity": 45
+                },
+                {
+                  "codeName": "FacilityMaterials8",
+                  "quantity": 65
+                }
+              ],
+              "requires": null
+            },
+            {
+              "outputs": [
+                {
+                  "codeName": "BattleTankDefensiveW",
+                  "quantity": 1
+                }
+              ],
+              "duration": 79200,
+              "inputs": [
+                {
+                  "codeName": "Wood",
+                  "quantity": 200
+                },
+                {
+                  "codeName": "FacilityMaterials3",
+                  "quantity": 40
+                },
+                {
+                  "codeName": "FacilityMaterials6",
+                  "quantity": 65
+                },
+                {
+                  "codeName": "FacilityMaterials7",
+                  "quantity": 30
+                },
+                {
+                  "codeName": "FacilityMaterials8",
+                  "quantity": 45
+                }
+              ],
+              "requires": null
+            },
+            {
+              "outputs": [
+                {
+                  "codeName": "BattleTankHeavyArtilleryC",
+                  "quantity": 1
+                }
+              ],
+              "duration": 86400,
+              "inputs": [
+                {
+                  "codeName": "Wood",
+                  "quantity": 175
+                },
+                {
+                  "codeName": "FacilityMaterials3",
+                  "quantity": 150
+                },
+                {
+                  "codeName": "FacilityMaterials6",
+                  "quantity": 65
+                },
+                {
+                  "codeName": "FacilityMaterials7",
+                  "quantity": 40
+                },
+                {
+                  "codeName": "FacilityMaterials8",
+                  "quantity": 85
+                }
+              ],
+              "requires": null
+            },
+            {
+              "outputs": [
+                {
+                  "codeName": "BattleTankHeavyArtilleryW",
+                  "quantity": 1
+                }
+              ],
+              "duration": 86400,
+              "inputs": [
+                {
+                  "codeName": "Wood",
+                  "quantity": 200
+                },
+                {
+                  "codeName": "FacilityMaterials3",
+                  "quantity": 150
+                },
+                {
+                  "codeName": "FacilityMaterials6",
+                  "quantity": 65
+                },
+                {
+                  "codeName": "FacilityMaterials7",
+                  "quantity": 40
+                },
+                {
+                  "codeName": "FacilityMaterials8",
+                  "quantity": 85
+                }
+              ],
+              "requires": null
+            },
+            {
+              "outputs": [
+                {
+                  "codeName": "SuperTankC",
+                  "quantity": 1
+                }
+              ],
+              "duration": 172800,
+              "inputs": [
+                {
+                  "codeName": "Wood",
+                  "quantity": 200
+                },
+                {
+                  "codeName": "FacilityMaterials3",
+                  "quantity": 275
+                },
+                {
+                  "codeName": "FacilityMaterials8",
+                  "quantity": 105
+                },
+                {
+                  "codeName": "FacilityMaterials6",
+                  "quantity": 105
+                },
+                {
+                  "codeName": "FacilityMaterials7",
+                  "quantity": 95
+                },
+                {
+                  "codeName": "FacilityMaterials9",
+                  "quantity": 3
+                }
+              ],
+              "requires": null
+            },
+            {
+              "outputs": [
+                {
+                  "codeName": "SuperTankW",
+                  "quantity": 1
+                }
+              ],
+              "duration": 172800,
+              "inputs": [
+                {
+                  "codeName": "Wood",
+                  "quantity": 200
+                },
+                {
+                  "codeName": "FacilityMaterials3",
+                  "quantity": 275
+                },
+                {
+                  "codeName": "FacilityMaterials8",
+                  "quantity": 105
+                },
+                {
+                  "codeName": "FacilityMaterials6",
+                  "quantity": 105
+                },
+                {
+                  "codeName": "FacilityMaterials7",
+                  "quantity": 95
+                },
+                {
+                  "codeName": "FacilityMaterials9",
+                  "quantity": 3
+                }
+              ],
+              "requires": null
+            }
+          ]
+        },
+        "AircraftAssembly": {
+          "displayName": "Aircraft Assembly",
+          "recipes": [
+            {
+              "outputs": [
+                {
+                  "codeName": "AircraftFighterC",
+                  "quantity": 1
+                }
+              ],
+              "duration": 14400,
+              "inputs": [
+                {
+                  "codeName": "AircraftCrate",
+                  "quantity": 1
+                },
+                {
+                  "codeName": "Wood",
+                  "quantity": 250
+                },
+                {
+                  "codeName": "FacilityMaterials2",
+                  "quantity": 40
+                },
+                {
+                  "codeName": "FacilityMaterials6",
+                  "quantity": 50
+                },
+                {
+                  "codeName": "FacilityMaterials7",
+                  "quantity": 50
+                },
+                {
+                  "codeName": "FacilityMaterials9",
+                  "quantity": 2
+                },
+                {
+                  "codeName": "FacilityMaterials11",
+                  "quantity": 10
+                }
+              ],
+              "requires": null
+            },
+            {
+              "outputs": [
+                {
+                  "codeName": "AircraftFighterW",
+                  "quantity": 1
+                }
+              ],
+              "duration": 14400,
+              "inputs": [
+                {
+                  "codeName": "AircraftCrate",
+                  "quantity": 1
+                },
+                {
+                  "codeName": "Wood",
+                  "quantity": 250
+                },
+                {
+                  "codeName": "FacilityMaterials2",
+                  "quantity": 40
+                },
+                {
+                  "codeName": "FacilityMaterials6",
+                  "quantity": 50
+                },
+                {
+                  "codeName": "FacilityMaterials7",
+                  "quantity": 50
+                },
+                {
+                  "codeName": "FacilityMaterials9",
+                  "quantity": 2
+                },
+                {
+                  "codeName": "FacilityMaterials11",
+                  "quantity": 10
+                }
+              ],
+              "requires": null
+            },
+            {
+              "outputs": [
+                {
+                  "codeName": "AircraftWaterW",
+                  "quantity": 1
+                }
+              ],
+              "duration": 14400,
+              "inputs": [
+                {
+                  "codeName": "AircraftCrate",
+                  "quantity": 1
+                },
+                {
+                  "codeName": "Wood",
+                  "quantity": 100
+                },
+                {
+                  "codeName": "FacilityMaterials2",
+                  "quantity": 40
+                },
+                {
+                  "codeName": "FacilityMaterials5",
+                  "quantity": 200
+                },
+                {
+                  "codeName": "FacilityMaterials6",
+                  "quantity": 50
+                },
+                {
+                  "codeName": "FacilityMaterials9",
+                  "quantity": 2
+                },
+                {
+                  "codeName": "FacilityMaterials11",
+                  "quantity": 10
+                }
+              ],
+              "requires": null
+            },
+            {
+              "outputs": [
+                {
+                  "codeName": "AircraftDiveC",
+                  "quantity": 1
+                }
+              ],
+              "duration": 14400,
+              "inputs": [
+                {
+                  "codeName": "AircraftCrate",
+                  "quantity": 1
+                },
+                {
+                  "codeName": "Wood",
+                  "quantity": 250
+                },
+                {
+                  "codeName": "FacilityMaterials2",
+                  "quantity": 40
+                },
+                {
+                  "codeName": "FacilityMaterials4",
+                  "quantity": 85
+                },
+                {
+                  "codeName": "FacilityMaterials5",
+                  "quantity": 175
+                },
+                {
+                  "codeName": "FacilityMaterials6",
+                  "quantity": 50
+                },
+                {
+                  "codeName": "FacilityMaterials9",
+                  "quantity": 4
+                },
+                {
+                  "codeName": "FacilityMaterials11",
+                  "quantity": 10
+                }
+              ],
+              "requires": null
+            },
+            {
+              "outputs": [
+                {
+                  "codeName": "AircraftTorpedoW",
+                  "quantity": 1
+                }
+              ],
+              "duration": 14400,
+              "inputs": [
+                {
+                  "codeName": "AircraftCrate",
+                  "quantity": 1
+                },
+                {
+                  "codeName": "Cloth",
+                  "quantity": 200
+                },
+                {
+                  "codeName": "FacilityMaterials2",
+                  "quantity": 25
+                },
+                {
+                  "codeName": "FacilityMaterials4",
+                  "quantity": 85
+                },
+                {
+                  "codeName": "FacilityMaterials5",
+                  "quantity": 100
+                },
+                {
+                  "codeName": "FacilityMaterials6",
+                  "quantity": 20
+                },
+                {
+                  "codeName": "FacilityMaterials9",
+                  "quantity": 6
+                },
+                {
+                  "codeName": "FacilityMaterials11",
+                  "quantity": 10
+                }
+              ],
+              "requires": null
+            },
+            {
+              "outputs": [
+                {
+                  "codeName": "AircraftParatrooperC",
+                  "quantity": 1
+                }
+              ],
+              "duration": 21600,
+              "inputs": [
+                {
+                  "codeName": "AircraftCrate",
+                  "quantity": 1
+                },
+                {
+                  "codeName": "FacilityMaterials3",
+                  "quantity": 5
+                },
+                {
+                  "codeName": "FacilityMaterials6",
+                  "quantity": 20
+                },
+                {
+                  "codeName": "FacilityMaterials7",
+                  "quantity": 20
+                },
+                {
+                  "codeName": "FacilityMaterials9",
+                  "quantity": 4
+                },
+                {
+                  "codeName": "FacilityMaterials11",
+                  "quantity": 10
+                }
+              ],
+              "requires": null
+            },
+            {
+              "outputs": [
+                {
+                  "codeName": "AircraftParatrooperW",
+                  "quantity": 1
+                }
+              ],
+              "duration": 21600,
+              "inputs": [
+                {
+                  "codeName": "AircraftCrate",
+                  "quantity": 1
+                },
+                {
+                  "codeName": "FacilityMaterials3",
+                  "quantity": 5
+                },
+                {
+                  "codeName": "FacilityMaterials6",
+                  "quantity": 20
+                },
+                {
+                  "codeName": "FacilityMaterials7",
+                  "quantity": 20
+                },
+                {
+                  "codeName": "FacilityMaterials9",
+                  "quantity": 4
+                },
+                {
+                  "codeName": "FacilityMaterials11",
+                  "quantity": 10
+                }
+              ],
+              "requires": null
+            },
+            {
+              "outputs": [
+                {
+                  "codeName": "AircraftBomberC",
+                  "quantity": 1
+                }
+              ],
+              "duration": 28800,
+              "inputs": [
+                {
+                  "codeName": "AircraftCrate",
+                  "quantity": 1
+                },
+                {
+                  "codeName": "FacilityMaterials3",
+                  "quantity": 60
+                },
+                {
+                  "codeName": "FacilityMaterials8",
+                  "quantity": 65
+                },
+                {
+                  "codeName": "FacilityMaterials6",
+                  "quantity": 25
+                },
+                {
+                  "codeName": "FacilityMaterials7",
+                  "quantity": 40
+                },
+                {
+                  "codeName": "FacilityMaterials9",
+                  "quantity": 12
+                },
+                {
+                  "codeName": "FacilityMaterials11",
+                  "quantity": 10
+                }
+              ],
+              "requires": null
+            },
+            {
+              "outputs": [
+                {
+                  "codeName": "AircraftBomberW",
+                  "quantity": 1
+                }
+              ],
+              "duration": 28800,
+              "inputs": [
+                {
+                  "codeName": "AircraftCrate",
+                  "quantity": 1
+                },
+                {
+                  "codeName": "FacilityMaterials3",
+                  "quantity": 60
+                },
+                {
+                  "codeName": "FacilityMaterials8",
+                  "quantity": 65
+                },
+                {
+                  "codeName": "FacilityMaterials6",
+                  "quantity": 25
+                },
+                {
+                  "codeName": "FacilityMaterials7",
+                  "quantity": 40
+                },
+                {
+                  "codeName": "FacilityMaterials9",
+                  "quantity": 12
+                },
+                {
+                  "codeName": "FacilityMaterials11",
+                  "quantity": 10
+                }
+              ],
+              "requires": null
+            }
+          ]
+        }
+      }
+    },
+    "FacilityVehicleFactory3": {
+      "displayName": "Dry Dock",
+      "codeName": "FacilityVehicleFactory3",
+      "baseRecipes": [
+        {
+          "outputs": [
+            {
+              "codeName": "LargeShipBaseShip",
+              "quantity": 1
+            }
+          ],
+          "duration": 14400,
+          "inputs": [
+            {
+              "codeName": "Cloth",
+              "quantity": 150
+            },
+            {
+              "codeName": "ShipPart1",
+              "quantity": 8
+            },
+            {
+              "codeName": "ShipPart2",
+              "quantity": 15
+            }
+          ],
+          "requires": null
+        },
+        {
+          "outputs": [
+            {
+              "codeName": "LargeShipResourceShip",
+              "quantity": 1
+            }
+          ],
+          "duration": 14400,
+          "inputs": [
+            {
+              "codeName": "Cloth",
+              "quantity": 150
+            },
+            {
+              "codeName": "ShipPart1",
+              "quantity": 8
+            },
+            {
+              "codeName": "ShipPart2",
+              "quantity": 15
+            }
+          ],
+          "requires": null
+        },
+        {
+          "outputs": [
+            {
+              "codeName": "LargeShipStorageShip",
+              "quantity": 1
+            }
+          ],
+          "duration": 28800,
+          "inputs": [
+            {
+              "codeName": "Cloth",
+              "quantity": 150
+            },
+            {
+              "codeName": "ShipPart1",
+              "quantity": 25
+            },
+            {
+              "codeName": "ShipPart2",
+              "quantity": 25
+            }
+          ],
+          "requires": null
+        },
+        {
+          "outputs": [
+            {
+              "codeName": "LargeShipDestroyerC",
+              "quantity": 1
+            }
+          ],
+          "duration": 21600,
+          "inputs": [
+            {
+              "codeName": "Cloth",
+              "quantity": 150
+            },
+            {
+              "codeName": "ShipPart1",
+              "quantity": 12
+            },
+            {
+              "codeName": "ShipPart2",
+              "quantity": 12
+            }
+          ],
+          "requires": null
+        },
+        {
+          "outputs": [
+            {
+              "codeName": "LargeShipSubmarineW",
+              "quantity": 1
+            }
+          ],
+          "duration": 21600,
+          "inputs": [
+            {
+              "codeName": "Cloth",
+              "quantity": 150
+            },
+            {
+              "codeName": "ShipPart1",
+              "quantity": 15
+            },
+            {
+              "codeName": "ShipPart2",
+              "quantity": 15
+            }
+          ],
+          "requires": null
+        },
+        {
+          "outputs": [
+            {
+              "codeName": "LargeShipBattleShipC",
+              "quantity": 1
+            }
+          ],
+          "duration": 36000,
+          "inputs": [],
+          "requires": null
+        },
+        {
+          "outputs": [
+            {
+              "codeName": "LargeShipBattleShipW",
+              "quantity": 1
+            }
+          ],
+          "duration": 36000,
+          "inputs": [],
+          "requires": null
+        },
+        {
+          "outputs": [
+            {
+              "codeName": "LargeShipBattleShipAircraftW",
+              "quantity": 1
+            }
+          ],
+          "duration": 36000,
+          "inputs": [],
+          "requires": null
+        },
+        {
+          "outputs": [
+            {
+              "codeName": "LargeShipDestroyerW",
+              "quantity": 1
+            }
+          ],
+          "duration": 21600,
+          "inputs": [
+            {
+              "codeName": "Cloth",
+              "quantity": 150
+            },
+            {
+              "codeName": "ShipPart1",
+              "quantity": 12
+            },
+            {
+              "codeName": "ShipPart2",
+              "quantity": 12
+            }
+          ],
+          "requires": null
+        },
+        {
+          "outputs": [
+            {
+              "codeName": "LargeShipSubmarineC",
+              "quantity": 1
+            }
+          ],
+          "duration": 21600,
+          "inputs": [
+            {
+              "codeName": "Cloth",
+              "quantity": 150
+            },
+            {
+              "codeName": "ShipPart1",
+              "quantity": 15
+            },
+            {
+              "codeName": "ShipPart2",
+              "quantity": 15
+            }
+          ],
+          "requires": null
+        },
+        {
+          "outputs": [
+            {
+              "codeName": "LargeShipAircraftC",
+              "quantity": 1
+            }
+          ],
+          "duration": 36000,
+          "inputs": [
+            {
+              "codeName": "Cloth",
+              "quantity": 150
+            },
+            {
+              "codeName": "ShipPart1",
+              "quantity": 16
+            },
+            {
+              "codeName": "ShipPart2",
+              "quantity": 20
+            }
+          ],
+          "requires": null
         }
       ],
       "modifications": {}
