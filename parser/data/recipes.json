@@ -1,5 +1,5 @@
 {
-  "_generated": "2026-07-05T21:53:27.428Z",
+  "_generated": "2026-07-05T22:03:00.675Z",
   "_sources": [
     "War/Content/Blueprints/Data/BPItemDynamicData.json — Factory/MPF crate recipes",
     "War/Content/Blueprints/Structures/ — facility conversion recipes"
@@ -8556,12 +8556,8 @@
               "quantity": 1
             },
             {
-              "codeName": "Cloth",
-              "quantity": 110
-            },
-            {
               "codeName": "FacilityMaterials1",
-              "quantity": 85
+              "quantity": 80
             }
           ],
           "requires": "MotorcycleC"
@@ -8580,12 +8576,8 @@
               "quantity": 1
             },
             {
-              "codeName": "Cloth",
-              "quantity": 100
-            },
-            {
               "codeName": "FacilityMaterials1",
-              "quantity": 160
+              "quantity": 150
             }
           ],
           "requires": "TruckC"
@@ -8604,12 +8596,8 @@
               "quantity": 1
             },
             {
-              "codeName": "Cloth",
-              "quantity": 145
-            },
-            {
               "codeName": "FacilityMaterials1",
-              "quantity": 160
+              "quantity": 150
             }
           ],
           "requires": "TruckC"
@@ -8628,12 +8616,8 @@
               "quantity": 1
             },
             {
-              "codeName": "Cloth",
-              "quantity": 145
-            },
-            {
               "codeName": "FacilityMaterials1",
-              "quantity": 160
+              "quantity": 150
             }
           ],
           "requires": "TruckW"
@@ -8652,12 +8636,8 @@
               "quantity": 1
             },
             {
-              "codeName": "Cloth",
-              "quantity": 120
-            },
-            {
               "codeName": "FacilityMaterials1",
-              "quantity": 160
+              "quantity": 150
             }
           ],
           "requires": "TruckW"
@@ -8671,10 +8651,6 @@
           ],
           "duration": 900,
           "inputs": [
-            {
-              "codeName": "Cloth",
-              "quantity": 200
-            },
             {
               "codeName": "FacilityMaterials1",
               "quantity": 125
@@ -8700,10 +8676,6 @@
           "duration": 300,
           "inputs": [
             {
-              "codeName": "Cloth",
-              "quantity": 200
-            },
-            {
               "codeName": "FacilityMaterials1",
               "quantity": 35
             },
@@ -8727,10 +8699,6 @@
           ],
           "duration": 300,
           "inputs": [
-            {
-              "codeName": "Cloth",
-              "quantity": 200
-            },
             {
               "codeName": "FacilityMaterials1",
               "quantity": 35
@@ -8760,16 +8728,12 @@
               "quantity": 1
             },
             {
-              "codeName": "Cloth",
+              "codeName": "FacilityMaterials1",
               "quantity": 150
             },
             {
-              "codeName": "FacilityMaterials1",
-              "quantity": 165
-            },
-            {
               "codeName": "FacilityMaterials5",
-              "quantity": 15
+              "quantity": 10
             }
           ],
           "requires": "AmbulanceC"
@@ -8788,16 +8752,12 @@
               "quantity": 1
             },
             {
-              "codeName": "Cloth",
+              "codeName": "FacilityMaterials1",
               "quantity": 150
             },
             {
-              "codeName": "FacilityMaterials1",
-              "quantity": 165
-            },
-            {
               "codeName": "FacilityMaterials5",
-              "quantity": 15
+              "quantity": 10
             }
           ],
           "requires": "AmbulanceW"
@@ -8811,10 +8771,6 @@
           ],
           "duration": 300,
           "inputs": [
-            {
-              "codeName": "Cloth",
-              "quantity": 200
-            },
             {
               "codeName": "FacilityMaterials1",
               "quantity": 35
@@ -8839,10 +8795,6 @@
           ],
           "duration": 300,
           "inputs": [
-            {
-              "codeName": "Cloth",
-              "quantity": 200
-            },
             {
               "codeName": "FacilityMaterials1",
               "quantity": 35
@@ -8877,20 +8829,16 @@
                   "quantity": 1
                 },
                 {
-                  "codeName": "Wood",
-                  "quantity": 40
-                },
-                {
-                  "codeName": "FacilityMaterials1",
-                  "quantity": 30
+                  "codeName": "FacilityMaterials2",
+                  "quantity": 50
                 },
                 {
                   "codeName": "FacilityMaterials4",
-                  "quantity": 30
+                  "quantity": 20
                 },
                 {
-                  "codeName": "FacilityMaterials2",
-                  "quantity": 50
+                  "codeName": "FacilityMaterials1",
+                  "quantity": 20
                 }
               ],
               "requires": "ArmoredCarC"
@@ -8909,20 +8857,16 @@
                   "quantity": 1
                 },
                 {
-                  "codeName": "Wood",
-                  "quantity": 45
-                },
-                {
                   "codeName": "FacilityMaterials1",
-                  "quantity": 30
-                },
-                {
-                  "codeName": "FacilityMaterials4",
-                  "quantity": 30
+                  "quantity": 20
                 },
                 {
                   "codeName": "FacilityMaterials2",
                   "quantity": 50
+                },
+                {
+                  "codeName": "FacilityMaterials4",
+                  "quantity": 20
                 }
               ],
               "requires": "ArmoredCarC"
@@ -8941,20 +8885,16 @@
                   "quantity": 1
                 },
                 {
-                  "codeName": "Wood",
-                  "quantity": 60
-                },
-                {
                   "codeName": "FacilityMaterials1",
-                  "quantity": 30
-                },
-                {
-                  "codeName": "FacilityMaterials4",
-                  "quantity": 45
+                  "quantity": 20
                 },
                 {
                   "codeName": "FacilityMaterials2",
                   "quantity": 70
+                },
+                {
+                  "codeName": "FacilityMaterials4",
+                  "quantity": 30
                 }
               ],
               "requires": "TanketteC"
@@ -8973,16 +8913,12 @@
                   "quantity": 1
                 },
                 {
-                  "codeName": "Wood",
-                  "quantity": 60
-                },
-                {
                   "codeName": "FacilityMaterials2",
-                  "quantity": 100
+                  "quantity": 90
                 },
                 {
                   "codeName": "FacilityMaterials4",
-                  "quantity": 45
+                  "quantity": 30
                 }
               ],
               "requires": "TanketteC"
@@ -9001,12 +8937,8 @@
                   "quantity": 1
                 },
                 {
-                  "codeName": "Wood",
-                  "quantity": 10
-                },
-                {
                   "codeName": "FacilityMaterials1",
-                  "quantity": 9
+                  "quantity": 6
                 },
                 {
                   "codeName": "FacilityMaterials2",
@@ -9029,19 +8961,15 @@
                   "quantity": 1
                 },
                 {
-                  "codeName": "Wood",
-                  "quantity": 25
-                },
-                {
                   "codeName": "FacilityMaterials1",
-                  "quantity": 9
-                },
-                {
-                  "codeName": "FacilityMaterials5",
-                  "quantity": 30
+                  "quantity": 6
                 },
                 {
                   "codeName": "FacilityMaterials2",
+                  "quantity": 20
+                },
+                {
+                  "codeName": "FacilityMaterials5",
                   "quantity": 20
                 }
               ],
@@ -9061,16 +8989,12 @@
                   "quantity": 1
                 },
                 {
-                  "codeName": "Wood",
-                  "quantity": 45
-                },
-                {
                   "codeName": "FacilityMaterials2",
-                  "quantity": 80
+                  "quantity": 70
                 },
                 {
                   "codeName": "FacilityMaterials4",
-                  "quantity": 30
+                  "quantity": 20
                 },
                 {
                   "codeName": "FacilityMaterials1",
@@ -9093,20 +9017,16 @@
                   "quantity": 1
                 },
                 {
-                  "codeName": "Wood",
-                  "quantity": 40
-                },
-                {
                   "codeName": "FacilityMaterials1",
-                  "quantity": 15
-                },
-                {
-                  "codeName": "FacilityMaterials4",
-                  "quantity": 15
+                  "quantity": 10
                 },
                 {
                   "codeName": "FacilityMaterials2",
                   "quantity": 50
+                },
+                {
+                  "codeName": "FacilityMaterials4",
+                  "quantity": 10
                 }
               ],
               "requires": "ArmoredCarW"
@@ -9125,20 +9045,16 @@
                   "quantity": 1
                 },
                 {
-                  "codeName": "Wood",
-                  "quantity": 40
-                },
-                {
-                  "codeName": "FacilityMaterials1",
-                  "quantity": 30
+                  "codeName": "FacilityMaterials2",
+                  "quantity": 50
                 },
                 {
                   "codeName": "FacilityMaterials4",
-                  "quantity": 30
+                  "quantity": 20
                 },
                 {
-                  "codeName": "FacilityMaterials2",
-                  "quantity": 50
+                  "codeName": "FacilityMaterials1",
+                  "quantity": 20
                 }
               ],
               "requires": "ArmoredCarW"
@@ -9157,20 +9073,16 @@
                   "quantity": 1
                 },
                 {
-                  "codeName": "Wood",
-                  "quantity": 60
-                },
-                {
                   "codeName": "FacilityMaterials1",
-                  "quantity": 45
-                },
-                {
-                  "codeName": "FacilityMaterials4",
-                  "quantity": 45
+                  "quantity": 30
                 },
                 {
                   "codeName": "FacilityMaterials2",
                   "quantity": 50
+                },
+                {
+                  "codeName": "FacilityMaterials4",
+                  "quantity": 30
                 }
               ],
               "requires": "ArmoredCar2TwinW"
@@ -9189,19 +9101,15 @@
                   "quantity": 1
                 },
                 {
-                  "codeName": "Wood",
-                  "quantity": 15
-                },
-                {
                   "codeName": "FacilityMaterials1",
-                  "quantity": 9
-                },
-                {
-                  "codeName": "FacilityMaterials5",
-                  "quantity": 30
+                  "quantity": 6
                 },
                 {
                   "codeName": "FacilityMaterials2",
+                  "quantity": 20
+                },
+                {
+                  "codeName": "FacilityMaterials5",
                   "quantity": 20
                 }
               ],
@@ -9221,20 +9129,16 @@
                   "quantity": 1
                 },
                 {
-                  "codeName": "Wood",
-                  "quantity": 10
-                },
-                {
                   "codeName": "FacilityMaterials1",
-                  "quantity": 9
-                },
-                {
-                  "codeName": "FacilityMaterials5",
-                  "quantity": 15
+                  "quantity": 6
                 },
                 {
                   "codeName": "FacilityMaterials2",
                   "quantity": 20
+                },
+                {
+                  "codeName": "FacilityMaterials5",
+                  "quantity": 10
                 }
               ],
               "requires": "ScoutVehicleW"
@@ -9253,19 +9157,15 @@
                   "quantity": 1
                 },
                 {
-                  "codeName": "Wood",
-                  "quantity": 20
-                },
-                {
                   "codeName": "FacilityMaterials1",
-                  "quantity": 90
-                },
-                {
-                  "codeName": "FacilityMaterials5",
                   "quantity": 60
                 },
                 {
                   "codeName": "FacilityMaterials2",
+                  "quantity": 40
+                },
+                {
+                  "codeName": "FacilityMaterials5",
                   "quantity": 40
                 }
               ],
@@ -9285,19 +9185,15 @@
                   "quantity": 1
                 },
                 {
-                  "codeName": "Wood",
-                  "quantity": 20
-                },
-                {
                   "codeName": "FacilityMaterials1",
-                  "quantity": 90
-                },
-                {
-                  "codeName": "FacilityMaterials5",
                   "quantity": 60
                 },
                 {
                   "codeName": "FacilityMaterials2",
+                  "quantity": 40
+                },
+                {
+                  "codeName": "FacilityMaterials5",
                   "quantity": 40
                 }
               ],
@@ -9322,20 +9218,16 @@
                   "quantity": 1
                 },
                 {
-                  "codeName": "Cloth",
-                  "quantity": 100
-                },
-                {
                   "codeName": "FacilityMaterials2",
-                  "quantity": 210
+                  "quantity": 140
                 },
                 {
                   "codeName": "FacilityMaterials4",
-                  "quantity": 30
+                  "quantity": 20
                 },
                 {
                   "codeName": "FacilityMaterials6",
-                  "quantity": 24
+                  "quantity": 16
                 }
               ],
               "requires": "TruckC"
@@ -9429,20 +9321,16 @@
                   "quantity": 1
                 },
                 {
-                  "codeName": "Wood",
-                  "quantity": 90
-                },
-                {
                   "codeName": "FacilityMaterials3",
-                  "quantity": 20
+                  "quantity": 15
                 },
                 {
                   "codeName": "FacilityMaterials4",
-                  "quantity": 45
+                  "quantity": 30
                 },
                 {
                   "codeName": "FacilityMaterials6",
-                  "quantity": 9
+                  "quantity": 6
                 }
               ],
               "requires": "ScoutTankW"
@@ -9461,20 +9349,16 @@
                   "quantity": 1
                 },
                 {
-                  "codeName": "Wood",
-                  "quantity": 60
-                },
-                {
                   "codeName": "FacilityMaterials2",
-                  "quantity": 60
+                  "quantity": 40
                 },
                 {
                   "codeName": "FacilityMaterials4",
-                  "quantity": 45
+                  "quantity": 30
                 },
                 {
                   "codeName": "FacilityMaterials6",
-                  "quantity": 9
+                  "quantity": 6
                 }
               ],
               "requires": "TanketteC"
@@ -9493,16 +9377,12 @@
                   "quantity": 1
                 },
                 {
-                  "codeName": "Wood",
-                  "quantity": 60
-                },
-                {
                   "codeName": "FacilityMaterials2",
-                  "quantity": 135
+                  "quantity": 130
                 },
                 {
                   "codeName": "FacilityMaterials7",
-                  "quantity": 15
+                  "quantity": 10
                 }
               ],
               "requires": "HalftrackW"
@@ -9516,10 +9396,6 @@
               ],
               "duration": 600,
               "inputs": [
-                {
-                  "codeName": "Wood",
-                  "quantity": 30
-                },
                 {
                   "codeName": "FacilityMaterials2",
                   "quantity": 20
@@ -9549,20 +9425,16 @@
                   "quantity": 1
                 },
                 {
-                  "codeName": "Wood",
-                  "quantity": 60
-                },
-                {
                   "codeName": "FacilityMaterials2",
-                  "quantity": 185
+                  "quantity": 150
                 },
                 {
                   "codeName": "FacilityMaterials4",
-                  "quantity": 30
+                  "quantity": 20
                 },
                 {
                   "codeName": "FacilityMaterials6",
-                  "quantity": 24
+                  "quantity": 16
                 }
               ],
               "requires": "ArmoredCar2TwinW"
@@ -9604,10 +9476,6 @@
               "duration": 900,
               "inputs": [
                 {
-                  "codeName": "Wood",
-                  "quantity": 120
-                },
-                {
                   "codeName": "FacilityMaterials2",
                   "quantity": 90
                 },
@@ -9630,14 +9498,6 @@
                 {
                   "codeName": "Construction",
                   "quantity": 1
-                },
-                {
-                  "codeName": "Cloth",
-                  "quantity": 100
-                },
-                {
-                  "codeName": "FacilityMaterials2",
-                  "quantity": 10
                 }
               ],
               "requires": "Construction"
@@ -9656,16 +9516,12 @@
                   "quantity": 1
                 },
                 {
-                  "codeName": "Wood",
-                  "quantity": 45
-                },
-                {
                   "codeName": "FacilityMaterials2",
-                  "quantity": 55
+                  "quantity": 50
                 },
                 {
                   "codeName": "FacilityMaterials6",
-                  "quantity": 9
+                  "quantity": 6
                 }
               ],
               "requires": "LandingCraftC"
@@ -9684,16 +9540,12 @@
                   "quantity": 1
                 },
                 {
-                  "codeName": "Wood",
-                  "quantity": 40
-                },
-                {
                   "codeName": "FacilityMaterials2",
-                  "quantity": 55
+                  "quantity": 50
                 },
                 {
                   "codeName": "FacilityMaterials7",
-                  "quantity": 15
+                  "quantity": 10
                 }
               ],
               "requires": "FieldATC"
@@ -9712,16 +9564,12 @@
                   "quantity": 1
                 },
                 {
-                  "codeName": "Wood",
-                  "quantity": 90
-                },
-                {
                   "codeName": "FacilityMaterials2",
-                  "quantity": 155
+                  "quantity": 150
                 },
                 {
                   "codeName": "FacilityMaterials6",
-                  "quantity": 15
+                  "quantity": 10
                 }
               ],
               "requires": "ScoutTankW"
@@ -9740,16 +9588,12 @@
                   "quantity": 1
                 },
                 {
-                  "codeName": "Wood",
-                  "quantity": 40
-                },
-                {
                   "codeName": "FacilityMaterials2",
-                  "quantity": 55
+                  "quantity": 50
                 },
                 {
                   "codeName": "FacilityMaterials7",
-                  "quantity": 15
+                  "quantity": 10
                 }
               ],
               "requires": "FieldATW"
@@ -9763,10 +9607,6 @@
               ],
               "duration": 600,
               "inputs": [
-                {
-                  "codeName": "Wood",
-                  "quantity": 30
-                },
                 {
                   "codeName": "FacilityMaterials2",
                   "quantity": 40
@@ -9783,10 +9623,6 @@
               ],
               "duration": 600,
               "inputs": [
-                {
-                  "codeName": "Wood",
-                  "quantity": 30
-                },
                 {
                   "codeName": "FacilityMaterials2",
                   "quantity": 40
@@ -9813,20 +9649,16 @@
                   "quantity": 1
                 },
                 {
-                  "codeName": "Wood",
-                  "quantity": 160
-                },
-                {
                   "codeName": "FacilityMaterials2",
-                  "quantity": 350
+                  "quantity": 340
                 },
                 {
                   "codeName": "FacilityMaterials5",
-                  "quantity": 30
+                  "quantity": 20
                 },
                 {
                   "codeName": "FacilityMaterials6",
-                  "quantity": 45
+                  "quantity": 30
                 }
               ],
               "requires": "DestroyerTankW"
@@ -9845,20 +9677,16 @@
                   "quantity": 1
                 },
                 {
-                  "codeName": "Wood",
-                  "quantity": 135
-                },
-                {
                   "codeName": "FacilityMaterials2",
-                  "quantity": 263
+                  "quantity": 255
                 },
                 {
                   "codeName": "FacilityMaterials5",
-                  "quantity": 60
+                  "quantity": 40
                 },
                 {
                   "codeName": "FacilityMaterials6",
-                  "quantity": 15
+                  "quantity": 10
                 }
               ],
               "requires": "LightTankC"
@@ -9877,20 +9705,16 @@
                   "quantity": 1
                 },
                 {
-                  "codeName": "Wood",
-                  "quantity": 145
-                },
-                {
                   "codeName": "FacilityMaterials2",
-                  "quantity": 253
+                  "quantity": 245
                 },
                 {
                   "codeName": "FacilityMaterials5",
-                  "quantity": 60
+                  "quantity": 40
                 },
                 {
                   "codeName": "FacilityMaterials6",
-                  "quantity": 15
+                  "quantity": 10
                 }
               ],
               "requires": "LightTankC"
@@ -9909,20 +9733,16 @@
                   "quantity": 1
                 },
                 {
-                  "codeName": "Wood",
-                  "quantity": 160
-                },
-                {
                   "codeName": "FacilityMaterials2",
-                  "quantity": 245
+                  "quantity": 240
                 },
                 {
                   "codeName": "FacilityMaterials4",
-                  "quantity": 60
+                  "quantity": 40
                 },
                 {
                   "codeName": "FacilityMaterials7",
-                  "quantity": 15
+                  "quantity": 10
                 }
               ],
               "requires": "LightTankC"
@@ -9941,20 +9761,16 @@
                   "quantity": 1
                 },
                 {
-                  "codeName": "Wood",
-                  "quantity": 165
-                },
-                {
                   "codeName": "FacilityMaterials2",
-                  "quantity": 297
+                  "quantity": 285
                 },
                 {
                   "codeName": "FacilityMaterials4",
-                  "quantity": 30
+                  "quantity": 20
                 },
                 {
                   "codeName": "FacilityMaterials7",
-                  "quantity": 24
+                  "quantity": 16
                 }
               ],
               "requires": "MediumTankC"
@@ -9973,20 +9789,16 @@
                   "quantity": 1
                 },
                 {
-                  "codeName": "Wood",
-                  "quantity": 185
-                },
-                {
                   "codeName": "FacilityMaterials2",
-                  "quantity": 360
+                  "quantity": 350
                 },
                 {
                   "codeName": "FacilityMaterials5",
-                  "quantity": 30
+                  "quantity": 20
                 },
                 {
                   "codeName": "FacilityMaterials6",
-                  "quantity": 40
+                  "quantity": 30
                 }
               ],
               "requires": "MediumTank2C"
@@ -10016,20 +9828,16 @@
                   "quantity": 1
                 },
                 {
-                  "codeName": "Wood",
-                  "quantity": 150
-                },
-                {
                   "codeName": "FacilityMaterials2",
-                  "quantity": 263
+                  "quantity": 255
                 },
                 {
                   "codeName": "FacilityMaterials5",
-                  "quantity": 60
+                  "quantity": 40
                 },
                 {
                   "codeName": "FacilityMaterials6",
-                  "quantity": 15
+                  "quantity": 10
                 }
               ],
               "requires": "LightTankW"
@@ -10048,20 +9856,16 @@
                   "quantity": 1
                 },
                 {
-                  "codeName": "Wood",
-                  "quantity": 150
-                },
-                {
                   "codeName": "FacilityMaterials2",
-                  "quantity": 248
+                  "quantity": 245
                 },
                 {
                   "codeName": "FacilityMaterials4",
-                  "quantity": 60
+                  "quantity": 40
                 },
                 {
                   "codeName": "FacilityMaterials7",
-                  "quantity": 9
+                  "quantity": 6
                 }
               ],
               "requires": "LightTankW"
@@ -10080,20 +9884,16 @@
                   "quantity": 1
                 },
                 {
-                  "codeName": "Wood",
-                  "quantity": 185
-                },
-                {
                   "codeName": "FacilityMaterials2",
-                  "quantity": 325
+                  "quantity": 320
                 },
                 {
                   "codeName": "FacilityMaterials4",
-                  "quantity": 30
+                  "quantity": 20
                 },
                 {
                   "codeName": "FacilityMaterials7",
-                  "quantity": 24
+                  "quantity": 16
                 }
               ],
               "requires": "MediumTankW"
@@ -10112,20 +9912,16 @@
                   "quantity": 1
                 },
                 {
-                  "codeName": "Wood",
-                  "quantity": 150
-                },
-                {
                   "codeName": "FacilityMaterials2",
-                  "quantity": 315
+                  "quantity": 310
                 },
                 {
                   "codeName": "FacilityMaterials5",
-                  "quantity": 30
+                  "quantity": 20
                 },
                 {
                   "codeName": "FacilityMaterials6",
-                  "quantity": 15
+                  "quantity": 10
                 }
               ],
               "requires": "MediumTank2W"
@@ -10155,20 +9951,16 @@
                   "quantity": 1
                 },
                 {
-                  "codeName": "Wood",
-                  "quantity": 150
-                },
-                {
                   "codeName": "FacilityMaterials2",
-                  "quantity": 310
+                  "quantity": 300
                 },
                 {
                   "codeName": "FacilityMaterials4",
-                  "quantity": 30
+                  "quantity": 20
                 },
                 {
                   "codeName": "FacilityMaterials7",
-                  "quantity": 30
+                  "quantity": 20
                 }
               ],
               "requires": "MediumTank2W"
@@ -10187,16 +9979,12 @@
                   "quantity": 1
                 },
                 {
-                  "codeName": "Wood",
-                  "quantity": 155
-                },
-                {
                   "codeName": "FacilityMaterials2",
-                  "quantity": 245
+                  "quantity": 230
                 },
                 {
                   "codeName": "FacilityMaterials5",
-                  "quantity": 45
+                  "quantity": 30
                 }
               ],
               "requires": "LightTank2InfantryC"
@@ -10220,28 +10008,20 @@
                   "quantity": 1
                 },
                 {
-                  "codeName": "Wood",
-                  "quantity": 165
-                },
-                {
-                  "codeName": "FacilityMaterials3",
-                  "quantity": 3
+                  "codeName": "FacilityMaterials2",
+                  "quantity": 300
                 },
                 {
                   "codeName": "FacilityMaterials4",
-                  "quantity": 30
+                  "quantity": 20
                 },
                 {
                   "codeName": "FacilityMaterials7",
-                  "quantity": 45
+                  "quantity": 30
                 },
                 {
                   "codeName": "FacilityMaterials6",
-                  "quantity": 45
-                },
-                {
-                  "codeName": "FacilityMaterials2",
-                  "quantity": 300
+                  "quantity": 30
                 }
               ],
               "requires": "MediumTankC"
@@ -10260,24 +10040,20 @@
                   "quantity": 1
                 },
                 {
-                  "codeName": "Wood",
-                  "quantity": 150
-                },
-                {
                   "codeName": "FacilityMaterials2",
-                  "quantity": 450
+                  "quantity": 390
                 },
                 {
                   "codeName": "FacilityMaterials4",
-                  "quantity": 30
+                  "quantity": 20
                 },
                 {
                   "codeName": "FacilityMaterials7",
-                  "quantity": 45
+                  "quantity": 30
                 },
                 {
                   "codeName": "FacilityMaterials6",
-                  "quantity": 45
+                  "quantity": 30
                 }
               ],
               "requires": "MediumTank2W"
@@ -10296,20 +10072,16 @@
                   "quantity": 1
                 },
                 {
-                  "codeName": "Wood",
-                  "quantity": 155
-                },
-                {
                   "codeName": "FacilityMaterials3",
-                  "quantity": 101
+                  "quantity": 86
                 },
                 {
                   "codeName": "FacilityMaterials5",
-                  "quantity": 55
+                  "quantity": 30
                 },
                 {
                   "codeName": "FacilityMaterials6",
-                  "quantity": 75
+                  "quantity": 50
                 }
               ],
               "requires": "MediumTankW"
@@ -10328,20 +10100,16 @@
                   "quantity": 1
                 },
                 {
-                  "codeName": "Wood",
-                  "quantity": 40
-                },
-                {
                   "codeName": "FacilityMaterials3",
-                  "quantity": 51
+                  "quantity": 36
                 },
                 {
                   "codeName": "FacilityMaterials5",
-                  "quantity": 60
+                  "quantity": 40
                 },
                 {
                   "codeName": "FacilityMaterials6",
-                  "quantity": 45
+                  "quantity": 30
                 }
               ],
               "requires": "FieldATC"
@@ -10360,20 +10128,16 @@
                   "quantity": 1
                 },
                 {
-                  "codeName": "Wood",
-                  "quantity": 40
-                },
-                {
                   "codeName": "FacilityMaterials3",
-                  "quantity": 51
+                  "quantity": 36
                 },
                 {
                   "codeName": "FacilityMaterials5",
-                  "quantity": 60
+                  "quantity": 40
                 },
                 {
                   "codeName": "FacilityMaterials6",
-                  "quantity": 45
+                  "quantity": 30
                 }
               ],
               "requires": "FieldCannonW"
@@ -10392,20 +10156,16 @@
                   "quantity": 1
                 },
                 {
-                  "codeName": "Wood",
-                  "quantity": 35
-                },
-                {
                   "codeName": "FacilityMaterials3",
-                  "quantity": 46
+                  "quantity": 36
                 },
                 {
                   "codeName": "FacilityMaterials5",
-                  "quantity": 60
+                  "quantity": 40
                 },
                 {
                   "codeName": "FacilityMaterials6",
-                  "quantity": 45
+                  "quantity": 30
                 }
               ],
               "requires": "FieldMortarC"
@@ -10581,10 +10341,6 @@
           "duration": 21600,
           "inputs": [
             {
-              "codeName": "Cloth",
-              "quantity": 5
-            },
-            {
               "codeName": "FacilityMaterials2",
               "quantity": 200
             },
@@ -10608,10 +10364,6 @@
           ],
           "duration": 1800,
           "inputs": [
-            {
-              "codeName": "Cloth",
-              "quantity": 5
-            },
             {
               "codeName": "FacilityMaterials2",
               "quantity": 20
@@ -10637,10 +10389,6 @@
           "duration": 1800,
           "inputs": [
             {
-              "codeName": "Cloth",
-              "quantity": 5
-            },
-            {
               "codeName": "FacilityMaterials2",
               "quantity": 20
             },
@@ -10665,10 +10413,6 @@
           "duration": 1800,
           "inputs": [
             {
-              "codeName": "Cloth",
-              "quantity": 5
-            },
-            {
               "codeName": "FacilityMaterials2",
               "quantity": 20
             },
@@ -10692,10 +10436,6 @@
           ],
           "duration": 1800,
           "inputs": [
-            {
-              "codeName": "Cloth",
-              "quantity": 5
-            },
             {
               "codeName": "FacilityMaterials2",
               "quantity": 20
@@ -10726,10 +10466,6 @@
               "duration": 1800,
               "inputs": [
                 {
-                  "codeName": "Cloth",
-                  "quantity": 5
-                },
-                {
                   "codeName": "FacilityMaterials3",
                   "quantity": 30
                 },
@@ -10754,10 +10490,6 @@
               "duration": 1800,
               "inputs": [
                 {
-                  "codeName": "Cloth",
-                  "quantity": 5
-                },
-                {
                   "codeName": "FacilityMaterials3",
                   "quantity": 30
                 },
@@ -10781,10 +10513,6 @@
               ],
               "duration": 129600,
               "inputs": [
-                {
-                  "codeName": "Cloth",
-                  "quantity": 5
-                },
                 {
                   "codeName": "FacilityMaterials3",
                   "quantity": 60
@@ -10817,10 +10545,6 @@
               ],
               "duration": 259200,
               "inputs": [
-                {
-                  "codeName": "Cloth",
-                  "quantity": 5
-                },
                 {
                   "codeName": "FacilityMaterials3",
                   "quantity": 285
@@ -10863,10 +10587,6 @@
               "duration": 64800,
               "inputs": [
                 {
-                  "codeName": "Wood",
-                  "quantity": 175
-                },
-                {
                   "codeName": "FacilityMaterials3",
                   "quantity": 50
                 },
@@ -10894,10 +10614,6 @@
               ],
               "duration": 64800,
               "inputs": [
-                {
-                  "codeName": "Wood",
-                  "quantity": 200
-                },
                 {
                   "codeName": "FacilityMaterials3",
                   "quantity": 50
@@ -10927,10 +10643,6 @@
               "duration": 86400,
               "inputs": [
                 {
-                  "codeName": "Wood",
-                  "quantity": 200
-                },
-                {
                   "codeName": "FacilityMaterials3",
                   "quantity": 60
                 },
@@ -10958,10 +10670,6 @@
               ],
               "duration": 79200,
               "inputs": [
-                {
-                  "codeName": "Wood",
-                  "quantity": 200
-                },
                 {
                   "codeName": "FacilityMaterials3",
                   "quantity": 40
@@ -10991,10 +10699,6 @@
               "duration": 86400,
               "inputs": [
                 {
-                  "codeName": "Wood",
-                  "quantity": 175
-                },
-                {
                   "codeName": "FacilityMaterials3",
                   "quantity": 150
                 },
@@ -11023,10 +10727,6 @@
               "duration": 86400,
               "inputs": [
                 {
-                  "codeName": "Wood",
-                  "quantity": 200
-                },
-                {
                   "codeName": "FacilityMaterials3",
                   "quantity": 150
                 },
@@ -11054,10 +10754,6 @@
               ],
               "duration": 172800,
               "inputs": [
-                {
-                  "codeName": "Wood",
-                  "quantity": 200
-                },
                 {
                   "codeName": "FacilityMaterials3",
                   "quantity": 275
@@ -11090,10 +10786,6 @@
               ],
               "duration": 172800,
               "inputs": [
-                {
-                  "codeName": "Wood",
-                  "quantity": 200
-                },
                 {
                   "codeName": "FacilityMaterials3",
                   "quantity": 275
@@ -11136,10 +10828,6 @@
                   "quantity": 1
                 },
                 {
-                  "codeName": "Wood",
-                  "quantity": 250
-                },
-                {
                   "codeName": "FacilityMaterials2",
                   "quantity": 40
                 },
@@ -11174,10 +10862,6 @@
                 {
                   "codeName": "AircraftCrate",
                   "quantity": 1
-                },
-                {
-                  "codeName": "Wood",
-                  "quantity": 250
                 },
                 {
                   "codeName": "FacilityMaterials2",
@@ -11216,10 +10900,6 @@
                   "quantity": 1
                 },
                 {
-                  "codeName": "Wood",
-                  "quantity": 100
-                },
-                {
                   "codeName": "FacilityMaterials2",
                   "quantity": 40
                 },
@@ -11254,10 +10934,6 @@
                 {
                   "codeName": "AircraftCrate",
                   "quantity": 1
-                },
-                {
-                  "codeName": "Wood",
-                  "quantity": 250
                 },
                 {
                   "codeName": "FacilityMaterials2",
@@ -11298,10 +10974,6 @@
                 {
                   "codeName": "AircraftCrate",
                   "quantity": 1
-                },
-                {
-                  "codeName": "Cloth",
-                  "quantity": 200
                 },
                 {
                   "codeName": "FacilityMaterials2",
@@ -11500,10 +11172,6 @@
           "duration": 14400,
           "inputs": [
             {
-              "codeName": "Cloth",
-              "quantity": 150
-            },
-            {
               "codeName": "ShipPart1",
               "quantity": 8
             },
@@ -11523,10 +11191,6 @@
           ],
           "duration": 14400,
           "inputs": [
-            {
-              "codeName": "Cloth",
-              "quantity": 150
-            },
             {
               "codeName": "ShipPart1",
               "quantity": 8
@@ -11548,10 +11212,6 @@
           "duration": 28800,
           "inputs": [
             {
-              "codeName": "Cloth",
-              "quantity": 150
-            },
-            {
               "codeName": "ShipPart1",
               "quantity": 25
             },
@@ -11572,10 +11232,6 @@
           "duration": 21600,
           "inputs": [
             {
-              "codeName": "Cloth",
-              "quantity": 150
-            },
-            {
               "codeName": "ShipPart1",
               "quantity": 12
             },
@@ -11595,10 +11251,6 @@
           ],
           "duration": 21600,
           "inputs": [
-            {
-              "codeName": "Cloth",
-              "quantity": 150
-            },
             {
               "codeName": "ShipPart1",
               "quantity": 15
@@ -11653,10 +11305,6 @@
           "duration": 21600,
           "inputs": [
             {
-              "codeName": "Cloth",
-              "quantity": 150
-            },
-            {
               "codeName": "ShipPart1",
               "quantity": 12
             },
@@ -11677,10 +11325,6 @@
           "duration": 21600,
           "inputs": [
             {
-              "codeName": "Cloth",
-              "quantity": 150
-            },
-            {
               "codeName": "ShipPart1",
               "quantity": 15
             },
@@ -11700,10 +11344,6 @@
           ],
           "duration": 36000,
           "inputs": [
-            {
-              "codeName": "Cloth",
-              "quantity": 150
-            },
             {
               "codeName": "ShipPart1",
               "quantity": 16

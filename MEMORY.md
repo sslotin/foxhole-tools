@@ -232,9 +232,9 @@ codeName → { short, target }  // hardcoded targets, needs audit vs latest meta
 
 **Root cause:** The 3 vehicle factory facilities (`BPFacilityVehicleFactory1/2/3.json`) were missing from `FACILITY_FILES` entirely. They use a different recipe format (`AssemblyItems`) instead of `ConversionEntries`, with input costs stored in `BPVehicleDynamicData.json` (`ResourceAmounts`, `AltResourceAmounts`, `UpgradeResourceAmounts`).
 
-**Fix:** Added VF1/VF2/VF3 to `FACILITY_FILES`. Added `parseAssemblyItem()` which reads the `AssemblyItems` format, looks up resource costs from the vehicle dynamic data, and combines base + alt + upgrade costs. Modifications also use `AssemblyItems` (stored inline in each mod's value), so the loop now checks for `AssemblyItems` first before falling back to `ConversionEntries`.
+**Fix:** Added VF1/VF2/VF3 to `FACILITY_FILES`. Added `parseAssemblyItem()` which reads the `AssemblyItems` format and looks up resource costs from the vehicle dynamic data. Vehicle pads only use processed materials (`AltResourceAmounts`), never RMats/Bmats (`ResourceAmounts`). Upgrades (items with `RequiredCodeName`) use only `UpgradeResourceAmounts` + the prerequisite vehicle. Scratch builds use only `AltResourceAmounts`, falling back to `ResourceAmounts` only when no alt exists.
 
-**Stats:** +29 base recipes + 89 modification recipes = **118 new vehicle/assembly recipes**. Items without vehicle data (ship parts, fort parts, rocket parts) emit with just outputs + duration (no inputs).
+**Stats:** ~118 new vehicle/assembly recipes across 3 facilities. Items without vehicle data (ship parts, fort parts, rocket parts) emit with just outputs + duration (no inputs).
 
 ---
 

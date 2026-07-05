@@ -890,27 +890,47 @@ function parseConversion(entry) {
 
 // Vehicle factory data: Build costs are in BPVehicleDynamicData.json ResourceAmounts
 // AssemblyItems style: {CodeName, Duration, CrateCodeName, RequiredCodeName}
+function hasRealResources(bundle) {
+  if (!bundle) return false;
+  const main = bundle.Resource || {};
+  if (main.CodeName && main.CodeName !== 'None' && main.Quantity > 0) return true;
+  for (const o of (bundle.OtherResources || [])) {
+    if (o.CodeName && o.CodeName !== 'None' && o.Quantity > 0) return true;
+  }
+  return false;
+}
+
 function extractResourceInputs(codeName) {
   const row = vehicleData[codeName];
   if (!row) return null;
   const inputs = [];
-  // Helper to add resources from a bundle
-  function addBundle(bundle) {
-    if (!bundle) return;
-    const main = bundle.Resource || {};
-    if (main.CodeName && main.CodeName !== 'None' && main.Quantity > 0) {
-      inputs.push({ codeName: main.CodeName, quantity: main.Quantity });
-    }
-    for (const o of (bundle.OtherResources || [])) {
-      if (o.CodeName && o.CodeName !== 'None' && o.Quantity > 0) {
-        inputs.push({ codeName: o.CodeName, quantity: o.Quantity });
-      }
+  const ra = row.ResourceAmounts || {};
+  const main = ra.Resource || {};
+  if (main.CodeName && main.CodeName !== 'None' && main.Quantity > 0) {
+    inputs.push({ codeName: main.CodeName, quantity: main.Quantity });
+  }
+  for (const o of (ra.OtherResources || [])) {
+    if (o.CodeName && o.CodeName !== 'None' && o.Quantity > 0) {
+      inputs.push({ codeName: o.CodeName, quantity: o.Quantity });
     }
   }
-  // Include resources from ALL bundles — base + alt (alts are mutually exclusive but
-  // we include all so the resolver sees every possible cost material)
-  addBundle(row.ResourceAmounts);
-  addBundle(row.AltResourceAmounts);
+  return inputs.length > 0 ? inputs : null;
+}
+
+function extractAltResourceInputs(codeName) {
+  const row = vehicleData[codeName];
+  if (!row) return null;
+  const inputs = [];
+  const alt = row.AltResourceAmounts || {};
+  const main = alt.Resource || {};
+  if (main.CodeName && main.CodeName !== 'None' && main.Quantity > 0) {
+    inputs.push({ codeName: main.CodeName, quantity: main.Quantity });
+  }
+  for (const o of (alt.OtherResources || [])) {
+    if (o.CodeName && o.CodeName !== 'None' && o.Quantity > 0) {
+      inputs.push({ codeName: o.CodeName, quantity: o.Quantity });
+    }
+  }
   return inputs.length > 0 ? inputs : null;
 }
 
@@ -931,49 +951,72 @@ function extractUpgradeInputs(codeName) {
   return inputs.length > 0 ? inputs : null;
 }
 
-function parseAssemblyItem(item) {
+function buildRecipeWithInputs(item, resourceInputs, upgradeInputs) {
   const recipe = {
     outputs: [{ codeName: item.CodeName, quantity: 1 }],
     duration: item.Duration || 0,
     inputs: [],
     requires: null,
   };
-  // Add crate input if present
   if (item.CrateCodeName && item.CrateCodeName !== 'None') {
     recipe.inputs.push({ codeName: item.CrateCodeName, quantity: 1 });
   }
-  // Add prerequisite vehicle as an input
   if (item.RequiredCodeName && item.RequiredCodeName !== 'None') {
     recipe.requires = item.RequiredCodeName;
     recipe.inputs.push({ codeName: item.RequiredCodeName, quantity: 1 });
   }
-  // Look up resource costs
-  const baseInputs = extractResourceInputs(item.CodeName);
-  if (baseInputs) {
-    for (const inp of baseInputs) {
+  if (resourceInputs) {
+    for (const inp of resourceInputs) {
       const existing = recipe.inputs.find(i => i.codeName === inp.codeName);
-      if (existing) {
-        existing.quantity += inp.quantity;
-      } else {
-        recipe.inputs.push(inp);
-      }
+      if (existing) existing.quantity += inp.quantity;
+      else recipe.inputs.push(inp);
     }
   }
-  // Add upgrade costs if this is an upgrade variant
-  if (item.RequiredCodeName && item.RequiredCodeName !== 'None') {
-    const upgradeInputs = extractUpgradeInputs(item.CodeName);
-    if (upgradeInputs) {
-      for (const inp of upgradeInputs) {
-        const existing = recipe.inputs.find(i => i.codeName === inp.codeName);
-        if (existing) {
-          existing.quantity += inp.quantity;
-        } else {
-          recipe.inputs.push(inp);
-        }
-      }
+  if (upgradeInputs) {
+    for (const inp of upgradeInputs) {
+      const existing = recipe.inputs.find(i => i.codeName === inp.codeName);
+      if (existing) existing.quantity += inp.quantity;
+      else recipe.inputs.push(inp);
     }
   }
   return recipe;
+}
+
+function parseAssemblyItem(item) {
+  const recipes = [];
+  const row = vehicleData[item.CodeName];
+  const isUpgrade = item.RequiredCodeName && item.RequiredCodeName !== 'None';
+
+  if (isUpgrade) {
+    // Upgrades: only UpgradeResourceAmounts + the prerequisite vehicle
+    const upgradeInputs = extractUpgradeInputs(item.CodeName);
+    if (upgradeInputs) {
+      recipes.push(buildRecipeWithInputs(item, null, upgradeInputs));
+    } else {
+      // Upgrade with no extra material cost (just the prerequisite)
+      recipes.push(buildRecipeWithInputs(item, null, null));
+    }
+  } else {
+    // Scratch builds (built from scratch on the pad): only AltResourceAmounts
+    if (row && hasRealResources(row.AltResourceAmounts)) {
+      const altInputs = extractAltResourceInputs(item.CodeName);
+      if (altInputs) {
+        recipes.push(buildRecipeWithInputs(item, altInputs, null));
+      }
+    }
+    // Fallback: if no alt resources, use base ResourceAmounts
+    if (recipes.length === 0) {
+      const baseInputs = extractResourceInputs(item.CodeName);
+      if (baseInputs) {
+        recipes.push(buildRecipeWithInputs(item, baseInputs, null));
+      } else {
+        // No cost data at all (e.g. ship parts, fort parts)
+        recipes.push(buildRecipeWithInputs(item, null, null));
+      }
+    }
+  }
+
+  return recipes;
 }
 
 const facilities = {};
@@ -1015,7 +1058,7 @@ for (const { path, key } of FACILITY_FILES) {
   // Vehicle factories use AssemblyItems instead of ConversionEntries
   const baseAssemblyItems = props.AssemblyItems || [];
   if (baseAssemblyItems.length > 0) {
-    facility.baseRecipes = baseAssemblyItems.map(parseAssemblyItem);
+    facility.baseRecipes = baseAssemblyItems.flatMap(parseAssemblyItem);
   } else {
     facility.baseRecipes = baseConversions.map(parseConversion);
   }
@@ -1027,7 +1070,7 @@ for (const { path, key } of FACILITY_FILES) {
     if (modAssemblyItems.length > 0) {
       facility.modifications[modKey] = {
         displayName: modNames[modKey] || modValue.DisplayName?.SourceString || null,
-        recipes: modAssemblyItems.map(parseAssemblyItem),
+        recipes: modAssemblyItems.flatMap(parseAssemblyItem),
       };
     } else {
       facility.modifications[modKey] = {
