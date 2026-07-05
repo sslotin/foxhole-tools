@@ -66,9 +66,11 @@ if (name == 'SoldierSupplies' && data.count > settings.targetShirts) {
 }
 
 function isConfigurable() {
+  // this mostly can be replaced with return !!metadata[name]?.requiresTech
+  // but it wouldn't cover ammo which can be produced from day 1 but is useless until guns are unlocked
   const nonConfigurable = [
     'SoldierSupplies', 'Cloth', 'Bandages', 'BloodPlasma', 'FirstAidKit', 'TraumaKit',
-    'WorkWrench', 'Radio', 'Shovel', 'Binoculars',
+    'WorkWrench', 'Radio', 'Shovel',
     'RifleAmmo', 'RifleW', 'RifleC',
     'HEGrenade', 'GrenadeW', 'GrenadeC', 'StickyBomb',
     'SandbagMaterials', 'BarbedWireMaterials', 'MetalBeamMaterials',
