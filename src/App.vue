@@ -168,8 +168,9 @@ onMounted(async () => {
     <div class="links">
       <a href='/tutorial.mp4'>old tutorial</a>
       <a href='/guide/index.html'>logi guide</a>
-      <a href='/changelog.txt'>changelog (v2.0.0)</a>
-      <a href='https://github.com/sslotin/foxhole-tools'>github</a>
+      <a href='/changelog.txt'>changelog</a>
+      <a href='https://github.com/sslotin/foxhole-tools'>source</a>
+      <a href='https://github.com/sslotin/foxhole-tools/blob/main/parser/data/metadata.json'>metadata</a>
       <a href='https://discord.com/users/___s6'>message me</a>
     </div>
   </template>
