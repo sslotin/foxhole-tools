@@ -253,11 +253,29 @@ const byDisplay = computed(() =>
     display: flex
     flex-direction: column
     gap: 2px
+    min-width: 0
+
+    .fac-item
+      overflow: hidden
+      max-width: 100%
+
+      .nm
+        flex: 1 1 auto
+        min-width: 0
 
   .io-outputs
     display: flex
     flex-direction: column
     gap: 2px
+    min-width: 0
+
+    .fac-item
+      overflow: hidden
+      max-width: 100%
+
+      .nm
+        flex: 1 1 auto
+        min-width: 0
 
   .arrow-col
     color: #888
