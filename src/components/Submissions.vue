@@ -105,7 +105,9 @@ function handleClose(event, index) {
         @click="(event) => handleClick(event, index)"
         class="screenshot"
         >
-        <div class='close' @click="(event) => handleClose(event, index)">×</div>
+        <div class='close' @click="(event) => handleClose(event, index)">
+          <div class='x'>×</div>
+        </div>
         <div v-if="screenshot.report">
           <div class="subhex">{{ screenshot.report.subhex }}</div>
           <div>{{ isInventory ? screenshot.report.stockpileType : screenshot.report.stockpileName }}</div>
@@ -178,17 +180,21 @@ function handleClose(event, index) {
     
     .close
       position: absolute
-      margin-left: 85px
-      margin-top: -2px
-      font-size: 16px
+      margin-left: 75px
+      margin-top: -1px
       display: none
-      width: 22px
-      height: 22px
+      width: 14px
+      height: 14px
       text-align: center
-      border-radius: 20px
+      border-radius: 14px
+      background-color: rgba(0, 0, 0, 0.5)
       
+      .x
+        font-size: 12px
+        margin-top: -1px
+
       &:hover
-        background-color: rgba(255, 255, 255, 0.2)
+        background-color: rgba(255, 255, 255, 0.5)
 
     &:hover .close
         display: block
