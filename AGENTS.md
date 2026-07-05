@@ -1,4 +1,4 @@
-All project context, architecture, and status are consolidated in MEMORY.md Keep MEMORY.md updated as the project evolves.
+All project context, architecture, and status are consolidated in MEMORY.md. Start by reading MEMORY.md and keep it updated as the project evolves.
 
 This project involves parsing large JSON/CSV files. Avoid fully reading them and instead use search or tools such as head, grep and jq to analyze their structure.
 

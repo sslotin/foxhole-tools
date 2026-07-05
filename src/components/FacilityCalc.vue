@@ -97,9 +97,29 @@ function fmtTime (s) {
 }
 
 const sortBy = (a, b) => displayName(a[0]).localeCompare(displayName(b[0]))
-const rawList = computed(() => Object.entries(plan.value.raw).sort(sortBy))
-const interList = computed(() => Object.entries(plan.value.intermediate).sort(sortBy))
-const byList = computed(() => Object.entries(plan.value.byproducts || {}).sort(sortBy))
+
+// These items always appear under "Raw resources" even if they could be
+// produced from other recipes (custom exception for salvaged resources).
+const ALWAYS_RAW = new Set(['Metal', 'Coal', 'Sulfur', 'Components', 'Oil'])
+
+const rawDisplay = computed(() => {
+  const r = { ...plan.value.raw }
+  for (const [c, q] of Object.entries(plan.value.intermediate)) {
+    if (ALWAYS_RAW.has(c)) r[c] = (r[c] || 0) + q
+  }
+  for (const [c, q] of Object.entries(plan.value.byproducts || {})) {
+    if (ALWAYS_RAW.has(c)) r[c] = (r[c] || 0) + q
+  }
+  return Object.entries(r).sort(sortBy)
+})
+
+const interDisplay = computed(() =>
+  Object.entries(plan.value.intermediate).filter(([c]) => !ALWAYS_RAW.has(c)).sort(sortBy)
+)
+
+const byDisplay = computed(() =>
+  Object.entries(plan.value.byproducts || {}).filter(([c]) => !ALWAYS_RAW.has(c)).sort(sortBy)
+)
 </script>
 
 <template>
@@ -112,23 +132,23 @@ const byList = computed(() => Object.entries(plan.value.byproducts || {}).sort(s
       <div class="fc-left">
         <section class="fc-block">
           <h3>Raw resources</h3>
-          <div v-if="rawList.length" class="io-list">
-            <FacItem v-for="[c, q] in rawList" :key="c" :codeName="c" :qty="fmt(q)" />
+          <div v-if="rawDisplay.length" class="io-list">
+            <FacItem v-for="[c, q] in rawDisplay" :key="c" :codeName="c" :qty="fmt(q)" />
           </div>
           <p v-else class="muted">none</p>
         </section>
 
-        <section v-if="interList.length" class="fc-block">
+        <section v-if="interDisplay.length" class="fc-block">
           <h3>Intermediate resources</h3>
           <div class="io-list">
-            <FacItem v-for="[c, q] in interList" :key="c" :codeName="c" :qty="fmt(q)" />
+            <FacItem v-for="[c, q] in interDisplay" :key="c" :codeName="c" :qty="fmt(q)" />
           </div>
         </section>
 
-        <section v-if="byList.length" class="fc-block">
+        <section v-if="byDisplay.length" class="fc-block">
           <h3>By-products</h3>
           <div class="io-list">
-            <FacItem v-for="[c, q] in byList" :key="c" :codeName="c" :qty="fmt(q)" />
+            <FacItem v-for="[c, q] in byDisplay" :key="c" :codeName="c" :qty="fmt(q)" />
           </div>
         </section>
       </div>
@@ -144,16 +164,14 @@ const byList = computed(() => Object.entries(plan.value.byproducts || {}).sort(s
             :class="{ active: activeRecipes.has(entry.r), activatable: activeItems.has(entry.item) }"
             @click="chooseRecipe(entry.item, recipeIdx(entry.item, entry.r))"
           >
-            <span class="io">
-              <span class="io-in">
-                <FacItem v-for="(inp, k) in entry.r.inputs" :key="k" :codeName="inp.codeName" :qty="inp.quantity" />
-              </span>
-              <span class="arrow">→</span>
-              <span class="io-out">
-                <FacItem v-for="(out, k) in entry.r.outputs" :key="k" :codeName="out.codeName" :qty="out.quantity" />
-              </span>
+            <span class="io-inputs">
+              <FacItem v-for="(inp, k) in entry.r.inputs" :key="k" :codeName="inp.codeName" :qty="inp.quantity" />
             </span>
-            <span v-if="activeRecipes.has(entry.r)" class="time">{{ fmtTime(timeByRecipe.get(entry.r)) }}</span>
+            <span class="arrow-col">→</span>
+            <span class="io-outputs">
+              <FacItem v-for="(out, k) in entry.r.outputs" :key="k" :codeName="out.codeName" :qty="out.quantity" />
+            </span>
+            <span v-if="activeRecipes.has(entry.r)" class="io-time">{{ fmtTime(timeByRecipe.get(entry.r)) }}</span>
           </div>
         </div>
       </div>
@@ -217,10 +235,9 @@ const byList = computed(() => Object.entries(plan.value.byproducts || {}).sort(s
 
 .recipe-row
   position: relative
-  display: flex
-  align-items: center
-  flex-wrap: wrap
-  gap: 8px
+  display: grid
+  grid-template-columns: 1fr auto 1fr minmax(60px, auto)
+  gap: 6px
   padding: 4px 6px
   border-radius: 4px
   cursor: pointer
@@ -232,23 +249,28 @@ const byList = computed(() => Object.entries(plan.value.byproducts || {}).sort(s
   &:hover
     background: #262626
 
-  .io
+  .io-inputs
     display: flex
-    align-items: center
-    flex-wrap: wrap
-    gap: 6px
+    flex-direction: column
+    gap: 2px
 
-  .arrow
-    color: #777
+  .io-outputs
+    display: flex
+    flex-direction: column
+    gap: 2px
 
-  .time
-    position: absolute
-    top: 4px
-    right: 6px
+  .arrow-col
+    color: #888
+    align-self: center
+    margin-right: 4px
+
+  .io-time
     color: #9ad
     font-size: 13px
     white-space: nowrap
     font-variant-numeric: tabular-nums
+    justify-self: end
+    align-self: start
 
   &.active
     background: #2a5a2a
