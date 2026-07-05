@@ -1,6 +1,6 @@
 # MEMORY.md — Project Context & Status
 
-Last updated: Jul 5, 2026 (scripts consolidated).
+Last updated: Jul 5, 2026 (scripts consolidated; search mode added).
 
 ## Product Context
 
@@ -63,6 +63,7 @@ Paste → App.vue.addCSV(text) → parser/csv-parser.parseCSV(text)
 |---|---|---|
 | Inventory | ~220 | Single report, delta tracking, compact groups, "live guns" min(guns, ammo/3) |
 | Stockpile | ~430 | Multi-source/target, crate planning, category filters, shopping list auto-fill, export |
+| **Search** | — | **Default landing view (`src/components/Search.vue`)**, shown when `submissions.length === 0`. Left panel: search bar + live results (icon + `displayName`, all 662 items/vehicles/structures). Case-insensitive substring match on `displayName` only; results list hidden until you type. Click an entry → right panel shows pretty-printed raw metadata JSON (max-width 1000px, centered). × button clears the search; emptying the box resets to the default placeholder view. Paste still works globally to switch to CSV modes. |
 
 ---
 

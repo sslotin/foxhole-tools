@@ -2,6 +2,7 @@
 import { ref, onMounted, reactive, provide, watch, nextTick } from 'vue';
 import { parseCSV } from '../parser/csv-parser.js';
 import Submissions from './components/Submissions.vue'
+import Search from './components/Search.vue'
 import InventoryReport from './components/InventoryReport.vue'
 import StockpileReport from './components/StockpileReport.vue';
 
@@ -163,17 +164,7 @@ onMounted(async () => {
 
 <template>
   <Submissions v-if="submissions.length > 0" :key="settings" />
-  <template v-else>
-    <p class="ctrlv">ctrl+v a csv</p>
-    <div class="links">
-      <a href='/tutorial.mp4'>old tutorial</a>
-      <a href='/guide/index.html'>logi guide</a>
-      <a href='/changelog.txt'>changelog</a>
-      <a href='https://github.com/sslotin/foxhole-tools'>source</a>
-      <a href='https://github.com/sslotin/foxhole-tools/blob/main/parser/data/metadata.json'>metadata</a>
-      <a href='https://discord.com/users/___s6'>message me</a>
-    </div>
-  </template>
+  <Search v-if="submissions.length === 0" />
   <div v-if="errorMessage" class="error">
     <p class='errorMessage'>
       {{ errorMessage }}
@@ -212,24 +203,6 @@ body
   background: #222
   color: #ddd
   margin: 0
-
-.ctrlv
-  margin-top: 20px
-  text-align: center
-
-.links
-  position: absolute
-  bottom: 20px
-  width: 100%
-  text-align: center
-
-  a
-    text-decoration: none
-    color: #999
-    margin: 20px
-
-    &:hover
-      color: #ddd
 
 .error
   text-align: center
