@@ -238,7 +238,7 @@ const relevantItems = {
   },
 
   MortarTankAmmo: {
-    short: '250mm',
+    short: 'purity',
   },
 
   Mortar: {
@@ -470,7 +470,7 @@ const relevantItems = {
   },
 
   ATRifleAmmo: {
-    short: '20mm',
+    short: '14.5mm',
     target: 10,
   },
 
@@ -625,6 +625,28 @@ const relevantItems = {
 
   Wreckage: {
     short: 'wreckage',
+  },
+
+  // update 63-64
+
+  AircraftAmmo: {
+    short: '20mm',
+  },
+
+  MortarTankAmmoBR: {
+    short: 'fury',
+  },
+
+  DemolitionRocketAmmo: {
+    short: 'missile',
+  },
+  
+  LightAAAmmo: {
+    short: 'aa rounds',
+  },
+
+  AAAmmo: {
+    short: 'aa shells',
   },
 };
 

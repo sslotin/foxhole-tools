@@ -169,7 +169,7 @@ function autofill() {
 const resources = ['MaintenanceSupplies', 'Wood', 'Explosive', 'HeavyExplosive', 'GroundMaterials'];
 const matfac = ['SandbagMaterials', 'BarbedWireMaterials', 'MetalBeamMaterials'];
 const mines = ['InfantryMine', 'TankMine'];
-const arty = ['LightArtilleryAmmo', 'HeavyArtilleryAmmo', 'MortarTankAmmo'];
+const arty = ['LightArtilleryAmmo', 'HeavyArtilleryAmmo', 'MortarTankAmmo', 'AAAmmo'];
 const tripods = [
   'Tripod', 'MGTC', 'MGTW', 'ISGTC', 'RPGTW',
   'ATRPGTW', 'ATRifleTC', 'GrenadeLauncherTC', 'WindsockT', 'BannerTW', 'BannerTC'
@@ -188,7 +188,7 @@ const HMF = [
   'ATRPGAmmo', 'ATRPGIndirectAmmo', 'RpgAmmo', 'MiniTankAmmo', 'LightTankAmmo',
   'ATAmmo', 'HELaunchedGrenade', 'ATLaunchedGrenadeW'
 ];
-const SIFA = ['ATRifleAssaultW', 'ATRifleAutomaticW', 'ATRifleLightC', 'ATRifleSniperC', 'MortarAmmoFlame'];
+const SIFA = ['ATRifleAssaultW', 'ATRifleAutomaticW', 'ATRifleLightC', 'ATRifleSniperC', 'MortarAmmoFlame', 'SniperRifleW', 'SniperRifleC'];
 const larp = ['OfficerUniformW', 'OfficerUniformC', 'NavalUniformW', 'NavalUniformC', 'BannerTW', 'BannerTC', 'MaceW', 'SwordC', 'WindsockT'];
 const facility = [...mines, ...arty, ...tripods, ...uniforms, ...SAW, ...HMF, ...SIFA, ...matfac];
 
@@ -368,6 +368,8 @@ function exportJson() {
           <Crate name="LightArtilleryAmmo" type="arty" />
           <Crate name="HeavyArtilleryAmmo" type="arty" />
           <Crate name="MortarTankAmmo" type="arty" />
+          <Crate name="MortarTankAmmoBR" />
+          <Crate name="DemolitionRocketAmmo" />
         </div>
 
         <div class="section">
@@ -417,6 +419,12 @@ function exportJson() {
           <Crate name="FlameBackpackC" type="tools" />
           <Crate name="MaceW" type="tools" />
           <Crate name="SwordC" type="tools" />
+        </div>
+
+        <div class="section">
+          <Crate name="AircraftAmmo" />
+          <Crate name="LightAAAmmo" />
+          <Crate name="AAAmmo" type="arty" />
         </div>
 
         <div class="section">

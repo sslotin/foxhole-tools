@@ -181,7 +181,11 @@ const settings = inject('settings');
       <Item name="LightTankAmmo" />
       <Item name="MiniTankAmmo" />
       <Item name="ISGTC" />
-      <!-- large shells? -->
+
+      <Item name="AircraftAmmo" />
+      <Item name="LightAAAmmo" />
+      <Item name="AAAmmo" />
+
       <Item name="RareMetal" />
       <Item name="Wood" />
       <Item name="Wreckage" />
@@ -248,6 +252,8 @@ const settings = inject('settings');
       <Item name="SatchelChargeT" />
       <Item name="ExplosiveTripod" />
       <Item name="MortarTankAmmo" />
+      <Item name="MortarTankAmmoBR" />
+      <Item name="DemolitionRocketAmmo" />
     </div>
   </div>
 </template>
