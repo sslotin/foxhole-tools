@@ -6,10 +6,14 @@ TODO:
 - Smart targets
 - Persistent history
 
+v.2.1.0 (July 6, 2026):
+- Current with update 65
+- Added metadata search
+- Added facility cost calculator
+
 v2.0.0 (Jun 23, 2026):
-- Switched from screenshot OCR to CSV pasting (copy stockpile/inventory contents directly from the game)
-- Updated all item data and icons using the latest game files
-- Removed dependency on the screenshot scanner module entirely
+- Current with update 64
+- Switched from screenshot OCR to CSV pasting
 - New item metadata built from game data exports
 
 v1.2.0 (Dec 14, 2025):
