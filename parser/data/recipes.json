@@ -1,11 +1,11 @@
 {
-  "_generated": "2026-07-05T22:11:41.623Z",
+  "_generated": "2026-07-06T19:37:24.520Z",
   "_sources": [
     "War/Content/Blueprints/Data/BPItemDynamicData.json — Factory/MPF crate recipes",
     "War/Content/Blueprints/Structures/ — facility conversion recipes"
   ],
   "_recipeCounts": {
-    "factoryMpfCrateRecipes": 241,
+    "factoryMpfCrateRecipes": 244,
     "facilityFiles": 22
   },
   "factory": {
@@ -16,18 +16,18 @@
         "inputs": [
           {
             "codeName": "Cloth",
-            "quantity": 100
+            "quantity": 150
           }
         ],
         "outputs": [
           {
             "codeName": "RelicRifle",
-            "quantity": 20
+            "quantity": 5
           }
         ],
-        "duration": 70,
-        "retrieveSingle": 3.5,
-        "retrieveCrate": 14,
+        "duration": 60,
+        "retrieveSingle": 10,
+        "retrieveCrate": 20,
         "researchLevel": 0
       },
       "Radio": {
@@ -304,7 +304,7 @@
         "outputs": [
           {
             "codeName": "GreenAsh",
-            "quantity": 10
+            "quantity": 5
           }
         ],
         "duration": 100,
@@ -3664,7 +3664,7 @@
         "outputs": [
           {
             "codeName": "RareMetal",
-            "quantity": 100
+            "quantity": 2
           }
         ],
         "duration": 100,
@@ -3675,7 +3675,7 @@
       "WaterMine": {
         "inputs": [
           {
-            "codeName": "wood",
+            "codeName": "Wood",
             "quantity": 40
           }
         ],
@@ -4665,6 +4665,60 @@
         "retrieveSingle": 10,
         "retrieveCrate": 10,
         "researchLevel": 0
+      },
+      "AirSirenT": {
+        "inputs": [
+          {
+            "codeName": "Cloth",
+            "quantity": 150
+          }
+        ],
+        "outputs": [
+          {
+            "codeName": "AirSirenT",
+            "quantity": 5
+          }
+        ],
+        "duration": 75,
+        "retrieveSingle": 10,
+        "retrieveCrate": 10,
+        "researchLevel": 0
+      },
+      "WaterWallMaterials": {
+        "inputs": [
+          {
+            "codeName": "Cloth",
+            "quantity": 150
+          }
+        ],
+        "outputs": [
+          {
+            "codeName": "WaterWallMaterials",
+            "quantity": 5
+          }
+        ],
+        "duration": 125,
+        "retrieveSingle": 6,
+        "retrieveCrate": 20,
+        "researchLevel": 0
+      },
+      "PilotMask": {
+        "inputs": [
+          {
+            "codeName": "Cloth",
+            "quantity": 150
+          }
+        ],
+        "outputs": [
+          {
+            "codeName": "PilotMask",
+            "quantity": 5
+          }
+        ],
+        "duration": 75,
+        "retrieveSingle": 10,
+        "retrieveCrate": 10,
+        "researchLevel": 0
       }
     }
   },
@@ -4895,6 +4949,25 @@
           "outputs": [
             {
               "codeName": "MiniTorpedoAmmo",
+              "quantity": 1,
+              "limit": 3500
+            }
+          ],
+          "duration": 25,
+          "powerDelta": 0,
+          "consumeResourceNodes": false
+        },
+        {
+          "inputs": [
+            {
+              "codeName": "FacilityMaterials1",
+              "quantity": 2,
+              "limit": 32000
+            }
+          ],
+          "outputs": [
+            {
+              "codeName": "WaterWallMaterials",
               "quantity": 1,
               "limit": 3500
             }
@@ -6589,12 +6662,7 @@
         {
           "inputs": [
             {
-              "codeName": "FacilityMaterials2",
-              "quantity": 1,
-              "limit": 1000
-            },
-            {
-              "codeName": "FacilityMaterials6",
+              "codeName": "FacilityMaterials11",
               "quantity": 1,
               "limit": 1000
             },
@@ -6642,13 +6710,8 @@
         {
           "inputs": [
             {
-              "codeName": "FacilityMaterials2",
-              "quantity": 1,
-              "limit": 1000
-            },
-            {
-              "codeName": "FacilityMaterials7",
-              "quantity": 1,
+              "codeName": "FacilityMaterials11",
+              "quantity": 2,
               "limit": 1000
             },
             {
@@ -6695,12 +6758,7 @@
         {
           "inputs": [
             {
-              "codeName": "FacilityMaterials2",
-              "quantity": 1,
-              "limit": 1000
-            },
-            {
-              "codeName": "FacilityMaterials6",
+              "codeName": "FacilityMaterials11",
               "quantity": 1,
               "limit": 1000
             },
@@ -6748,13 +6806,8 @@
         {
           "inputs": [
             {
-              "codeName": "FacilityMaterials2",
-              "quantity": 1,
-              "limit": 1000
-            },
-            {
-              "codeName": "FacilityMaterials7",
-              "quantity": 1,
+              "codeName": "FacilityMaterials11",
+              "quantity": 2,
               "limit": 1000
             },
             {
@@ -6782,18 +6835,13 @@
             {
               "inputs": [
                 {
-                  "codeName": "FacilityMaterials2",
-                  "quantity": 35,
+                  "codeName": "FacilityMaterials3",
+                  "quantity": 5,
                   "limit": 1000
                 },
                 {
                   "codeName": "FacilityMaterials6",
                   "quantity": 25,
-                  "limit": 1000
-                },
-                {
-                  "codeName": "FacilityMaterials11",
-                  "quantity": 1,
                   "limit": 1000
                 }
               ],
@@ -6811,13 +6859,8 @@
             {
               "inputs": [
                 {
-                  "codeName": "FacilityMaterials2",
-                  "quantity": 5,
-                  "limit": 1000
-                },
-                {
-                  "codeName": "FacilityMaterials6",
-                  "quantity": 5,
+                  "codeName": "FacilityMaterials11",
+                  "quantity": 2,
                   "limit": 1000
                 },
                 {
@@ -6840,18 +6883,13 @@
             {
               "inputs": [
                 {
-                  "codeName": "FacilityMaterials2",
-                  "quantity": 95,
+                  "codeName": "FacilityMaterials3",
+                  "quantity": 15,
                   "limit": 1000
                 },
                 {
                   "codeName": "FacilityMaterials7",
                   "quantity": 25,
-                  "limit": 1000
-                },
-                {
-                  "codeName": "FacilityMaterials11",
-                  "quantity": 1,
                   "limit": 1000
                 }
               ],
@@ -6869,14 +6907,9 @@
             {
               "inputs": [
                 {
-                  "codeName": "FacilityMaterials2",
-                  "quantity": 5,
+                  "codeName": "FacilityMaterials11",
+                  "quantity": 3,
                   "limit": 10000
-                },
-                {
-                  "codeName": "FacilityMaterials7",
-                  "quantity": 5,
-                  "limit": 1000
                 },
                 {
                   "codeName": "AircraftPartLargeEngineWreckedC",
@@ -6898,18 +6931,13 @@
             {
               "inputs": [
                 {
-                  "codeName": "FacilityMaterials2",
-                  "quantity": 35,
+                  "codeName": "FacilityMaterials3",
+                  "quantity": 5,
                   "limit": 1000
                 },
                 {
                   "codeName": "FacilityMaterials6",
                   "quantity": 25,
-                  "limit": 1000
-                },
-                {
-                  "codeName": "FacilityMaterials11",
-                  "quantity": 1,
                   "limit": 1000
                 }
               ],
@@ -6927,13 +6955,8 @@
             {
               "inputs": [
                 {
-                  "codeName": "FacilityMaterials2",
-                  "quantity": 5,
-                  "limit": 1000
-                },
-                {
-                  "codeName": "FacilityMaterials6",
-                  "quantity": 5,
+                  "codeName": "FacilityMaterials11",
+                  "quantity": 2,
                   "limit": 1000
                 },
                 {
@@ -6956,18 +6979,13 @@
             {
               "inputs": [
                 {
-                  "codeName": "FacilityMaterials2",
-                  "quantity": 95,
+                  "codeName": "FacilityMaterials3",
+                  "quantity": 15,
                   "limit": 1000
                 },
                 {
                   "codeName": "FacilityMaterials7",
                   "quantity": 25,
-                  "limit": 1000
-                },
-                {
-                  "codeName": "FacilityMaterials11",
-                  "quantity": 1,
                   "limit": 1000
                 }
               ],
@@ -6985,13 +7003,8 @@
             {
               "inputs": [
                 {
-                  "codeName": "FacilityMaterials2",
-                  "quantity": 5,
-                  "limit": 10000
-                },
-                {
-                  "codeName": "FacilityMaterials7",
-                  "quantity": 5,
+                  "codeName": "FacilityMaterials11",
+                  "quantity": 3,
                   "limit": 1000
                 },
                 {
@@ -8454,6 +8467,25 @@
           "consumeResourceNodes": false
         },
         {
+          "inputs": [
+            {
+              "codeName": "Coal",
+              "quantity": 1,
+              "limit": 200
+            }
+          ],
+          "outputs": [
+            {
+              "codeName": "ReservePower",
+              "quantity": 1,
+              "limit": 0
+            }
+          ],
+          "duration": 144,
+          "powerDelta": 0,
+          "consumeResourceNodes": false
+        },
+        {
           "inputs": [],
           "outputs": [
             {
@@ -8498,6 +8530,25 @@
               "codeName": "Petrol",
               "quantity": 0.5,
               "limit": 1000
+            }
+          ],
+          "outputs": [
+            {
+              "codeName": "ReservePower",
+              "quantity": 1,
+              "limit": 0
+            }
+          ],
+          "duration": 144,
+          "powerDelta": 0,
+          "consumeResourceNodes": false
+        },
+        {
+          "inputs": [
+            {
+              "codeName": "Coal",
+              "quantity": 1,
+              "limit": 200
             }
           ],
           "outputs": [
@@ -9961,7 +10012,7 @@
                 },
                 {
                   "codeName": "FacilityMaterials3",
-                  "quantity": 3
+                  "quantity": 10
                 },
                 {
                   "codeName": "FacilityMaterials4",
@@ -10773,7 +10824,7 @@
                   "quantity": 1
                 }
               ],
-              "duration": 14400,
+              "duration": 3600,
               "inputs": [
                 {
                   "codeName": "AircraftCrate",
@@ -10794,10 +10845,6 @@
                 {
                   "codeName": "FacilityMaterials9",
                   "quantity": 2
-                },
-                {
-                  "codeName": "FacilityMaterials11",
-                  "quantity": 10
                 }
               ],
               "requires": null
@@ -10809,7 +10856,7 @@
                   "quantity": 1
                 }
               ],
-              "duration": 14400,
+              "duration": 3600,
               "inputs": [
                 {
                   "codeName": "AircraftCrate",
@@ -10830,10 +10877,6 @@
                 {
                   "codeName": "FacilityMaterials9",
                   "quantity": 2
-                },
-                {
-                  "codeName": "FacilityMaterials11",
-                  "quantity": 10
                 }
               ],
               "requires": null
@@ -10845,7 +10888,7 @@
                   "quantity": 1
                 }
               ],
-              "duration": 14400,
+              "duration": 3600,
               "inputs": [
                 {
                   "codeName": "AircraftCrate",
@@ -10866,10 +10909,6 @@
                 {
                   "codeName": "FacilityMaterials9",
                   "quantity": 2
-                },
-                {
-                  "codeName": "FacilityMaterials11",
-                  "quantity": 10
                 }
               ],
               "requires": null
@@ -10881,7 +10920,7 @@
                   "quantity": 1
                 }
               ],
-              "duration": 14400,
+              "duration": 3600,
               "inputs": [
                 {
                   "codeName": "AircraftCrate",
@@ -10906,10 +10945,6 @@
                 {
                   "codeName": "FacilityMaterials9",
                   "quantity": 4
-                },
-                {
-                  "codeName": "FacilityMaterials11",
-                  "quantity": 10
                 }
               ],
               "requires": null
@@ -10921,7 +10956,7 @@
                   "quantity": 1
                 }
               ],
-              "duration": 14400,
+              "duration": 3600,
               "inputs": [
                 {
                   "codeName": "AircraftCrate",
@@ -10945,11 +10980,7 @@
                 },
                 {
                   "codeName": "FacilityMaterials9",
-                  "quantity": 6
-                },
-                {
-                  "codeName": "FacilityMaterials11",
-                  "quantity": 10
+                  "quantity": 4
                 }
               ],
               "requires": null
@@ -10961,7 +10992,7 @@
                   "quantity": 1
                 }
               ],
-              "duration": 21600,
+              "duration": 7200,
               "inputs": [
                 {
                   "codeName": "AircraftCrate",
@@ -10981,7 +11012,7 @@
                 },
                 {
                   "codeName": "FacilityMaterials9",
-                  "quantity": 4
+                  "quantity": 6
                 },
                 {
                   "codeName": "FacilityMaterials11",
@@ -10997,7 +11028,7 @@
                   "quantity": 1
                 }
               ],
-              "duration": 21600,
+              "duration": 7200,
               "inputs": [
                 {
                   "codeName": "AircraftCrate",
@@ -11017,7 +11048,7 @@
                 },
                 {
                   "codeName": "FacilityMaterials9",
-                  "quantity": 4
+                  "quantity": 6
                 },
                 {
                   "codeName": "FacilityMaterials11",
@@ -11033,7 +11064,7 @@
                   "quantity": 1
                 }
               ],
-              "duration": 28800,
+              "duration": 14400,
               "inputs": [
                 {
                   "codeName": "AircraftCrate",
@@ -11073,7 +11104,7 @@
                   "quantity": 1
                 }
               ],
-              "duration": 28800,
+              "duration": 14400,
               "inputs": [
                 {
                   "codeName": "AircraftCrate",

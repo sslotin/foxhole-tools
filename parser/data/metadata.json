@@ -185,6 +185,47 @@
       "factoryQueueType": "EFactoryQueueType::Utility"
     }
   },
+  "WaterWallMaterials": {
+    "displayName": "Naval Buoy",
+    "description": "Material required to build Crespine Netting.",
+    "itemType": "item",
+    "encumbrance": 385,
+    "equipmentSlot": "Large",
+    "itemCategory": "HeavyAmmo",
+    "itemProfileType": "Tool",
+    "isLarge": true,
+    "chassisName": "Buoy",
+    "itemComponent": {
+      "equippedGripType": "LargeDeployableItem"
+    },
+    "itemProfile": {
+      "isStockpilable": true,
+      "isStackable": false,
+      "isConvertibleToCrate": false,
+      "isCratable": true,
+      "isStockpiledWithAmmo": false,
+      "usableInVehicle": false,
+      "stackTransferLimit": 1,
+      "retrieveQuantity": 1,
+      "reserveStockpileMaxQuantity": 100
+    },
+    "crateCost": [
+      {
+        "codeName": "Cloth",
+        "quantity": 150,
+        "displayName": "Basic Materials"
+      }
+    ],
+    "quantityPerCrate": 5,
+    "crateProductionTime": 125,
+    "singleRetrieveTime": 6,
+    "crateRetrieveTime": 20,
+    "researchLevel": 0,
+    "productionCategories": {
+      "factoryQueueType": "EFactoryQueueType::HeavyAmmo",
+      "massProductionQueueType": "EFactoryQueueType::HeavyAmmo"
+    }
+  },
   "WaterMine": {
     "displayName": "E680-S Rudder Lock",
     "description": "Designed for underwater deployment, Sea Mines detonate upon contact with enemy vessels.",
@@ -230,9 +271,9 @@
     },
     "crateCost": [
       {
-        "codeName": "wood",
+        "codeName": "Wood",
         "quantity": 40,
-        "displayName": "wood"
+        "displayName": "Refined Materials"
       }
     ],
     "quantityPerCrate": 1,
@@ -3186,18 +3227,18 @@
     "encumbrance": 3,
     "equipmentSlot": null,
     "itemCategory": "Supplies",
-    "itemProfileType": "RawResource",
+    "itemProfileType": "RefinedResource",
     "chassisName": "Raw Material",
     "itemProfile": {
       "isStockpilable": true,
       "isStackable": true,
-      "isConvertibleToCrate": false,
-      "isCratable": false,
+      "isConvertibleToCrate": true,
+      "isCratable": true,
       "isStockpiledWithAmmo": false,
       "usableInVehicle": false,
-      "stackTransferLimit": 4,
-      "retrieveQuantity": 100,
-      "reserveStockpileMaxQuantity": 100
+      "stackTransferLimit": 2,
+      "retrieveQuantity": 10,
+      "reserveStockpileMaxQuantity": 300
     },
     "crateCost": [
       {
@@ -3206,7 +3247,7 @@
         "displayName": "Components"
       }
     ],
-    "quantityPerCrate": 100,
+    "quantityPerCrate": 2,
     "crateProductionTime": 100,
     "singleRetrieveTime": 6,
     "crateRetrieveTime": 6,
@@ -3214,8 +3255,9 @@
   },
   "Radio": {
     "displayName": "Radio",
-    "description": "Allows receiving map intelligence reports on detected ground and naval targets.",
+    "description": "Allows receiving map intelligence reports on detected ground, naval, and air targets.",
     "itemType": "item",
+    "encumbrance": 2,
     "equipmentSlot": "Utility",
     "itemCategory": "Utility",
     "itemProfileType": "Tool",
@@ -3279,42 +3321,6 @@
     "crateProductionTime": 75,
     "singleRetrieveTime": 15,
     "crateRetrieveTime": 16,
-    "researchLevel": 0,
-    "productionCategories": {
-      "factoryQueueType": "EFactoryQueueType::Utility"
-    }
-  },
-  "RadioAircraft": {
-    "displayName": "Liaison Transmitter",
-    "description": "Allows receiving map intelligence reports on detected airborne targets.",
-    "itemType": "item",
-    "equipmentSlot": "Utility",
-    "itemCategory": "Utility",
-    "itemProfileType": "Tool",
-    "chassisName": "Field Gear",
-    "subTypeIconPath": "War/Content/Textures/UI/ItemIcons/SubtypeAirIcon.png",
-    "itemProfile": {
-      "isStockpilable": true,
-      "isStackable": false,
-      "isConvertibleToCrate": false,
-      "isCratable": true,
-      "isStockpiledWithAmmo": false,
-      "usableInVehicle": false,
-      "stackTransferLimit": 1,
-      "retrieveQuantity": 1,
-      "reserveStockpileMaxQuantity": 100
-    },
-    "crateCost": [
-      {
-        "codeName": "Cloth",
-        "quantity": 75,
-        "displayName": "Basic Materials"
-      }
-    ],
-    "quantityPerCrate": 5,
-    "crateProductionTime": 50,
-    "singleRetrieveTime": 10,
-    "crateRetrieveTime": 10,
     "researchLevel": 0,
     "productionCategories": {
       "factoryQueueType": "EFactoryQueueType::Utility"
@@ -3694,6 +3700,42 @@
     "productionCategories": {
       "factoryQueueType": "EFactoryQueueType::SmallArms",
       "massProductionQueueType": "EFactoryQueueType::SmallArms"
+    }
+  },
+  "PilotMask": {
+    "displayName": "Flight Mask",
+    "description": "A pilot’s mask that wraps around the head and includes a headset which help facilitate communications at high altitudes. This allows pilots to receive critical intelligence updates while flying.",
+    "itemType": "item",
+    "requiresTech": true,
+    "equipmentSlot": "Head",
+    "itemCategory": "Utility",
+    "itemProfileType": "Accessory",
+    "chassisName": "Field Gear",
+    "itemProfile": {
+      "isStockpilable": true,
+      "isStackable": false,
+      "isConvertibleToCrate": false,
+      "isCratable": true,
+      "isStockpiledWithAmmo": false,
+      "usableInVehicle": false,
+      "stackTransferLimit": 1,
+      "retrieveQuantity": 1,
+      "reserveStockpileMaxQuantity": 100
+    },
+    "crateCost": [
+      {
+        "codeName": "Cloth",
+        "quantity": 150,
+        "displayName": "Basic Materials"
+      }
+    ],
+    "quantityPerCrate": 5,
+    "crateProductionTime": 75,
+    "singleRetrieveTime": 10,
+    "crateRetrieveTime": 10,
+    "researchLevel": 0,
+    "productionCategories": {
+      "factoryQueueType": "EFactoryQueueType::Utility"
     }
   },
   "Petrol": {
@@ -6007,7 +6049,7 @@
         "displayName": "Basic Materials"
       }
     ],
-    "quantityPerCrate": 10,
+    "quantityPerCrate": 5,
     "crateProductionTime": 100,
     "singleRetrieveTime": 4,
     "crateRetrieveTime": 16,
@@ -7950,6 +7992,49 @@
     "productionCategories": {
       "factoryQueueType": "EFactoryQueueType::HeavyAmmo",
       "massProductionQueueType": "EFactoryQueueType::HeavyAmmo"
+    }
+  },
+  "AirSirenT": {
+    "displayName": "Air Raid Siren",
+    "description": "A blaring siren with a distinctive tone that signifies a warning about impending airborne operations.",
+    "itemType": "item",
+    "requiresTech": true,
+    "encumbrance": 300,
+    "equipmentSlot": "Large",
+    "itemCategory": "Utility",
+    "itemProfileType": "HandheldWeapon",
+    "isLarge": true,
+    "chassisName": "Siren",
+    "itemComponent": {
+      "equippedGripType": "LargeDeployableItem",
+      "deployCodeName": "DeployedAirSirenT",
+      "safeItemRef": true
+    },
+    "itemProfile": {
+      "isStockpilable": true,
+      "isStackable": false,
+      "isConvertibleToCrate": false,
+      "isCratable": true,
+      "isStockpiledWithAmmo": false,
+      "usableInVehicle": false,
+      "stackTransferLimit": 1,
+      "retrieveQuantity": 1,
+      "reserveStockpileMaxQuantity": 100
+    },
+    "crateCost": [
+      {
+        "codeName": "Cloth",
+        "quantity": 150,
+        "displayName": "Basic Materials"
+      }
+    ],
+    "quantityPerCrate": 5,
+    "crateProductionTime": 75,
+    "singleRetrieveTime": 10,
+    "crateRetrieveTime": 10,
+    "researchLevel": 0,
+    "productionCategories": {
+      "factoryQueueType": "EFactoryQueueType::Utility"
     }
   },
   "ATRifleW": {
@@ -13303,7 +13388,7 @@
     "canUseStructures": true,
     "shippableType": "Large",
     "vehicleData": {
-      "maxHealth": 900,
+      "maxHealth": 1250,
       "minorDamagePercent": 0.5,
       "majorDamagePercent": 0.85,
       "repairCost": 120,
@@ -13904,7 +13989,7 @@
     },
     "chassisName": "Super Tank",
     "vehicleBuildType": "VehicleFacility",
-    "vehicleProfileType": "SuperTank",
+    "vehicleProfileType": "Tank",
     "vehicleMovementProfileType": "SuperTankW",
     "armourType": "Tier2Tank",
     "depthCutoffForSwimDamage": 225,
@@ -13932,6 +14017,19 @@
       "tankArmourMinPenetrationChance": 0.22,
       "hasTierUpgrades": false,
       "subsystemDisableChances": 0.2
+    },
+    "vehicleProfile": {
+      "usesRollTrace": true,
+      "canTriggerMine": true,
+      "canTriggerInfantryMine": true,
+      "canTriggerWaterMine": false,
+      "usesGas": true,
+      "drivingSpeedThreshold": 100,
+      "maxVehicleAngle": 45,
+      "enableStealth": false,
+      "damageDrivingOverStructures": 800,
+      "damageDrivingOverIce": 100,
+      "isAllowedToLoadMultiple": false
     },
     "vehicleMovementProfile": {
       "mass": 10000,
@@ -13961,7 +14059,7 @@
     },
     "chassisName": "Super Tank",
     "vehicleBuildType": "VehicleFacility",
-    "vehicleProfileType": "SuperTank",
+    "vehicleProfileType": "Tank",
     "vehicleMovementProfileType": "BattleTank",
     "armourType": "Tier2Tank",
     "vehiclesPerCrateBonus": 2,
@@ -13990,6 +14088,19 @@
       "tankArmourMinPenetrationChance": 0.25,
       "hasTierUpgrades": false,
       "subsystemDisableChances": 0.2
+    },
+    "vehicleProfile": {
+      "usesRollTrace": true,
+      "canTriggerMine": true,
+      "canTriggerInfantryMine": true,
+      "canTriggerWaterMine": false,
+      "usesGas": true,
+      "drivingSpeedThreshold": 100,
+      "maxVehicleAngle": 45,
+      "enableStealth": false,
+      "damageDrivingOverStructures": 800,
+      "damageDrivingOverIce": 100,
+      "isAllowedToLoadMultiple": false
     },
     "vehicleMovementProfile": {
       "mass": 15000,
@@ -16465,7 +16576,7 @@
   },
   "MediumTank2TwinC": {
     "displayName": "86K-c “Ranseur”",
-    "description": "This evolution of the “Bardiche” is fitted quad-mounted AP/RPG launchers paired with a 12.7mm machine gun. The “Ranseur” indicates progress in Kraunian design as they continue to leverage outdated equipment to create deadly, modern armour.",
+    "description": "This evolution of the “Bardiche” is fitted quad-mounted RPG launchers paired with a 12.7mm machine gun. The “Ranseur” indicates progress in Kraunian design as they continue to leverage outdated equipment to create deadly, modern armour.",
     "itemType": "vehicle",
     "warden": false,
     "requiresTech": true,
@@ -18787,7 +18898,7 @@
     "armourType": "Tier1Ship",
     "canUseStructures": true,
     "vehicleData": {
-      "maxHealth": 1800,
+      "maxHealth": 1750,
       "minorDamagePercent": 0.7,
       "majorDamagePercent": 0.85,
       "repairCost": 150,
@@ -19054,7 +19165,7 @@
       "FuelItemCodeName": "FacilityOil1"
     },
     "chassisName": "Submarine",
-    "vehicleProfileType": "CombatShip",
+    "vehicleProfileType": "LargeCombatShip",
     "vehicleMovementProfileType": "Truck",
     "armourType": "Tier1LargeShip",
     "vehicleData": {
@@ -19146,7 +19257,7 @@
       "FuelItemCodeName": "FacilityOil1"
     },
     "chassisName": "Submarine",
-    "vehicleProfileType": "CombatShip",
+    "vehicleProfileType": "LargeCombatShip",
     "vehicleMovementProfileType": "Truck",
     "armourType": "Tier1LargeShip",
     "shippableType": null,
@@ -19238,13 +19349,13 @@
       "FuelItemCodeName": "FacilityOil1"
     },
     "chassisName": "Storage Ship",
-    "vehicleProfileType": "CombatShip",
+    "vehicleProfileType": "LargeCombatShip",
     "vehicleMovementProfileType": "Truck",
     "armourType": "Tier1LargeShip",
     "mapIconType": "LargeShipStorageShip",
     "shippableType": null,
     "vehicleData": {
-      "maxHealth": 57750,
+      "maxHealth": 72190,
       "minorDamagePercent": 0.5,
       "majorDamagePercent": 0.75,
       "repairCost": 500,
@@ -19331,7 +19442,7 @@
       "FuelItemCodeName": "FacilityOil1"
     },
     "chassisName": "Large Ship",
-    "vehicleProfileType": "CombatShip",
+    "vehicleProfileType": "LargeCombatShip",
     "vehicleMovementProfileType": "Truck",
     "armourType": "Tier1LargeShip",
     "shippableType": null,
@@ -19424,7 +19535,7 @@
       "FuelItemCodeName": "FacilityOil1"
     },
     "chassisName": "Light Frigate",
-    "vehicleProfileType": "CombatShip",
+    "vehicleProfileType": "LargeCombatShip",
     "vehicleMovementProfileType": "Truck",
     "armourType": "Tier1LargeShip",
     "vehicleData": {
@@ -19516,7 +19627,7 @@
       "FuelItemCodeName": "FacilityOil1"
     },
     "chassisName": "Aircraft Carrier",
-    "vehicleProfileType": "CombatShip",
+    "vehicleProfileType": "LargeCombatShip",
     "vehicleMovementProfileType": "Truck",
     "armourType": "Tier1LargeShip",
     "mapIconType": "LargeShipAircraftC",
@@ -19609,7 +19720,7 @@
       "FuelItemCodeName": "FacilityOil1"
     },
     "chassisName": "Destroyer",
-    "vehicleProfileType": "CombatShip",
+    "vehicleProfileType": "LargeCombatShip",
     "vehicleMovementProfileType": "Truck",
     "armourType": "Tier1LargeShip",
     "vehicleData": {
@@ -19701,11 +19812,11 @@
       "FuelItemCodeName": "FacilityOil1"
     },
     "chassisName": "Battleship",
-    "vehicleProfileType": "CombatShip",
+    "vehicleProfileType": "LargeCombatShip",
     "vehicleMovementProfileType": "Truck",
     "armourType": "Tier1LargeShip",
     "vehicleData": {
-      "maxHealth": 74750,
+      "maxHealth": 85960,
       "minorDamagePercent": 0.5,
       "majorDamagePercent": 0.75,
       "repairCost": 500,
@@ -19793,11 +19904,11 @@
       "FuelItemCodeName": "FacilityOil1"
     },
     "chassisName": "Battleship",
-    "vehicleProfileType": "CombatShip",
+    "vehicleProfileType": "LargeCombatShip",
     "vehicleMovementProfileType": "Truck",
     "armourType": "Tier1LargeShip",
     "vehicleData": {
-      "maxHealth": 74750,
+      "maxHealth": 85960,
       "minorDamagePercent": 0.5,
       "majorDamagePercent": 0.75,
       "repairCost": 500,
@@ -19885,7 +19996,7 @@
       "FuelItemCodeName": "FacilityOil1"
     },
     "chassisName": "Aircraft Carrier",
-    "vehicleProfileType": "CombatShip",
+    "vehicleProfileType": "LargeCombatShip",
     "vehicleMovementProfileType": "Truck",
     "armourType": "Tier1LargeShip",
     "mapIconType": "LargeShipBattleshipAircraftW",
@@ -19978,7 +20089,7 @@
       "FuelItemCodeName": "FacilityOil1"
     },
     "chassisName": "Base Ship",
-    "vehicleProfileType": "CombatShip",
+    "vehicleProfileType": "LargeCombatShip",
     "vehicleMovementProfileType": "Truck",
     "armourType": "Tier1LargeShip",
     "mapIconType": "LargeShipBaseShip",
@@ -23787,7 +23898,7 @@
     "shippableType": "Large",
     "canBeCrated": true,
     "vehicleData": {
-      "maxHealth": 8300,
+      "maxHealth": 7000,
       "minorDamagePercent": 0.5,
       "majorDamagePercent": 0.7,
       "repairCost": 150,
@@ -23856,7 +23967,7 @@
     "shippableType": "Large",
     "canBeCrated": true,
     "vehicleData": {
-      "maxHealth": 8300,
+      "maxHealth": 7000,
       "minorDamagePercent": 0.5,
       "majorDamagePercent": 0.7,
       "repairCost": 150,
@@ -23950,7 +24061,7 @@
     "shippableType": "Large",
     "canBeCrated": true,
     "vehicleData": {
-      "maxHealth": 15000,
+      "maxHealth": 10000,
       "minorDamagePercent": 0.5,
       "majorDamagePercent": 0.7,
       "repairCost": 150,
@@ -24016,7 +24127,7 @@
     "shippableType": "Large",
     "canBeCrated": true,
     "vehicleData": {
-      "maxHealth": 15000,
+      "maxHealth": 10000,
       "minorDamagePercent": 0.5,
       "majorDamagePercent": 0.7,
       "repairCost": 150,
@@ -24176,7 +24287,7 @@
     "shippableType": "Large",
     "canBeCrated": true,
     "vehicleData": {
-      "maxHealth": 10800,
+      "maxHealth": 7000,
       "minorDamagePercent": 0.5,
       "majorDamagePercent": 0.7,
       "repairCost": 150,
@@ -25717,6 +25828,25 @@
       "damagedWhileDrivingOver": false
     }
   },
+  "DeployedAirSirenT": {
+    "displayName": "Deployed Air Raid Siren",
+    "description": "A blaring siren with a distinctive tone that signifies a warning about impending airborne operations that's been deployed.",
+    "itemType": "structure",
+    "equipmentSlot": null,
+    "maxHealth": 1200,
+    "armourType": "Tier1Tank",
+    "structureData": {
+      "maxHealth": 1200,
+      "decayStartHours": 12,
+      "decayDurationHours": 12,
+      "repairCost": 20,
+      "structuralIntegrity": 1,
+      "storedItemCapacity": 0,
+      "canBeHarvested": false,
+      "isVaultable": false,
+      "damagedWhileDrivingOver": false
+    }
+  },
   "ConstructionYard": {
     "displayName": "Construction Yard",
     "description": "An area where certain structures can be built and prepared for shipping.",
@@ -25796,6 +25926,27 @@
       "storedItemCapacity": 0,
       "canBeHarvested": false,
       "isVaultable": true,
+      "damagedWhileDrivingOver": false
+    }
+  },
+  "WaterWallSplineT1": {
+    "displayName": "Crespine Netting",
+    "description": "A line of netting tethered by anchored Buoys designed to impede torpedoes underwater. ",
+    "itemType": "structure",
+    "equipmentSlot": null,
+    "maxHealth": 1000,
+    "chassisName": "Torpedo Net",
+    "armourType": "Tier1Structure",
+    "buildLocationType": "Anywhere",
+    "structureData": {
+      "maxHealth": 1000,
+      "decayStartHours": 24,
+      "decayDurationHours": 16,
+      "repairCost": 15,
+      "structuralIntegrity": 1,
+      "storedItemCapacity": 0,
+      "canBeHarvested": false,
+      "isVaultable": false,
       "damagedWhileDrivingOver": false
     }
   },
@@ -26989,8 +27140,8 @@
     }
   },
   "FortLargeRadarPart": {
-    "displayName": "Aircraft Radar Parts",
-    "description": "The final critical components necessary to construct an Aircraft Radar. Must be placed onto a Large Structure Foundation.",
+    "displayName": "SC-3 Aerial Interceptor Array Parts",
+    "description": "The final critical components necessary to construct an SC-3 Aerial Interceptor Array. Must be placed onto a Large Structure Foundation.",
     "itemType": "structure",
     "requiresTech": true,
     "equipmentSlot": null,

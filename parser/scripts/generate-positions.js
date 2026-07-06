@@ -1,3 +1,11 @@
+// ═══════════════════════════════════════════════════════════════════
+// generate-positions.js — Position table generator
+//
+// IMPORTANT: The CSV files referenced below must be updated each update.
+// Rename/overwrite u<version>_stockpile.csv and u<version>_base.csv with
+// fresh exports from the current game version before running this script.
+// ═══════════════════════════════════════════════════════════════════
+
 import { readFileSync, writeFileSync } from 'fs';
 
 const metadata = JSON.parse(readFileSync(new URL('../data/metadata.json', import.meta.url), 'utf-8'));
@@ -91,8 +99,8 @@ if (process.argv.includes('--check')) {
 
 // ── Default: generate position tables ─────────────────────────────
 
-const stockpilePositions = extractPositions('../examples/u64_stockpile.csv');
-const inventoryPositions = extractPositions('../examples/u64_base.csv');
+const stockpilePositions = extractPositions('../examples/u65_stockpile.csv');
+const inventoryPositions = extractPositions('../examples/u65_base.csv');
 
 writePositionsFile('../data/positions-stockpile.js', 'positionsStockpile', stockpilePositions);
 writePositionsFile('../data/positions-inventory.js', 'positionsInventory', inventoryPositions);

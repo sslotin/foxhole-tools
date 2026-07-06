@@ -195,7 +195,7 @@ codeName → { short, target }  // hardcoded targets, needs audit vs latest meta
 | Command | Action |
 |---|---|
 | `node parser/scripts/process-game-data.js` | ⭐ Regenerate `metadata.json` + `recipes.json` + `public/icons/` from `game_data/` exports. Walks all blueprint files, extracts full stats + profiles + icons + recipes in one pass. Also reads sibling `*_UpgradeSlotComponent.json` files for in-game modification display names (e.g. enum `Recycler` → "Assembly Bay"). **⚠️ Restart `npm run dev` afterward** — the parser does `rmSync`+`mkdirSync` on `public/icons/`, which Vite's chokidar watcher loses track of, causing icons to vanish (served as SPA-fallback HTML) until the dev server restarts. |
-| `npm run generate-positions` | Rebuild `parser/data/positions-*.js` from `examples/u64_stockpile.csv` + `u64_base.csv` |
+| `npm run generate-positions` | Rebuild `parser/data/positions-*.js` from `examples/u65_stockpile.csv` + `u65_base.csv` |
 | `npm run check-diff -- <csv>` | Compare CSV display names vs `metadata.json` (exit 0 = all known) |
 
 ### Utility

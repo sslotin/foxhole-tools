@@ -33,9 +33,9 @@ See `parser/scripts/README.md` for the full game-update workflow.
 
 ### Game data extraction
 
-Provision about 50 gigs and 30 minutes of time.
+Provision ~10 gigs of space and ~20 minutes of time.
 
-Get `War-WindowsNoEditor.pak` from game files (Steam properties). It is a ~22 GB file.
+Find `War-WindowsNoEditor.pak` in game files (Steam right click -> browse local files). It is a ~25 GB file. To save space, I usually symlink to it.
 
 Get FModel: https://fmodel.app/ and open the .pak file with it. For Linux/Mac, you need to use Wine and install some 64-bit libs, and then run:
 
@@ -47,4 +47,8 @@ You may need to open settings and point it to directory with .pak and specify UE
 
 Switch to "Folders", right click "War" and export all as json, then export only textures from War/Content/Textures/UI.
 
-Run `node prepare-icons.js`, pointing it to correct directories.
+Run `process-game-data.js`, pointing it to correct directories. It will generate metadata, recipes and icons.
+
+Then get an English-language csv output of any base and any stockpile and feed it into `generate-positions.js`. It will generate a lookup table that works for any language (to avoid actually parsing CSVs at runtime, maybe some forwards-compatible fallback will be added in the future).
+
+I usually delegate running the scripts and checking diffs to an agent.
