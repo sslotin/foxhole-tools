@@ -45,7 +45,13 @@ export function facLabel (recipe) {
 export const recipesByOutput = {}
 const _facilityProduced = new Set()
 
+// Items produced or consumed as crates by the Infantry Kit Factory and its
+// modifications. These represent crate-form items where the recipe quantity
+// means "X crates" rather than "X individual units".
+const _crateItems = new Set()
+
 for (const [facKey, fac] of Object.entries(recipesData.facilities)) {
+  const isCrateFacility = facKey === 'FacilityFactorySmallArms'
   // In-game modification display names (e.g. enum "Recycler" → "Assembly Bay",
   // "RocketFactory" → "Rocket Battery Workshop") sourced from the
   // *_UpgradeSlotComponent file by the parser. Falls back to the camelCase key.
@@ -66,6 +72,17 @@ for (const [facKey, fac] of Object.entries(recipesData.facilities)) {
       ;(recipesByOutput[o.codeName] ||= []).push(recipe)
       _facilityProduced.add(o.codeName)
     }
+    // If this is a crate facility, mark its outputs and crate-form inputs
+    if (isCrateFacility) {
+      for (const o of recipe.outputs) _crateItems.add(o.codeName)
+      for (const i of recipe.inputs) {
+        // Skip bulk material inputs — only crate-form items get the suffix
+        const cn = i.codeName
+        if (!cn.startsWith('FacilityMaterial') && cn !== 'Explosive' && cn !== 'HeavyExplosive') {
+          _crateItems.add(cn)
+        }
+      }
+    }
   }
   for (const r of fac.baseRecipes) push(null, null, r)
   for (const [modKey, mod] of Object.entries(fac.modifications || {}))
@@ -73,6 +90,14 @@ for (const [facKey, fac] of Object.entries(recipesData.facilities)) {
 }
 
 export const facilityProduced = _facilityProduced
+
+// Set of items whose quantities represent crate counts (from the Infantry Kit
+// Factory and its modifications). Used to decide when to show the "c" suffix.
+export const crateItems = _crateItems
+
+export function isLiquid (codeName) {
+  return metadata[codeName]?.itemProfileType === 'RefinedFuel'
+}
 
 export function recipesFor (item) {
   return recipesByOutput[item] || []

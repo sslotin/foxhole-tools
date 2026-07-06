@@ -44,7 +44,7 @@ function removeItem (i) {
   align-items: center
   gap: 8px
   padding: 6px 10px
-  background: #1d2a1d
+  background: #1a3a1a
 
   // Selected (its metadata is open in the right panel) — match the search
   // result row's active background instead of the green tint.

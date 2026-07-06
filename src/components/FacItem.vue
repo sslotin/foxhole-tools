@@ -1,19 +1,21 @@
 <script setup>
 // Small inline item chip: icon + "qty× name". Used throughout the calculator
 // for recipe inputs/outputs and aggregated totals.
-import { displayName } from '../facility-calc/recipes.mjs'
+import { displayName, isLiquid, crateItems } from '../facility-calc/recipes.mjs'
 
-defineProps({
+const { codeName, qty } = defineProps({
   codeName: { type: String, required: true },
   qty: { type: [Number, String], default: null },
 })
+
+const suffix = crateItems.has(codeName) ? 'c' : isLiquid(codeName) ? 'l' : ''
 </script>
 
 <template>
   <span class="fac-item">
     <img :src="`/icons/${codeName}.png`" loading="lazy"
          @error="$event.target.style.visibility = 'hidden'" />
-    <span v-if="qty !== null" class="qty">{{ qty }}</span>
+    <span v-if="qty !== null" class="qty">{{ qty }}<span v-if="suffix" class="suffix">{{ suffix }}</span></span>
     <span class="nm">{{ displayName(codeName) }}</span>
   </span>
 </template>
@@ -43,4 +45,9 @@ defineProps({
     overflow: hidden
     text-overflow: ellipsis
     white-space: nowrap
+
+  .suffix
+    color: #b09444
+    font-weight: 600
+    margin-left: 1px
 </style>

@@ -291,7 +291,7 @@ const byDisplay = computed(() =>
     align-self: start
 
   &.active
-    background: #2a5a2a
+    background: #1a3a1a
 
   // Not activatable: its presented item isn't produced in the current plan, so
   // clicking does nothing → dim it. Activatable alternatives (same item, not
