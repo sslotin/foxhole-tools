@@ -178,7 +178,7 @@ const uniforms = [
   'AmmoUniformW', 'GrenadeUniformC', 'ArmourUniformC', 'ArmourUniformW', 'EngineerUniformW', 'EngineerUniformC',
   'MedicUniformW', 'MedicUniformC', 'OfficerUniformW', 'OfficerUniformC', 'RainUniformC',
   'ScoutUniformW', 'ScoutUniformC', 'SnowUniformW', 'SnowUniformC', 'TankUniformW', 'TankUniformC',
-  'NavalUniformW', 'NavalUniformC', 'PilotUniformW', 'PilotUniformC'
+  'NavalUniformW', 'NavalUniformC', 'PilotUniformW', 'PilotUniformC', 'ParatrooperUniformW', 'ParatrooperUniformC'
 ];
 const SAW = [
   'ATGrenadeW', 'ATRPGLightC', 'MortarAmmoFL', 'MortarAmmoSH', 'MortarAmmo',
@@ -189,8 +189,9 @@ const HMF = [
   'ATAmmo', 'HELaunchedGrenade', 'ATLaunchedGrenadeW'
 ];
 const SIFA = ['ATRifleAssaultW', 'ATRifleAutomaticW', 'ATRifleLightC', 'ATRifleSniperC', 'MortarAmmoFlame', 'SniperRifleW', 'SniperRifleC'];
-const larp = ['OfficerUniformW', 'OfficerUniformC', 'NavalUniformW', 'NavalUniformC', 'BannerTW', 'BannerTC', 'MaceW', 'SwordC', 'WindsockT'];
-const facility = [...mines, ...arty, ...tripods, ...uniforms, ...SAW, ...HMF, ...SIFA, ...matfac];
+const naval = ['SurfaceWaterMine', 'WaterWallMaterials', 'NavalUniformW', 'NavalUniformC'];
+const air = ['MiniTorpedoAmmo', 'AircraftTorpedoAmmo', 'PilotMask', 'ParatrooperBackpack', 'PilotUniformW', 'PilotUniformC', 'ParatrooperUniformW', 'ParatrooperUniformC'];
+const facility = [...mines, ...arty, ...tripods, ...uniforms, ...SAW, ...HMF, ...SIFA, ...matfac, 'AircraftAmmo', 'MiniTorpedoAmmo', 'AircraftTorpedoAmmo', 'ParatrooperBackpack', 'SurfaceWaterMine', 'WaterWallMaterials'];
 
 let vehicles = [];
 let structures = [];
@@ -351,9 +352,9 @@ function exportJson() {
           <Crate name="ATRPGW" type="heavy" />
           <Crate name="RpgAmmo" />
           <Crate name="RpgW" type="heavy" />
+          <Crate name="AmmoUniformW" />
           <Crate name="HELaunchedGrenade" />
           <Crate name="GrenadeLauncherC" type="heavy" />
-          <Crate name="AmmoUniformW" />
           <Crate name="GrenadeUniformC" />
         </div>
 
@@ -498,7 +499,8 @@ function exportJson() {
         <Filter text="HMF" :items="HMF" />
         <Filter text="SIFA" :items="SIFA" />
 
-        <Filter text="larp" :items="larp" />
+        <Filter text="air" :items="air" />
+        <Filter text="navy" :items="naval" />
 
         <div class="autofill">
           <input type="range" min="0" max="1000" step="10" v-model="settings.targetShirtCrates">

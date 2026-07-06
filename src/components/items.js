@@ -680,7 +680,18 @@ const relevantCrates = [
   'OfficerUniformW',
   'OfficerUniformC',
   'NavalUniformW',
-  'NavalUniformC'
+  'NavalUniformC',
+  'AirSirenT',
+  'MiniTorpedoAmmo',
+  'AircraftTorpedoAmmo',
+  'PilotMask',
+  'ParatrooperBackpack',
+  'PilotUniformW',
+  'PilotUniformC',
+  'ParatrooperUniformW',
+  'ParatrooperUniformC',
+  'SurfaceWaterMine',
+  'WaterWallMaterials'
 ];
 
 //console.log(relevantCrates);
