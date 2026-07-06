@@ -1,8 +1,8 @@
-Clanshead Valley - Fallen Crown - Relic Base - Public - X: 0.2868068 Y: 0.4384562,2026.06.23-12.09.20
+Clanshead Valley - The King - Town Base - Public - X: 0.5606691 Y: 0.3843522,2026.07.05-23.13.52
 “Dusk” ce.III,0
 Booker Storm Rifle Model 838,0
 Aalto Storm Rifle 24,0
-7.92mm,89
+7.92mm,169
 Catara mo.II,0
 KRN886-127 Gast Machine Gun,0
 Malone MK.2,0
@@ -10,11 +10,11 @@ Bomastone Grenade,0
 A3 Harpa Fragmentation Grenade,0
 Ferro 879,0
 Cascadier 873,0
-Ahti Model 2,261
-8mm,496
+Ahti Model 2,623
+8mm,865
 Cometa T2-9,0
 The Hangman 757,0
-.44 Mag,0
+.44 Mag,20
 Catena rt.IV Auto-Rifle,0
 Sampo Auto-Rifle 77,0
 Argenti r.II Rifle,0
@@ -24,59 +24,59 @@ Blakerow 871,0
 KRR2-790 Omen,0
 Clancy Cinder M3,0
 No.2B Hawthorne,0
-No.2 Loughcaster,416
+No.2 Loughcaster,49
 KRR3-792 Auger,0
 Clancy-Raca M4,0
-7.62mm,1272
-KRF1-750 Dragonfly,0
-No.4 The Pillory Scattergun,46
+7.62mm,0
+KRF1-750 Dragonfly,1
+No.4 The Pillory Scattergun,0
 Buckshot,0
 “The Pitch Gun” mc.V,0
 “Lionclaw” mc.VIII,0
 No.1 “The Liar” Submachinegun,0
-Fiddler Submachine Gun Model 868,0
-9mm,61
+Fiddler Submachine Gun Model 868,30
+9mm,80
 228 Satterley Heavy Storm Rifle,0
 Booker Greyhound Model 910,0
 “Dawn” Ve.II,0
 “Quickhatch” Rt.I,0
 “Typhon” ra.XII,0
 Neville Anti-Tank Rifle,0
-14.5mm,0
-Venom c.II 35,0
+14.5mm,13
+Venom c.II 35,3
 Bane 45,0
 Carnyx Anti-Tank Rocket Launcher,0
 AP/RPG,0
 Mounted Bonesaw MK.3,0
 Bonesaw MK.3,0
-ARC/RPG,0
+ARC/RPG,39
 “Molten Wind” v.II Flame Torch,0
-Willow’s Bane Model 845,0
-KLG901-2 Lunaire F,0
-Mounted Fissura gd.I,0
+Willow’s Bane Model 845,5
+KLG901-2 Lunaire F,1
+Mounted Fissura gd.I,2
 Tremola Grenade GPb-1,0
 PT-815 Smoke Grenade,0
-Green Ash Grenade,4
+Green Ash Grenade,0
 Lamentum mm.IV,0
-Malone Ratcatcher MK.1,0
+Malone Ratcatcher MK.1,8
 12.7mm,0
-Daucus isg.III,0
+Daucus isg.III,5
 30mm,0
-Cremari Mortar,0
+Cremari Mortar,9
 Incendiary Mortar Shell,0
-Flare Mortar Shell,0
-Shrapnel Mortar Shell,60
-Mortar Shell,0
+Flare Mortar Shell,26
+Shrapnel Mortar Shell,0
+Mortar Shell,68
 BF5 White Ash Flask Grenade,0
 B2 Varsi Anti-Tank Grenade,0
 Ignifist 30,0
-Mammon 91-b,107
-Anti-Tank Sticky Bomb,0
-Cutler Foebreaker,0
-Cutler Launcher 4,1
-RPG,1
-950-70b Anti-Aircraft Shell,15
-20mm,4
+Mammon 91-b,36
+Anti-Tank Sticky Bomb,36
+Cutler Foebreaker,1
+Cutler Launcher 4,7
+RPG,191
+950-70b Anti-Aircraft Shell,0
+20mm,1
 Tenta Torpedo,0
 94.5mm,0
 75mm,0
@@ -85,14 +85,14 @@ Shatter Missile,0
 Model-7 “Evie”,0
 912 Shrike Rounds,0
 4C-Fire Rocket,0
-Flame Ammo,0
+Flame Ammo,4
 150mm,0
 3C-High Explosive Rocket,0
 Absol Anti-Aircraft Rounds,0
-120mm,5
+120mm,6
 300mm,0
 Quillback Torpedo,0
-250mm "Purity" Shell,0
+250mm "Purity" Shell,2
 250mm "Fury" Shell,0
 E681-B Hullbreaker Mine,0
 Moray Torpedo,0
@@ -100,45 +100,45 @@ Moray Torpedo,0
 40mm,0
 Legion Vexillum,0
 War Ensign,0
-Barbed Wire,132
-Buckhorn CCQ-18,53
+Barbed Wire,4
+Buckhorn CCQ-18,0
 Binoculars,0
-Hydra’s Whisper,0
+Hydra’s Whisper,7
 Havoc Charge,0
 “Molten Wind” v.II Ammo,0
-Willow's Bane Ammo,0
+Willow's Bane Ammo,25
 Crow’s Foot Mine,0
 Listening Kit,0
 Falias Raiding Club,0
-Metal Beam,2
+Metal Beam,0
 Paratrooper’s Ruck,0
 Radio Backpack,0
-Sandbag,145
+Sandbag,0
 Havoc Charge Detonator,0
-Alligator Charge,2
-Shovel,4
-Sledge Hammer,5
+Alligator Charge,0
+Shovel,0
+Sledge Hammer,2
 Eleos Infantry Dagger,0
-Abisme AT-99 Mine,0
-Tripod,0
+Abisme AT-99 Mine,4
+Tripod,13
 E680-S Rudder Lock,0
-Wind Sock,0
-Hammer,185
-Wrench,0
-Water Bucket,0
+Wind Sock,1
+Hammer,869
+Wrench,1
+Water Bucket,2
 Water,0
-Gas Mask,72
+Gas Mask,1
 Gas Mask Filter,0
-The Ospreay,0
-Radio,0
+The Ospreay,2
+Radio,15
 Liaison Transmitter,0
-Bandages,105
-First Aid Kit,12
-Trauma Kit,12
-Blood Plasma,108
-Soldier Supplies,178
+Bandages,0
+First Aid Kit,0
+Trauma Kit,32
+Blood Plasma,67
+Soldier Supplies,36
 Concrete Materials,0
-Diesel,9
+Diesel,0
 Unstable Substances,0
 Thermal Shielding,0
 Processed Construction Materials,0
@@ -151,12 +151,12 @@ Assembly Materials V,0
 Rare Alloys,0
 Heavy Oil,0
 Enriched Oil,0
-Oil,9
-Petrol,10
+Oil,0
+Petrol,3
 Pipe,0
 Aluminum,0
 Aluminum Alloy,0
-Basic Materials,0
+Basic Materials,265
 Coal,0
 Components,0
 Copper,0
@@ -171,24 +171,24 @@ Heavy Explosive Powder,0
 Iron,0
 Iron Alloy,0
 Maintenance Supplies,0
-Salvage,0
+Salvage,1
 Rare Metal,0
 Relic Materials,0
 Sulfur,0
-Refined Materials,0
-Wreckage,0
+Refined Materials,6
+Wreckage,1
 Specialist’s Overcoat,0
 Velian Flak Vest,0
 Gunner’s Breastplate,0
 Fabri Rucksack,0
-Sapper Gear,109
+Sapper Gear,0
 Grenadier’s Baldric,0
 Medic Fatigues,0
-Physician’s Jacket,51
+Physician’s Jacket,3
 Remex Garb,0
 Gentleman’s Peacoat,0
 Officialis’ Attire,0
-Officer’s Regalia,16
+Officer’s Regalia,0
 Auster’s Harness,0
 Cloudrunner’s Vesture,0
 Lodesman’s Lorica,0
@@ -197,11 +197,11 @@ Legionary’s Oilcoat,0
 Recon Camo,0
 Outrider’s Mantle,0
 Heavy Topcoat,0
-Caoivish Parka,255
+Caoivish Parka,0
 Legionary Fatigues,0
-Infantry Battledress,89
+Infantry Battledress,155
 Tankman’s Coveralls,0
-Padded Boiler Suit,87
+Padded Boiler Suit,0
 Colonial Aircraft Engine (Small),0
 Warden Aircraft Engine (Small),0
 Damaged Colonial Aircraft Engine (Small),0
