@@ -342,6 +342,7 @@ for (const dir of SEARCH_DIRS) {
 
     const fileName = relPath.split('/').pop();
     if (SKIP_FILES.has(fileName)) continue;
+    if (fileName.includes('VehicleProxy')) continue;
 
     let data;
     try { data = readJSON(absPath); } catch { continue; }

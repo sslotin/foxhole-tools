@@ -1,16 +1,16 @@
 # Game Update Workflow
 
-## Quick Status (Jul 5, 2026)
+## Quick Status (Jul 6, 2026)
 
-| Script | Status |
+| Metric | Value |
 |---|---|
-| `process-game-data.js` | Last run: Jul 5. **662 items** in `metadata.json` (243 items, 172 vehicles, 247 structures). Extracts icons + metadata + recipes in one pass. |
-| `generate-positions.js` | Last run: Jul 5. **433 stockpile** + **219 inventory** positions. All English CSVs pass `--check` (0 unknown). |
-| Coverage | 380/662 metadata items in position tables (57%). 282 uncovered — facilities, bunker pieces, emplacements not in standard CSVs. |
+| `metadata.json` | **666 items** (245 items, 176 vehicles, 245 structures) |
+| `generate-positions.js` | **424 stockpile** + **221 inventory** positions — **all mapped** ✅ |
+| Missing icons | **5** genuinely missing (event-only / typo in game data) |
 
 **Quick commands:**
-- `npm run check-diff -- parser/examples/u64_stockpile.csv` — verify stockpile CSV vs metadata
-- `npm run check-diff -- parser/examples/u64_base.csv` — verify base/inventory CSV vs metadata
+- `npm run check-diff -- parser/examples/u65_stockpile.csv` — verify stockpile CSV vs metadata
+- `npm run check-diff -- parser/examples/u65_base.csv` — verify base/inventory CSV vs metadata
 - `npm run generate-positions` — rebuild position tables from the two canonical CSVs
 - `node parser/scripts/process-game-data.js` — extract icons, metadata, recipes from game exports (can take ~60s, needs `game_data/` exports)
 
@@ -25,7 +25,9 @@ Copy fresh CSVs from the game into `parser/examples/`. You need at least:
 - A **stockpile** CSV (seaport or storage depot, ~430 lines)
 - A **base/inventory** CSV (frontline bunker base, ~220 lines)
 
-Name them `u64_stockpile.csv` and `u64_base.csv` respectively (overwrite the existing files).
+Name them `u<version>_stockpile.csv` and `u<version>_base.csv` (e.g. `u65_stockpile.csv`, `u65_base.csv`).
+
+**Important:** Then update `generate-positions.js` (line ~130) to point to the new filenames, and update the `--check-diff` references in this doc. The goal is always 0 UNMAPPED after a fresh export + metadata extraction.
 
 ### 2. Check diff against metadata
 
@@ -41,9 +43,12 @@ This lists any item display names in the CSV that aren't in `metadata.json`. Unk
 npm run generate-positions
 ```
 
-This reads `examples/u64_stockpile.csv` and `examples/u64_base.csv`, matches each line against `metadata.json` by display name, and writes `data/positions-*.js`.
+This reads the current update's CSVs (configured at the bottom of the script), matches each line against `metadata.json` by display name, and writes `data/positions-*.js`.
 
-Any **UNMAPPED** items printed during this step are display names in the CSV that don't match anything in `metadata.json`. These are likely new game items that need to be added to `metadata.json` first.
+Any **UNMAPPED** items printed during this step are display names in the CSV that don't match anything in `metadata.json`. The fix is usually one of:
+1. **New game items** — the game added items that aren't in the blueprint export yet. Re-run `process-game-data.js`.
+2. **CodeName collision** — a vehicle and a structure share the same `CodeName` in the game data. The script processes `Vehicles/` before `Structures/`, so structures overwrite vehicles. See "VehicleProxy collision" below.
+3. **Item removed from game** — e.g. the Liaison Transmitter (`RadioAircraft`) was removed in Update 65. The CSV export is stale; re-export from the game.
 
 ### 4. Re-extract metadata (when game data changes)
 
@@ -55,9 +60,26 @@ node parser/scripts/process-game-data.js
 
 This re-generates `metadata.json`, `recipes.json`, and all icons from the game export files.
 
-**Note — facility modification display names:** in-game mod names live in sibling `Structures/Facilities/Modifications/Data/BP<FacilityKey>_UpgradeSlotComponent.json` files, NOT in the facility file itself (whose `Modifications[].Value.DisplayName` is null). The parser reads both: it builds a `modKey → DisplayName.SourceString` map from the UpgradeSlot file and uses it as each modification's `displayName` in `recipes.json` (falling back to the camelCase enum key). This is why enum key `Recycler` becomes in-game "Assembly Bay", `RocketFactory` becomes "Rocket Battery Workshop", `SpecialWeapons` becomes "Special-Issue Firearms Assembly", etc.
+#### VehicleProxy codeName collision
 
-**⚠️ Dev server caveat:** `process-game-data.js` deletes & recreates `public/icons/` (`rmSync` + `mkdirSync`). Vite's chokidar watcher (long-running dev server) can lose track of the recreated directory and start serving SPA-fallback HTML for icon requests (icons vanish app-wide). **Restart `npm run dev` after running the parser.**
+The game's build menu uses `*VehicleProxy.json` structure files for placement. These share `CodeName` values with real vehicle blueprints:
+
+| CodeName | Vehicle (real) | Structure Proxy (noise) |
+|---|---|---|
+| `Crane` | BMS - Class 2 Mobile Auto-Crane | "Crane" |
+| `Construction` | BMS - Universal Assembly Rig | "Construction Vehicle" |
+| `LargeCrane` | BMS - Overseer Sky-Hauler | (same name) |
+| `Motorboat` | BMS - Grouper | "Motorboat" |
+
+Since `Structures/` is scanned after `Vehicles/`, the proxy entries overwrite the real vehicle data. The parser now **skips any file containing `VehicleProxy` in its name** to prevent this. This was fixed Jul 6, 2026 — 4 vehicles were being silently lost.
+
+#### Facility modification display names
+
+In-game mod names live in sibling `Structures/Facilities/Modifications/Data/BP<FacilityKey>_UpgradeSlotComponent.json` files, NOT in the facility file itself (whose `Modifications[].Value.DisplayName` is null). The parser reads both: it builds a `modKey → DisplayName.SourceString` map from the UpgradeSlot file and uses it as each modification's `displayName` in `recipes.json` (falling back to the camelCase enum key). This is why enum key `Recycler` becomes in-game "Assembly Bay", `RocketFactory` becomes "Rocket Battery Workshop", `SpecialWeapons` becomes "Special-Issue Firearms Assembly", etc.
+
+#### Dev server caveat
+
+`process-game-data.js` deletes & recreates `public/icons/` (`rmSync` + `mkdirSync`). Vite's chokidar watcher (long-running dev server) can lose track of the recreated directory and start serving SPA-fallback HTML for icon requests (icons vanish app-wide). **Restart `npm run dev` after running the parser.**
 
 ### 5. Iterative fixes
 

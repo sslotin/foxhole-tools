@@ -212,17 +212,21 @@ codeName → { short, target }  // hardcoded targets, needs audit vs latest meta
 
 | Metric | Value |
 |---|---|
-| `metadata.json` items | **662** (243 items, 172 vehicles, 247 structures) |
-| Stockpile positions | **433** positions, **429** unique codeNames mapped |
-| Inventory positions | **219** positions, **219** unique codeNames mapped |
-| Combined coverage | **380/662** (57%) — many new structures not in standard CSVs |
-| Missing from positions | **282** — facilities, bunker pieces, emplacements not in standard stockpile CSVs |
-| Missing icons | **6** genuinely missing source PNG files (typos in game data, event-only content) — **fixed Jul 5:** path construction bug in `process-game-data.js`, see `parser/scripts/README.md` |
-| Production recipes | **241** crate recipes (Factory/MPF) + **22** facility files (**276** conversion entries) |
+| `metadata.json` items | **666** (245 items, 176 vehicles, 245 structures) |
+| Stockpile positions | **424** positions, **424** lines, **all mapped** ✅ |
+| Inventory positions | **221** positions, **221** lines, **all mapped** ✅ |
+| Missing icons | **5** genuinely missing source PNG files (event-only content) |
+| Production recipes | **244** crate recipes (Factory/MPF) + **22** facility files (**276** conversion entries) |
 
 **All 5 English CSVs pass `check-diff`** — zero unknown items (only 4 duplicates from crate detection).
 
-### Jul 6 — Infantry Kit Factory facility recipes now included
+### Jul 6 — VehicleProxy collision fix
+
+**Root cause:** 4 vehicle blueprints (`Crane`, `Construction`, `LargeCrane`, `Motorboat`) share their `CodeName` with `*VehicleProxy.json` structure files in `Structures/`. Since the script processes `Structures/` after `Vehicles/`, the proxy entries overwrote the real vehicle data, causing `BMS - Class 2 Mobile Auto-Crane`, `BMS - Universal Assembly Rig`, `BMS - Overseer Sky-Hauler`, and `BMS - Grouper` to be missing from metadata.
+
+**Fix:** Files containing `VehicleProxy` in their name are now skipped during metadata extraction. The 4 proxy structures were never useful as user-facing items (they're just build-menu placement proxies).
+
+**Result:** -4 structures, +4 vehicles, same total (666). All u65 CSV lines now map correctly.
 
 **Root cause:** `process-game-data.js` `parseConversion()` only read `ItemOutput`/`ItemInput` from facility conversion entries. The Infantry Kit Factory (`BPFacilityFactorySmallArms.json`) uses `CrateOutput`/`CrateInput` instead — its 19 base recipes (uniforms) and 28 modification recipes (Small Arms Workshop, Special Weapons, Heavy Ammo) were silently emitted with empty `outputs[]`.
 

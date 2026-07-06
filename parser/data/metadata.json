@@ -17302,14 +17302,15 @@
     }
   },
   "Motorboat": {
-    "displayName": "Motorboat",
-    "description": "A motorized boat for moving small groups of infantry across rivers and between islands.",
-    "itemType": "structure",
+    "displayName": "BMS - Grouper",
+    "description": "Powered by the Bassett Motor Society’s lightweight Grouper engine, this simple wooden boat is ideal for ferrying small groups of infantry across rivers and between islands.",
+    "itemType": "vehicle",
     "equipmentSlot": null,
-    "maxHealth": 20,
     "chassisName": "Motorboat",
-    "profileType": "VehicleProxy",
-    "buildLocationType": "Anywhere",
+    "vehicleBuildType": "BuildableAnywhere",
+    "vehicleProfileType": "BeachableShip",
+    "armourType": "LightVehicle",
+    "canUseStructures": true,
     "vehicleData": {
       "maxHealth": 200,
       "minorDamagePercent": 0.5,
@@ -17334,6 +17335,19 @@
       "hasTierUpgrades": false,
       "subsystemDisableChances": 0
     },
+    "vehicleProfile": {
+      "usesRollTrace": true,
+      "canTriggerMine": false,
+      "canTriggerInfantryMine": true,
+      "canTriggerWaterMine": true,
+      "usesGas": true,
+      "drivingSpeedThreshold": 100,
+      "maxVehicleAngle": 30,
+      "enableStealth": false,
+      "damageDrivingOverStructures": 0,
+      "damageDrivingOverIce": 0,
+      "isAllowedToLoadMultiple": false
+    },
     "structureData": {
       "maxHealth": 20,
       "decayStartHours": 0,
@@ -17344,22 +17358,6 @@
       "canBeHarvested": false,
       "isVaultable": true,
       "damagedWhileDrivingOver": false
-    },
-    "structureProfile": {
-      "hasDynamicStartingCondition": false,
-      "isRepairable": true,
-      "isOnlyMountableByFriendly": true,
-      "isUpgradeRotationAllowed": false,
-      "isUsableFromVehicle": false,
-      "allowUpgradeWhenDamaged": false,
-      "canOverlapNonBlockingFoliage": true,
-      "disallowAdjacentUpgradesInIsland": false,
-      "includeInStructureIslands": false,
-      "canDecayBePrevented": true,
-      "verticalEjectionDistance": 0,
-      "enableStealth": false,
-      "isRuinable": false,
-      "bypassesRapidDecay": false
     }
   },
   "Harvester": {
@@ -17587,14 +17585,17 @@
     }
   },
   "Crane": {
-    "displayName": "Crane",
-    "description": "A heavy mobile Crane used to lift vehicles and very heavy equipment.",
-    "itemType": "structure",
+    "displayName": "BMS - Class 2 Mobile Auto-Crane",
+    "description": "The Bassett Motor Society’s Class 2 Mobile Auto-Crane is used to lift and reposition vehicles and very heavy equipment.",
+    "itemType": "vehicle",
     "equipmentSlot": null,
-    "maxHealth": 20,
     "chassisName": "Crane",
-    "profileType": "VehicleProxy",
-    "buildLocationType": "Anywhere",
+    "vehicleBuildType": "VehicleFactory",
+    "vehicleProfileType": "Construction",
+    "vehicleMovementProfileType": "ConstructionTracked",
+    "armourType": "LightVehicle",
+    "depthCutoffForSwimDamage": 270,
+    "canUseStructures": true,
     "vehicleData": {
       "maxHealth": 1500,
       "minorDamagePercent": 0.5,
@@ -17619,6 +17620,32 @@
       "hasTierUpgrades": false,
       "subsystemDisableChances": 0
     },
+    "vehicleProfile": {
+      "usesRollTrace": true,
+      "canTriggerMine": false,
+      "canTriggerInfantryMine": true,
+      "canTriggerWaterMine": false,
+      "usesGas": true,
+      "drivingSpeedThreshold": 50,
+      "maxVehicleAngle": 45,
+      "enableStealth": false,
+      "damageDrivingOverStructures": 475,
+      "damageDrivingOverIce": 60,
+      "isAllowedToLoadMultiple": false
+    },
+    "vehicleMovementProfile": {
+      "mass": 10000,
+      "maxEncumbranceMassOverride": 0,
+      "brakeForce": 35000,
+      "handbrakeForce": 20000,
+      "airResistance": 90,
+      "rollingResistance": 2400,
+      "lowSpeedEngineForceMultiplier": 3,
+      "lowGearCutoff": 0.5,
+      "centerOfGravityHeight": 0.2,
+      "usesDifferentialSteering": true,
+      "canRotateInPlace": false
+    },
     "structureData": {
       "maxHealth": 20,
       "decayStartHours": 0,
@@ -17629,22 +17656,6 @@
       "canBeHarvested": false,
       "isVaultable": true,
       "damagedWhileDrivingOver": false
-    },
-    "structureProfile": {
-      "hasDynamicStartingCondition": false,
-      "isRepairable": true,
-      "isOnlyMountableByFriendly": true,
-      "isUpgradeRotationAllowed": false,
-      "isUsableFromVehicle": false,
-      "allowUpgradeWhenDamaged": false,
-      "canOverlapNonBlockingFoliage": true,
-      "disallowAdjacentUpgradesInIsland": false,
-      "includeInStructureIslands": false,
-      "canDecayBePrevented": true,
-      "verticalEjectionDistance": 0,
-      "enableStealth": false,
-      "isRuinable": false,
-      "bypassesRapidDecay": false
     }
   },
   "ConstructionUtility": {
@@ -17713,14 +17724,18 @@
     }
   },
   "Construction": {
-    "displayName": "Construction Vehicle",
-    "description": "A vehicle used to build large structures.",
-    "itemType": "structure",
+    "displayName": "BMS - Universal Assembly Rig",
+    "description": "A specialized vehicle designed by the Bassett Motor Society used in the construction of large structures.",
+    "itemType": "vehicle",
     "equipmentSlot": null,
-    "maxHealth": 20,
     "chassisName": "Construction Vehicle",
-    "profileType": "VehicleProxy",
-    "buildLocationType": "Anywhere",
+    "vehicleBuildType": "VehicleFactory",
+    "vehicleProfileType": "Construction",
+    "vehicleMovementProfileType": "ConstructionTracked",
+    "armourType": "LightVehicle",
+    "depthCutoffForSwimDamage": 265,
+    "canUseStructures": true,
+    "shippableType": "Normal",
     "vehicleData": {
       "maxHealth": 1000,
       "minorDamagePercent": 0.25,
@@ -17745,6 +17760,32 @@
       "hasTierUpgrades": false,
       "subsystemDisableChances": 0
     },
+    "vehicleProfile": {
+      "usesRollTrace": true,
+      "canTriggerMine": false,
+      "canTriggerInfantryMine": true,
+      "canTriggerWaterMine": false,
+      "usesGas": true,
+      "drivingSpeedThreshold": 50,
+      "maxVehicleAngle": 45,
+      "enableStealth": false,
+      "damageDrivingOverStructures": 475,
+      "damageDrivingOverIce": 60,
+      "isAllowedToLoadMultiple": false
+    },
+    "vehicleMovementProfile": {
+      "mass": 10000,
+      "maxEncumbranceMassOverride": 0,
+      "brakeForce": 35000,
+      "handbrakeForce": 20000,
+      "airResistance": 90,
+      "rollingResistance": 2400,
+      "lowSpeedEngineForceMultiplier": 3,
+      "lowGearCutoff": 0.5,
+      "centerOfGravityHeight": 0.2,
+      "usesDifferentialSteering": true,
+      "canRotateInPlace": false
+    },
     "structureData": {
       "maxHealth": 20,
       "decayStartHours": 0,
@@ -17755,22 +17796,6 @@
       "canBeHarvested": false,
       "isVaultable": true,
       "damagedWhileDrivingOver": false
-    },
-    "structureProfile": {
-      "hasDynamicStartingCondition": false,
-      "isRepairable": true,
-      "isOnlyMountableByFriendly": true,
-      "isUpgradeRotationAllowed": false,
-      "isUsableFromVehicle": false,
-      "allowUpgradeWhenDamaged": false,
-      "canOverlapNonBlockingFoliage": true,
-      "disallowAdjacentUpgradesInIsland": false,
-      "includeInStructureIslands": false,
-      "canDecayBePrevented": true,
-      "verticalEjectionDistance": 0,
-      "enableStealth": false,
-      "isRuinable": false,
-      "bypassesRapidDecay": false
     }
   },
   "BusW": {
@@ -22725,13 +22750,21 @@
   "LargeCrane": {
     "displayName": "BMS - Overseer Sky-Hauler",
     "description": "The star of the BMS arsenal of military-grade construction equipment, the Overseer Sky-Hauler makes several tonnes look like a feather, and enjoys a high level of mobility while deployed along heavy-duty rail lines.",
-    "itemType": "structure",
+    "itemType": "vehicle",
     "requiresTech": true,
     "equipmentSlot": null,
-    "maxHealth": 1000,
+    "fuelTank": {
+      "FuelCapacity": 300,
+      "FuelItemCodeName": "Oil",
+      "bCanRefuelFromTanker": false,
+      "bCanSiphon": false
+    },
     "chassisName": "Large Crane",
-    "profileType": "VehicleProxy",
-    "buildLocationType": "RailTrackCrane",
+    "vehicleBuildType": "RailTrackCrane",
+    "vehicleProfileType": "Rail",
+    "vehicleMovementProfileType": "Truck",
+    "armourType": "Tier3Structure",
+    "canUseStructures": true,
     "vehicleData": {
       "maxHealth": 2600,
       "minorDamagePercent": 0.5,
@@ -22756,6 +22789,32 @@
       "hasTierUpgrades": false,
       "subsystemDisableChances": 0
     },
+    "vehicleProfile": {
+      "usesRollTrace": true,
+      "canTriggerMine": false,
+      "canTriggerInfantryMine": true,
+      "canTriggerWaterMine": false,
+      "usesGas": true,
+      "drivingSpeedThreshold": 100,
+      "maxVehicleAngle": 45,
+      "enableStealth": false,
+      "damageDrivingOverStructures": 0,
+      "damageDrivingOverIce": 0,
+      "isAllowedToLoadMultiple": false
+    },
+    "vehicleMovementProfile": {
+      "mass": 7500,
+      "maxEncumbranceMassOverride": 0,
+      "brakeForce": 26000,
+      "handbrakeForce": 20000,
+      "airResistance": 70,
+      "rollingResistance": 260,
+      "lowSpeedEngineForceMultiplier": 1.5,
+      "lowGearCutoff": 0.45,
+      "centerOfGravityHeight": 1.4,
+      "usesDifferentialSteering": false,
+      "canRotateInPlace": false
+    },
     "structureData": {
       "maxHealth": 1000,
       "decayStartHours": 0,
@@ -22766,22 +22825,6 @@
       "canBeHarvested": false,
       "isVaultable": false,
       "damagedWhileDrivingOver": false
-    },
-    "structureProfile": {
-      "hasDynamicStartingCondition": false,
-      "isRepairable": true,
-      "isOnlyMountableByFriendly": true,
-      "isUpgradeRotationAllowed": false,
-      "isUsableFromVehicle": false,
-      "allowUpgradeWhenDamaged": false,
-      "canOverlapNonBlockingFoliage": true,
-      "disallowAdjacentUpgradesInIsland": false,
-      "includeInStructureIslands": false,
-      "canDecayBePrevented": true,
-      "verticalEjectionDistance": 0,
-      "enableStealth": false,
-      "isRuinable": false,
-      "bypassesRapidDecay": false
     }
   },
   "BattleTankW": {
