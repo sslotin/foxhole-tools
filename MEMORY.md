@@ -1,6 +1,6 @@
 # MEMORY.md — Project Context & Status
 
-Last updated: Jul 5, 2026 (scripts consolidated; search mode added; facility cost calculator added; mod display names now sourced from game data).
+Last updated: Jul 7, 2026 (stockpile state export/import added).
 
 ## Product Context
 
@@ -254,6 +254,48 @@ codeName → { short, target }  // hardcoded targets, needs audit vs latest meta
 6. **Guide** — `public/guide/` static HTML may be out of sync with app features
 7. ~~**Icon extraction**~~ — **Fixed Jul 5:** `process-game-data.js` now correctly resolves icon paths via `EXPORTS_ROOT` instead of `Blueprints/`. 6 genuinely missing files remain (typos/event-only content). 656 icons extracted successfully.
 8. **Ship interior components** — 12 ship engine rooms/parts rooms missing from export (sub-items, not standalone)
+
+---
+
+## Stockpile State Export/Import (Jul 7, 2026)
+
+The JSON export button (`StockpileReport.vue`) now saves a full state snapshot that can be pasted back (ctrl+v) to restore the exact same stockpile mode state.
+
+### Export Format
+
+File: `foxhole-stockpile-state.json`
+```json
+{
+  "version": 1,
+  "type": "foxhole-stockpile-state",
+  "submissions": [
+    { "report": { ... }, "time": "2026-07-07T12:00:00.000Z" }
+  ],
+  "targetIndices": [0],
+  "sourceIndices": [1],
+  "shoppingList": { "RifleW": 10, "Bandages": 5 },
+  "settings": {
+    "warden": true,
+    "configure": false,
+    "hiddenCrates": [],
+    "targetShirts": 200,
+    "targetShirtCrates": 310
+  },
+  "autofillCount": 310
+}
+```
+
+### Import Mechanism
+
+- **Auto-detected on paste or drag-and-drop:** If pasted/dropped text starts with `{`, `App.vue` attempts to parse it as a stockpile state JSON (checks `type` and `version` fields). Dragging a `.json` file onto the page works the same way.
+- **Replaces all current state:** Clears existing submissions, switches to stockpile mode, loads reports, target/source indices, settings, shopping list, and autofill count.
+- **Settings are applied via `Object.assign(settings, state.settings)`** — the reactive settings proxy propagates changes and saves to localStorage.
+- **Shopping list restoration:** Uses a `pendingRestore` ref (provided by `App.vue`) that `StockpileReport.vue` reads during its `<script setup>` initialization. `Crate.vue` uses `shoppingList[name] ??= 0` instead of `shoppingList[name] = 0` so restored values aren't overwritten.
+
+### Files Changed
+- `src/App.vue` — JSON detection in paste handler, drag-and-drop support with visual overlay, `restoreState()` function, `pendingRestore` ref/provide
+- `src/components/StockpileReport.vue` — Updated `exportJson()` with full state shape, injects `pendingRestore` to apply shopping list on mount
+- `src/components/Crate.vue` — Changed `shoppingList[name] = 0` → `shoppingList[name] ??= 0` at initialization
 
 ---
 

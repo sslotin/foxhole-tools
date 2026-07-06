@@ -1,5 +1,5 @@
 <script setup>
-import { ref, provide, inject, reactive, computed } from 'vue'
+import { ref, provide, inject, reactive, computed, watch } from 'vue'
 import Crate from './Crate.vue'
 import Filter from './Filter.vue'
 import Shippable from './Shippable.vue'
@@ -72,6 +72,17 @@ const targetStockpile = mergeStockpiles(targetStockpiles.value);
 const sourceStockpile = mergeStockpiles(sourceStockpiles.value);
 const shoppingList = reactive({});
 
+let autofillCount = ref(310);
+
+// Apply restored shopping list from JSON import
+const pendingRestore = inject('pendingRestore', ref(null));
+if (pendingRestore.value) {
+  for (const [key, count] of Object.entries(pendingRestore.value.shoppingList)) {
+    shoppingList[key] = count;
+  }
+  autofillCount.value = pendingRestore.value.autofillCount ?? 310;
+}
+
 const targets = computed(() => {
   const obj = {};
   for (const name of relevantCrates) {
@@ -119,8 +130,6 @@ const availableCount = computed(() => {
   }
   return s;
 });
-
-let autofillCount = ref(310);
 
 function autofill() {
   const targetedCrates = filteredCrates.value.filter(name => targets.value[name] > 0);
@@ -222,19 +231,34 @@ function exportText() {
 
 function exportJson() {
   const obj = {
-    'sources': sourceStockpiles.value.map(idx => submissions.value[idx].report),
-    'targets': targetStockpiles.value.map(idx => submissions.value[idx].report),
-    'manifest': Object.fromEntries(Object.entries(shoppingList).filter(([, count]) => count > 0))
-  }
+    version: 1,
+    type: 'foxhole-stockpile-state',
+    submissions: submissions.value.map(s => ({
+      report: s.report,
+      time: s.time.toISOString()
+    })),
+    targetIndices: [...targetStockpiles.value],
+    sourceIndices: [...sourceStockpiles.value],
+    shoppingList: Object.fromEntries(
+      Object.entries(shoppingList).filter(([, count]) => count > 0)
+    ),
+    settings: {
+      warden: settings.warden,
+      configure: settings.configure,
+      hiddenCrates: settings.hiddenCrates,
+      targetShirts: settings.targetShirts,
+      targetShirtCrates: settings.targetShirtCrates
+    },
+    autofillCount: autofillCount.value
+  };
 
   const json = JSON.stringify(obj, null, 2);
   
-  // make a file and "click" on an ephemeral link to download it
   const blob = new Blob([json], { type: 'application/json' });
   const url = URL.createObjectURL(blob);
   const a = document.createElement('a');
   a.href = url;
-  a.download = 'manifest.json';
+  a.download = 'foxhole-stockpile-state.json';
   document.body.appendChild(a);
   a.click();
   document.body.removeChild(a);

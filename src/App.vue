@@ -78,6 +78,42 @@ watch(
 let errorMessage = ref(undefined);
 provide('errorMessage', errorMessage);
 
+// Holds state to be restored into StockpileReport on next mount
+const pendingRestore = ref(null);
+provide('pendingRestore', pendingRestore);
+
+function restoreState(jsonText) {
+  try {
+    const state = JSON.parse(jsonText);
+    if (state?.type !== 'foxhole-stockpile-state' || state?.version !== 1) {
+      throw new Error('Invalid or incompatible state file');
+    }
+
+    // Replace all state
+    submissions.value = state.submissions.map(s => ({
+      report: s.report,
+      time: new Date(s.time)
+    }));
+
+    isInventory.value = false;
+
+    targetStockpiles.value = [...state.targetIndices];
+    sourceStockpiles.value = [...state.sourceIndices];
+
+    // Apply settings
+    Object.assign(settings, state.settings);
+
+    // Store shopping list + autofillCount for StockpileReport to pick up
+    pendingRestore.value = {
+      shoppingList: state.shoppingList,
+      autofillCount: state.autofillCount
+    };
+  } catch (e) {
+    console.log('State restore error:', e);
+    errorMessage.value = 'Could not restore state: ' + e.toString();
+  }
+}
+
 async function addCSV(text) {
   if (errorMessage.value !== undefined) {
     submissions.value.pop();
@@ -150,13 +186,62 @@ onMounted(async () => {
       const file = event.clipboardData.files[0];
       if (file.type.startsWith('text/')) {
         const text = await file.text();
-        await addCSV(text);
+        const trimmed = text.trim();
+        if (trimmed.startsWith('{')) {
+          restoreState(trimmed);
+        } else {
+          await addCSV(text);
+        }
       }
     } else if (event.clipboardData) {
       const text = event.clipboardData.getData('text');
-      if (text && text.includes(',')) {
+      const trimmed = text.trim();
+      if (trimmed.startsWith('{')) {
+        restoreState(trimmed);
+      } else if (text && text.includes(',')) {
         await addCSV(text);
       }
+    }
+  });
+
+  // Drag-and-drop JSON/CSV files
+  let dragCounter = 0;
+
+  document.addEventListener('dragenter', (event) => {
+    event.preventDefault();
+    dragCounter++;
+    document.body.classList.add('drag-over');
+  });
+
+  document.addEventListener('dragleave', (event) => {
+    event.preventDefault();
+    dragCounter--;
+    if (dragCounter === 0) {
+      document.body.classList.remove('drag-over');
+    }
+  });
+
+  document.addEventListener('dragover', (event) => {
+    event.preventDefault();
+  });
+
+  document.addEventListener('drop', async (event) => {
+    event.preventDefault();
+    dragCounter = 0;
+    document.body.classList.remove('drag-over');
+
+    const file = event.dataTransfer?.files?.[0];
+    if (!file) return;
+
+    const text = await file.text();
+    const trimmed = text.trim();
+
+    if (trimmed.startsWith('{')) {
+      restoreState(trimmed);
+    } else if (file.name.endsWith('.json')) {
+      errorMessage.value = 'Invalid JSON file: must be a foxhole-stockpile-state export';
+    } else if (text.includes(',')) {
+      await addCSV(text);
     }
   });
 });
@@ -222,4 +307,19 @@ code
   padding: 2px 6px
   border-radius: 3px
   font-size: 14px
+
+:global(body.drag-over::after)
+  content: 'Drop file here'
+  position: fixed
+  inset: 0
+  z-index: 9999
+  display: flex
+  align-items: center
+  justify-content: center
+  background: rgba(34, 34, 34, 0.85)
+  border: 3px dashed #090
+  color: #090
+  font-size: 28px
+  font-weight: bold
+  pointer-events: none
 </style>

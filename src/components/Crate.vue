@@ -14,7 +14,7 @@ const targets = inject('targets');
 
 const target = computed(() => targets.value[props.name]);
 
-shoppingList[name] = 0;
+shoppingList[name] ??= 0;
 
 // todo: remove public/total separation
 
