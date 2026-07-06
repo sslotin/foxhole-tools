@@ -966,6 +966,40 @@ function extractUpgradeInputs(codeName) {
   return inputs.length > 0 ? inputs : null;
 }
 
+function extractStructureResourceInputs(codeName) {
+  const row = structureData[codeName];
+  if (!row) return null;
+  const inputs = [];
+  const ra = row.ResourceAmounts || {};
+  const main = ra.Resource || {};
+  if (main.CodeName && main.CodeName !== 'None' && main.Quantity > 0) {
+    inputs.push({ codeName: main.CodeName, quantity: main.Quantity });
+  }
+  for (const o of (ra.OtherResources || [])) {
+    if (o.CodeName && o.CodeName !== 'None' && o.Quantity > 0) {
+      inputs.push({ codeName: o.CodeName, quantity: o.Quantity });
+    }
+  }
+  return inputs.length > 0 ? inputs : null;
+}
+
+function extractStructureAltResourceInputs(codeName) {
+  const row = structureData[codeName];
+  if (!row) return null;
+  const inputs = [];
+  const alt = row.AltResourceAmounts || {};
+  const main = alt.Resource || {};
+  if (main.CodeName && main.CodeName !== 'None' && main.Quantity > 0) {
+    inputs.push({ codeName: main.CodeName, quantity: main.Quantity });
+  }
+  for (const o of (alt.OtherResources || [])) {
+    if (o.CodeName && o.CodeName !== 'None' && o.Quantity > 0) {
+      inputs.push({ codeName: o.CodeName, quantity: o.Quantity });
+    }
+  }
+  return inputs.length > 0 ? inputs : null;
+}
+
 function buildRecipeWithInputs(item, resourceInputs, upgradeInputs) {
   const recipe = {
     outputs: [{ codeName: item.CodeName, quantity: 1 }],
@@ -1000,23 +1034,40 @@ function buildRecipeWithInputs(item, resourceInputs, upgradeInputs) {
 function parseAssemblyItem(item) {
   const recipes = [];
   const row = vehicleData[item.CodeName];
+  const structRow = !row ? (structureData[item.CodeName] || null) : null;
 
   // For ALL vehicle pad recipes (scratch builds and upgrades alike),
   // use AltResourceAmounts. ResourceAmounts (RMats/Bmats) are for MPF,
   // and UpgradeResourceAmounts is for garage upgrades, not pads.
+  // For structure-type items (ship parts, fort parts), check structureData.
   if (row && hasRealResources(row.AltResourceAmounts)) {
     const altInputs = extractAltResourceInputs(item.CodeName);
+    if (altInputs) {
+      recipes.push(buildRecipeWithInputs(item, altInputs, null));
+    }
+  } else if (structRow && hasRealResources(structRow.AltResourceAmounts)) {
+    // Structure items use AltResourceAmounts too (ship parts, fort parts)
+    const altInputs = extractStructureAltResourceInputs(item.CodeName);
     if (altInputs) {
       recipes.push(buildRecipeWithInputs(item, altInputs, null));
     }
   }
   // Fallback: no alt resources, use base ResourceAmounts
   if (recipes.length === 0) {
-    const baseInputs = extractResourceInputs(item.CodeName);
-    if (baseInputs) {
-      recipes.push(buildRecipeWithInputs(item, baseInputs, null));
-    } else {
-      // No cost data at all (e.g. ship parts, fort parts)
+    if (row) {
+      const baseInputs = extractResourceInputs(item.CodeName);
+      if (baseInputs) {
+        recipes.push(buildRecipeWithInputs(item, baseInputs, null));
+      }
+    }
+    if (recipes.length === 0 && structRow) {
+      const structInputs = extractStructureResourceInputs(item.CodeName);
+      if (structInputs) {
+        recipes.push(buildRecipeWithInputs(item, structInputs, null));
+      }
+    }
+    if (recipes.length === 0) {
+      // No cost data at all (e.g. some ship parts, fort parts)
       recipes.push(buildRecipeWithInputs(item, null, null));
     }
   }

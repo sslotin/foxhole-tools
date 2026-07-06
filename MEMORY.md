@@ -208,7 +208,7 @@ codeName → { short, target }  // hardcoded targets, needs audit vs latest meta
 
 ---
 
-## Data Freshness (Jul 6, 2026)
+## Data Freshness (Jul 7, 2026)
 
 | Metric | Value |
 |---|---|
@@ -217,6 +217,12 @@ codeName → { short, target }  // hardcoded targets, needs audit vs latest meta
 | Inventory positions | **221** positions, **221** lines, **all mapped** ✅ |
 | Missing icons | **5** genuinely missing source PNG files (event-only content) |
 | Production recipes | **244** crate recipes (Factory/MPF) + **22** facility files (**276** conversion entries) |
+
+### Jul 7 — ShipPart recipes missing build costs
+
+**Root cause:** `parseAssemblyItem()` in `process-game-data.js` only looked up resource costs from `vehicleData` (`BPVehicleDynamicData.json`). Ship parts (`ShipPart1`, `ShipPart2`, `ShipPart3`) and `FortLargeRadarPart` are **structures** (blueprints in `Structures/Ships/`), not vehicles — their build costs are in `structureData` (`BPStructureDynamicData.json`). When `vehicleData[codeName]` returned undefined for these items, the script fell through to the "no cost data" fallback and emitted empty inputs, making them appear free to produce.
+
+**Fix:** Extended `parseAssemblyItem()` to fall back to `structureData` when the item isn't in `vehicleData`, using new helpers `extractStructureResourceInputs()` and `extractStructureAltResourceInputs()` that mirror the vehicle ones but read from `BPStructureDynamicData.json`.
 
 **All 5 English CSVs pass `check-diff`** — zero unknown items (only 4 duplicates from crate detection).
 

@@ -1,5 +1,5 @@
 {
-  "_generated": "2026-07-06T19:59:48.056Z",
+  "_generated": "2026-07-06T23:11:25.775Z",
   "_sources": [
     "War/Content/Blueprints/Data/BPItemDynamicData.json — Factory/MPF crate recipes",
     "War/Content/Blueprints/Structures/ — facility conversion recipes"
@@ -8590,7 +8590,12 @@
             }
           ],
           "duration": 15,
-          "inputs": [],
+          "inputs": [
+            {
+              "codeName": "Cloth",
+              "quantity": 25
+            }
+          ],
           "requires": null
         },
         {
@@ -9239,7 +9244,20 @@
                 }
               ],
               "duration": 600,
-              "inputs": [],
+              "inputs": [
+                {
+                  "codeName": "FacilityMaterials2",
+                  "quantity": 20
+                },
+                {
+                  "codeName": "FacilityMaterials5",
+                  "quantity": 15
+                },
+                {
+                  "codeName": "FacilityMaterials7",
+                  "quantity": 3
+                }
+              ],
               "requires": null
             },
             {
@@ -9446,7 +9464,20 @@
                 }
               ],
               "duration": 600,
-              "inputs": [],
+              "inputs": [
+                {
+                  "codeName": "FacilityMaterials2",
+                  "quantity": 30
+                },
+                {
+                  "codeName": "Facilitymaterials4",
+                  "quantity": 10
+                },
+                {
+                  "codeName": "FacilityMaterials7",
+                  "quantity": 20
+                }
+              ],
               "requires": null
             },
             {
@@ -9457,7 +9488,20 @@
                 }
               ],
               "duration": 600,
-              "inputs": [],
+              "inputs": [
+                {
+                  "codeName": "FacilityMaterials2",
+                  "quantity": 30
+                },
+                {
+                  "codeName": "Facilitymaterials4",
+                  "quantity": 10
+                },
+                {
+                  "codeName": "FacilityMaterials7",
+                  "quantity": 20
+                }
+              ],
               "requires": null
             }
           ]
@@ -9814,7 +9858,20 @@
                 }
               ],
               "duration": 600,
-              "inputs": [],
+              "inputs": [
+                {
+                  "codeName": "FacilityMaterials2",
+                  "quantity": 135
+                },
+                {
+                  "codeName": "FacilityMaterials4",
+                  "quantity": 10
+                },
+                {
+                  "codeName": "FacilityMaterials7",
+                  "quantity": 15
+                }
+              ],
               "requires": null
             },
             {
@@ -9937,7 +9994,20 @@
                 }
               ],
               "duration": 600,
-              "inputs": [],
+              "inputs": [
+                {
+                  "codeName": "FacilityMaterials2",
+                  "quantity": 135
+                },
+                {
+                  "codeName": "FacilityMaterials4",
+                  "quantity": 10
+                },
+                {
+                  "codeName": "FacilityMaterials7",
+                  "quantity": 15
+                }
+              ],
               "requires": null
             },
             {
@@ -10186,7 +10256,28 @@
                 }
               ],
               "duration": 86400,
-              "inputs": [],
+              "inputs": [
+                {
+                  "codeName": "FacilityMaterials3",
+                  "quantity": 20
+                },
+                {
+                  "codeName": "FacilityMaterials11",
+                  "quantity": 75
+                },
+                {
+                  "codeName": "FacilityMaterials5",
+                  "quantity": 55
+                },
+                {
+                  "codeName": "FacilityMaterials9",
+                  "quantity": 150
+                },
+                {
+                  "codeName": "FacilityMaterials8",
+                  "quantity": 25
+                }
+              ],
               "requires": null
             },
             {
@@ -10197,7 +10288,28 @@
                 }
               ],
               "duration": 86400,
-              "inputs": [],
+              "inputs": [
+                {
+                  "codeName": "FacilityMaterials3",
+                  "quantity": 20
+                },
+                {
+                  "codeName": "FacilityMaterials11",
+                  "quantity": 75
+                },
+                {
+                  "codeName": "FacilityMaterials4",
+                  "quantity": 65
+                },
+                {
+                  "codeName": "FacilityMaterials8",
+                  "quantity": 25
+                },
+                {
+                  "codeName": "FacilityMaterials9",
+                  "quantity": 125
+                }
+              ],
               "requires": null
             },
             {
@@ -10208,7 +10320,20 @@
                 }
               ],
               "duration": 86400,
-              "inputs": [],
+              "inputs": [
+                {
+                  "codeName": "FacilityMaterials9",
+                  "quantity": 75
+                },
+                {
+                  "codeName": "FacilityMaterials10",
+                  "quantity": 165
+                },
+                {
+                  "codeName": "FacilityMaterials6",
+                  "quantity": 45
+                }
+              ],
               "requires": null
             },
             {
@@ -10219,7 +10344,20 @@
                 }
               ],
               "duration": 300,
-              "inputs": [],
+              "inputs": [
+                {
+                  "codeName": "FacilityMaterials2",
+                  "quantity": 250
+                },
+                {
+                  "codeName": "FacilityMaterials4",
+                  "quantity": 225
+                },
+                {
+                  "codeName": "FacilityMaterials5",
+                  "quantity": 225
+                }
+              ],
               "requires": null
             },
             {
@@ -10230,7 +10368,20 @@
                 }
               ],
               "duration": 300,
-              "inputs": [],
+              "inputs": [
+                {
+                  "codeName": "FacilityMaterials2",
+                  "quantity": 50
+                },
+                {
+                  "codeName": "FacilityMaterials7",
+                  "quantity": 40
+                },
+                {
+                  "codeName": "FacilityMaterials11",
+                  "quantity": 15
+                }
+              ],
               "requires": null
             },
             {
@@ -10241,7 +10392,20 @@
                 }
               ],
               "duration": 1500,
-              "inputs": [],
+              "inputs": [
+                {
+                  "codeName": "FacilityMaterials2",
+                  "quantity": 300
+                },
+                {
+                  "codeName": "FacilityMaterials9",
+                  "quantity": 20
+                },
+                {
+                  "codeName": "FacilityMaterials11",
+                  "quantity": 45
+                }
+              ],
               "requires": null
             },
             {
@@ -10252,7 +10416,20 @@
                 }
               ],
               "duration": 1500,
-              "inputs": [],
+              "inputs": [
+                {
+                  "codeName": "FacilityMaterials2",
+                  "quantity": 50
+                },
+                {
+                  "codeName": "FacilityMaterials9",
+                  "quantity": 3
+                },
+                {
+                  "codeName": "FacilityMaterials11",
+                  "quantity": 15
+                }
+              ],
               "requires": null
             },
             {
@@ -10263,7 +10440,20 @@
                 }
               ],
               "duration": 1500,
-              "inputs": [],
+              "inputs": [
+                {
+                  "codeName": "FacilityMaterials2",
+                  "quantity": 150
+                },
+                {
+                  "codeName": "FacilityMaterials4",
+                  "quantity": 150
+                },
+                {
+                  "codeName": "FacilityMaterials5",
+                  "quantity": 150
+                }
+              ],
               "requires": null
             },
             {
@@ -10274,7 +10464,20 @@
                 }
               ],
               "duration": 1500,
-              "inputs": [],
+              "inputs": [
+                {
+                  "codeName": "FacilityMaterials2",
+                  "quantity": 200
+                },
+                {
+                  "codeName": "FacilityMaterials9",
+                  "quantity": 5
+                },
+                {
+                  "codeName": "FacilityMaterials11",
+                  "quantity": 35
+                }
+              ],
               "requires": null
             },
             {
@@ -10285,7 +10488,20 @@
                 }
               ],
               "duration": 1500,
-              "inputs": [],
+              "inputs": [
+                {
+                  "codeName": "FacilityMaterials2",
+                  "quantity": 50
+                },
+                {
+                  "codeName": "FacilityMaterials9",
+                  "quantity": 3
+                },
+                {
+                  "codeName": "FacilityMaterials11",
+                  "quantity": 15
+                }
+              ],
               "requires": null
             }
           ]
@@ -10301,7 +10517,32 @@
                 }
               ],
               "duration": 1500,
-              "inputs": [],
+              "inputs": [
+                {
+                  "codeName": "FacilityMaterials2",
+                  "quantity": 60
+                },
+                {
+                  "codeName": "FacilityMaterials4",
+                  "quantity": 2
+                },
+                {
+                  "codeName": "FacilityMaterials5",
+                  "quantity": 2
+                },
+                {
+                  "codeName": "FacilityMaterials7",
+                  "quantity": 10
+                },
+                {
+                  "codeName": "FacilityMaterials9",
+                  "quantity": 4
+                },
+                {
+                  "codeName": "FacilityMaterials11",
+                  "quantity": 4
+                }
+              ],
               "requires": null
             },
             {
@@ -10312,7 +10553,16 @@
                 }
               ],
               "duration": 300,
-              "inputs": [],
+              "inputs": [
+                {
+                  "codeName": "FacilityMaterials1",
+                  "quantity": 2
+                },
+                {
+                  "codeName": "FacilityMaterials11",
+                  "quantity": 1
+                }
+              ],
               "requires": null
             },
             {
@@ -10323,7 +10573,16 @@
                 }
               ],
               "duration": 43200,
-              "inputs": [],
+              "inputs": [
+                {
+                  "codeName": "FacilityMaterials8",
+                  "quantity": 20
+                },
+                {
+                  "codeName": "FacilityMaterials9",
+                  "quantity": 20
+                }
+              ],
               "requires": null
             }
           ]
