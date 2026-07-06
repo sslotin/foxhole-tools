@@ -178,7 +178,7 @@ const uniforms = [
   'AmmoUniformW', 'GrenadeUniformC', 'ArmourUniformC', 'ArmourUniformW', 'EngineerUniformW', 'EngineerUniformC',
   'MedicUniformW', 'MedicUniformC', 'OfficerUniformW', 'OfficerUniformC', 'RainUniformC',
   'ScoutUniformW', 'ScoutUniformC', 'SnowUniformW', 'SnowUniformC', 'TankUniformW', 'TankUniformC',
-  'NavalUniformW', 'NavalUniformC'
+  'NavalUniformW', 'NavalUniformC', 'PilotUniformW', 'PilotUniformC'
 ];
 const SAW = [
   'ATGrenadeW', 'ATRPGLightC', 'MortarAmmoFL', 'MortarAmmoSH', 'MortarAmmo',
@@ -266,6 +266,8 @@ function exportJson() {
           <Crate name="BloodPlasma" type="meds" />
           <Crate name="FirstAidKit" type="meds" />
           <Crate name="TraumaKit" type="meds" />
+          <Crate name="MedicUniformW" />
+          <Crate name="MedicUniformC" />
         </div>
 
         <div class="section">
@@ -351,6 +353,8 @@ function exportJson() {
           <Crate name="RpgW" type="heavy" />
           <Crate name="HELaunchedGrenade" />
           <Crate name="GrenadeLauncherC" type="heavy" />
+          <Crate name="AmmoUniformW" />
+          <Crate name="GrenadeUniformC" />
         </div>
 
         <div class="section">
@@ -425,17 +429,32 @@ function exportJson() {
           <Crate name="AircraftAmmo" />
           <Crate name="LightAAAmmo" />
           <Crate name="AAAmmo" type="arty" />
+          <Crate name="AirSirenT" />
         </div>
 
         <div class="section">
-          <Crate name="AmmoUniformW" />
-          <Crate name="GrenadeUniformC" />
+          <Crate name="MiniTorpedoAmmo" />
+          <Crate name="AircraftTorpedoAmmo" />
+          <Crate name="PilotMask" />
+          <Crate name="ParatrooperBackpack" />
+          <Crate name="PilotUniformW" />
+          <Crate name="PilotUniformC" />
+          <Crate name="ParatrooperUniformW" />
+          <Crate name="ParatrooperUniformC" />
+        </div>
+
+        <div class="section">
+          <Crate name="SurfaceWaterMine" />
+          <Crate name="WaterWallMaterials" />
+          <Crate name="NavalUniformW" />
+          <Crate name="NavalUniformC" />
+        </div>
+
+        <div class="section">
           <Crate name="ArmourUniformC" />
           <Crate name="ArmourUniformW" />
           <Crate name="EngineerUniformW" />
           <Crate name="EngineerUniformC" />
-          <Crate name="MedicUniformW" />
-          <Crate name="MedicUniformC" />
           <Crate name="TankUniformW" />
           <Crate name="TankUniformC" />
           <Crate name="ScoutUniformW" />
@@ -443,8 +462,6 @@ function exportJson() {
           <Crate name="RainUniformC" />
           <Crate name="SnowUniformW" />
           <Crate name="SnowUniformC" />
-          <Crate name="NavalUniformW" />
-          <Crate name="NavalUniformC" />
           <Crate name="OfficerUniformW" />
           <Crate name="OfficerUniformC" />
         </div>
