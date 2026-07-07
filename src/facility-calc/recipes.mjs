@@ -162,8 +162,34 @@ export function recipesFor (item) {
   return recipesByOutput[item] || []
 }
 
+// Preferred default recipe overrides. When multiple recipes produce the same
+// item, the default recipe (used when the user hasn't explicitly chosen one)
+// is selected by this map instead of the base recipe.
+//
+// Keyed by codeName, each entry specifies the facility + modification to prefer.
+// For modifications with multiple recipes producing the same item, `hasInput`
+// further disambiguates.
+const DEFAULT_OVERRIDES = {
+  // Processed Construction Materials → BlastFurnace (heavy oil recipe)
+  FacilityMaterials2: { facilityKey: 'FacilityRefinery2', mod: 'BlastFurnace' },
+  // Steel → EngineeringStation enriched oil recipe
+  FacilityMaterials3: { facilityKey: 'FacilityRefinery2', mod: 'EngineeringStation', hasInput: 'FacilityOil2' },
+}
+
 export function defaultRecipe (item) {
   const arr = recipesFor(item)
+  if (arr.length === 0) return null
+
+  const override = DEFAULT_OVERRIDES[item]
+  if (override) {
+    const preferred = arr.find(r => {
+      if (r.facilityKey !== override.facilityKey || r.mod !== override.mod) return false
+      if (override.hasInput) return r.inputs.some(i => i.codeName === override.hasInput)
+      return true
+    })
+    if (preferred) return preferred
+  }
+
   return arr.find(r => r.mod === null) || arr[0] || null
 }
 

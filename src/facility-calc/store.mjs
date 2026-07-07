@@ -9,6 +9,7 @@ export const calc = reactive({
   active: false,          // is the calculator panel shown in place of metadata?
   desired: [],            // [{codeName, qty}] — what the user wants to produce
   selectedRecipes: {},    // codeName -> chosen recipe object (override of default)
+  imported: [],           // codeNames the user treats as imported inputs (not manufactured)
 })
 
 export function addDesired (codeName, qty = 1) {
@@ -16,4 +17,10 @@ export function addDesired (codeName, qty = 1) {
   if (existing) existing.qty = (existing.qty || 1) + qty
   else calc.desired.push({ codeName, qty })
   calc.active = true
+}
+
+export function toggleImported (codeName) {
+  const idx = calc.imported.indexOf(codeName)
+  if (idx >= 0) calc.imported.splice(idx, 1)
+  else calc.imported.push(codeName)
 }

@@ -100,13 +100,22 @@ Paste → App.vue.addCSV(text) → parser/csv-parser.parseCSV(text)
 2. For each item, walk *all* `recipesFor(item)` (every alternative, not the chosen one), mark each recipe reachable and recurse into all its inputs.
 3. Returns `Map<recipe, presentedItem>` where `presentedItem` = `recipe.primaryOutput` (defined in `recipes.mjs`). For multi-output recipes this means the recipe is always presented under its designated primary product (e.g. Excavator Sulfur mine → presented under "Coal"), not under whichever output triggered the BFS inclusion.
 
+**`reachableRecipes`** (`resolver.mjs`) — **graph closure**, independent of `selectedRecipes` (for stable UI sections):
+
+1. Seed BFS with `desired` codeNames.
+2. For each item, walk *all* `recipesFor(item)` (every alternative, not the chosen one), mark each recipe reachable and recurse into all its inputs.
+3. Returns `Map<recipe, presentedItem>` where `presentedItem` = `recipe.primaryOutput` (defined in `recipes.mjs`). For multi-output recipes this means the recipe is always presented under its designated primary product (e.g. Excavator Sulfur mine → presented under "Coal"), not under whichever output triggered the BFS inclusion.
+
 **Display rules** (in `FacilityCalc.vue`):
-- Recipe rows use a **4-column grid**: inputs (flex column, each on its own line), arrow separator, outputs (flex column, each on its own line), time (top-right corner, shown only for the active recipe).
+- Recipe rows use a **5-column grid**: facility icon (with hover tooltip), inputs (flex column, each on its own line), arrow separator, outputs (flex column, each on its own line), time (top-right corner, shown only for the active recipe).
 - `activeItems = new Set(plan.processes.map(p => p.item))` — drives **activatability** (lit vs dim) of each recipe row.
 - Counts ceiled for display via `Math.ceil(n - 1e-6)`; the resolver stays fractional.
-- Left panel: **Raw resources** / **Intermediate resources** (only if non-empty) / **By-products** (only if non-empty, its own section).
-- **Raw resources exception:** `Metal` (Salvage), `Coal`, `Sulfur`, `Components`, and `Oil` always appear under "Raw resources" even when producible from other recipes (e.g. Components via Recycler, Coal as Sulfur mine byproduct). The `ALWAYS_RAW` set reclassifies these from intermediate/byproducts for display.
-- Right panel: recipes grouped by **primary output** (the `primaryOutput` field on each recipe), sorted target-producers-first then alphabetically by group label. Each recipe row shows its facility/mod as a gray subtitle line.
+- Left panel: **Inputs** / **Intermediates** / **By-products**.
+  - **Inputs** section: combines raw resources (ALWAYS_RAW + items with no facility recipe + mine-only items) with user-imported intermediates. Non-clickable for always-input items (no recipe, mines, ALWAYS_RAW); clickable for user-imported items to move them back to Intermediates.
+  - **Intermediates** section: clickable rows — clicking moves an item to Inputs (prunes its supply chain, assumes you import it).
+  - **By-products** section: not clickable.
+- **Raw resources exception:** `Metal` (Salvage), `Coal`, `Sulfur`, `Components`, and `Oil` always appear under "Inputs" even when producible from other recipes. The `ALWAYS_RAW` set reclassifies these from intermediate/byproducts for display. Items with no facility recipe at all (leaf items) also always appear in Inputs with no toggle.
+- Right panel: recipes grouped by **primary output** (the `primaryOutput` field on each recipe), sorted target-producers-first then alphabetically by group label. Each recipe row shows its facility/mod via icon + label on the left.
 
 ---
 
@@ -205,6 +214,19 @@ codeName → { short, target }  // hardcoded targets, needs audit vs latest meta
 | `npm run dev` | Vite dev server |
 | `npm run build` | Production build |
 | `npm run test` | Vitest (no test files yet) |
+
+---
+
+## Default Recipe Overrides (Jul 7, 2026)
+
+Some items have multiple facility recipes. When the user hasn't explicitly selected one, the `defaultRecipe()` function in `recipes.mjs` now prefers certain non-base recipes over the base recipe:
+
+| Item | Preferred Recipe | Rationale |
+|---|---|---|
+| `FacilityMaterials2` (Processed Construction Materials) | **BlastFurnace** — 3 Cmats + 55 Components + 6 Heavy Oil → 3 PCon | Heavy oil recipe — more efficient per Cmat (3 PCon vs 1), uses components instead of just Cmats |
+| `FacilityMaterials3` (Steel) | **EngineeringStation** (enriched oil variant) — 9 PCon + 375 Coke + 90 Enriched Oil + 100 Water → 3 Steel | Uses enriched oil for superior yield (3 Steel vs 1 per run) |
+
+The override map `DEFAULT_OVERRIDES` keys by codeName and matches by `facilityKey` + `mod`, with optional `hasInput` to disambiguate mods with multiple recipes for the same output. Falls back to the base recipe (no mod) if the preferred recipe doesn't match.
 
 ---
 

@@ -1,9 +1,12 @@
 // Worklist resolver for the facility cost calculator.
 //
-// Given desired outputs (codeName + quantity) and an optional per-item recipe
-// override, walks the recipe graph bottom-up and returns:
+// Given desired outputs (codeName + quantity), an optional per-item recipe
+// override, and an optional set of "imported" items (user-supplied inputs not
+// manufactured), walks the recipe graph bottom-up and returns:
 //   raw          — {item: qty} leaves you must source (no facility recipe, or
 //                  produced only by node-consuming mines with no item inputs)
+//   inputs       — {item: qty} items the user treats as imported (not
+//                  manufactured, but counted as needed)
 //   intermediate — {item: qty} of each resolvable item manufactured internally
 //                  (net, after byproduct reuse), excluding the desired outputs
 //   processes    — [{recipe, runs, time, item}] every recipe step that ran,
@@ -27,9 +30,10 @@ import { defaultRecipe, facLabel, recipesFor } from './recipes.mjs'
 const procKey = (recipe, item) => `${recipe.facilityKey}|${recipe.mod || ''}|${item}`
 const EPS = 1e-9
 
-export function resolvePlan (desired, selectedRecipes) {
+export function resolvePlan (desired, selectedRecipes, imported = new Set()) {
   const raw = {}
   const intermediate = {}
+  const inputs = {} // user-imported items (not manufactured)
   const excess = {} // internal byproduct surplus, reused but not returned
   const processes = {}
   const involved = new Set()
@@ -52,6 +56,12 @@ export function resolvePlan (desired, selectedRecipes) {
       need -= take
     }
     if (need <= EPS) continue
+
+    // User-imported item: count as needed input, but don't manufacture.
+    if (imported.has(item)) {
+      inputs[item] = (inputs[item] || 0) + need
+      continue
+    }
 
     const recipe = selectedRecipes[item] || defaultRecipe(item)
     if (!recipe) {
@@ -109,7 +119,7 @@ export function resolvePlan (desired, selectedRecipes) {
   const byproducts = {}
   for (const [k, v] of Object.entries(excess)) if (v > EPS) byproducts[k] = v
 
-  return { raw, intermediate, byproducts, processes: processList, involved }
+  return { raw, intermediate, byproducts, processes: processList, involved, inputs }
 }
 
 // Stable set of every recipe that COULD be involved in producing `desired`,

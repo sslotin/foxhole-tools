@@ -5,9 +5,10 @@ import {
   recipesFor, displayName,
 } from '../facility-calc/recipes.mjs'
 import { resolvePlan, reachableRecipes } from '../facility-calc/resolver.mjs'
+import { toggleImported } from '../facility-calc/store.mjs'
 import FacItem from './FacItem.vue'
 
-const plan = computed(() => resolvePlan(calc.desired, calc.selectedRecipes))
+const plan = computed(() => resolvePlan(calc.desired, calc.selectedRecipes, new Set(calc.imported)))
 
 // Recipes actually running in the current plan (by identity), with their times.
 const activeRecipes = computed(() => new Set(plan.value.processes.map(p => p.recipe)))
@@ -102,7 +103,7 @@ const sortBy = (a, b) => displayName(a[0]).localeCompare(displayName(b[0]))
 const ALWAYS_RAW = new Set(['Metal', 'Coal', 'Sulfur', 'Components', 'Oil'])
 
 const rawDisplay = computed(() => {
-  const r = { ...plan.value.raw }
+  const r = { ...plan.value.raw, ...plan.value.inputs }
   for (const [c, q] of Object.entries(plan.value.intermediate)) {
     if (ALWAYS_RAW.has(c)) r[c] = (r[c] || 0) + q
   }
@@ -119,6 +120,14 @@ const interDisplay = computed(() =>
 const byDisplay = computed(() =>
   Object.entries(plan.value.byproducts || {}).filter(([c]) => !ALWAYS_RAW.has(c)).sort(sortBy)
 )
+
+// Items that are always in "Inputs" with no toggle: ALWAYS_RAW resources +
+// anything the resolver puts in `raw` (no facility recipe or mine-only items).
+const alwaysInputSet = computed(() => {
+  const s = new Set(ALWAYS_RAW)
+  for (const c of Object.keys(plan.value.raw)) s.add(c)
+  return s
+})
 </script>
 
 <template>
@@ -130,17 +139,24 @@ const byDisplay = computed(() =>
     <template v-else>
       <div class="fc-left">
         <section class="fc-block">
-          <h3>Raw resources</h3>
+          <h3>Inputs</h3>
           <div v-if="rawDisplay.length" class="io-list">
-            <FacItem v-for="[c, q] in rawDisplay" :key="c" :codeName="c" :qty="fmt(q)" />
+            <div v-for="[c, q] in rawDisplay" :key="c"
+                 class="input-row"
+                 :class="{ clickable: !alwaysInputSet.has(c) }"
+                 @click="alwaysInputSet.has(c) ? undefined : toggleImported(c)">
+              <FacItem :codeName="c" :qty="fmt(q)" />
+            </div>
           </div>
           <p v-else class="muted">none</p>
         </section>
 
         <section v-if="interDisplay.length" class="fc-block">
-          <h3>Intermediate resources</h3>
+          <h3>Intermediates</h3>
           <div class="io-list">
-            <FacItem v-for="[c, q] in interDisplay" :key="c" :codeName="c" :qty="fmt(q)" />
+            <div v-for="[c, q] in interDisplay" :key="c" class="inter-row" @click="toggleImported(c)">
+              <FacItem :codeName="c" :qty="fmt(q)" />
+            </div>
           </div>
         </section>
 
@@ -215,6 +231,48 @@ const byDisplay = computed(() =>
     letter-spacing: .04em
     border-bottom: 1px solid #333
     padding-bottom: 4px
+
+.inter-row
+    display: flex
+    align-items: center
+    gap: 8px
+    padding: 4px 8px
+    border-radius: 4px
+    cursor: pointer
+    width: 100%
+
+    &:hover
+      background: #262626
+
+    .fac-item
+      overflow: hidden
+      max-width: 100%
+
+      .nm
+        flex: 1 1 auto
+        min-width: 0
+
+.input-row
+    display: flex
+    align-items: center
+    gap: 8px
+    padding: 4px 8px
+    border-radius: 4px
+    width: 100%
+
+    &.clickable
+      cursor: pointer
+
+      &:hover
+        background: #262626
+
+    .fac-item
+      overflow: hidden
+      max-width: 100%
+
+      .nm
+        flex: 1 1 auto
+        min-width: 0
 
 .muted
   color: #777
