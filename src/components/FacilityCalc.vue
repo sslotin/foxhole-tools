@@ -2,35 +2,33 @@
 import { computed } from 'vue'
 import { calc } from '../facility-calc/store.mjs'
 import {
-  recipesFor, displayName,
+  recipesFor, displayName, modLabel,
 } from '../facility-calc/recipes.mjs'
 import { resolvePlan, reachableRecipes } from '../facility-calc/resolver.mjs'
 import { toggleImported } from '../facility-calc/store.mjs'
 import FacItem from './FacItem.vue'
 
 // Two-pass resolution: first pass figures out which ALWAYS_RAW items the
-// resolver would manufacture (appear in intermediate or byproducts), then
-// the second pass auto-imports them so they default to Inputs section.
-// This makes ALWAYS_RAW items clickable — the user can toggle them to
-// Intermediates (removing the auto-import) to see them as manufactured.
+// Two-pass resolution: first pass figures out which ALWAYS_RAW items the
+// resolver would manufacture (appear in intermediate, byproducts, or raw from
+// node mines), then the second pass auto-imports them so they default to the
+// Inputs section. This makes ALWAYS_RAW items clickable — the user can toggle
+// them to Intermediates by clicking, which marks them in skipAutoImport to
+// prevent the auto-import from re-adding them.
 //
-// Items truly in plan.raw (no facility recipe at all, or node-only mines)
-// remain non-clickable since they cannot be manufactured.
+// Items truly irreducible (no facility recipe at all) remain non-clickable.
+// Single-pass resolution with auto-import of gathered resources.
+// Salvage, Coal, Components, Sulfur, and Oil default to Imports
+// (added to the imported set) unless the user has explicitly toggled
+// them (in which case they're in calc.imported and excluded here).
+const DEFAULT_IMPORTED = ['Metal', 'Coal', 'Sulfur', 'Components', 'Oil']
+
 const plan = computed(() => {
-  const pass1 = resolvePlan(calc.desired, calc.selectedRecipes, new Set(calc.imported))
-
-  // Auto-import ALWAYS_RAW items that appear in intermediates or byproducts,
-  // so they default to the Inputs section. User can click to remove them
-  // from calc.imported, which lets them show in Intermediates/By-products.
-  const autoImported = new Set(calc.imported)
-  const ALWAYS_RAW = new Set(['Metal', 'Coal', 'Sulfur', 'Components', 'Oil'])
-  for (const c of ALWAYS_RAW) {
-    if (c in pass1.intermediate || (pass1.byproducts && c in pass1.byproducts)) {
-      autoImported.add(c)
-    }
+  const effectiveImports = new Set(calc.imported)
+  for (const c of DEFAULT_IMPORTED) {
+    if (!calc.imported.includes(c)) effectiveImports.add(c)
   }
-
-  return resolvePlan(calc.desired, calc.selectedRecipes, autoImported)
+  return resolvePlan(calc.desired, calc.selectedRecipes, effectiveImports)
 })
 
 // Recipes actually running in the current plan (by identity), with their times.
@@ -93,6 +91,29 @@ const groups = computed(() => {
   return arr
 })
 
+// Unique facilities used in the active plan, for the Facilities section.
+// Each entry has the facility icon key and the display label (mod name
+// with resource disambiguation, e.g. "Excavator (Sulfur)").
+const facilities = computed(() => {
+  const seen = new Set()
+  const result = []
+  for (const p of plan.value.processes) {
+    const key = p.recipe.facilityKey + '|' + (p.recipe.mod || '')
+    if (seen.has(key)) continue
+    seen.add(key)
+    result.push({
+      facilityKey: p.recipe.facilityKey,
+      label: modLabel(p.recipe),
+    })
+  }
+  result.sort((a, b) => a.label.localeCompare(b.label))
+  return result
+})
+
+function handleInputClick (codeName) {
+  toggleImported(codeName)
+}
+
 function chooseRecipe (item, idx) {
   calc.selectedRecipes[item] = recipesFor(item)[idx]
 }
@@ -121,14 +142,27 @@ function fmtTime (s) {
 
 const sortBy = (a, b) => displayName(a[0]).localeCompare(displayName(b[0]))
 
-// Resources displayed under Inputs section: raw (no recipe, or node-only
-// mines) + imported (user-toggled or auto-imported ALWAYS_RAW items).
-// No force-merging of intermediates/byproducts into Inputs — the two-pass
-// plan auto-imports ALWAYS_RAW items so they appear here by default.
+// Resources displayed under Imports section: raw (no recipe, or node-only
+// mines) + imported (user-toggled or default-gathered resources).
 const rawDisplay = computed(() => {
   const r = { ...plan.value.raw, ...plan.value.inputs }
   return Object.entries(r).sort(sortBy)
 })
+
+// Irreducible imports: items with no facility recipe at all — must be
+// sourced from outside (mined/gathered/farmed), can't be facility-crafted.
+// Displayed at the top of the Imports section, separated from reducible
+// imports by a thin horizontal line.
+const irreducibleInputs = computed(() =>
+  rawDisplay.value.filter(([c]) => recipesFor(c).length === 0)
+)
+
+// Reducible imports: items in rawDisplay that have at least one facility
+// recipe (node mines or facility recipes) — they could be produced instead
+// of imported. Shown below the separator.
+const reducibleInputs = computed(() =>
+  rawDisplay.value.filter(([c]) => recipesFor(c).length > 0)
+)
 
 const interDisplay = computed(() =>
   Object.entries(plan.value.intermediate).sort(sortBy)
@@ -138,11 +172,16 @@ const byDisplay = computed(() =>
   Object.entries(plan.value.byproducts || {}).sort(sortBy)
 )
 
-// Items with no recipe at all (truly raw, must be sourced). These stay
-// non-clickable. ALWAYS_RAW items that have recipes are NOT included
-// here — they become clickable via auto-import (the plan treats them as
-// imported, so they appear in plan.inputs not plan.raw).
-const alwaysInputSet = computed(() => new Set(Object.keys(plan.value.raw)))
+// Items with no facility recipe at all (truly irreducible, must be sourced
+// from outside). These stay non-clickable because clicking can't manufacture
+// them.
+const alwaysInputSet = computed(() => {
+  const s = new Set()
+  for (const c of Object.keys(plan.value.raw)) {
+    if (recipesFor(c).length === 0) s.add(c)
+  }
+  return s
+})
 </script>
 
 <template>
@@ -153,13 +192,18 @@ const alwaysInputSet = computed(() => new Set(Object.keys(plan.value.raw)))
 
     <template v-else>
       <div class="fc-left">
-        <section class="fc-block">
-          <h3>Inputs</h3>
+        <section v-if="rawDisplay.length" class="fc-block">
+          <h3>Imports</h3>
           <div v-if="rawDisplay.length" class="io-list">
-            <div v-for="[c, q] in rawDisplay" :key="c"
+            <div v-for="[c, q] in irreducibleInputs" :key="c"
+                 class="input-row irreducible">
+              <FacItem :codeName="c" :qty="fmt(q)" />
+            </div>
+            <div v-if="irreducibleInputs.length && reducibleInputs.length" class="input-separator"></div>
+            <div v-for="[c, q] in reducibleInputs" :key="c"
                  class="input-row"
                  :class="{ clickable: !alwaysInputSet.has(c) }"
-                 @click="alwaysInputSet.has(c) ? undefined : toggleImported(c)">
+                 @click="alwaysInputSet.has(c) ? undefined : handleInputClick(c)">
               <FacItem :codeName="c" :qty="fmt(q)" />
             </div>
           </div>
@@ -181,6 +225,18 @@ const alwaysInputSet = computed(() => new Set(Object.keys(plan.value.raw)))
             <FacItem v-for="[c, q] in byDisplay" :key="c" :codeName="c" :qty="fmt(q)" />
           </div>
         </section>
+
+        <section v-if="facilities.length" class="fc-block">
+          <h3>Facilities</h3>
+          <div class="fac-list">
+            <div v-for="fac in facilities" :key="fac.facilityKey" class="fac-row">
+              <img :src="`/icons/${fac.facilityKey}.png`"
+                   class="fac-icon"
+                   @error="$event.target.style.visibility = 'hidden'" />
+              <span class="nm">{{ fac.label }}</span>
+            </div>
+          </div>
+        </section>
       </div>
 
       <div class="fc-right">
@@ -197,7 +253,7 @@ const alwaysInputSet = computed(() => new Set(Object.keys(plan.value.raw)))
             <img :src="`/icons/${entry.r.facilityKey}.png`"
                  class="fac-icon"
                  @error="$event.target.style.visibility = 'hidden'" />
-            <span class="fac-label">{{ entry.r.mod ? entry.r.modName : entry.r.facility }}</span>
+            <span class="fac-label">{{ modLabel(entry.r) }}</span>
           </span>
             <span class="io-inputs">
               <FacItem v-for="(inp, k) in entry.r.inputs" :key="k" :codeName="inp.codeName" :qty="inp.quantity" />
@@ -222,7 +278,20 @@ const alwaysInputSet = computed(() => new Set(Object.keys(plan.value.raw)))
   width: 1180px
 
 .fc-left
-  flex: 0 0 325px
+  flex: 0 0 340px
+  overflow-y: auto
+  overflow-x: hidden
+  position: sticky
+  top: 0
+  max-height: 100vh
+  align-self: start
+
+  &::-webkit-scrollbar
+    width: 3px
+
+  &::-webkit-scrollbar-thumb
+    background: #444
+    border-radius: 2px
 
 .fc-right
   flex: 1
@@ -240,6 +309,7 @@ const alwaysInputSet = computed(() => new Set(Object.keys(plan.value.raw)))
 
   h3
     margin: 0 0 8px
+    margin-right: 8px
     font-size: 15px
     color: #999
     text-transform: uppercase
@@ -251,7 +321,7 @@ const alwaysInputSet = computed(() => new Set(Object.keys(plan.value.raw)))
     display: flex
     align-items: center
     gap: 8px
-    padding: 4px 8px
+    padding: 3px 8px
     border-radius: 4px
     cursor: pointer
     width: 100%
@@ -271,12 +341,19 @@ const alwaysInputSet = computed(() => new Set(Object.keys(plan.value.raw)))
     display: flex
     align-items: center
     gap: 8px
-    padding: 4px 8px
+    padding: 3px 8px
     border-radius: 4px
     width: 100%
+    cursor: default
+    opacity: 0.65
+
+    &.irreducible
+      // No special visual needed — base styles already dim and
+      // use default cursor for items with no facility recipe.
 
     &.clickable
       cursor: pointer
+      opacity: 1
 
       &:hover
         background: #262626
@@ -289,6 +366,12 @@ const alwaysInputSet = computed(() => new Set(Object.keys(plan.value.raw)))
         flex: 1 1 auto
         min-width: 0
 
+.input-separator
+  height: 0
+  border-top: 1px dashed #333
+  margin: 2px 8px
+  align-self: stretch
+
 .muted
   color: #777
   font-size: 15px
@@ -298,10 +381,34 @@ const alwaysInputSet = computed(() => new Set(Object.keys(plan.value.raw)))
   flex-direction: column
   align-items: flex-start
 
-// Primary-output groups. No headers — each recipe row carries a facility icon
-// on the left (with a hover tooltip showing the modification name).
+.fac-list
+  display: flex
+  flex-direction: column
+  align-items: flex-start
+
+.fac-row
+  display: flex
+  align-items: center
+  gap: 8px
+  padding: 3px 8px
+  border-radius: 4px
+  width: 100%
+
+  .fac-icon
+    width: 28px
+    height: 28px
+    object-fit: contain
+    flex-shrink: 0
+
+  .nm
+    color: #ddd
+    font-size: 15px
+
+// Primary-output groups. Each group has a right border.
 .group
   margin-bottom: 12px
+  border-right: 1px solid #555
+  padding-right: 12px
 
 .recipe-row
   position: relative
@@ -326,8 +433,6 @@ const alwaysInputSet = computed(() => new Set(Object.keys(plan.value.raw)))
     gap: 2px
     align-self: stretch
     min-width: 0
-    padding-right: 6px
-    border-right: 1px solid #555
 
     .fac-icon
       width: 48px

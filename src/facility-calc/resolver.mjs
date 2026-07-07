@@ -86,10 +86,14 @@ export function resolvePlan (desired, selectedRecipes, imported = new Set()) {
       processes[pkey] = { recipe, runs, time: (recipe.duration || 0) * runs, item }
     }
 
-    // Node-consuming mine (no item inputs): the output is gathered, not
-    // crafted, so it's a raw resource — never an intermediate.
+    // Node mine (no item inputs). Root items stay gathered (raw).
+    // Non-root items are intermediate — manufactured as part of the chain.
     if (recipe.inputs.length === 0) {
-      raw[item] = (raw[item] || 0) + need
+      if (root) {
+        raw[item] = (raw[item] || 0) + need
+      } else {
+        intermediate[item] = (intermediate[item] || 0) + need
+      }
       continue
     }
 

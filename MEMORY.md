@@ -1,6 +1,6 @@
 # MEMORY.md — Project Context & Status
 
-Last updated: Jul 7, 2026 (ALWAYS_RAW now toggleable via two-pass auto-import).
+Last updated: Jul 7, 2026 (irreducible/reducible inputs split in calculator).
 
 ## Product Context
 
@@ -111,9 +111,11 @@ Paste → App.vue.addCSV(text) → parser/csv-parser.parseCSV(text)
 - `activeItems = new Set(plan.processes.map(p => p.item))` — drives **activatability** (lit vs dim) of each recipe row.
 - Counts ceiled for display via `Math.ceil(n - 1e-6)`; the resolver stays fractional.
 - Left panel: **Inputs** / **Intermediates** / **By-products**.
-  - **Inputs** section: combines raw resources (items with no facility recipe at all, or node-only mines) with user-imported and auto-imported items. Items with no recipe are non-clickable (must be sourced); everything else is clickable — clicking toggles import status, moving the item between Inputs and Intermediates.
-  - **Intermediates** section: clickable rows — clicking moves an item to Inputs (prunes its supply chain, assumes you import it).
-  - **By-products** section: not clickable.
+  - **Inputs** section: split into two subsections separated by a thin horizontal line:
+  - **Irreducible inputs** (top) — items with no facility recipe at all, must be sourced from outside. Non-clickable.
+  - **Reducible inputs** (below separator) — items that have at least one facility recipe (node mines or facility recipes), could be produced instead of imported. Clickable items toggle import status between Inputs and Intermediates; items in `plan.raw` (node-only mines) stay non-clickable.
+- **Intermediates** section: clickable rows — clicking moves an item to Inputs (prunes its supply chain, assumes you import it).
+- **By-products** section: not clickable.
 - **ALWAYS_RAW resources** (`Metal`, `Coal`, `Sulfur`, `Components`, `Oil`): no longer force-moved to Inputs. Instead, a **two-pass plan resolution** auto-imports them by default (so they appear in Inputs), but they remain clickable — clicking removes the auto-import, letting them appear in Intermediates (if manufactured) or By-products (if co-produced). Items with no facility recipe at all (leaf items) always appear in Inputs with no toggle.
 - Right panel: recipes grouped by **primary output** (the `primaryOutput` field on each recipe), sorted target-producers-first then alphabetically by group label. Each recipe row shows its facility/mod via icon + label on the left.
 

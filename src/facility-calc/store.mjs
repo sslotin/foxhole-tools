@@ -10,6 +10,7 @@ export const calc = reactive({
   desired: [],            // [{codeName, qty}] — what the user wants to produce
   selectedRecipes: {},    // codeName -> chosen recipe object (override of default)
   imported: [],           // codeNames the user treats as imported inputs (not manufactured)
+  skipAutoImport: [],     // codeNames the user explicitly opted out of auto-import for
 })
 
 export function addDesired (codeName, qty = 1) {
@@ -23,4 +24,10 @@ export function toggleImported (codeName) {
   const idx = calc.imported.indexOf(codeName)
   if (idx >= 0) calc.imported.splice(idx, 1)
   else calc.imported.push(codeName)
+}
+
+export function toggleSkipAutoImport (codeName) {
+  const idx = calc.skipAutoImport.indexOf(codeName)
+  if (idx >= 0) calc.skipAutoImport.splice(idx, 1)
+  else calc.skipAutoImport.push(codeName)
 }

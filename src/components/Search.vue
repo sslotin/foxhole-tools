@@ -124,7 +124,7 @@ const selected = computed(() =>
         </div>
         <pre>{{ JSON.stringify(selected, null, 2) }}</pre>
       </div>
-      <div class="content" v-else-if="calc.active">
+      <div class="content fac-content" v-else-if="calc.active">
         <FacilityCalc />
       </div>
       <div class="content" v-else>
@@ -276,12 +276,9 @@ const selected = computed(() =>
   padding: 16px 20px
   position: relative
 
-  &::-webkit-scrollbar
-    width: 3px
-
-  &::-webkit-scrollbar-thumb
-    background: #444
-    border-radius: 2px
+.content.fac-content
+  display: flex
+  flex-direction: column
 
 .content
   width: 100%
