@@ -188,7 +188,7 @@ const byDisplay = computed(() =>
   display: flex
   gap: 24px
   align-items: flex-start
-  width: 1160px
+  width: 1180px
 
 .fc-left
   flex: 0 0 325px
