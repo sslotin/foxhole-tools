@@ -6,10 +6,13 @@ TODO:
 - Smart targets
 - Persistent history
 
+v.2.1.1 (July 7, 2026):
+- Facility calculator has separate imports that can be toggled
+
 v.2.1.0 (July 6, 2026):
 - Current with update 65
 - Added metadata search
-- Added facility cost calculator
+- Added facility calculator
 
 v2.0.0 (Jun 23, 2026):
 - Current with update 64
