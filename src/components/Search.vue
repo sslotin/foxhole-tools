@@ -12,22 +12,46 @@ const selectedCodeName = ref(undefined)
 // Flatten metadata into a list once for filtering.
 const entries = Object.entries(metadata).map(([codeName, data]) => ({
   codeName,
-  displayName: data.displayName
+  displayName: data.displayName,
+  description: data.description || ''
 }))
 
-// Case-insensitive substring match on displayName only.
 // Items already pinned for production are hidden from the results.
 const pinned = computed(() => new Set(calc.desired.map(d => d.codeName)))
 const results = computed(() => {
   const q = query.value.trim().toLowerCase()
-  const base = !q ? entries : entries.filter(e => e.displayName.toLowerCase().includes(q))
-  const filtered = base.filter(e => !pinned.value.has(e.codeName))
-  if (!calc.active) return filtered
-  // When the calculator is active, surface facility-produced items first
-  // (preserving existing order within each group).
-  const fac = [], other = []
-  for (const e of filtered) (facilityProduced.has(e.codeName) ? fac : other).push(e)
-  return [...fac, ...other]
+
+  // Filter by displayName, codeName, or description.
+  let matched
+  if (!q) {
+    matched = entries
+  } else {
+    matched = entries.filter(e =>
+      e.displayName.toLowerCase().includes(q) ||
+      e.codeName.toLowerCase().includes(q) ||
+      e.description.toLowerCase().includes(q)
+    )
+  }
+
+  // Remove already-pinned items.
+  matched = matched.filter(e => !pinned.value.has(e.codeName))
+
+  // In facility cost mode, only show facility-produced items.
+  if (calc.active) {
+    matched = matched.filter(e => facilityProduced.has(e.codeName))
+  }
+
+  // Sort: displayName matches first, then description/codeName matches.
+  if (q) {
+    matched.sort((a, b) => {
+      const aName = a.displayName.toLowerCase().includes(q)
+      const bName = b.displayName.toLowerCase().includes(q)
+      if (aName !== bName) return aName ? -1 : 1
+      return 0
+    })
+  }
+
+  return matched
 })
 
 // Pinned items are hidden from `results`, but a query that matches one of them
