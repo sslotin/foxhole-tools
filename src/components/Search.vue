@@ -105,7 +105,7 @@ const selected = computed(() =>
             :src="`/icons/${e.codeName}.png`"
             @error="$event.target.style.visibility = 'hidden'"
           />
-          <span class="name">{{ e.displayName }}</span>
+          <span class="name" :class="{ warden: metadata[e.codeName]?.warden === true, collie: metadata[e.codeName]?.warden === false }">{{ e.displayName }}</span>
           <button
             v-if="facilityProduced.has(e.codeName)"
             class="add-fac"
@@ -237,6 +237,18 @@ const selected = computed(() =>
     white-space: nowrap
     overflow: hidden
     text-overflow: ellipsis
+
+    &.warden::before
+      content: '*'
+      font-weight: bold
+      color: blue
+      margin-right: 2px
+
+    &.collie::before
+      content: '*'
+      font-weight: bold
+      color: green
+      margin-right: 2px
 
   .add-fac
     flex-shrink: 0
