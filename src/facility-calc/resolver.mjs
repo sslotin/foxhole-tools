@@ -14,6 +14,13 @@
 // run-count rounding and therefore no discretization excess. Byproducts are
 // still produced exactly and reused to offset downstream demand; any leftover
 // surplus is intentionally ignored (not returned).
+//
+// PRIMARY OUTPUT NOTE:
+// The resolver itself is agnostic to `recipe.primaryOutput` — it processes
+// every output of a recipe independently. The `primaryOutput` field exists
+// purely for the reachableRecipes / display layer to decide where a multi-
+// output recipe appears in the grouped UI. See recipes.mjs for the rationale
+// behind each assignment.
 
 import { defaultRecipe, facLabel, recipesFor } from './recipes.mjs'
 
@@ -109,13 +116,20 @@ export function resolvePlan (desired, selectedRecipes) {
 // considering ALL alternative recipes at every step. This is a graph closure
 // over the recipe graph and does NOT depend on `selectedRecipes` — so the set
 // of displayed recipes/sections stays stable when the user toggles a choice
-// (only each recipe's lit/dim state changes). Used to decide which building
-// groups & recipe rows to render.
+// (only each recipe's lit/dim state changes).
 //
-// Returns a Map<recipe, presentedItem> where `presentedItem` is the demanded
-// output the recipe is reached through (so a multi-output recipe that co-
-// produces a byproduct is shown under its demanded output, e.g. the Excavator
-// Sulfur mine — which also makes Coal — is presented as a Coal recipe).
+// Returns a Map<recipe, presentedItem> where `presentedItem` is the primary
+// output of the recipe (as defined in recipes.mjs). This means:
+//   * Single-output recipes are always presented under their only output.
+//   * Multi-output recipes are presented under their designated primary output
+//     (e.g. the Sulfur Excavator recipe appears under "Coal", not "Sulfur";
+//     Assembly Bay recipes appear under "Sandbags" / "Barbed Wire" / "Metal
+//     Beam", not "Cmats").
+//
+// The stable closure (vs. the chosen plan) ensures that unselecting a recipe
+// never causes its section to disappear — it just dims. The primary output
+// assignment ensures that recipes are grouped by what the player considers the
+// main product, regardless of which output triggered the BFS inclusion.
 export function reachableRecipes (desired) {
   const result = new Map()
   const seen = new Set()
@@ -125,15 +139,9 @@ export function reachableRecipes (desired) {
     if (seen.has(item)) continue
     seen.add(item)
     for (const r of recipesFor(item)) {
-      if (!result.has(r)) result.set(r, item)
+      if (!result.has(r)) result.set(r, r.primaryOutput)
       for (const inp of r.inputs) if (!seen.has(inp.codeName)) queue.push(inp.codeName)
     }
-  }
-  // Prefer the first output that is actually demanded (in `seen`), so a recipe
-  // is presented under the item the user is producing through it.
-  for (const r of result.keys()) {
-    const demanded = r.outputs.find(o => seen.has(o.codeName))
-    if (demanded) result.set(r, demanded.codeName)
   }
   return result
 }

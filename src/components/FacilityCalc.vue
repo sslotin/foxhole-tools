@@ -2,7 +2,7 @@
 import { computed } from 'vue'
 import { calc } from '../facility-calc/store.mjs'
 import {
-  recipesFor, displayName, modLabel,
+  recipesFor, displayName,
 } from '../facility-calc/recipes.mjs'
 import { resolvePlan, reachableRecipes } from '../facility-calc/resolver.mjs'
 import FacItem from './FacItem.vue'
@@ -25,45 +25,46 @@ const timeByRecipe = computed(() => {
 // effect and are shown dimmed.
 const activeItems = computed(() => new Set(plan.value.processes.map(p => p.item)))
 
-// Stable map of every recipe that could possibly be involved (→ the demanded
-// output it's presented under), independent of recipe choices, so the displayed
-// groups/rows don't shift when toggling a choice.
+// Stable set of every recipe that COULD be involved in producing the pinned
+// items, independent of recipe choices. Each recipe is mapped to its primary
+// output (see recipes.mjs determinePrimaryOutput), so a multi-output recipe
+// always appears under the same heading regardless of which output triggered
+// the BFS inclusion. This stability ensures that toggling a recipe choice
+// never adds/removes sections — only each row's lit/dim state changes.
 const reachable = computed(() => reachableRecipes(calc.desired))
 
 // Desired (pinned) outputs — the plan's ultimate targets. Recipes that produce
 // one of these sort to the top of their group.
 const desiredSet = computed(() => new Set(calc.desired.map(d => d.codeName)))
 
-// Group reachable recipes by (facility, mod), in a fixed order.
+// Group reachable recipes by primary output (instead of building/modification).
+// No group headers are shown — each recipe row carries a facility icon on the
+// left (with a hover tooltip showing the modification name).
 const groups = computed(() => {
   const map = new Map()
   for (const [r, item] of reachable.value) {
-    const key = `${r.facility}|${r.mod || ''}`
-    if (!map.has(key)) map.set(key, { facility: r.facility, mod: r.mod, label: modLabel(r), recipes: [] })
+    const key = r.primaryOutput
+    if (!map.has(key)) map.set(key, { primaryOutput: key, label: displayName(key), recipes: [] })
     map.get(key).recipes.push({ r, item })
   }
   const arr = [...map.values()]
   for (const g of arr) {
-    // Within a group, recipes producing a target output sort first, then by
-    // the presented output's display name.
+    // Within a group (same primary output), sort by facility/mod as secondary.
     g.recipes.sort((a, b) => {
       const at = a.r.outputs.some(o => desiredSet.value.has(o.codeName)) ? 0 : 1
       const bt = b.r.outputs.some(o => desiredSet.value.has(o.codeName)) ? 0 : 1
       if (at !== bt) return at - bt
-      return displayName(a.item).localeCompare(displayName(b.item))
+      const la = a.r.facility + '|' + (a.r.modName || '')
+      const lb = b.r.facility + '|' + (b.r.modName || '')
+      return la.localeCompare(lb)
     })
     g.hasTarget = g.recipes.some(({ r }) =>
       r.outputs.some(o => desiredSet.value.has(o.codeName)))
   }
-  // Groups containing a target-producer sort first (so the building that
-  // actually makes what you pinned is on top), then by facility / mod.
+  // Groups containing a target-producer sort first, then by label.
   arr.sort((a, b) => {
     if (a.hasTarget !== b.hasTarget) return a.hasTarget ? -1 : 1
-    if (a.facility !== b.facility) return a.facility.localeCompare(b.facility)
-    if ((a.mod || '') === (b.mod || '')) return 0
-    if (!a.mod) return -1
-    if (!b.mod) return 1
-    return a.mod.localeCompare(b.mod)
+    return a.label.localeCompare(b.label)
   })
   return arr
 })
@@ -84,12 +85,10 @@ function fmt (n) {
 }
 function fmtTime (s) {
   if (!s || s <= 0) return ''
-  const d = Math.floor(s / 86400)
-  const h = Math.floor((s % 86400) / 3600)
+  const h = Math.floor(s / 3600)
   const m = Math.floor((s % 3600) / 60)
   const sec = Math.round(s % 60)
   const p = []
-  if (d) p.push(d + 'd')
   if (h) p.push(h + 'h')
   if (m) p.push(m + 'm')
   if (sec || !p.length) p.push(sec + 's')
@@ -154,9 +153,8 @@ const byDisplay = computed(() =>
       </div>
 
       <div class="fc-right">
-        <div v-for="g in groups" :key="g.facility + '|' + (g.mod || '')"
+        <div v-for="g in groups" :key="g.primaryOutput"
              class="group">
-          <div class="group-head">{{ g.label }}</div>
           <div
             v-for="entry in g.recipes"
             :key="entry.r.facilityKey + '|' + (entry.r.mod || '') + '|' + entry.item"
@@ -164,6 +162,12 @@ const byDisplay = computed(() =>
             :class="{ active: activeRecipes.has(entry.r), activatable: activeItems.has(entry.item) }"
             @click="chooseRecipe(entry.item, recipeIdx(entry.item, entry.r))"
           >
+            <span class="fac-info">
+            <img :src="`/icons/${entry.r.facilityKey}.png`"
+                 class="fac-icon"
+                 @error="$event.target.style.visibility = 'hidden'" />
+            <span class="fac-label">{{ entry.r.mod ? entry.r.modName : entry.r.facility }}</span>
+          </span>
             <span class="io-inputs">
               <FacItem v-for="(inp, k) in entry.r.inputs" :key="k" :codeName="inp.codeName" :qty="inp.quantity" />
             </span>
@@ -171,7 +175,7 @@ const byDisplay = computed(() =>
             <span class="io-outputs">
               <FacItem v-for="(out, k) in entry.r.outputs" :key="k" :codeName="out.codeName" :qty="out.quantity" />
             </span>
-            <span v-if="activeRecipes.has(entry.r)" class="io-time">{{ fmtTime(timeByRecipe.get(entry.r)) }}</span>
+            <span class="io-time" :class="{ visible: activeRecipes.has(entry.r) }">{{ activeRecipes.has(entry.r) ? fmtTime(timeByRecipe.get(entry.r)) : '' }}</span>
           </div>
         </div>
       </div>
@@ -184,9 +188,10 @@ const byDisplay = computed(() =>
   display: flex
   gap: 24px
   align-items: flex-start
+  width: 1160px
 
 .fc-left
-  flex: 0 0 320px
+  flex: 0 0 325px
 
 .fc-right
   flex: 1
@@ -220,25 +225,17 @@ const byDisplay = computed(() =>
   flex-direction: column
   align-items: flex-start
 
-// Building/modification groups
+// Primary-output groups. No headers — each recipe row carries a facility icon
+// on the left (with a hover tooltip showing the modification name).
 .group
-  margin-bottom: 16px
-
-.group-head
-  font-size: 14px
-  color: #999
-  text-transform: uppercase
-  letter-spacing: .04em
-  border-bottom: 1px solid #2a2a2a
-  padding-bottom: 4px
-  margin-bottom: 6px
+  margin-bottom: 12px
 
 .recipe-row
   position: relative
   display: grid
-  grid-template-columns: 1fr auto 1fr minmax(60px, auto)
-  gap: 6px
-  padding: 4px 6px
+  grid-template-columns: 68px 1fr auto 1fr 80px
+  gap: 6px 8px
+  padding: 6px 8px
   border-radius: 4px
   cursor: pointer
 
@@ -248,6 +245,30 @@ const byDisplay = computed(() =>
 
   &:hover
     background: #262626
+
+  .fac-info
+    display: flex
+    flex-direction: column
+    align-items: center
+    gap: 2px
+    align-self: stretch
+    min-width: 0
+    padding-right: 6px
+    border-right: 1px solid #555
+
+    .fac-icon
+      width: 48px
+      height: 48px
+      object-fit: contain
+      display: block
+
+    .fac-label
+      font-size: 9px
+      color: #aaa
+      text-align: center
+      line-height: 1.2
+      width: 100%
+      overflow-wrap: break-word
 
   .io-inputs
     display: flex
@@ -289,9 +310,13 @@ const byDisplay = computed(() =>
     font-variant-numeric: tabular-nums
     justify-self: end
     align-self: start
+    visibility: hidden
+
+    &.visible
+      visibility: visible
 
   &.active
-    background: #1a3a1a
+    background: var(--green-active)
 
   // Not activatable: its presented item isn't produced in the current plan, so
   // clicking does nothing → dim it. Activatable alternatives (same item, not

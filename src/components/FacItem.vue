@@ -28,6 +28,7 @@ const suffix = crateItems.has(codeName) ? 'c' : isLiquid(codeName) ? 'l' : ''
   white-space: nowrap
   margin: 2px 6px 2px 0
   min-width: 0
+  font-size: 16px
 
   img
     width: 24px

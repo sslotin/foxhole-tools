@@ -129,6 +129,7 @@ const selected = computed(() =>
 .ms
   display: flex
   height: calc(100vh - 8px)
+  --green-active: #183018
 
 .panel
   width: 370px

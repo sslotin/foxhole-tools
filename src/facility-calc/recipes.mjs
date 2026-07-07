@@ -4,12 +4,24 @@
 // into an `output codeName → [recipe, …]` index. Each recipe is normalized so the
 // resolver and UI never touch the raw file shape.
 //
-// Conventions:
-//   * Recipes with no outputs are dropped (broken/empty refinery entries).
-//   * `metal` (Excavator-mod Salvage Mine output) is canonicalized to `Metal` —
-//     it's the same game resource, just an inconsistent codeName in the export.
-//   * `facilityProduced` is the set of every output codeName — used by Search.vue
-//     to decide which items get the "+" (add to calculator) button.
+// PRIMARY OUTPUT CONCEPT:
+// Every recipe has a `primaryOutput` codeName field. For single-output recipes it
+// is the only output. For multi-output recipes, one output is designated as the
+// primary product — the thing the recipe is "for" in the player's mental model.
+// This determines where the recipe appears in the calculator's grouped display.
+//
+//   Assembly Bay (Recycler):  outputs Cmats + secondary (Sandbags/Barbed Wire/
+//                             Metal Beam). The secondary is primary — you build
+//                             Assembly Bay recipes FOR the specific upgrade mat.
+//   Coke Furnace:             outputs Coke + Sulfur. Coke is primary.
+//   Coal Liquefier:           outputs Concrete + Sulfur + Oil. Concrete is primary.
+//   Adv Coal Liquefier:       two variants — Coke+Petrol or Concrete+Sulfur+Oil.
+//                             The variant sets which is primary.
+//   Sulfur Excavator:         outputs Sulfur + Coal. Coal is primary — the node
+//                             is a "Coal mine that also yields Sulfur".
+//
+// This is a UX classification, not a gameplay mechanic. The resolver's byproduct-
+// reuse algorithm is unaffected; primary output only controls display grouping.
 
 import recipesData from '../../parser/data/recipes.json' with { type: 'json' }
 import metadata from '../../parser/data/metadata.json' with { type: 'json' }
@@ -29,9 +41,53 @@ const CANON = {
 }
 const canon = c => CANON[c] || c
 
-// Display-name fallbacks for codeNames missing from metadata.json (export
-// quirks). After canonicalization these are only needed if a canonical codeName
-// is itself missing from metadata.
+// For multi-output recipes, determine which output is the "primary" product.
+// The primary product defines where the recipe appears in the calculator's
+// grouping (instead of grouping by building/modification, recipes are grouped
+// by what they primarily produce). See the module-level doc comment for the
+// rationale behind each assignment.
+//
+// This function is called once per recipe at module load time (not on every
+// computed re-evaluation), so clarity trumps brevity.
+function determinePrimaryOutput(recipe) {
+  const { facilityKey, mod, outputs } = recipe
+  if (outputs.length === 1) return outputs[0].codeName
+
+  // Assembly Bay (Recycler): the non-FacilityMaterials1 output is primary.
+  // Cmats are the constant "base" output across all 3 Assembly Bay recipes;
+  // the variable output (Sandbags / Barbed Wire / Metal Beam) is the
+  // distinguishing product the player chooses this recipe FOR.
+  if (facilityKey === 'FacilityRefinery1' && mod === 'Recycler') {
+    return outputs.find(o => o.codeName !== 'FacilityMaterials1').codeName
+  }
+  // Coke Furnace: Coke (FacilityCoal1) is the intended product; Sulfur is a
+  // byproduct of the coking process.
+  if (facilityKey === 'FacilityRefineryCoal' && mod === 'CokeFurnace') {
+    return 'FacilityCoal1'
+  }
+  // Coal Liquefier: Concrete is the primary output; Sulfur and Oil arise as
+  // byproducts of the liquefaction process.
+  if (facilityKey === 'FacilityRefineryCoal' && mod === 'CoalLiquefier') {
+    return 'Concrete'
+  }
+  // Adv Coal Liquefier has two recipes distinguished by output set:
+  //   1) FacilityCoal1 + FacilityOil1 (Coke + Petrol)
+  //   2) Concrete + Sulfur + Oil
+  // The primary output matches whichever variant we're looking at.
+  if (facilityKey === 'FacilityRefineryCoal' && mod === 'AdvCoalLiquefier') {
+    return outputs.some(o => o.codeName === 'FacilityCoal1') ? 'FacilityCoal1' : 'Concrete'
+  }
+  // Sulfur Excavator (Stationary Harvester Sulfur mod): outputs Sulfur + Coal.
+  // Coal is designated primary because the node is conceptually a coal source
+  // that happens to also yield sulfur when powered with petrol.
+  if (facilityKey === 'FacilityMineResource3' && mod === 'Excavator') {
+    return 'Coal'
+  }
+
+  // Fallback for any future multi-output recipe not yet classified:
+  // first output is treated as primary.
+  return outputs[0].codeName
+}
 const ALIASES = {}
 
 export function displayName (codeName) {
@@ -68,6 +124,9 @@ for (const [facKey, fac] of Object.entries(recipesData.facilities)) {
       duration: r.duration || 0,
       consumeResourceNodes: !!r.consumeResourceNodes,
     })
+    // Primary output: for multi-output recipes this dictates grouping;
+    // for single-output recipes it's the only output.
+    recipe.primaryOutput = determinePrimaryOutput(recipe)
     for (const o of recipe.outputs) {
       ;(recipesByOutput[o.codeName] ||= []).push(recipe)
       _facilityProduced.add(o.codeName)
