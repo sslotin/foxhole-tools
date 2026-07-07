@@ -8,7 +8,30 @@ import { resolvePlan, reachableRecipes } from '../facility-calc/resolver.mjs'
 import { toggleImported } from '../facility-calc/store.mjs'
 import FacItem from './FacItem.vue'
 
-const plan = computed(() => resolvePlan(calc.desired, calc.selectedRecipes, new Set(calc.imported)))
+// Two-pass resolution: first pass figures out which ALWAYS_RAW items the
+// resolver would manufacture (appear in intermediate or byproducts), then
+// the second pass auto-imports them so they default to Inputs section.
+// This makes ALWAYS_RAW items clickable — the user can toggle them to
+// Intermediates (removing the auto-import) to see them as manufactured.
+//
+// Items truly in plan.raw (no facility recipe at all, or node-only mines)
+// remain non-clickable since they cannot be manufactured.
+const plan = computed(() => {
+  const pass1 = resolvePlan(calc.desired, calc.selectedRecipes, new Set(calc.imported))
+
+  // Auto-import ALWAYS_RAW items that appear in intermediates or byproducts,
+  // so they default to the Inputs section. User can click to remove them
+  // from calc.imported, which lets them show in Intermediates/By-products.
+  const autoImported = new Set(calc.imported)
+  const ALWAYS_RAW = new Set(['Metal', 'Coal', 'Sulfur', 'Components', 'Oil'])
+  for (const c of ALWAYS_RAW) {
+    if (c in pass1.intermediate || (pass1.byproducts && c in pass1.byproducts)) {
+      autoImported.add(c)
+    }
+  }
+
+  return resolvePlan(calc.desired, calc.selectedRecipes, autoImported)
+})
 
 // Recipes actually running in the current plan (by identity), with their times.
 const activeRecipes = computed(() => new Set(plan.value.processes.map(p => p.recipe)))
@@ -98,36 +121,28 @@ function fmtTime (s) {
 
 const sortBy = (a, b) => displayName(a[0]).localeCompare(displayName(b[0]))
 
-// These items always appear under "Raw resources" even if they could be
-// produced from other recipes (custom exception for salvaged resources).
-const ALWAYS_RAW = new Set(['Metal', 'Coal', 'Sulfur', 'Components', 'Oil'])
-
+// Resources displayed under Inputs section: raw (no recipe, or node-only
+// mines) + imported (user-toggled or auto-imported ALWAYS_RAW items).
+// No force-merging of intermediates/byproducts into Inputs — the two-pass
+// plan auto-imports ALWAYS_RAW items so they appear here by default.
 const rawDisplay = computed(() => {
   const r = { ...plan.value.raw, ...plan.value.inputs }
-  for (const [c, q] of Object.entries(plan.value.intermediate)) {
-    if (ALWAYS_RAW.has(c)) r[c] = (r[c] || 0) + q
-  }
-  for (const [c, q] of Object.entries(plan.value.byproducts || {})) {
-    if (ALWAYS_RAW.has(c)) r[c] = (r[c] || 0) + q
-  }
   return Object.entries(r).sort(sortBy)
 })
 
 const interDisplay = computed(() =>
-  Object.entries(plan.value.intermediate).filter(([c]) => !ALWAYS_RAW.has(c)).sort(sortBy)
+  Object.entries(plan.value.intermediate).sort(sortBy)
 )
 
 const byDisplay = computed(() =>
-  Object.entries(plan.value.byproducts || {}).filter(([c]) => !ALWAYS_RAW.has(c)).sort(sortBy)
+  Object.entries(plan.value.byproducts || {}).sort(sortBy)
 )
 
-// Items that are always in "Inputs" with no toggle: ALWAYS_RAW resources +
-// anything the resolver puts in `raw` (no facility recipe or mine-only items).
-const alwaysInputSet = computed(() => {
-  const s = new Set(ALWAYS_RAW)
-  for (const c of Object.keys(plan.value.raw)) s.add(c)
-  return s
-})
+// Items with no recipe at all (truly raw, must be sourced). These stay
+// non-clickable. ALWAYS_RAW items that have recipes are NOT included
+// here — they become clickable via auto-import (the plan treats them as
+// imported, so they appear in plan.inputs not plan.raw).
+const alwaysInputSet = computed(() => new Set(Object.keys(plan.value.raw)))
 </script>
 
 <template>
