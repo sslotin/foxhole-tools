@@ -123,6 +123,32 @@ Paste → App.vue.addCSV(text) → parser/csv-parser.parseCSV(text)
 
 ## Key Data Structures
 
+### Metadata structure & wiki-field coverage (Jul 9, 2026)
+
+`metadata.json` (666 entries, `parser/data/metadata.json`) is keyed by `codeName`.
+Each entry is classified into **12 behavioral classes** by `src/components/metadata-format.js`:
+`Structure` (245), `Land Vehicle` (139), `Material/Supply` (66), `Ammunition` (54),
+`Tool/Equip` (52), `Firearm` (39), `Misc` (29), `Ship` (24), `Aircraft` (13),
+`Grenade/Thrown` (11), `Melee Weapon` (3), `Mount/Deployed`. The display subheader uses
+`chassisName` (e.g. "Rifle", "Raw Material"); the coarse class is only a fallback for items lacking one.
+
+The Search detail panel (`Search.vue`) renders a wiki-style **infobox** + two catch-all lists:
+- **unformatted fields** — raw metadata keys the infobox did NOT show (internal/physics noise).
+- **missing wiki fields** — fields the official wiki infobox exposes but our data lacks.
+
+**CRITICAL — data-source limitation (verified Jul 9):** `process-game-data.js` reads weapon/vehicle/
+structure stats from the `BP*DynamicData.json` tables under `game_data/.../Blueprints/Data/`.
+Those tables DO NOT contain several fields the wiki shows. Confirmed absent (string-search across
+ALL non-localization JSON in `game_data`):
+- `reloadTime` — **0/666** items have it; wiki shows reload for every gun.
+- `FiringMode` for guns (e.g. "Bolt-action", "Automatic") — only 2 grenade items have it.
+- `encumbrance` for rifles — present for 227 items but **missing for RifleW / RifleLightW / SniperRifleW / SMGW** etc.
+- `range_effective` / `range_max` in meters — our `weaponData.maximumRange` is in raw game units (e.g. 2700), not meters.
+
+So reload, gun firing mode, rifle encumbrance, and effective/max range **cannot be shown** — they are not in the
+exported game data this repo holds (the wiki sources them from client `.uasset` binaries not exported here).
+The `metadata-format.js` formatter correctly omits them and the "missing wiki fields" list transparently reports them.
+
 ### `metadata.json` — Full Item Catalog (662 items)
 
 Keyed by `codeName`. Each entry contains:
@@ -382,3 +408,65 @@ See `parser/data/recipes.json` for complete listing per facility with all modifi
 | Small Assembly Station | 13 | +MotorPool, +ArtilleryFactory, +LightVehicleAssembly, +TankAssembly, +WeaponsPlatformAssembly, +RocketAssembly, +ShipAssembly |
 | Large Assembly Station | 5 | +TrainAssembly, +HeavyTankAssembly, +AircraftAssembly |
 | Dry Dock | 11 | — |
+## Wiki infobox matching (Jul 9, 2026)
+
+Goal: make the Search detail infobox match the official foxhole.wiki.gg infobox,
+category by category. Reference material saved under `parser/wiki-matching/`:
+- `infoboxes.json` — 12 representative wiki infoboxes + full raw wikitext, one per class
+  (Structure, Land Vehicle, Ship, Aircraft, Firearm, Material/Supply, Ammunition,
+  Tool/Equip, Grenade/Thrown, Melee Weapon, Misc, Mount/Deployed).
+- `fetch-infoboxes.mjs` — re-runnable fetcher (resolves page title by displayName via
+  MediaWiki search API, extracts `{{*Infobox}}` + page text). Reads `../data/metadata.json`.
+
+### Field-availability matrix (verified against game_data exports)
+"Available" = our `metadata.json` / `process-game-data.js` can surface it.
+"Absent" = NOT in any `Blueprints/Data/*` export → wiki-only (live-client) data.
+
+| Wiki field | Class | Status | Source in our data |
+|---|---|---|---|
+| Damage, Damage Type, Magazine, Accuracy (half-angle), Slot, Ammo, Crate | Firearm/Mount | ✅ shown | weaponData / ammoData / itemComponent |
+| Weight (encumbrance) | most | ✅ shown when present | raw.Encumbrance (some items lack it, e.g. RifleW) |
+| Damage mult | Firearm/Mount | ✅ shown when ≠1 | weaponData.damageMultiplier |
+| Fuze, Max range, Explosion radius | Grenade | ✅ shown | grenadeData.grenadeFuseTimer / grenadeRangeLimit / ammoData.explosionRadius |
+| Armour HP (0 = Unarmored) | Vehicle | ✅ now shown | vehicleData.tankArmour |
+| Health, Repair, Decay, Storage, Disable | Structure/Vehicle | ✅ shown | *Data sub-objects |
+| **Reload** | Firearm/Mount | ❌ ABSENT | not in BPWeaponDynamicData nor component |
+| **Fire Rate** | Firearm/Mount | ❌ ABSENT | `FiringRate`/`FireRate` nowhere in Data/ |
+| **Firing Mode** (Bolt-action/Auto) | Firearm/Mount | ❌ ABSENT | `FiringMode` nowhere in Data/ |
+| **Range** effective/max | Firearm/Mount | ⚠️ field exists, raw units | weaponData.maximumRange / maximumReachability (game units, not meters) |
+| **Crew / Passengers** | Vehicle/Ship/Aircraft | ❌ ABSENT | seat configs in vehicle BLUEPRINTS, not extracted yet |
+| **Speed / Off-road speed** | Vehicle/Ship/Aircraft | ⚠️ field exists, raw units | defaultSurfaceMovementRate (vehicle), `Speed` not present in ship/air; normalized units, not km/h |
+| **Armour HP / Pen chances / Trigger mines** | Ship | ❌ ABSENT | not in BPShipDynamicData export |
+| **Uses** | Material/Misc | ❌ ABSENT | not in exports |
+| **Pallet Amount** | Tool/Equip/Mount | ❌ ABSENT | not in exports |
+| **Intel Range** | Structure/Aircraft | ❌ ABSENT | structureData.intelRange not extracted |
+| **Built With** | Structure | ❌ ABSENT | hammer/etc. not in data |
+
+### Known wiki-vs-game divergence (trust game files)
+- HEGrenade: wiki `fuze=Contact`, `range_max=11`, `damage=229`; game files
+  `grenadeFuseTimer=4` (timed), `grenadeRangeLimit=0`, `ammoData.damage=240`.
+  Formatter shows game values; wiki appears outdated for these.
+- RifleW: wiki `encumbrance=100` but its pickup blueprint has no Encumbrance
+  property (other rifles like RifleLightW=70 do). Wiki value not in our export.
+
+### Search detail — manual wiki-match UI (Jul 9)
+- `Search.vue` now has a **"wiki match" toggle** in the left panel listing all 12
+  coarse classes with a perfect/total bar (computed by sampling every item via
+  `formatEntry` + `missingFields`). Click to expand.
+- Each selected item shows a **✓ wiki match / ⚠ N missing** badge in the detail header
+  (green = zero missing wiki fields, amber = some absent-from-data fields).
+- "Perfect" = `missing.length === 0` against `WIKI_FIELDS`. Since wiki-only fields
+  (crew, passengers, fire rate, etc.) apply to all vehicles, Land Vehicle/Ship/Aircraft/
+  Firearm show 0% perfect by design; Ammunition ~89%, others vary. This is honest, not a bug.
+
+### Notes
+- `WIKI_FIELDS` in `src/components/metadata-format.js` drives the "missing wiki fields"
+  list; kept in sync with the above (only genuinely-absent fields listed).
+- Verified-absent fields (NOT in any `Blueprints/Data/*` export — wiki/live-client only):
+  reload, fire_rate, firing_mode (guns), crew, passengers, ship armour/pen/trigger,
+  speed in km/h, uses, pallet amount, intel range, built-with, structure armour type.
+- Fields that EXIST but in raw game units (no conversion done): weapon range
+  (maximumRange), vehicle speed (defaultSurfaceMovementRate), tank pen chance
+  (tankArmourMinPenetrationChance). Listed as "missing" since we don't convert units.
+- Remaining achievable extraction: vehicle crew/passengers from blueprint seat
+  components (only some blueprints e.g. submarines/large ships expose Seats).

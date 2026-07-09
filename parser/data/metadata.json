@@ -12532,7 +12532,8 @@
       "centerOfGravityHeight": 1.4,
       "usesDifferentialSteering": false,
       "canRotateInPlace": false
-    }
+    },
+    "blueprintSeats": 24
   },
   "RelicScoutVehicle": {
     "displayName": "Staff Car",
@@ -12601,7 +12602,8 @@
       "centerOfGravityHeight": 0.8,
       "usesDifferentialSteering": false,
       "canRotateInPlace": false
-    }
+    },
+    "blueprintSeats": 8
   },
   "RelicMediumTank": {
     "displayName": "PL-1 “Phalanx”",
@@ -12668,7 +12670,8 @@
       "centerOfGravityHeight": 0.2,
       "usesDifferentialSteering": true,
       "canRotateInPlace": false
-    }
+    },
+    "blueprintSeats": 28
   },
   "RelicLightTank": {
     "displayName": "Storm Tank",
@@ -12734,7 +12737,8 @@
       "centerOfGravityHeight": 0.2,
       "usesDifferentialSteering": true,
       "canRotateInPlace": false
-    }
+    },
+    "blueprintSeats": 12
   },
   "RelicArmouredCar": {
     "displayName": "Armoured Fighting Tractor",
@@ -12800,7 +12804,8 @@
       "centerOfGravityHeight": 0.4,
       "usesDifferentialSteering": true,
       "canRotateInPlace": false
-    }
+    },
+    "blueprintSeats": 8
   },
   "RelicAPC": {
     "displayName": "Heavy Infantry Carrier",
@@ -12849,7 +12854,8 @@
       "damageDrivingOverStructures": 800,
       "damageDrivingOverIce": 100,
       "isAllowedToLoadMultiple": false
-    }
+    },
+    "blueprintSeats": 32
   },
   "Mech": {
     "displayName": "Centurion MV-2",
@@ -12916,7 +12922,8 @@
       "centerOfGravityHeight": 0.2,
       "usesDifferentialSteering": true,
       "canRotateInPlace": false
-    }
+    },
+    "blueprintSeats": 20
   },
   "TruckW": {
     "displayName": "Dunne Transport",
@@ -13047,7 +13054,8 @@
       "centerOfGravityHeight": 1.4,
       "usesDifferentialSteering": false,
       "canRotateInPlace": false
-    }
+    },
+    "blueprintSeats": 12
   },
   "TruckResourceC": {
     "displayName": "R-5 “Atlas” Hauler",
@@ -13114,7 +13122,8 @@
       "centerOfGravityHeight": 1.4,
       "usesDifferentialSteering": false,
       "canRotateInPlace": false
-    }
+    },
+    "blueprintSeats": 12
   },
   "TruckOffensiveC": {
     "displayName": "R-9 “Speartip” Escort",
@@ -13178,7 +13187,8 @@
       "centerOfGravityHeight": 1.4,
       "usesDifferentialSteering": false,
       "canRotateInPlace": false
-    }
+    },
+    "blueprintSeats": 3
   },
   "TruckMultiC": {
     "displayName": "R-17 “Retiarius” Skirmisher",
@@ -13242,7 +13252,8 @@
       "centerOfGravityHeight": 1.4,
       "usesDifferentialSteering": false,
       "canRotateInPlace": false
-    }
+    },
+    "blueprintSeats": 8
   },
   "TruckMobilityW": {
     "displayName": "Dunne Landrunner 12c",
@@ -13771,7 +13782,8 @@
       "centerOfGravityHeight": 0.4,
       "usesDifferentialSteering": true,
       "canRotateInPlace": false
-    }
+    },
+    "blueprintSeats": 7
   },
   "TanketteMultiC": {
     "displayName": "T13 “Deioneus” Rocket Battery",
@@ -13838,7 +13850,8 @@
       "centerOfGravityHeight": 0.4,
       "usesDifferentialSteering": true,
       "canRotateInPlace": false
-    }
+    },
+    "blueprintSeats": 8
   },
   "TanketteFlameC": {
     "displayName": "T14 “Vesta” Tankette",
@@ -13905,7 +13918,8 @@
       "centerOfGravityHeight": 0.4,
       "usesDifferentialSteering": true,
       "canRotateInPlace": false
-    }
+    },
+    "blueprintSeats": 7
   },
   "TanketteC": {
     "displayName": "T12 “Actaeon” Tankette",
@@ -13973,7 +13987,8 @@
       "centerOfGravityHeight": 0.4,
       "usesDifferentialSteering": true,
       "canRotateInPlace": false
-    }
+    },
+    "blueprintSeats": 15
   },
   "SuperTankW": {
     "displayName": "Cullen Predator Mk. III",
@@ -14043,7 +14058,8 @@
       "centerOfGravityHeight": 0.2,
       "usesDifferentialSteering": true,
       "canRotateInPlace": false
-    }
+    },
+    "blueprintSeats": 21
   },
   "SuperTankC": {
     "displayName": "O-75b \"Ares\"",
@@ -14114,7 +14130,8 @@
       "centerOfGravityHeight": 0.2,
       "usesDifferentialSteering": true,
       "canRotateInPlace": false
-    }
+    },
+    "blueprintSeats": 18
   },
   "ScoutVehicleW": {
     "displayName": "Drummond 100a",
@@ -14179,7 +14196,8 @@
       "centerOfGravityHeight": 0.8,
       "usesDifferentialSteering": false,
       "canRotateInPlace": false
-    }
+    },
+    "blueprintSeats": 6
   },
   "ScoutVehicleUtilityW": {
     "displayName": "Drummond Loscann 55c",
@@ -14244,7 +14262,8 @@
       "centerOfGravityHeight": 0.8,
       "usesDifferentialSteering": false,
       "canRotateInPlace": false
-    }
+    },
+    "blueprintSeats": 16
   },
   "ScoutVehicleUtilityC": {
     "displayName": "UV-5c “Odyssey”",
@@ -14308,7 +14327,8 @@
       "centerOfGravityHeight": 0.8,
       "usesDifferentialSteering": false,
       "canRotateInPlace": false
-    }
+    },
+    "blueprintSeats": 12
   },
   "ScoutVehicleOffensiveW": {
     "displayName": "Drummond Spitfire 100d",
@@ -14373,7 +14393,8 @@
       "centerOfGravityHeight": 0.8,
       "usesDifferentialSteering": false,
       "canRotateInPlace": false
-    }
+    },
+    "blueprintSeats": 12
   },
   "ScoutVehicleOffensiveC": {
     "displayName": "UV-24 “Icarus”",
@@ -14438,7 +14459,8 @@
       "centerOfGravityHeight": 0.8,
       "usesDifferentialSteering": false,
       "canRotateInPlace": false
-    }
+    },
+    "blueprintSeats": 12
   },
   "ScoutVehicleMobilityC": {
     "displayName": "UV-05a “Argonaut”",
@@ -14503,7 +14525,8 @@
       "centerOfGravityHeight": 0.8,
       "usesDifferentialSteering": false,
       "canRotateInPlace": false
-    }
+    },
+    "blueprintSeats": 12
   },
   "ScoutTankW": {
     "displayName": "King Spire Mk. I",
@@ -14571,7 +14594,8 @@
       "centerOfGravityHeight": 0.2,
       "usesDifferentialSteering": true,
       "canRotateInPlace": false
-    }
+    },
+    "blueprintSeats": 3
   },
   "ScoutTankOffensiveW": {
     "displayName": "King Gallant Mk. II",
@@ -14639,7 +14663,8 @@
       "centerOfGravityHeight": 0.2,
       "usesDifferentialSteering": true,
       "canRotateInPlace": false
-    }
+    },
+    "blueprintSeats": 3
   },
   "ScoutTankMultiW": {
     "displayName": "King Jester Mk. I-1",
@@ -14707,7 +14732,8 @@
       "centerOfGravityHeight": 0.2,
       "usesDifferentialSteering": true,
       "canRotateInPlace": false
-    }
+    },
+    "blueprintSeats": 8
   },
   "TrainLRArtillery": {
     "displayName": "Tempest Cannon RA-2",
@@ -14774,7 +14800,8 @@
       "centerOfGravityHeight": 1.4,
       "usesDifferentialSteering": false,
       "canRotateInPlace": false
-    }
+    },
+    "blueprintSeats": 4
   },
   "TrainInfantry": {
     "displayName": "BMS Holdout",
@@ -14837,7 +14864,8 @@
       "centerOfGravityHeight": 1.4,
       "usesDifferentialSteering": false,
       "canRotateInPlace": false
-    }
+    },
+    "blueprintSeats": 24
   },
   "TrainHospital": {
     "displayName": "BMS Bloodtender",
@@ -14900,7 +14928,8 @@
       "centerOfGravityHeight": 1.4,
       "usesDifferentialSteering": false,
       "canRotateInPlace": false
-    }
+    },
+    "blueprintSeats": 4
   },
   "TrainFlatbed": {
     "displayName": "BMS Longrider",
@@ -15029,7 +15058,8 @@
       "centerOfGravityHeight": 1.4,
       "usesDifferentialSteering": false,
       "canRotateInPlace": false
-    }
+    },
+    "blueprintSeats": 8
   },
   "TrainCombatCarW": {
     "displayName": "O’Brien Warsmith v.215",
@@ -15093,7 +15123,8 @@
       "centerOfGravityHeight": 1.4,
       "usesDifferentialSteering": false,
       "canRotateInPlace": false
-    }
+    },
+    "blueprintSeats": 24
   },
   "TrainCombatCarC": {
     "displayName": "Aegis Steelbreaker K5a",
@@ -15157,7 +15188,8 @@
       "centerOfGravityHeight": 1.4,
       "usesDifferentialSteering": false,
       "canRotateInPlace": false
-    }
+    },
+    "blueprintSeats": 16
   },
   "TrainCoal": {
     "displayName": "BMS Rockhold",
@@ -15283,7 +15315,8 @@
       "centerOfGravityHeight": 1.4,
       "usesDifferentialSteering": false,
       "canRotateInPlace": false
-    }
+    },
+    "blueprintSeats": 16
   },
   "SmallTrainShipping": {
     "displayName": "BMS Stowheel",
@@ -15345,7 +15378,8 @@
       "centerOfGravityHeight": 1.4,
       "usesDifferentialSteering": false,
       "canRotateInPlace": false
-    }
+    },
+    "blueprintSeats": 4
   },
   "SmallTrainResource": {
     "displayName": "BMS Railtruck",
@@ -15407,7 +15441,8 @@
       "centerOfGravityHeight": 1.4,
       "usesDifferentialSteering": false,
       "canRotateInPlace": false
-    }
+    },
+    "blueprintSeats": 4
   },
   "SmallTrainMaterial": {
     "displayName": "BMS Linerunner",
@@ -15469,7 +15504,8 @@
       "centerOfGravityHeight": 1.4,
       "usesDifferentialSteering": false,
       "canRotateInPlace": false
-    }
+    },
+    "blueprintSeats": 40
   },
   "SmallTrainLiquid": {
     "displayName": "BMS Tinderbox",
@@ -15531,7 +15567,8 @@
       "centerOfGravityHeight": 1.4,
       "usesDifferentialSteering": false,
       "canRotateInPlace": false
-    }
+    },
+    "blueprintSeats": 4
   },
   "SmallTrainEngine": {
     "displayName": "BMS Mineseeker",
@@ -15596,7 +15633,8 @@
       "centerOfGravityHeight": 1.4,
       "usesDifferentialSteering": false,
       "canRotateInPlace": false
-    }
+    },
+    "blueprintSeats": 4
   },
   "MotorcycleW": {
     "displayName": "Kivela Power Wheel 80-1",
@@ -15729,7 +15767,8 @@
       "centerOfGravityHeight": 0.3,
       "usesDifferentialSteering": false,
       "canRotateInPlace": false
-    }
+    },
+    "blueprintSeats": 3
   },
   "MotorcycleC": {
     "displayName": "03MM “Caster”",
@@ -15864,7 +15903,8 @@
       "centerOfGravityHeight": 0.2,
       "usesDifferentialSteering": true,
       "canRotateInPlace": false
-    }
+    },
+    "blueprintSeats": 10
   },
   "LightTank2InfantryC": {
     "displayName": "HC-2 “Scorpion”",
@@ -15932,7 +15972,8 @@
       "centerOfGravityHeight": 0.2,
       "usesDifferentialSteering": true,
       "canRotateInPlace": false
-    }
+    },
+    "blueprintSeats": 18
   },
   "MineBoat": {
     "displayName": "Bellweather by VAC",
@@ -16023,7 +16064,8 @@
       "BallastBlowRate": 0,
       "FullyFloodedEngineForceMultiplier": 1,
       "BeachedEngineForceMultiplier": 5
-    }
+    },
+    "blueprintSeats": 8
   },
   "MediumTankW": {
     "displayName": "Silverhand - Mk. IV",
@@ -16091,7 +16133,8 @@
       "centerOfGravityHeight": 0.2,
       "usesDifferentialSteering": true,
       "canRotateInPlace": false
-    }
+    },
+    "blueprintSeats": 7
   },
   "MediumTankSiegeW": {
     "displayName": "Silverhand Chieftain - Mk. VI",
@@ -16159,7 +16202,8 @@
       "centerOfGravityHeight": 0.2,
       "usesDifferentialSteering": true,
       "canRotateInPlace": false
-    }
+    },
+    "blueprintSeats": 10
   },
   "MediumTankOffensiveC": {
     "displayName": "85K-a “Spatha”",
@@ -16228,7 +16272,8 @@
       "centerOfGravityHeight": 0.2,
       "usesDifferentialSteering": true,
       "canRotateInPlace": false
-    }
+    },
+    "blueprintSeats": 9
   },
   "MediumTankLargeC": {
     "displayName": "85V-g \"Talos\"",
@@ -16297,7 +16342,8 @@
       "centerOfGravityHeight": 0.2,
       "usesDifferentialSteering": true,
       "canRotateInPlace": false
-    }
+    },
+    "blueprintSeats": 13
   },
   "MediumTankC": {
     "displayName": "85K-b “Falchion”",
@@ -16366,7 +16412,8 @@
       "centerOfGravityHeight": 0.2,
       "usesDifferentialSteering": true,
       "canRotateInPlace": false
-    }
+    },
+    "blueprintSeats": 6
   },
   "MediumTankATW": {
     "displayName": "Silverhand Lordscar - Mk. X",
@@ -16434,7 +16481,8 @@
       "centerOfGravityHeight": 0.2,
       "usesDifferentialSteering": true,
       "canRotateInPlace": false
-    }
+    },
+    "blueprintSeats": 17
   },
   "MediumTank3C": {
     "displayName": "90T-v “Nemesis”",
@@ -16502,7 +16550,8 @@
       "centerOfGravityHeight": 0.8,
       "usesDifferentialSteering": false,
       "canRotateInPlace": false
-    }
+    },
+    "blueprintSeats": 6
   },
   "MediumTank2W": {
     "displayName": "Gallagher Brigand Mk. I",
@@ -16572,7 +16621,8 @@
       "centerOfGravityHeight": 0.2,
       "usesDifferentialSteering": true,
       "canRotateInPlace": false
-    }
+    },
+    "blueprintSeats": 7
   },
   "MediumTank2TwinC": {
     "displayName": "86K-c “Ranseur”",
@@ -16640,7 +16690,8 @@
       "centerOfGravityHeight": 0.2,
       "usesDifferentialSteering": true,
       "canRotateInPlace": false
-    }
+    },
+    "blueprintSeats": 10
   },
   "MediumTank2RangeW": {
     "displayName": "Gallagher Outlaw Mk. II",
@@ -16710,7 +16761,8 @@
       "centerOfGravityHeight": 0.2,
       "usesDifferentialSteering": true,
       "canRotateInPlace": false
-    }
+    },
+    "blueprintSeats": 11
   },
   "MediumTank2MultiW": {
     "displayName": "Gallagher Highwayman Mk. III",
@@ -16780,7 +16832,8 @@
       "centerOfGravityHeight": 0.2,
       "usesDifferentialSteering": true,
       "canRotateInPlace": false
-    }
+    },
+    "blueprintSeats": 7
   },
   "MediumTank2IndirectW": {
     "displayName": "Gallagher Thornfall Mk. VI",
@@ -16850,7 +16903,8 @@
       "centerOfGravityHeight": 0.2,
       "usesDifferentialSteering": true,
       "canRotateInPlace": false
-    }
+    },
+    "blueprintSeats": 10
   },
   "MediumTank2C": {
     "displayName": "86K-a “Bardiche”",
@@ -16918,7 +16972,8 @@
       "centerOfGravityHeight": 0.2,
       "usesDifferentialSteering": true,
       "canRotateInPlace": false
-    }
+    },
+    "blueprintSeats": 10
   },
   "MediumBoatW": {
     "displayName": "Rinnspeir Ornitier-Class Gunship",
@@ -17010,7 +17065,8 @@
       "BallastBlowRate": 0,
       "FullyFloodedEngineForceMultiplier": 1,
       "BeachedEngineForceMultiplier": 5
-    }
+    },
+    "blueprintSeats": 20
   },
   "MediumBoatC": {
     "displayName": "Strider",
@@ -17102,7 +17158,8 @@
       "BallastBlowRate": 0,
       "FullyFloodedEngineForceMultiplier": 1,
       "BeachedEngineForceMultiplier": 5
-    }
+    },
+    "blueprintSeats": 24
   },
   "MechW": {
     "displayName": "Herne QMW 1a Scourge Hunter",
@@ -17169,7 +17226,8 @@
       "centerOfGravityHeight": 0.2,
       "usesDifferentialSteering": true,
       "canRotateInPlace": false
-    }
+    },
+    "blueprintSeats": 16
   },
   "TruckLiquidW": {
     "displayName": "Dunne Fuelrunner 2d",
@@ -17234,7 +17292,8 @@
       "centerOfGravityHeight": 1,
       "usesDifferentialSteering": false,
       "canRotateInPlace": false
-    }
+    },
+    "blueprintSeats": 3
   },
   "TruckLiquidC": {
     "displayName": "RR-3 “Stolon” Tanker",
@@ -17299,7 +17358,8 @@
       "centerOfGravityHeight": 1,
       "usesDifferentialSteering": false,
       "canRotateInPlace": false
-    }
+    },
+    "blueprintSeats": 8
   },
   "Motorboat": {
     "displayName": "BMS - Grouper",
@@ -17358,7 +17418,8 @@
       "canBeHarvested": false,
       "isVaultable": true,
       "damagedWhileDrivingOver": false
-    }
+    },
+    "blueprintSeats": 12
   },
   "Harvester": {
     "displayName": "BMS - Scrap Hauler",
@@ -17426,7 +17487,8 @@
       "centerOfGravityHeight": 0.2,
       "usesDifferentialSteering": true,
       "canRotateInPlace": false
-    }
+    },
+    "blueprintSeats": 8
   },
   "Freighter": {
     "displayName": "BMS - Ironship",
@@ -17516,7 +17578,8 @@
       "BallastBlowRate": 0,
       "FullyFloodedEngineForceMultiplier": 1,
       "BeachedEngineForceMultiplier": 5
-    }
+    },
+    "blueprintSeats": 12
   },
   "FlatbedTruck": {
     "displayName": "BMS - Packmule Flatbed",
@@ -17582,7 +17645,8 @@
       "centerOfGravityHeight": 1.4,
       "usesDifferentialSteering": false,
       "canRotateInPlace": false
-    }
+    },
+    "blueprintSeats": 8
   },
   "Crane": {
     "displayName": "BMS - Class 2 Mobile Auto-Crane",
@@ -17656,7 +17720,8 @@
       "canBeHarvested": false,
       "isVaultable": true,
       "damagedWhileDrivingOver": false
-    }
+    },
+    "blueprintSeats": 8
   },
   "ConstructionUtility": {
     "displayName": "BMS - Fabricator",
@@ -17721,7 +17786,8 @@
       "centerOfGravityHeight": 0.2,
       "usesDifferentialSteering": true,
       "canRotateInPlace": false
-    }
+    },
+    "blueprintSeats": 8
   },
   "Construction": {
     "displayName": "BMS - Universal Assembly Rig",
@@ -17796,7 +17862,8 @@
       "canBeHarvested": false,
       "isVaultable": true,
       "damagedWhileDrivingOver": false
-    }
+    },
+    "blueprintSeats": 8
   },
   "BusW": {
     "displayName": "Dunne Caravaner 2f",
@@ -17926,7 +17993,8 @@
       "centerOfGravityHeight": 1.4,
       "usesDifferentialSteering": false,
       "canRotateInPlace": false
-    }
+    },
+    "blueprintSeats": 48
   },
   "Bicycle": {
     "displayName": "Blumfield LK205",
@@ -17977,7 +18045,8 @@
       "damageDrivingOverStructures": 0,
       "damageDrivingOverIce": 0,
       "isAllowedToLoadMultiple": false
-    }
+    },
+    "blueprintSeats": 4
   },
   "Barge": {
     "displayName": "BMS - Aquatipper",
@@ -18027,7 +18096,8 @@
       "damageDrivingOverStructures": 0,
       "damageDrivingOverIce": 0,
       "isAllowedToLoadMultiple": false
-    }
+    },
+    "blueprintSeats": 4
   },
   "AmbulanceW": {
     "displayName": "Dunne Responder 3e",
@@ -18093,7 +18163,8 @@
       "centerOfGravityHeight": 1,
       "usesDifferentialSteering": false,
       "canRotateInPlace": false
-    }
+    },
+    "blueprintSeats": 8
   },
   "AmbulanceFlameW": {
     "displayName": "Dunne Dousing Engine 3r",
@@ -18159,7 +18230,8 @@
       "centerOfGravityHeight": 1,
       "usesDifferentialSteering": false,
       "canRotateInPlace": false
-    }
+    },
+    "blueprintSeats": 12
   },
   "AmbulanceFlameC": {
     "displayName": "R-12b - “Salva” Flame Truck",
@@ -18225,7 +18297,8 @@
       "centerOfGravityHeight": 1,
       "usesDifferentialSteering": false,
       "canRotateInPlace": false
-    }
+    },
+    "blueprintSeats": 12
   },
   "AmbulanceC": {
     "displayName": "R-12 - “Salus” Ambulance",
@@ -18291,7 +18364,8 @@
       "centerOfGravityHeight": 1,
       "usesDifferentialSteering": false,
       "canRotateInPlace": false
-    }
+    },
+    "blueprintSeats": 8
   },
   "LightTankW": {
     "displayName": "Devitt Mk. III",
@@ -18359,7 +18433,8 @@
       "centerOfGravityHeight": 0.2,
       "usesDifferentialSteering": true,
       "canRotateInPlace": false
-    }
+    },
+    "blueprintSeats": 7
   },
   "LightTankOffensiveC": {
     "displayName": "H-10 “Pelekys”",
@@ -18427,7 +18502,8 @@
       "centerOfGravityHeight": 0.2,
       "usesDifferentialSteering": true,
       "canRotateInPlace": false
-    }
+    },
+    "blueprintSeats": 13
   },
   "LightTankMobilityC": {
     "displayName": "H-8 “Kranesca”",
@@ -18497,7 +18573,8 @@
       "centerOfGravityHeight": 0.2,
       "usesDifferentialSteering": true,
       "canRotateInPlace": false
-    }
+    },
+    "blueprintSeats": 6
   },
   "LightTankFlameC": {
     "displayName": "H-19 “Vulcan”",
@@ -18565,7 +18642,8 @@
       "centerOfGravityHeight": 0.2,
       "usesDifferentialSteering": true,
       "canRotateInPlace": false
-    }
+    },
+    "blueprintSeats": 6
   },
   "LightTankDefensiveW": {
     "displayName": "Devitt Ironhide Mk. IV",
@@ -18633,7 +18711,8 @@
       "centerOfGravityHeight": 0.2,
       "usesDifferentialSteering": true,
       "canRotateInPlace": false
-    }
+    },
+    "blueprintSeats": 7
   },
   "LightTankC": {
     "displayName": "H-5 \"Hatchet\"",
@@ -18701,7 +18780,8 @@
       "centerOfGravityHeight": 0.2,
       "usesDifferentialSteering": true,
       "canRotateInPlace": false
-    }
+    },
+    "blueprintSeats": 6
   },
   "LightTankArtilleryW": {
     "displayName": "Devitt-Caine Mk. IV MMR",
@@ -18769,7 +18849,8 @@
       "centerOfGravityHeight": 0.2,
       "usesDifferentialSteering": true,
       "canRotateInPlace": false
-    }
+    },
+    "blueprintSeats": 11
   },
   "LightTank3W": {
     "displayName": "Sharkey-Devitt Birdeater Mk. I",
@@ -18837,7 +18918,8 @@
       "centerOfGravityHeight": 0.2,
       "usesDifferentialSteering": true,
       "canRotateInPlace": false
-    }
+    },
+    "blueprintSeats": 7
   },
   "LightTank3C": {
     "displayName": "HA-1 “Sagaris”",
@@ -18905,7 +18987,8 @@
       "centerOfGravityHeight": 0.2,
       "usesDifferentialSteering": true,
       "canRotateInPlace": false
-    }
+    },
+    "blueprintSeats": 6
   },
   "LightBoatInfantryW": {
     "displayName": "68A-4 Ronan Fathomer",
@@ -18997,7 +19080,8 @@
       "BallastBlowRate": 0,
       "FullyFloodedEngineForceMultiplier": 1,
       "BeachedEngineForceMultiplier": 5
-    }
+    },
+    "blueprintSeats": 12
   },
   "LightBoatInfantryC": {
     "displayName": "K-81e “Sombre”",
@@ -19086,7 +19170,8 @@
       "BallastBlowRate": 0,
       "FullyFloodedEngineForceMultiplier": 1,
       "BeachedEngineForceMultiplier": 5
-    }
+    },
+    "blueprintSeats": 8
   },
   "FreighterLight": {
     "displayName": "Das Krokodil by VAC",
@@ -19176,7 +19261,8 @@
       "BallastBlowRate": 0,
       "FullyFloodedEngineForceMultiplier": 1,
       "BeachedEngineForceMultiplier": 5
-    }
+    },
+    "blueprintSeats": 8
   },
   "LargeShipSubmarineW": {
     "displayName": "Nakki",
@@ -19268,7 +19354,8 @@
       "BallastBlowRate": 0.1,
       "FullyFloodedEngineForceMultiplier": 0.05,
       "BeachedEngineForceMultiplier": 8
-    }
+    },
+    "blueprintSeats": 40
   },
   "LargeShipSubmarineC": {
     "displayName": "AC-b “Trident”",
@@ -19361,7 +19448,8 @@
       "BallastBlowRate": 0.1,
       "FullyFloodedEngineForceMultiplier": 0.05,
       "BeachedEngineForceMultiplier": 8
-    }
+    },
+    "blueprintSeats": 40
   },
   "LargeShipStorageShip": {
     "displayName": "BMS - Bluefin",
@@ -19454,7 +19542,8 @@
       "BallastBlowRate": 0,
       "FullyFloodedEngineForceMultiplier": 0.05,
       "BeachedEngineForceMultiplier": 10
-    }
+    },
+    "blueprintSeats": 20
   },
   "LargeShipResourceShip": {
     "displayName": "BMS - Bowhead",
@@ -19546,7 +19635,8 @@
       "BallastBlowRate": 0,
       "FullyFloodedEngineForceMultiplier": 0.05,
       "BeachedEngineForceMultiplier": 8
-    }
+    },
+    "blueprintSeats": 8
   },
   "LargeShipDestroyerW": {
     "displayName": "Blacksteele",
@@ -19638,7 +19728,8 @@
       "BallastBlowRate": 0,
       "FullyFloodedEngineForceMultiplier": 0.05,
       "BeachedEngineForceMultiplier": 8
-    }
+    },
+    "blueprintSeats": 40
   },
   "LargeShipAircraftC": {
     "displayName": "Poseidon",
@@ -19731,7 +19822,8 @@
       "BallastBlowRate": 0,
       "FullyFloodedEngineForceMultiplier": 0.05,
       "BeachedEngineForceMultiplier": 30
-    }
+    },
+    "blueprintSeats": 28
   },
   "LargeShipDestroyerC": {
     "displayName": "Conqueror",
@@ -19823,7 +19915,8 @@
       "BallastBlowRate": 0,
       "FullyFloodedEngineForceMultiplier": 0.05,
       "BeachedEngineForceMultiplier": 8
-    }
+    },
+    "blueprintSeats": 40
   },
   "LargeShipBattleshipW": {
     "displayName": "Callahan",
@@ -19915,7 +20008,8 @@
       "BallastBlowRate": 0,
       "FullyFloodedEngineForceMultiplier": 0.05,
       "BeachedEngineForceMultiplier": 30
-    }
+    },
+    "blueprintSeats": 52
   },
   "LargeShipBattleshipC": {
     "displayName": "Titan",
@@ -20007,7 +20101,8 @@
       "BallastBlowRate": 0,
       "FullyFloodedEngineForceMultiplier": 0.05,
       "BeachedEngineForceMultiplier": 30
-    }
+    },
+    "blueprintSeats": 36
   },
   "LargeShipBattleshipAircraftW": {
     "displayName": "Mercy",
@@ -20101,7 +20196,8 @@
       "BallastBlowRate": 0,
       "FullyFloodedEngineForceMultiplier": 0.05,
       "BeachedEngineForceMultiplier": 30
-    }
+    },
+    "blueprintSeats": 44
   },
   "LargeShipBaseShip": {
     "displayName": "BMS - Longhook",
@@ -20193,7 +20289,8 @@
       "BallastBlowRate": 0,
       "FullyFloodedEngineForceMultiplier": 0.05,
       "BeachedEngineForceMultiplier": 8
-    }
+    },
+    "blueprintSeats": 12
   },
   "LandingShipW": {
     "displayName": "MacConmara Shorerunner",
@@ -20286,7 +20383,8 @@
       "BallastBlowRate": 0,
       "FullyFloodedEngineForceMultiplier": 1,
       "BeachedEngineForceMultiplier": 3
-    }
+    },
+    "blueprintSeats": 12
   },
   "LandingShipC": {
     "displayName": "Interceptor PA-12",
@@ -20378,7 +20476,8 @@
       "BallastBlowRate": 0,
       "FullyFloodedEngineForceMultiplier": 1,
       "BeachedEngineForceMultiplier": 3
-    }
+    },
+    "blueprintSeats": 12
   },
   "LandingCraftW": {
     "displayName": "Mulloy LPC",
@@ -20511,7 +20610,8 @@
       "centerOfGravityHeight": 0.2,
       "usesDifferentialSteering": true,
       "canRotateInPlace": false
-    }
+    },
+    "blueprintSeats": 4
   },
   "LandingCraftC": {
     "displayName": "AB-8 “Acheron”",
@@ -20757,7 +20857,8 @@
       "centerOfGravityHeight": 1.4,
       "usesDifferentialSteering": false,
       "canRotateInPlace": false
-    }
+    },
+    "blueprintSeats": 20
   },
   "HalftrackMultiW": {
     "displayName": "Niska-Rycker Mk. IX Skycaller",
@@ -20801,7 +20902,8 @@
       "centerOfGravityHeight": 1.4,
       "usesDifferentialSteering": false,
       "canRotateInPlace": false
-    }
+    },
+    "blueprintSeats": 8
   },
   "HalfTrackW": {
     "displayName": "Niska Mk. I Gun Motor Carriage",
@@ -20869,7 +20971,8 @@
       "centerOfGravityHeight": 1.4,
       "usesDifferentialSteering": false,
       "canRotateInPlace": false
-    }
+    },
+    "blueprintSeats": 16
   },
   "HalfTrackOffensiveW": {
     "displayName": "Niska Mk. II Blinder",
@@ -20937,7 +21040,8 @@
       "centerOfGravityHeight": 1.4,
       "usesDifferentialSteering": false,
       "canRotateInPlace": false
-    }
+    },
+    "blueprintSeats": 7
   },
   "HalfTrackDefensiveC": {
     "displayName": "HH-b “Hoplite”",
@@ -21005,7 +21109,8 @@
       "centerOfGravityHeight": 1.4,
       "usesDifferentialSteering": false,
       "canRotateInPlace": false
-    }
+    },
+    "blueprintSeats": 13
   },
   "HalfTrackC": {
     "displayName": "HH-a “Javelin”",
@@ -21073,7 +21178,8 @@
       "centerOfGravityHeight": 1.4,
       "usesDifferentialSteering": false,
       "canRotateInPlace": false
-    }
+    },
+    "blueprintSeats": 13
   },
   "HalfTrackArtilleryC": {
     "displayName": "HH-d “Peltast”",
@@ -21141,7 +21247,8 @@
       "centerOfGravityHeight": 1.4,
       "usesDifferentialSteering": false,
       "canRotateInPlace": false
-    }
+    },
+    "blueprintSeats": 10
   },
   "GunboatW": {
     "displayName": "74b-1 Ronan Gunship",
@@ -21234,7 +21341,8 @@
       "BallastBlowRate": 0,
       "FullyFloodedEngineForceMultiplier": 1,
       "BeachedEngineForceMultiplier": 5
-    }
+    },
+    "blueprintSeats": 20
   },
   "Gunboat2W": {
     "displayName": "81f-f Ronan Blackguard",
@@ -21326,7 +21434,8 @@
       "BallastBlowRate": 0,
       "FullyFloodedEngineForceMultiplier": 1,
       "BeachedEngineForceMultiplier": 5
-    }
+    },
+    "blueprintSeats": 12
   },
   "GunboatC": {
     "displayName": "Type C - “Charon”",
@@ -21419,7 +21528,8 @@
       "BallastBlowRate": 0,
       "FullyFloodedEngineForceMultiplier": 1,
       "BeachedEngineForceMultiplier": 5
-    }
+    },
+    "blueprintSeats": 20
   },
   "Gunboat2C": {
     "displayName": "Type B - “Lucian”",
@@ -21511,7 +21621,8 @@
       "BallastBlowRate": 0,
       "FullyFloodedEngineForceMultiplier": 1,
       "BeachedEngineForceMultiplier": 5
-    }
+    },
+    "blueprintSeats": 12
   },
   "LargeFieldMultiW": {
     "displayName": "Rycker 4/3-F Wasp Nest",
@@ -21581,7 +21692,8 @@
       "centerOfGravityHeight": 0.2,
       "usesDifferentialSteering": false,
       "canRotateInPlace": true
-    }
+    },
+    "blueprintSeats": 8
   },
   "LargeFieldMortarC": {
     "displayName": "40-250 “Alekto” Heavy Cannon",
@@ -21651,7 +21763,8 @@
       "centerOfGravityHeight": 0.2,
       "usesDifferentialSteering": false,
       "canRotateInPlace": true
-    }
+    },
+    "blueprintSeats": 8
   },
   "LargeFieldLightArtilleryC": {
     "displayName": "120-68 “Koronides” Field Gun",
@@ -21721,7 +21834,8 @@
       "centerOfGravityHeight": 0.2,
       "usesDifferentialSteering": false,
       "canRotateInPlace": true
-    }
+    },
+    "blueprintSeats": 8
   },
   "LargeFieldCannonW": {
     "displayName": "Balfour Stockade 75mm",
@@ -21791,7 +21905,8 @@
       "centerOfGravityHeight": 0.2,
       "usesDifferentialSteering": false,
       "canRotateInPlace": true
-    }
+    },
+    "blueprintSeats": 6
   },
   "LargeFieldATC": {
     "displayName": "945g “Stygian Bolt”",
@@ -21859,7 +21974,8 @@
       "centerOfGravityHeight": 0.2,
       "usesDifferentialSteering": false,
       "canRotateInPlace": true
-    }
+    },
+    "blueprintSeats": 6
   },
   "FieldMortarW": {
     "displayName": "Balfour Falconer 250mm",
@@ -21927,7 +22043,8 @@
       "centerOfGravityHeight": 0.2,
       "usesDifferentialSteering": false,
       "canRotateInPlace": true
-    }
+    },
+    "blueprintSeats": 6
   },
   "FieldMortarC": {
     "displayName": "30-250 “Tisiphone” Field Cannon",
@@ -21995,7 +22112,8 @@
       "centerOfGravityHeight": 0.2,
       "usesDifferentialSteering": false,
       "canRotateInPlace": true
-    }
+    },
+    "blueprintSeats": 6
   },
   "FieldMGW": {
     "displayName": "Swallowtail 988/127-2",
@@ -22063,7 +22181,8 @@
       "centerOfGravityHeight": 0.2,
       "usesDifferentialSteering": false,
       "canRotateInPlace": true
-    }
+    },
+    "blueprintSeats": 6
   },
   "FieldMGC": {
     "displayName": "G40 “Sagittarii”",
@@ -22131,7 +22250,8 @@
       "centerOfGravityHeight": 0.2,
       "usesDifferentialSteering": false,
       "canRotateInPlace": true
-    }
+    },
+    "blueprintSeats": 6
   },
   "FieldCannonW": {
     "displayName": "Balfour Wolfhound 40mm",
@@ -22199,7 +22319,8 @@
       "centerOfGravityHeight": 0.2,
       "usesDifferentialSteering": false,
       "canRotateInPlace": true
-    }
+    },
+    "blueprintSeats": 6
   },
   "FieldCannonDamageC": {
     "displayName": "40-45 “Smelter”",
@@ -22267,7 +22388,8 @@
       "centerOfGravityHeight": 0.2,
       "usesDifferentialSteering": false,
       "canRotateInPlace": true
-    }
+    },
+    "blueprintSeats": 6
   },
   "FieldATW": {
     "displayName": "Collins Cannon 68mm",
@@ -22335,7 +22457,8 @@
       "centerOfGravityHeight": 0.2,
       "usesDifferentialSteering": false,
       "canRotateInPlace": true
-    }
+    },
+    "blueprintSeats": 6
   },
   "FieldATDamageW": {
     "displayName": "Balfour Rampart 68mm",
@@ -22403,7 +22526,8 @@
       "centerOfGravityHeight": 0.2,
       "usesDifferentialSteering": false,
       "canRotateInPlace": true
-    }
+    },
+    "blueprintSeats": 6
   },
   "FieldATC": {
     "displayName": "AA-2 \"Battering Ram\"",
@@ -22471,7 +22595,8 @@
       "centerOfGravityHeight": 0.2,
       "usesDifferentialSteering": false,
       "canRotateInPlace": true
-    }
+    },
+    "blueprintSeats": 6
   },
   "FieldAT2W": {
     "displayName": "Duncan’s Coin 14.5mm",
@@ -22540,7 +22665,8 @@
       "centerOfGravityHeight": 0.2,
       "usesDifferentialSteering": false,
       "canRotateInPlace": true
-    }
+    },
+    "blueprintSeats": 6
   },
   "FieldAT2C": {
     "displayName": "GA6 “Cestus”",
@@ -22609,7 +22735,8 @@
       "centerOfGravityHeight": 0.2,
       "usesDifferentialSteering": false,
       "canRotateInPlace": true
-    }
+    },
+    "blueprintSeats": 6
   },
   "DestroyerTankW": {
     "displayName": "Noble Widow MK. XIV",
@@ -22745,7 +22872,8 @@
       "centerOfGravityHeight": 0.2,
       "usesDifferentialSteering": true,
       "canRotateInPlace": false
-    }
+    },
+    "blueprintSeats": 3
   },
   "LargeCrane": {
     "displayName": "BMS - Overseer Sky-Hauler",
@@ -22825,7 +22953,8 @@
       "canBeHarvested": false,
       "isVaultable": false,
       "damagedWhileDrivingOver": false
-    }
+    },
+    "blueprintSeats": 8
   },
   "BattleTankW": {
     "displayName": "Flood Mk. I",
@@ -22895,7 +23024,8 @@
       "centerOfGravityHeight": 0.2,
       "usesDifferentialSteering": true,
       "canRotateInPlace": false
-    }
+    },
+    "blueprintSeats": 6
   },
   "BattleTankHeavyArtilleryW": {
     "displayName": "Flood Mk. IX Stain",
@@ -22963,7 +23093,8 @@
       "centerOfGravityHeight": 0.2,
       "usesDifferentialSteering": true,
       "canRotateInPlace": false
-    }
+    },
+    "blueprintSeats": 9
   },
   "BattleTankHeavyArtilleryC": {
     "displayName": "Lance-46 “Sarissa”",
@@ -23033,7 +23164,8 @@
       "centerOfGravityHeight": 0.2,
       "usesDifferentialSteering": true,
       "canRotateInPlace": false
-    }
+    },
+    "blueprintSeats": 28
   },
   "BattleTankDefensiveW": {
     "displayName": "Flood Juggernaut Mk. VII",
@@ -23103,7 +23235,8 @@
       "centerOfGravityHeight": 0.2,
       "usesDifferentialSteering": true,
       "canRotateInPlace": false
-    }
+    },
+    "blueprintSeats": 6
   },
   "BattleTankC": {
     "displayName": "Lance-36",
@@ -23173,7 +23306,8 @@
       "centerOfGravityHeight": 0.2,
       "usesDifferentialSteering": true,
       "canRotateInPlace": false
-    }
+    },
+    "blueprintSeats": 6
   },
   "BattleTankATC": {
     "displayName": "Lance-25 “Hasta”",
@@ -23243,7 +23377,8 @@
       "centerOfGravityHeight": 0.2,
       "usesDifferentialSteering": true,
       "canRotateInPlace": false
-    }
+    },
+    "blueprintSeats": 6
   },
   "ArmoredCarW": {
     "displayName": "O’Brien V.110",
@@ -23311,7 +23446,8 @@
       "centerOfGravityHeight": 0.8,
       "usesDifferentialSteering": false,
       "canRotateInPlace": false
-    }
+    },
+    "blueprintSeats": 3
   },
   "ArmoredCarTwinC": {
     "displayName": "T8 “Gemini”",
@@ -23379,7 +23515,8 @@
       "centerOfGravityHeight": 0.8,
       "usesDifferentialSteering": false,
       "canRotateInPlace": false
-    }
+    },
+    "blueprintSeats": 6
   },
   "ArmoredCarOffensiveC": {
     "displayName": "T5 “Percutio”",
@@ -23447,7 +23584,8 @@
       "centerOfGravityHeight": 0.8,
       "usesDifferentialSteering": false,
       "canRotateInPlace": false
-    }
+    },
+    "blueprintSeats": 3
   },
   "ArmoredCarMobilityW": {
     "displayName": "O’Brien V.121 Highlander",
@@ -23514,7 +23652,8 @@
       "centerOfGravityHeight": 0.4,
       "usesDifferentialSteering": true,
       "canRotateInPlace": false
-    }
+    },
+    "blueprintSeats": 3
   },
   "ArmoredCarFlameW": {
     "displayName": "O’Brien V.130 Wild Jack",
@@ -23582,7 +23721,8 @@
       "centerOfGravityHeight": 0.4,
       "usesDifferentialSteering": true,
       "canRotateInPlace": false
-    }
+    },
+    "blueprintSeats": 3
   },
   "ArmoredCarC": {
     "displayName": "T3 “Xiphos”",
@@ -23650,7 +23790,8 @@
       "centerOfGravityHeight": 0.8,
       "usesDifferentialSteering": false,
       "canRotateInPlace": false
-    }
+    },
+    "blueprintSeats": 3
   },
   "ArmoredCarATW": {
     "displayName": "O’Brien V.113 Gravekeeper",
@@ -23718,7 +23859,8 @@
       "centerOfGravityHeight": 0.8,
       "usesDifferentialSteering": false,
       "canRotateInPlace": false
-    }
+    },
+    "blueprintSeats": 3
   },
   "ArmoredCar2TwinW": {
     "displayName": "O’Brien V.190 Knave",
@@ -23786,7 +23928,8 @@
       "centerOfGravityHeight": 0.8,
       "usesDifferentialSteering": false,
       "canRotateInPlace": false
-    }
+    },
+    "blueprintSeats": 3
   },
   "ArmoredCar2MultiW": {
     "displayName": "O’Brien v.200 Squire",
@@ -23854,7 +23997,8 @@
       "centerOfGravityHeight": 0.8,
       "usesDifferentialSteering": false,
       "canRotateInPlace": false
-    }
+    },
+    "blueprintSeats": 3
   },
   "ArmoredCar2LargeW": {
     "displayName": "O’Brien V.101 Freeman",
@@ -23922,7 +24066,8 @@
       "centerOfGravityHeight": 0.8,
       "usesDifferentialSteering": false,
       "canRotateInPlace": false
-    }
+    },
+    "blueprintSeats": 3
   },
   "AircraftParatrooperW": {
     "displayName": "Rinnspeir Mk. I Zealot",
@@ -23991,7 +24136,8 @@
       "AssistModeMaxPitch": 26,
       "MinSpeedFlaps": 0.5,
       "MinSpeedOffset": 0.2
-    }
+    },
+    "blueprintSeats": 60
   },
   "AircraftParatrooperC": {
     "displayName": "V-5b Pegasus",
@@ -24218,7 +24364,8 @@
       "AssistModeMaxPitch": 26,
       "MinSpeedFlaps": 0.5,
       "MinSpeedOffset": 0.2
-    }
+    },
+    "blueprintSeats": 20
   },
   "AircraftWaterW": {
     "displayName": "Tulka I1.9 White Raven",
@@ -24312,7 +24459,8 @@
       "BallastBlowRate": 0,
       "FullyFloodedEngineForceMultiplier": 1,
       "BeachedEngineForceMultiplier": 1
-    }
+    },
+    "blueprintSeats": 44
   },
   "AircraftTorpedoW": {
     "displayName": "M925 Austringer Man-O-War",
@@ -24472,7 +24620,8 @@
       "BallastBlowRate": 0,
       "FullyFloodedEngineForceMultiplier": 1,
       "BeachedEngineForceMultiplier": 1
-    }
+    },
+    "blueprintSeats": 44
   },
   "AircraftScoutC": {
     "displayName": "A51 Venti “Daedalus”",
@@ -24567,7 +24716,8 @@
       "BallastBlowRate": 0,
       "FullyFloodedEngineForceMultiplier": 1,
       "BeachedEngineForceMultiplier": 1
-    }
+    },
+    "blueprintSeats": 28
   },
   "AircraftScout2W": {
     "displayName": "Luminary Mk. VI Emissary",
@@ -24635,7 +24785,8 @@
       "AssistModeMaxPitch": 30,
       "MinSpeedFlaps": 1,
       "MinSpeedOffset": 0.25
-    }
+    },
+    "blueprintSeats": 6
   },
   "AircraftScout2C": {
     "displayName": "A59 Venti “Perdix”",
@@ -24701,7 +24852,8 @@
       "AssistModeMaxPitch": 30,
       "MinSpeedFlaps": 1,
       "MinSpeedOffset": 0.25
-    }
+    },
+    "blueprintSeats": 28
   },
   "AircraftFighterW": {
     "displayName": "Luminary Mk. II Harbinger",
@@ -24833,7 +24985,8 @@
       "AssistModeMaxPitch": 30,
       "MinSpeedFlaps": 1,
       "MinSpeedOffset": 0.2
-    }
+    },
+    "blueprintSeats": 28
   },
   "AircraftDiveC": {
     "displayName": "Mergo-4 “Myrmidon”",
@@ -24899,7 +25052,8 @@
       "AssistModeMaxPitch": 30,
       "MinSpeedFlaps": 1,
       "MinSpeedOffset": 0.1
-    }
+    },
+    "blueprintSeats": 28
   },
   "WeatherStation": {
     "displayName": "Weather Station",
