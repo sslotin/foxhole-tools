@@ -107,13 +107,13 @@ const formatted = computed(() => {
     font-size: 22px
     display: flex
     align-items: center
-    gap: 8px
 
     .title-icon
       width: 28px
       height: 28px
       object-fit: contain
       flex-shrink: 0
+      margin-right: 8px
 
     .fact
       &.warden::before

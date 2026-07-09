@@ -2,3 +2,10 @@ game_data
 node_modules
 .vscode
 dist
+
+# Temporary research / investigation files (not used by the app at runtime)
+parser/wiki-matching/
+parser/notes/
+# Ad-hoc probe/extraction scripts left in the tree during research
+**/_probe*.mjs
+**/extract-*.mjs

@@ -14,7 +14,8 @@ const selectedCodeName = ref(undefined)
 const entries = Object.entries(metadata).map(([codeName, data]) => ({
   codeName,
   displayName: data.displayName,
-  description: data.description || ''
+  description: data.description || '',
+  chassisName: data.chassisName || ''
 }))
 
 // Items already pinned for production are hidden from the results.
@@ -22,7 +23,7 @@ const pinned = computed(() => new Set(calc.desired.map(d => d.codeName)))
 const results = computed(() => {
   const q = query.value.trim().toLowerCase()
 
-  // Filter by displayName, codeName, or description.
+  // Filter by displayName, codeName, chassisName (infobox subheader), or description.
   let matched
   if (!q) {
     matched = entries
@@ -30,6 +31,7 @@ const results = computed(() => {
     matched = entries.filter(e =>
       e.displayName.toLowerCase().includes(q) ||
       e.codeName.toLowerCase().includes(q) ||
+      e.chassisName.toLowerCase().includes(q) ||
       e.description.toLowerCase().includes(q)
     )
   }
@@ -42,13 +44,18 @@ const results = computed(() => {
     matched = matched.filter(e => facilityProduced.has(e.codeName))
   }
 
-  // Sort: displayName matches first, then description/codeName matches.
+  // Sort: title match first, then chassisName (infobox subheader), then
+  // description/codeName matches; tie-break alphabetically by displayName.
   if (q) {
+    const score = e => {
+      if (e.displayName.toLowerCase().includes(q)) return 0
+      if (e.chassisName && e.chassisName.toLowerCase().includes(q)) return 1
+      return 2
+    }
     matched.sort((a, b) => {
-      const aName = a.displayName.toLowerCase().includes(q)
-      const bName = b.displayName.toLowerCase().includes(q)
-      if (aName !== bName) return aName ? -1 : 1
-      return 0
+      const sa = score(a), sb = score(b)
+      if (sa !== sb) return sa - sb
+      return a.displayName.localeCompare(b.displayName)
     })
   }
 

@@ -1,5 +1,11 @@
 # MEMORY.md — Project Context & Status
 
+> **Dev-server note (read first):** If a UI change does not appear in the browser, it is
+> almost always a stale Vite dev server / npm HMR issue — **not** a code bug. The fix is
+> to stop and re-run `npm run dev` (or `npx vite`) so the server picks up the changes and
+> hot-reloads automatically. When suggesting a fix that relies on the dev server reflecting
+> new code, remind the user to restart `npm run dev` if they don't see the change.
+
 Last updated: Jul 9, 2026 (wiki-style metadata infobox in Search).
 
 ## Product Context

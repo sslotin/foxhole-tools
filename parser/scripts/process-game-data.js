@@ -228,6 +228,29 @@ function loadProductionCategories() {
 
 const productionCategories = loadProductionCategories();
 
+// ── Vehicle upgrade sources ───────────────────────────────────
+// Vehicles produced only by upgrading another vehicle (not built at a Garage
+// or MPF-able) list a RequiredCodeName in the Vehicle Factory facility recipes.
+// Returns map: upgradeOnlyVehicleCode -> sourceVehicleCode.
+function loadVehicleUpgradeSources() {
+  const map = {};
+  for (const f of ['Structures/Facilities/BPFacilityVehicleFactory1.json', 'Structures/Facilities/BPFacilityVehicleFactory2.json', 'Structures/Facilities/BPFacilityVehicleFactory3.json']) {
+    const absPath = GAME_DATA + '/' + f;
+    if (!fs.existsSync(absPath)) continue;
+    const data = readJSON(absPath);
+    (function walk(obj) {
+      if (Array.isArray(obj)) { for (const e of obj) walk(e); return; }
+      if (obj && typeof obj === 'object') {
+        if (obj.CodeName && obj.RequiredCodeName && obj.RequiredCodeName !== 'None') map[obj.CodeName] = obj.RequiredCodeName;
+        for (const v of Object.values(obj)) walk(v);
+      }
+    })(data);
+  }
+  return map;
+}
+
+const vehicleUpgradeSources = loadVehicleUpgradeSources();
+
 // ── Subtype icons (ammo damage types) ──────────────────────────────
 
 let subTypeIcons = {
@@ -279,7 +302,30 @@ const MATERIAL_NAMES = {
   Coal: 'Coal',
   RFuel: 'Refined Diesel',
   EnrichedU: 'Enriched Uranium',
+  RelicMaterials: 'Relic Materials',
+  Excavation: 'Excavation Materials',
+  MetalBeamMaterials: 'Metal Beam Materials',
+  SandbagMaterials: 'Sandbag Materials',
+  BarbedWireMaterials: 'Barbed Wire Materials',
+  PipeMaterials: 'Pipe Materials',
+  WaterWallMaterials: 'Water Wall Materials',
+  concrete: 'Concrete',
+  FacilityMaterials9: 'Facility Materials Mk.II',
 };
+
+// Convert a DataTable ResourceAmounts block → build-cost array.
+// Shape: { Resource: {CodeName, Quantity}, OtherResources: [{CodeName, Quantity}] }
+function buildCostFromResourceAmounts(ra) {
+  if (!ra) return null;
+  const res = [ra.Resource, ...(ra.OtherResources || [])]
+    .filter(r => r && r.CodeName && r.CodeName !== 'None' && r.Quantity > 0);
+  if (!res.length) return null;
+  return res.map(r => ({
+    codeName: r.CodeName,
+    quantity: r.Quantity,
+    displayName: MATERIAL_NAMES[r.CodeName] || r.CodeName,
+  }));
+}
 
 // ── Blueprint search config ────────────────────────────────────────
 
@@ -308,6 +354,16 @@ const CORE_KEYS = [
   'BoostSpeedModifier', 'BoostGasUsageModifier',
   'VehiclesPerCrateBonusQuantity',
   'ItemComponentClass',
+];
+
+// Component properties to collect, walked through the component's SuperStruct
+// chain so inherited fields (e.g. CompatibleAmmoCodeName on a shared base
+// component) are captured even when a variant's own JSON omits them.
+const COMPONENT_KEYS = [
+  'FiringMode', 'FiringRate', 'ReloadTime', 'MaxAmmo', 'ReloadTime',
+  'CompatibleAmmoCodeName', 'EquippedGripType', 'DeployCodeName',
+  'bIsSingleUse', 'bCanFireFromVehicle', 'SafeItem', 'MultiAmmo',
+  'ProjectileClasses',
 ];
 
 // ═══════════════════════════════════════════════════════════════════
@@ -418,27 +474,28 @@ for (const dir of SEARCH_DIRS) {
     if (raw.ItemComponentClass?.ObjectPath) {
       const compData = resolveRef(raw.ItemComponentClass.ObjectPath);
       if (compData) {
-        const compDef = findDefaultEntry(compData);
-        if (compDef?.Properties) {
-          const comp = {};
-          const cp = compDef.Properties;
-          if (cp.FiringMode) comp.firingMode = cp.FiringMode;
-          if (cp.FiringRate !== undefined) comp.firingRate = cp.FiringRate;
-          if (cp.MaxAmmo !== undefined) comp.maxAmmo = cp.MaxAmmo;
-          if (cp.ReloadTime !== undefined) comp.reloadTime = cp.ReloadTime;
-          if (cp.CompatibleAmmoCodeName) comp.compatibleAmmoCodeName = cp.CompatibleAmmoCodeName;
-          if (cp.EquippedGripType) comp.equippedGripType = ENUM_CLEAN(cp.EquippedGripType);
-          if (cp.DeployCodeName) comp.deployCodeName = cp.DeployCodeName;
-          if (cp.bIsSingleUse !== undefined) comp.isSingleUse = cp.bIsSingleUse;
-          if (cp.bCanFireFromVehicle !== undefined) comp.canFireFromVehicle = cp.bCanFireFromVehicle;
-          if (cp.SafeItem) comp.safeItemRef = cp.SafeItem;
+        // Collect through the component's SuperStruct chain so inherited
+        // fields (e.g. CompatibleAmmoCodeName on a shared base component) are
+        // captured even when the variant's own JSON omits them.
+        const cp = collectProperties(compData, COMPONENT_KEYS);
+        if (Object.keys(cp).length > 0) {
+          if (cp.FiringMode) cp.firingMode = cp.FiringMode;
+          if (cp.FiringRate !== undefined) cp.firingRate = cp.FiringRate;
+          if (cp.MaxAmmo !== undefined) cp.maxAmmo = cp.MaxAmmo;
+          if (cp.ReloadTime !== undefined) cp.reloadTime = cp.ReloadTime;
+          if (cp.CompatibleAmmoCodeName) cp.compatibleAmmoCodeName = cp.CompatibleAmmoCodeName;
+          if (cp.EquippedGripType) cp.equippedGripType = ENUM_CLEAN(cp.EquippedGripType);
+          if (cp.DeployCodeName) cp.deployCodeName = cp.DeployCodeName;
+          if (cp.bIsSingleUse !== undefined) cp.isSingleUse = cp.bIsSingleUse;
+          if (cp.bCanFireFromVehicle !== undefined) cp.canFireFromVehicle = cp.bCanFireFromVehicle;
+          if (cp.SafeItem) cp.safeItemRef = cp.SafeItem;
           if (cp.MultiAmmo) {
             const ammos = (cp.MultiAmmo.CompatibleAmmoNames || cp.MultiAmmo)
               .filter(a => a && a !== 'None');
-            if (Array.isArray(ammos)) comp.compatibleAmmoCodeNames = ammos;
+            if (Array.isArray(ammos)) cp.compatibleAmmoCodeNames = ammos;
           }
           if (cp.ProjectileClasses && Array.isArray(cp.ProjectileClasses)) {
-            comp.projectileClass = cp.ProjectileClasses.map(pc => {
+            cp.projectileClass = cp.ProjectileClasses.map(pc => {
               const projData = resolveRef(pc.ObjectPath);
               if (!projData) return { objectPath: pc.ObjectPath?.split('.')[0] };
               const projDef = findDefaultEntry(projData);
@@ -452,7 +509,7 @@ for (const dir of SEARCH_DIRS) {
               };
             });
           }
-          if (Object.keys(comp).length > 0) item.itemComponent = comp;
+          item.itemComponent = cp;
         }
       }
     }
@@ -563,6 +620,14 @@ for (const dir of SEARCH_DIRS) {
       if (v.MaxFlatOutSpeed !== undefined) item.vehicleData.maxFlatOutSpeed = v.MaxFlatOutSpeed;
     }
 
+    // Garage build cost (per vehicle)
+    const vBuild = buildCostFromResourceAmounts(vehicleData[codeName]?.ResourceAmounts);
+    if (vBuild) item.buildCost = vBuild;
+
+    // Upgrade-only vehicles are produced by upgrading another vehicle at a
+    // Vehicle Factory, not built at a Garage or MPF-able. Record the source.
+    if (vehicleUpgradeSources[codeName]) item.upgradeFromCodeName = vehicleUpgradeSources[codeName];
+
     // ── Vehicle profile ────────────────────────────────────
     if (raw.VehicleProfileType && vehicleProfiles[raw.VehicleProfileType]) {
       const vp = vehicleProfiles[raw.VehicleProfileType];
@@ -646,16 +711,28 @@ for (const dir of SEARCH_DIRS) {
       if (s.bIsDamagedWhileDrivingOver !== undefined) item.structureData.damagedWhileDrivingOver = s.bIsDamagedWhileDrivingOver;
     }
 
-    // ── Mount data (vehicle weapons) ───────────────────────
-    if (mountData[codeName]) {
-      const m = mountData[codeName];
+    // Construction Yard build cost (per structure)
+    const sBuild = buildCostFromResourceAmounts(structureData[codeName]?.ResourceAmounts);
+    if (sBuild) item.buildCost = sBuild;
+
+    // ── Mount data (vehicle/mounted-weapon stats) ─────────
+    // BPMountDynamicData is keyed by the weapon/mount COMPONENT CodeName, not
+    // the item codename. Resolve the component to find the right key.
+    let mountKey = codeName
+    if (!mountData[mountKey] && raw.ItemComponentClass?.ObjectPath) {
+      const compData = resolveRef(raw.ItemComponentClass.ObjectPath)
+      const compCn = compData && getCodeName(compData)
+      if (compCn && mountData[compCn]) mountKey = compCn
+    }
+    if (mountData[mountKey]) {
+      const m = mountData[mountKey];
       item.mountData = {};
       if (m.SuppressionMultiplier !== undefined) item.mountData.suppressionMultiplier = m.SuppressionMultiplier;
       if (m.MaxHorizontalDeviation !== undefined) item.mountData.maxHorizontalDeviation = m.MaxHorizontalDeviation;
       if (m.MaxVerticalDeviation !== undefined) item.mountData.maxVerticalDeviation = m.MaxVerticalDeviation;
       if (m.CoverProvided !== undefined) item.mountData.coverProvided = m.CoverProvided;
       if (m.MaxAmmo !== undefined) item.mountData.maxAmmo = m.MaxAmmo;
-      if (m.ReloadTime !== undefined) item.mountData.reloadTime = m.ReloadTime;
+      if (m.ReloadDuration !== undefined) item.mountData.reloadDuration = m.ReloadDuration;
       if (m.SecondaryAmmoCodeName) item.mountData.secondaryAmmoCodeName = m.SecondaryAmmoCodeName;
       if (m.MovementModifier !== undefined) item.mountData.movementModifier = m.MovementModifier;
       if (m.EquipTime !== undefined) item.mountData.equipTime = m.EquipTime;
