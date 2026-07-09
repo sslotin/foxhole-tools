@@ -1,6 +1,6 @@
 # MEMORY.md — Project Context & Status
 
-Last updated: Jul 7, 2026 (irreducible/reducible inputs split in calculator).
+Last updated: Jul 9, 2026 (wiki-style metadata infobox in Search).
 
 ## Product Context
 
@@ -63,7 +63,7 @@ Paste → App.vue.addCSV(text) → parser/csv-parser.parseCSV(text)
 |---|---|---|
 | Inventory | ~220 | Single report, delta tracking, compact groups, "live guns" min(guns, ammo/3) |
 | Stockpile | ~430 | Multi-source/target, crate planning, category filters, shopping list auto-fill, export |
-| **Search** | — | **Default landing view (`src/components/Search.vue`)**, shown when `submissions.length === 0`. Left panel: search bar + live results (icon + `displayName`, all 662 items/vehicles/structures). Case-insensitive substring match on `displayName` only; results list hidden until you type. Click an entry → right panel shows pretty-printed raw metadata JSON (max-width 1000px, centered). × button clears the search; emptying the box resets to the default placeholder view. Paste still works globally to switch to CSV modes. |
+| **Search** | — | **Default landing view (`src/components/Search.vue`)**, shown when `submissions.length === 0`. Left panel: search bar + live results (icon + `displayName`, all 662 items/vehicles/structures). Case-insensitive substring match on `displayName` only; results list hidden until you type. Click an entry → right panel shows a **wiki-style infobox** (`src/metadata-format.js`) of cleaned/labeled fields + a collapsible "unformatted fields" list + the full raw JSON. The landing view also shows a collapsible **item categories** table (12 metadata-shape classes). × button clears the search; emptying the box resets to the default placeholder view. Paste still works globally to switch to CSV modes. |
 
 **Facility cost calculator** (sub-mode of Search): each result row for a *facility-produced* item shows a green **+** button (`src/facility-calc/`). Clicking it pins the item to the top of the left panel (`src/components/FacDesired.vue`, green-tinted row matching the search-result row height/styling, editable quantity + remove) and reveals the calculator (`src/components/FacilityCalc.vue`) in the right panel. **Search results filter:** when the calculator is active (item pinned), results are filtered to show only facility-producible items. **Search scope:** matches `displayName`, `codeName`, and `description` — sorted so `displayName` matches appear first. Removing the last pinned item closes the calculator (no title/close button). The calculator resolves the recipe graph bottom-up through the 158 facility recipes (base + modification tiers; mines = raw-from-node leaves) and shows **two panels**: **left** = Raw resources + Intermediate resources; **right** = building/modification groups. Recipes run at **fractional scale** (no integer-run rounding, no discretization leftovers); byproducts are produced exactly and reused to offset downstream demand, but final surplus is ignored (not shown). Only the **production time** is shown per active recipe (not run counts). Headers are grey (`#999`, matching the stockpile report's secondary label shade), not green.
 

@@ -3,6 +3,7 @@ import { ref, computed, watch } from 'vue'
 import metadata from '../../parser/data/metadata.json'
 import { facilityProduced, displayName } from '../facility-calc/recipes.mjs'
 import { calc, addDesired } from '../facility-calc/store.mjs'
+import { formatEntry, unformattedFields, classify } from './metadata-format.js'
 import FacilityCalc from './FacilityCalc.vue'
 import FacDesired from './FacDesired.vue'
 
@@ -75,6 +76,12 @@ watch(query, q => {
 const selected = computed(() =>
   selectedCodeName.value ? metadata[selectedCodeName.value] : undefined
 )
+
+const formatted = computed(() => {
+  if (!selected.value) return null
+  const { class: cls, rows, used } = formatEntry(selectedCodeName.value, selected.value)
+  return { cls, rows, unformatted: unformattedFields(selectedCodeName.value, selected.value, used) }
+})
 </script>
 
 <template>
@@ -122,7 +129,25 @@ const selected = computed(() =>
           <h2>{{ selected.displayName }}</h2>
           <code>{{ selectedCodeName }}</code>
         </div>
-        <pre>{{ JSON.stringify(selected, null, 2) }}</pre>
+        <div class="infobox" v-if="formatted">
+          <div class="infoclass">{{ formatted.cls }}</div>
+          <div
+            v-for="r in formatted.rows"
+            :key="r.label"
+            class="irow"
+          >
+            <span class="ilabel">{{ r.label }}</span>
+            <span class="ivalue">{{ r.value }}</span>
+          </div>
+        </div>
+        <details class="raw">
+          <summary>unformatted fields ({{ formatted?.unformatted.length }})</summary>
+          <p class="unf">{{ formatted?.unformatted.join(', ') }}</p>
+        </details>
+        <details class="raw" open>
+          <summary>raw metadata</summary>
+          <pre>{{ JSON.stringify(selected, null, 2) }}</pre>
+        </details>
       </div>
       <div class="content fac-content" v-else-if="calc.active">
         <FacilityCalc />
@@ -266,7 +291,8 @@ const selected = computed(() =>
       background: #3a7a3a
 
 .no-results
-  padding: 16px 10px
+  padding: 6px 10px 6px 26px
+  margin: 0
   color: #777
   font-size: 16px
 
@@ -359,4 +385,63 @@ pre
 
     &:hover
       color: #ddd
+
+.infobox
+  border: 1px solid #2a2a2a
+  border-radius: 8px
+  padding: 4px 0
+  margin-bottom: 14px
+  max-width: 520px
+  background: #141414
+
+  .infoclass
+    padding: 8px 14px
+    font-size: 13px
+    letter-spacing: 0.08em
+    text-transform: uppercase
+    color: #777
+    border-bottom: 1px solid #2a2a2a
+
+  .irow
+    display: flex
+    padding: 4px 14px
+    font-size: 14px
+    line-height: 1.5
+
+    .ilabel
+      width: 130px
+      flex-shrink: 0
+      color: #888
+
+    .ivalue
+      color: #ddd
+      word-break: break-word
+
+.raw
+  margin: 8px 0
+
+  summary
+    cursor: pointer
+    color: #888
+    font-size: 13px
+    padding: 4px 0
+    user-select: none
+
+    &:hover
+      color: #ddd
+
+  .unf
+    color: #666
+    font-size: 12px
+    line-height: 1.5
+    margin: 6px 0
+
+  pre
+    font-size: 13px
+    line-height: 1.4
+    white-space: pre-wrap
+    word-break: break-word
+    color: #ccc
+    margin: 0
+
 </style>
