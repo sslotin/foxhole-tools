@@ -2,50 +2,64 @@
 import { computed } from 'vue'
 import { calc } from '../facility-calc/store.mjs'
 import {
-  recipesFor, displayName, modLabel, effectivePower, isPad,
+  recipesFor, displayName, modLabel, isPad, energyMWh,
 } from '../facility-calc/recipes.mjs'
+import { powerByFacility as computePowerByFacility, peakPowerMW as computePeakPowerMW } from '../facility-calc/power.mjs'
 import { resolvePlan, reachableRecipes } from '../facility-calc/resolver.mjs'
-import { toggleImported } from '../facility-calc/store.mjs'
+import {
+  relevantItems as relevantItemsForPlan,
+  activatableRecipes as activatableForReachable,
+  activeRecipes as activeForPlan,
+  clickableRecipes as clickableForReachable,
+  toggleRecipe,
+} from '../facility-calc/activation.mjs'
+import { toggleImported, toggleSkipAutoImport } from '../facility-calc/store.mjs'
 import FacItem from './FacItem.vue'
+import PowerChip from './PowerChip.vue'
 
-// Two-pass resolution: first pass figures out which ALWAYS_RAW items the
-// Two-pass resolution: first pass figures out which ALWAYS_RAW items the
-// resolver would manufacture (appear in intermediate, byproducts, or raw from
-// node mines), then the second pass auto-imports them so they default to the
-// Inputs section. This makes ALWAYS_RAW items clickable — the user can toggle
-// them to Intermediates by clicking, which marks them in skipAutoImport to
-// prevent the auto-import from re-adding them.
-//
-// Items truly irreducible (no facility recipe at all) remain non-clickable.
-// Single-pass resolution with auto-import of gathered resources.
-// Salvage, Coal, Components, Sulfur, and Oil default to Imports
-// (added to the imported set) unless the user has explicitly toggled
-// them (in which case they're in calc.imported and excluded here).
+// ALWAYS_RAW resources (Metal, Coal, Sulfur, Components, Oil) default to being
+// imported (sourced from the world) rather than manufactured, but stay
+// clickable so the user can opt to produce them instead. The user's explicit
+// choices live in two sets:
+//   - calc.imported        — items explicitly marked as imported (non-default
+//     reducible items start manufactured and are imported on click)
+//   - calc.skipAutoImport  — ALWAYS_RAW items the user has opted to manufacture
+//     instead of auto-importing.
+// An item is imported iff it is in calc.imported OR (it is ALWAYS_RAW and not
+// in calc.skipAutoImport).
 const DEFAULT_IMPORTED = ['Metal', 'Coal', 'Sulfur', 'Components', 'Oil']
 
 const plan = computed(() => {
   const effectiveImports = new Set(calc.imported)
   for (const c of DEFAULT_IMPORTED) {
-    if (!calc.imported.includes(c)) effectiveImports.add(c)
+    if (!calc.skipAutoImport.includes(c)) effectiveImports.add(c)
   }
-  return resolvePlan(calc.desired, calc.selectedRecipes, effectiveImports)
+  return resolvePlan(calc.desired, calc.selectedRecipes, effectiveImports, { energyImported: calc.energyImported })
 })
 
 // Recipes actually running in the current plan (by identity), with their times.
-const activeRecipes = computed(() => new Set(plan.value.processes.map(p => p.recipe)))
+const activeRecipes = computed(() => activeForPlan(plan.value))
 const timeByRecipe = computed(() => {
   const m = new Map()
   for (const p of plan.value.processes) m.set(p.recipe, p.time)
   return m
 })
 
-// Items the current plan actually produces (desired roots + intermediates +
-// gathered raws — mines create processes too). A recipe presented under item X
-// is "activatable" (clicking it would change the plan) iff X is in this set;
-// recipes presented under items not in the plan (e.g. Components pulled in by
-// the Recycler Cmats alternative while the base recipe is selected) can't take
-// effect and are shown dimmed.
-const activeItems = computed(() => new Set(plan.value.processes.map(p => p.item)))
+// A recipe is clickable/activatable iff it PRODUCES an Import, an
+// Intermediate, or Energy (pure logic in activation.mjs, unit-tested there).
+// Energy is treated as an intermediate so power-plant recipes stay clickable
+// like any other intermediate producer. Desired targets are excluded: you get
+// a desired item's recipe by setting its quantity, not by pinning a recipe.
+const relevantItems = computed(() => relevantItemsForPlan(plan.value))
+
+const activatableRecipes = computed(() =>
+  activatableForReachable(reachable.value, relevantItems.value))
+// Clickable (bright, never dimmed) = activatable recipes ∪ active recipes.
+// Guarantees an active/pinned recipe can never get stuck dimmed (its output
+// may have left the relevant set), so it stays deactivatable. See
+// clickableRecipes() in activation.mjs.
+const clickableRecipes = computed(() =>
+  clickableForReachable(reachable.value, relevantItems.value, activeRecipes.value))
 
 // Stable set of every recipe that COULD be involved in producing the pinned
 // items, independent of recipe choices. Each recipe is mapped to its primary
@@ -91,67 +105,76 @@ const groups = computed(() => {
   return arr
 })
 
-// Total energy consumed/produced across the plan (MWh). Energy = power × time,
-// summed over every running process using its per-order effective power.
-const energyMWh = computed(() => {
+// Net energy across the plan (MWh, signed). Producers positive, consumers
+// negative. Deficit (what must be imported) and produced are derived from it.
+const energyNetMWh = computed(() => {
   let mwh = 0
-  for (const p of plan.value.processes) {
-    mwh += effectivePower(p.recipe) * (p.time || 0) / 3600
-  }
+  for (const p of plan.value.processes) mwh += energyMWh(p.recipe) * p.runs
   return mwh
 })
-
-// Unique facilities used in the active plan, for the Facilities section.
-// Each entry has the facility icon key and the display label (mod name
-// with resource disambiguation, e.g. "Excavator (Sulfur)").
-const facilities = computed(() => {
-  const seen = new Set()
-  const result = []
-  for (const p of plan.value.processes) {
-    const key = p.recipe.facilityKey + '|' + (p.recipe.mod || '')
-    if (seen.has(key)) continue
-    seen.add(key)
-    result.push({
-      facilityKey: p.recipe.facilityKey,
-      mod: p.recipe.mod || '',
-      label: modLabel(p.recipe),
-    })
-  }
-  result.sort((a, b) => a.label.localeCompare(b.label))
-  return result
+const energyDeficitMWh = computed(() => Math.max(0, -energyNetMWh.value))
+const energyProducedMWh = computed(() => {
+  // Gross energy PRODUCED by power facilities (positive contributions
+  // only), NOT the net — in 'produced' mode the resolver covers the
+  // deficit with a power plant, so net ~0 while real production scales
+  // with the requested target.
+  let mwh = 0
+  for (const p of plan.value.processes) mwh += Math.max(0, energyMWh(p.recipe) * p.runs)
+  return mwh
 })
+// Energy shows in Imports only when it's an actual import need (imported mode
+// with a deficit); otherwise it's produced/covered and shows in Intermediates.
+const energyInImports = computed(() => calc.energyImported && energyDeficitMWh.value > 1e-6)
+function toggleEnergy () { calc.energyImported = !calc.energyImported }
+
+// Per-facility power aggregation + peak are pure (src/facility-calc/power.mjs,
+// unit-tested). Power-producing buildings sort LAST and contribute 0 to peak
+// (they supply power, they don't demand it). See power.mjs for details.
+const powerByFacility = computed(() => computePowerByFacility(plan.value))
+const peakPowerMW = computed(() => computePeakPowerMW(powerByFacility.value))
 
 function handleInputClick (codeName) {
-  toggleImported(codeName)
+  // ALWAYS_RAW items toggle their auto-import opt-out; everything else toggles
+  // explicit import.
+  if (DEFAULT_IMPORTED.includes(codeName)) toggleSkipAutoImport(codeName)
+  else toggleImported(codeName)
 }
 
-function chooseRecipe (item, idx) {
-  calc.selectedRecipes[item] = recipesFor(item)[idx]
+// Click a recipe to toggle it: an already-active (pinned) recipe is
+// deactivated (reverts to the default), an inactive alternative is pinned.
+// Deactivating drops outputs other recipes depended on, and re-resolution
+// automatically moves those unmet demands to Imports.
+// Click a recipe to toggle it (pure toggle in activation.mjs, kept in sync
+// with the tests): an already-active (pinned) recipe is deactivated
+// (reverts to the default), an inactive alternative is pinned.
+function chooseRecipe (item, recipe) {
+  calc.selectedRecipes = toggleRecipe(calc.selectedRecipes, item, recipe)
 }
-// Index of a recipe among all recipes producing its presented item — used to
-// identify which alternative the user clicked.
-function recipeIdx (item, r) {
-  return recipesFor(item).indexOf(r)
-}
-
 function fmt (n) {
   // Resources are aggregated from fractional runs; round up so a partial
   // unit still has to be sourced. Tiny epsilon absorbs FP noise.
   return String(Math.ceil(n - 1e-6))
 }
-// Power shown per recipe: MW to 1 decimal (e.g. "6,000.0").
+// MW display (matches PowerChip): up to 1 dp, hide trailing ".0", no grouping.
 function fmtMW (n) {
-  return n.toLocaleString(undefined, { minimumFractionDigits: 1, maximumFractionDigits: 1 })
+  const v = Math.round(n * 10) / 10
+  return Number.isInteger(v) ? String(v) : v.toFixed(1)
 }
 // Round a value UP to 1 decimal place (for energy budget, overestimate).
 function ceil1 (n) {
   return Math.ceil(n * 10 - 1e-9) / 10
 }
+// Energy MWh display: values below 0.1 are shown as "<0.1" so a tiny
+// surplus/deficit doesn't read as a precise (misleading) decimal.
+function fmtEnergyMWh (v) {
+  return v < 0.1 ? '<0.1' : ceil1(v)
+}
 function fmtTime (s) {
   if (!s || s <= 0) return ''
+  s = Math.round(s) // round to whole seconds ONCE, then derive h/m/s by flooring
   const h = Math.floor(s / 3600)
   const m = Math.floor((s % 3600) / 60)
-  const sec = Math.round(s % 60)
+  const sec = s % 60
   const p = []
   if (h) p.push(h + 'h')
   if (m) p.push(m + 'm')
@@ -159,12 +182,23 @@ function fmtTime (s) {
   return p.join(' ')
 }
 
+// Facilities list power label: consumers show "<MW>MW × <time>" (red, counted
+// in Peak power); producers show their output (green, excluded from Peak);
+// power-neutral buildings show just the time.
+function facPowerText (f) {
+  if (f.consumptionKw > 0) return fmtMW(f.consumptionKw / 1000) + 'MW × ' + fmtTime(f.timeActive)
+  if (f.productionKw > 0) return fmtMW(f.productionKw / 1000) + 'MW × ' + fmtTime(f.timeActive)
+  return fmtTime(f.timeActive)
+}
+
 const sortBy = (a, b) => displayName(a[0]).localeCompare(displayName(b[0]))
 
 // Resources displayed under Imports section: raw (no recipe, or node-only
 // mines) + imported (user-toggled or default-gathered resources).
 const rawDisplay = computed(() => {
-  const r = { ...plan.value.raw, ...plan.value.inputs }
+  const r = {}
+  for (const [c, q] of Object.entries(plan.value.raw)) r[c] = (r[c] || 0) + q
+  for (const [c, q] of Object.entries(plan.value.inputs)) r[c] = (r[c] || 0) + q
   return Object.entries(r).sort(sortBy)
 })
 
@@ -211,9 +245,9 @@ const alwaysInputSet = computed(() => {
 
     <template v-else>
       <div class="fc-left">
-        <section v-if="rawDisplay.length" class="fc-block">
+        <section v-if="rawDisplay.length || energyInImports" class="fc-block">
           <h3>Imports</h3>
-          <div v-if="rawDisplay.length" class="io-list">
+          <div v-if="rawDisplay.length || energyInImports" class="io-list">
             <div v-for="[c, q] in irreducibleInputs" :key="c"
                  class="input-row irreducible">
               <FacItem :codeName="c" :qty="fmt(q)" />
@@ -225,15 +259,21 @@ const alwaysInputSet = computed(() => {
                  @click="alwaysInputSet.has(c) ? undefined : handleInputClick(c)">
               <FacItem :codeName="c" :qty="fmt(q)" />
             </div>
+            <div v-if="energyInImports" class="input-row clickable" @click="toggleEnergy" title="toggle energy: import / produce">
+              <FacItem codeName="Energy" :qty="fmtEnergyMWh(energyDeficitMWh)" label="MWh" />
+            </div>
           </div>
           <p v-else class="muted">none</p>
         </section>
 
-        <section v-if="interDisplay.length" class="fc-block">
+        <section v-if="interDisplay.length || energyProducedMWh > 1e-6" class="fc-block">
           <h3>Intermediates</h3>
           <div class="io-list">
-            <div v-for="[c, q] in interDisplay" :key="c" class="inter-row" @click="toggleImported(c)">
+            <div v-for="[c, q] in interDisplay" :key="c" class="inter-row" @click="handleInputClick(c)">
               <FacItem :codeName="c" :qty="fmt(q)" />
+            </div>
+            <div v-if="energyProducedMWh > 1e-6" class="inter-row" @click="toggleEnergy" title="toggle energy: import / produce">
+              <FacItem codeName="Energy" :qty="fmtEnergyMWh(energyProducedMWh)" label="MWh" />
             </div>
           </div>
         </section>
@@ -245,27 +285,21 @@ const alwaysInputSet = computed(() => {
           </div>
         </section>
 
-        <section v-if="facilities.length" class="fc-block">
+        <section v-if="powerByFacility.length" class="fc-block">
           <h3>Facilities</h3>
-          <div class="fac-list">
-            <div v-for="fac in facilities" :key="fac.facilityKey + '|' + fac.mod" class="fac-row">
-              <img :src="`/icons/${fac.facilityKey}.png`"
+          <div class="power-list">
+            <div v-for="f in powerByFacility" :key="f.facilityKey + '|' + f.mod" class="power-row">
+              <img :src="`/icons/${f.facilityKey}.png`"
                    class="fac-icon"
                    @error="$event.target.style.visibility = 'hidden'" />
-              <span class="nm">{{ fac.label }}</span>
+              <span class="nm">{{ f.label }}</span>
+              <span class="pw" :class="{ neg: f.consumptionKw > 0, pos: f.productionKw > 0 }">{{ facPowerText(f) }}</span>
             </div>
           </div>
+          <div class="peak-power">Peak: {{ fmtMW(peakPowerMW) }}MW</div>
         </section>
 
-        <section v-if="Math.abs(energyMWh) > 1e-6" class="fc-block">
-          <h3>Energy</h3>
-          <div class="io-list">
-            <div class="energy-row">
-              <span class="qty">{{ energyMWh >= 0 ? ceil1(energyMWh) : ceil1(-energyMWh) }} MWh</span>
-              <span v-if="energyMWh < 0" class="nm">produced</span>
-            </div>
-          </div>
-        </section>
+        
       </div>
 
       <div class="fc-right">
@@ -275,8 +309,9 @@ const alwaysInputSet = computed(() => {
             v-for="entry in g.recipes"
             :key="entry.r.facilityKey + '|' + (entry.r.mod || '') + '|' + entry.item"
             class="recipe-row"
-            :class="{ active: activeRecipes.has(entry.r), activatable: activeItems.has(entry.item) }"
-            @click="chooseRecipe(entry.item, recipeIdx(entry.item, entry.r))"
+            :class="{ active: activeRecipes.has(entry.r), clickable: clickableRecipes.has(entry.r) }"
+            :title="activeRecipes.has(entry.r) ? 'click to deactivate' : ''"
+            @click="chooseRecipe(entry.item, entry.r)"
           >
             <span class="fac-info">
             <img :src="`/icons/${entry.r.facilityKey}.png`"
@@ -285,19 +320,13 @@ const alwaysInputSet = computed(() => {
             <span class="fac-label">{{ modLabel(entry.r) }}</span>
           </span>
             <span class="io-inputs">
-              <span v-if="entry.r.powerDelta < 0" class="fac-item power-chip in">
-                <span class="qty">{{ fmtMW(entry.r.powerDelta) }}<template v-if="!isPad(entry.r)">/5</template> MW × {{ entry.r.duration }}s</span>
-                <span class="nm">Power</span>
-              </span>
               <FacItem v-for="(inp, k) in entry.r.inputs" :key="k" :codeName="inp.codeName" :qty="inp.quantity" />
+              <PowerChip v-if="entry.r.powerDelta < 0" :recipe="entry.r" />
             </span>
             <span class="arrow-col">→</span>
             <span class="io-outputs">
-              <span v-if="entry.r.powerDelta > 0" class="fac-item power-chip out">
-                <span class="qty">+{{ fmtMW(entry.r.powerDelta) }} MW × {{ entry.r.duration }}s</span>
-                <span class="nm">Power</span>
-              </span>
-              <FacItem v-for="(out, k) in entry.r.outputs" :key="k" :codeName="out.codeName" :qty="out.quantity" />
+              <FacItem v-for="(out, k) in entry.r.outputs.filter(o => o.codeName !== 'Energy')" :key="k" :codeName="out.codeName" :qty="out.quantity" />
+              <PowerChip v-if="entry.r.powerDelta > 0" :recipe="entry.r" />
             </span>
             <span class="io-time" :class="{ visible: activeRecipes.has(entry.r) }">{{ activeRecipes.has(entry.r) ? fmtTime(timeByRecipe.get(entry.r)) : '' }}</span>
           </div>
@@ -441,6 +470,54 @@ const alwaysInputSet = computed(() => {
     color: #ddd
     font-size: 15px
 
+.power-list
+  display: flex
+  flex-direction: column
+  align-items: flex-start
+
+.power-row
+  display: flex
+  align-items: center
+  gap: 8px
+  padding: 3px 8px
+  border-radius: 4px
+  width: 100%
+
+  .fac-icon
+    width: 28px
+    height: 28px
+    object-fit: contain
+    flex-shrink: 0
+
+  .nm
+    color: #ddd
+    font-size: 15px
+    flex: 1 1 auto
+    min-width: 0
+    overflow: hidden
+    text-overflow: ellipsis
+    white-space: nowrap
+
+  .pw
+    color: #9ad
+    font-size: 14px
+    white-space: nowrap
+    font-variant-numeric: tabular-nums
+    flex-shrink: 0
+
+    &.neg
+      color: #e07a7a
+
+    &.pos
+      color: #7ecc7e
+
+.peak-power
+  margin-top: 6px
+  text-align: right
+  color: #ddd
+  font-size: 15px
+  font-weight: 400
+
 // Primary-output groups. Each group has a right border.
 .group
   margin-bottom: 12px
@@ -513,38 +590,21 @@ const alwaysInputSet = computed(() => {
         flex: 1 1 auto
         min-width: 0
 
+  // The power×time line (PowerChip) must never be clipped — keep it at its
+  // natural width even if its grid column is tight, so “<mag>MW × <time>s”
+  // always reads in full.
+  .io-inputs, .io-outputs
+    .power-chip
+      overflow: visible
+      min-width: auto
+
   .arrow-col
     color: #888
     align-self: center
     margin-right: 4px
 
-  .power-chip
-    .qty
-      color: #e8c674
-      font-weight: 600
-      flex-shrink: 0
-
-    &.in .qty
-      color: #e89a9a
-
-    &.out .qty
-      color: #8fd98f
-
-  .energy-row
-    display: flex
-    align-items: center
-    gap: 8px
-    padding: 3px 8px
-    width: 100%
-
-    .qty
-      color: #e8c674
-      font-weight: 600
-      font-size: 15px
-
-    .nm
-      color: #8fd98f
-      font-size: 14px
+  // Energy pseudo-resource now renders via <FacItem> (codeName="Energy"),
+  // so it shares FacItem's exact styling. No bespoke .energy-row styles.
 
   .io-time
     color: #9ad
@@ -561,11 +621,13 @@ const alwaysInputSet = computed(() => {
   &.active
     background: var(--green-active)
 
-  // Not activatable: its presented item isn't produced in the current plan, so
-  // clicking does nothing → dim it. Activatable alternatives (same item, not
-  // selected) stay full-bright since clicking would switch the plan to them.
-  &:not(.activatable)
+  // Dimmed (not clickable): a recipe that neither produces a relevant item nor
+  // is currently active. Clicking can't usefully change the plan for it, so
+  // clickable (a pinned recipe that outlives its output stays deactivatable) —
+  &:not(.clickable)
     opacity: 0.4
+    pointer-events: none
+    cursor: default
 
   &:hover
     opacity: 1

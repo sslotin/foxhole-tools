@@ -1,0 +1,1125 @@
+{
+  "ATRPGC": {
+    "reload": 4,
+    "fireRate": 10.9,
+    "wikiTitle": "Venom c.II 35"
+  },
+  "ATRPGHeavyC": {
+    "reload": 4,
+    "fireRate": 10.9,
+    "wikiTitle": "Bane 45"
+  },
+  "ATRPGHeavyW": {
+    "reload": 5,
+    "fireRate": 9.2,
+    "wikiTitle": "Carnyx Anti-Tank Rocket Launcher"
+  },
+  "ATRPGTW": {
+    "fireRate": 17.1,
+    "wikiTitle": "Mounted Bonesaw MK.3"
+  },
+  "ATRPGW": {
+    "reload": 4,
+    "fireRate": 10.9,
+    "wikiTitle": "Bonesaw MK.3"
+  },
+  "ATRifleAssaultW": {
+    "reload": 4,
+    "fireRate": 240,
+    "firingMode": "2-round burst",
+    "wikiTitle": "228 Satterley Heavy Storm Rifle"
+  },
+  "ATRifleAutomaticW": {
+    "reload": 2,
+    "fireRate": 133,
+    "firingMode": "Automatic",
+    "wikiTitle": "Booker Greyhound Model 910"
+  },
+  "ATRifleLightC": {
+    "reload": 4,
+    "fireRate": 180,
+    "firingMode": "3-round burst",
+    "wikiTitle": "“Dawn” Ve.II"
+  },
+  "ATRifleSniperC": {
+    "reload": 4,
+    "fireRate": 30,
+    "firingMode": "Bolt-action",
+    "wikiTitle": "“Quickhatch” Rt.I"
+  },
+  "ATRifleTC": {
+    "fireRate": 60,
+    "firingMode": "Automatic",
+    "wikiTitle": "“Typhon” ra.XII"
+  },
+  "ATRifleW": {
+    "reload": 3.5,
+    "fireRate": 34.2,
+    "firingMode": "Bolt-action",
+    "wikiTitle": "Neville Anti-Tank Rifle"
+  },
+  "AmbulanceC": {
+    "speedKmh": 13.16,
+    "offspeedKmh": 4.6,
+    "crew": 1,
+    "passengers": 1,
+    "wikiTitle": "R-12 - “Salus” Ambulance"
+  },
+  "AmbulanceFlameC": {
+    "speedKmh": 13.16,
+    "offspeedKmh": 4.6,
+    "crew": 2,
+    "passengers": 1,
+    "wikiTitle": "R-12b - “Salva” Flame Truck"
+  },
+  "AmbulanceFlameW": {
+    "speedKmh": 13.16,
+    "offspeedKmh": 4.6,
+    "crew": 2,
+    "passengers": 1,
+    "wikiTitle": "Dunne Dousing Engine 3r"
+  },
+  "AmbulanceW": {
+    "speedKmh": 13.16,
+    "offspeedKmh": 4.6,
+    "crew": 1,
+    "passengers": 1,
+    "wikiTitle": "Dunne Responder 3e"
+  },
+  "ArmoredCar2LargeW": {
+    "speedKmh": 10.04,
+    "offspeedKmh": 3.01,
+    "crew": 2,
+    "wikiTitle": "O'Brien V.101 Freeman"
+  },
+  "ArmoredCar2MultiW": {
+    "speedKmh": 10.04,
+    "offspeedKmh": 3.01,
+    "crew": 2,
+    "wikiTitle": "O'Brien V.200 Squire"
+  },
+  "ArmoredCar2TwinW": {
+    "speedKmh": 10.04,
+    "offspeedKmh": 3.01,
+    "crew": 2,
+    "wikiTitle": "O'Brien V.190 Knave"
+  },
+  "ArmoredCarATW": {
+    "speedKmh": 10.88,
+    "offspeedKmh": 3.26,
+    "crew": 2,
+    "wikiTitle": "O'Brien V.113 Gravekeeper"
+  },
+  "ArmoredCarC": {
+    "speedKmh": 10.2,
+    "offspeedKmh": 3.06,
+    "crew": 2,
+    "wikiTitle": "T3 “Xiphos”"
+  },
+  "ArmoredCarFlameW": {
+    "speedKmh": 6.86,
+    "offspeedKmh": 5.7,
+    "crew": 2,
+    "wikiTitle": "O'Brien V.130 Wild Jack"
+  },
+  "ArmoredCarMobilityW": {
+    "speedKmh": 6.86,
+    "offspeedKmh": 5.7,
+    "crew": 2,
+    "wikiTitle": "O'Brien V.121 Highlander"
+  },
+  "ArmoredCarOffensiveC": {
+    "speedKmh": 10.04,
+    "offspeedKmh": 5.52,
+    "crew": 2,
+    "wikiTitle": "T5 “Percutio”"
+  },
+  "ArmoredCarTwinC": {
+    "speedKmh": 10.2,
+    "offspeedKmh": 3.06,
+    "crew": 2,
+    "wikiTitle": "T8 “Gemini”"
+  },
+  "ArmoredCarW": {
+    "speedKmh": 10.88,
+    "offspeedKmh": 3.26,
+    "crew": 2,
+    "wikiTitle": "O'Brien V.110"
+  },
+  "AssaultRifleC": {
+    "reload": 2.5,
+    "fireRate": 240,
+    "firingMode": "Automatic",
+    "wikiTitle": "Catara mo.II"
+  },
+  "AssaultRifleHeavyC": {
+    "reload": 3.5,
+    "fireRate": 300,
+    "firingMode": "Automatic",
+    "wikiTitle": "“Dusk” ce.III"
+  },
+  "AssaultRifleHeavyW": {
+    "reload": 3.5,
+    "fireRate": 180,
+    "firingMode": "3-round burst",
+    "wikiTitle": "Booker Storm Rifle Model 838"
+  },
+  "AssaultRifleW": {
+    "reload": 2.3,
+    "fireRate": 240,
+    "firingMode": "Auto / Semi",
+    "wikiTitle": "Aalto Storm Rifle 24"
+  },
+  "Barge": {
+    "speedKmh": 5.5,
+    "crew": 1,
+    "passengers": 6,
+    "wikiTitle": "BMS - Aquatipper"
+  },
+  "BattleTankATC": {
+    "speedKmh": 4.22,
+    "offspeedKmh": 2.95,
+    "crew": 4,
+    "wikiTitle": "Lance-25 “Hasta”"
+  },
+  "BattleTankC": {
+    "speedKmh": 6.25,
+    "offspeedKmh": 4.37,
+    "crew": 5,
+    "wikiTitle": "Lance-36"
+  },
+  "BattleTankDefensiveW": {
+    "speedKmh": 6.39,
+    "offspeedKmh": 4.47,
+    "crew": 5,
+    "wikiTitle": "Flood Juggernaut Mk. VII"
+  },
+  "BattleTankHeavyArtilleryC": {
+    "speedKmh": 3.1,
+    "offspeedKmh": 2.17,
+    "crew": 3,
+    "passengers": 4,
+    "wikiTitle": "Lance-46 “Sarissa”"
+  },
+  "BattleTankHeavyArtilleryW": {
+    "speedKmh": 3.65,
+    "offspeedKmh": 2.55,
+    "crew": 4,
+    "wikiTitle": "Flood Mk. IX Stain"
+  },
+  "BattleTankW": {
+    "speedKmh": 7.21,
+    "offspeedKmh": 5.05,
+    "crew": 5,
+    "wikiTitle": "Flood Mk. I"
+  },
+  "Bayonet": {
+    "firingMode": "Quick / Charged",
+    "wikiTitle": "Buckhorn CCQ-18"
+  },
+  "Bicycle": {
+    "speedKmh": 8.77,
+    "offspeedKmh": 3.95,
+    "crew": 1,
+    "wikiTitle": "Blumfield LK205"
+  },
+  "BusC": {
+    "speedKmh": 12.9,
+    "offspeedKmh": 3.87,
+    "crew": 1,
+    "passengers": 11,
+    "wikiTitle": "R-15 - “Chariot”"
+  },
+  "BusW": {
+    "speedKmh": 12.9,
+    "offspeedKmh": 3.87,
+    "crew": 1,
+    "passengers": 11,
+    "wikiTitle": "Dunne Caravaner 2f"
+  },
+  "Construction": {
+    "speedKmh": 2.86,
+    "offspeedKmh": 2.14,
+    "crew": 1,
+    "passengers": 1,
+    "wikiTitle": "BMS - Universal Assembly Rig"
+  },
+  "ConstructionUtility": {
+    "speedKmh": 2.86,
+    "offspeedKmh": 2.14,
+    "crew": 1,
+    "passengers": 1,
+    "wikiTitle": "BMS - Fabricator"
+  },
+  "Crane": {
+    "speedKmh": 3.66,
+    "offspeedKmh": 3.05,
+    "crew": 1,
+    "passengers": 1,
+    "wikiTitle": "BMS - Class 2 Mobile Auto-Crane"
+  },
+  "DestroyerTankFlameW": {
+    "speedKmh": 3.94,
+    "offspeedKmh": 3.94,
+    "crew": 3,
+    "wikiTitle": "Noble Firebrand Mk. XVII"
+  },
+  "DestroyerTankW": {
+    "speedKmh": 3.94,
+    "offspeedKmh": 3.94,
+    "crew": 3,
+    "wikiTitle": "Noble Widow MK. XIV"
+  },
+  "FieldAT2C": {
+    "speedKmh": 3.19,
+    "offspeedKmh": 1.92,
+    "crew": 2,
+    "wikiTitle": "GA6 “Cestus”"
+  },
+  "FieldAT2W": {
+    "speedKmh": 3.19,
+    "offspeedKmh": 1.92,
+    "crew": 2,
+    "wikiTitle": "Duncan's Coin 14.5mm"
+  },
+  "FieldATC": {
+    "speedKmh": 3.19,
+    "offspeedKmh": 1.92,
+    "crew": 2,
+    "wikiTitle": "AA-2 Battering Ram"
+  },
+  "FieldATDamageW": {
+    "speedKmh": 2.77,
+    "offspeedKmh": 1.66,
+    "crew": 2,
+    "wikiTitle": "Balfour Rampart 68mm"
+  },
+  "FieldATW": {
+    "speedKmh": 3.19,
+    "offspeedKmh": 1.92,
+    "crew": 2,
+    "wikiTitle": "Collins Cannon 68mm"
+  },
+  "FieldCannonDamageC": {
+    "speedKmh": 2.64,
+    "offspeedKmh": 1.58,
+    "crew": 2,
+    "wikiTitle": "40-45 “Smelter”"
+  },
+  "FieldCannonW": {
+    "speedKmh": 3.19,
+    "offspeedKmh": 1.92,
+    "crew": 2,
+    "wikiTitle": "Balfour Wolfhound 40mm"
+  },
+  "FieldMGC": {
+    "speedKmh": 3.19,
+    "offspeedKmh": 1.92,
+    "crew": 2,
+    "wikiTitle": "G40 “Sagittarii”"
+  },
+  "FieldMGW": {
+    "speedKmh": 3.19,
+    "offspeedKmh": 1.92,
+    "crew": 2,
+    "wikiTitle": "Swallowtail 988/127-2"
+  },
+  "FieldMortarC": {
+    "speedKmh": 2.77,
+    "offspeedKmh": 1.66,
+    "crew": 2,
+    "wikiTitle": "30-250 “Tisiphone” Field Cannon"
+  },
+  "FieldMortarW": {
+    "speedKmh": 3.19,
+    "offspeedKmh": 1.92,
+    "crew": 2,
+    "wikiTitle": "Balfour Falconer 250mm"
+  },
+  "FlameTorchC": {
+    "fireRate": 240,
+    "firingMode": "Automatic",
+    "wikiTitle": "“Molten Wind” v.II Flame Torch"
+  },
+  "FlameTorchW": {
+    "fireRate": 240,
+    "firingMode": "Automatic",
+    "wikiTitle": "Willow's Bane Model 845"
+  },
+  "FlatbedTruck": {
+    "speedKmh": 9.78,
+    "offspeedKmh": 4.89,
+    "crew": 1,
+    "passengers": 1,
+    "wikiTitle": "BMS - Packmule Flatbed"
+  },
+  "GrenadeLauncherC": {
+    "reload": 2,
+    "fireRate": 21,
+    "wikiTitle": "KLG901-2 Lunaire F"
+  },
+  "GrenadeLauncherTC": {
+    "fireRate": 17,
+    "wikiTitle": "Mounted Fissura gd.I"
+  },
+  "HalfTrackArtilleryC": {
+    "speedKmh": 8.99,
+    "offspeedKmh": 5.39,
+    "crew": 3,
+    "wikiTitle": "HH-d “Peltast”"
+  },
+  "HalfTrackC": {
+    "speedKmh": 8.99,
+    "offspeedKmh": 5.39,
+    "crew": 2,
+    "passengers": 5,
+    "wikiTitle": "HH-a “Javelin”"
+  },
+  "HalfTrackDefensiveC": {
+    "speedKmh": 7.94,
+    "offspeedKmh": 4.36,
+    "crew": 2,
+    "passengers": 5,
+    "wikiTitle": "HH-b “Hoplite”"
+  },
+  "HalfTrackOffensiveW": {
+    "speedKmh": 7.66,
+    "offspeedKmh": 4.21,
+    "crew": 2,
+    "passengers": 2,
+    "wikiTitle": "Niska Mk. II Blinder"
+  },
+  "HalfTrackW": {
+    "speedKmh": 8.47,
+    "offspeedKmh": 4.66,
+    "crew": 2,
+    "passengers": 5,
+    "wikiTitle": "Niska Mk. I Gun Motor Carriage"
+  },
+  "Harvester": {
+    "speedKmh": 9.27,
+    "offspeedKmh": 4.17,
+    "crew": 1,
+    "passengers": 1,
+    "wikiTitle": "BMS - Scrap Hauler"
+  },
+  "HeavyTruckC": {
+    "speedKmh": 14.06,
+    "offspeedKmh": 5.62,
+    "crew": 1,
+    "passengers": 5,
+    "wikiTitle": "AU-A150 Taurine Rigger"
+  },
+  "HeavyTruckW": {
+    "speedKmh": 15.66,
+    "offspeedKmh": 4.7,
+    "crew": 1,
+    "passengers": 5,
+    "wikiTitle": "Cnute Cliffwrest"
+  },
+  "LandingCraftC": {
+    "speedKmh": 4.77,
+    "offspeedKmh": 4.06,
+    "crew": 1,
+    "passengers": 7,
+    "wikiTitle": "AB-8 “Acheron”"
+  },
+  "LandingCraftOffensiveC": {
+    "speedKmh": 4.77,
+    "offspeedKmh": 4.06,
+    "crew": 2,
+    "passengers": 7,
+    "wikiTitle": "AB-11 “Doru”"
+  },
+  "LandingCraftW": {
+    "speedKmh": 4.77,
+    "offspeedKmh": 4.06,
+    "crew": 1,
+    "passengers": 7,
+    "wikiTitle": "Mulloy LPC"
+  },
+  "LargeCrane": {
+    "speedKmh": 4,
+    "crew": 1,
+    "passengers": 1,
+    "wikiTitle": "BMS - Overseer Sky-Hauler"
+  },
+  "LargeFieldATC": {
+    "speedKmh": 1.6,
+    "offspeedKmh": 0.96,
+    "crew": 2,
+    "wikiTitle": "945g “Stygian Bolt”"
+  },
+  "LargeFieldCannonW": {
+    "speedKmh": 1.98,
+    "offspeedKmh": 1.19,
+    "crew": 2,
+    "wikiTitle": "Balfour Stockade 75mm"
+  },
+  "LargeFieldLightArtilleryC": {
+    "speedKmh": 2.17,
+    "offspeedKmh": 1.3,
+    "crew": 2,
+    "wikiTitle": "120-68 “Koronides” Field Gun"
+  },
+  "LargeFieldMortarC": {
+    "speedKmh": 1.6,
+    "offspeedKmh": 0.96,
+    "crew": 2,
+    "wikiTitle": "40-250 “Alekto” Heavy Cannon"
+  },
+  "LargeFieldMultiW": {
+    "speedKmh": 2.51,
+    "offspeedKmh": 1.51,
+    "crew": 2,
+    "wikiTitle": "Rycker 4/3-F Wasp Nest"
+  },
+  "LightTank2InfantryC": {
+    "speedKmh": 5.52,
+    "offspeedKmh": 3.86,
+    "crew": 3,
+    "passengers": 2,
+    "wikiTitle": "HC-2 “Scorpion”"
+  },
+  "LightTank3C": {
+    "speedKmh": 8.27,
+    "offspeedKmh": 5.79,
+    "crew": 2,
+    "wikiTitle": "HA-1 “Sagaris”"
+  },
+  "LightTank3W": {
+    "speedKmh": 8.27,
+    "offspeedKmh": 5.79,
+    "crew": 2,
+    "wikiTitle": "Sharkey-Devitt Birdeater Mk. I"
+  },
+  "LightTankArtilleryW": {
+    "speedKmh": 8.27,
+    "offspeedKmh": 5.79,
+    "crew": 3,
+    "wikiTitle": "Devitt-Caine Mk. IV MMR"
+  },
+  "LightTankC": {
+    "speedKmh": 8.27,
+    "offspeedKmh": 5.79,
+    "crew": 3,
+    "wikiTitle": "H-5 “Hatchet”"
+  },
+  "LightTankDefensiveW": {
+    "speedKmh": 7.72,
+    "offspeedKmh": 5.4,
+    "crew": 3,
+    "wikiTitle": "Devitt Ironhide Mk. IV"
+  },
+  "LightTankFlameC": {
+    "speedKmh": 7.88,
+    "offspeedKmh": 5.52,
+    "crew": 3,
+    "wikiTitle": "H-19 “Vulcan”"
+  },
+  "LightTankMobilityC": {
+    "speedKmh": 7.72,
+    "offspeedKmh": 5.4,
+    "crew": 3,
+    "wikiTitle": "H-8 “Kranesca”"
+  },
+  "LightTankOffensiveC": {
+    "speedKmh": 8.15,
+    "offspeedKmh": 5.7,
+    "crew": 3,
+    "wikiTitle": "H-10 “Pelekys”"
+  },
+  "LightTankW": {
+    "speedKmh": 8.27,
+    "offspeedKmh": 5.79,
+    "crew": 3,
+    "wikiTitle": "Devitt Mk. III"
+  },
+  "MGC": {
+    "reload": 3.5,
+    "fireRate": 240,
+    "firingMode": "Automatic",
+    "wikiTitle": "KRN886-127 Gast Machine Gun"
+  },
+  "MGTC": {
+    "fireRate": 180,
+    "firingMode": "Automatic",
+    "wikiTitle": "Lamentum mm.IV"
+  },
+  "MGTW": {
+    "fireRate": 300,
+    "firingMode": "Automatic",
+    "wikiTitle": "Malone Ratcatcher MK.1"
+  },
+  "MGW": {
+    "reload": 3.5,
+    "fireRate": 300,
+    "firingMode": "Automatic",
+    "wikiTitle": "Malone MK.2"
+  },
+  "MaceW": {
+    "firingMode": "Quick / Charged",
+    "wikiTitle": "Falias Raiding Club"
+  },
+  "Mech": {
+    "speedKmh": 2.68,
+    "offspeedKmh": 2.68,
+    "crew": 5,
+    "wikiTitle": "Centurion MV-2"
+  },
+  "MechW": {
+    "speedKmh": 3.87,
+    "offspeedKmh": 3.87,
+    "crew": 4,
+    "wikiTitle": "Herne QMW 1a Scourge Hunter"
+  },
+  "MediumTank2C": {
+    "speedKmh": 6.53,
+    "offspeedKmh": 4.57,
+    "crew": 3,
+    "wikiTitle": "86K-a “Bardiche”"
+  },
+  "MediumTank2IndirectW": {
+    "speedKmh": 6.67,
+    "offspeedKmh": 4.67,
+    "crew": 3,
+    "wikiTitle": "Gallagher Thornfall Mk. VI"
+  },
+  "MediumTank2MultiW": {
+    "speedKmh": 6.67,
+    "offspeedKmh": 4.67,
+    "crew": 3,
+    "wikiTitle": "Gallagher Highwayman Mk. III"
+  },
+  "MediumTank2RangeW": {
+    "speedKmh": 6.67,
+    "offspeedKmh": 4.67,
+    "crew": 4,
+    "wikiTitle": "Gallagher Outlaw Mk. II"
+  },
+  "MediumTank2TwinC": {
+    "speedKmh": 6.53,
+    "offspeedKmh": 4.57,
+    "crew": 3,
+    "wikiTitle": "86K-c “Ranseur”"
+  },
+  "MediumTank2W": {
+    "speedKmh": 6.67,
+    "offspeedKmh": 4.67,
+    "crew": 3,
+    "wikiTitle": "Gallagher Brigand Mk. I"
+  },
+  "MediumTank3C": {
+    "speedKmh": 8.45,
+    "offspeedKmh": 5.07,
+    "crew": 4,
+    "wikiTitle": "90T-v “Nemesis”"
+  },
+  "MediumTankATW": {
+    "speedKmh": 7.75,
+    "offspeedKmh": 5.42,
+    "crew": 4,
+    "wikiTitle": "Silverhand Lordscar - Mk. X"
+  },
+  "MediumTankC": {
+    "speedKmh": 7.62,
+    "offspeedKmh": 5.33,
+    "crew": 3,
+    "wikiTitle": "85K-b “Falchion”"
+  },
+  "MediumTankLargeC": {
+    "speedKmh": 3.94,
+    "offspeedKmh": 2.76,
+    "crew": 4,
+    "wikiTitle": "85V-g “Talos”"
+  },
+  "MediumTankOffensiveC": {
+    "speedKmh": 7.62,
+    "offspeedKmh": 5.33,
+    "crew": 3,
+    "wikiTitle": "85K-a “Spatha”"
+  },
+  "MediumTankSiegeW": {
+    "speedKmh": 7.75,
+    "offspeedKmh": 5.42,
+    "crew": 4,
+    "wikiTitle": "Silverhand Chieftain - Mk. VI"
+  },
+  "MediumTankW": {
+    "speedKmh": 7.75,
+    "offspeedKmh": 5.42,
+    "crew": 4,
+    "wikiTitle": "Silverhand - Mk. IV"
+  },
+  "Mortar": {
+    "reload": 3,
+    "fireRate": 10,
+    "wikiTitle": "Cremari Mortar"
+  },
+  "MortarTankC": {
+    "speedKmh": 5.82,
+    "offspeedKmh": 4.07,
+    "crew": 3,
+    "wikiTitle": "HC-7 “Ballista”"
+  },
+  "Motorboat": {
+    "speedKmh": 8,
+    "crew": 1,
+    "passengers": 2,
+    "wikiTitle": "BMS - Grouper"
+  },
+  "MotorcycleC": {
+    "speedKmh": 15.2,
+    "offspeedKmh": 6.85,
+    "crew": 1,
+    "passengers": 1,
+    "wikiTitle": "03MM “Caster”"
+  },
+  "MotorcycleOffensiveC": {
+    "speedKmh": 14.42,
+    "offspeedKmh": 6.5,
+    "crew": 2,
+    "wikiTitle": "00MS “Stinger”"
+  },
+  "MotorcycleW": {
+    "speedKmh": 15.2,
+    "offspeedKmh": 6.85,
+    "crew": 1,
+    "passengers": 1,
+    "wikiTitle": "Kivela Power Wheel 80-1"
+  },
+  "PistolC": {
+    "reload": 2.5,
+    "fireRate": 80,
+    "firingMode": "Semi-automatic",
+    "wikiTitle": "Ferro 879"
+  },
+  "PistolLightW": {
+    "reload": 2.5,
+    "fireRate": 257,
+    "firingMode": "3-round burst",
+    "wikiTitle": "Cascadier 873"
+  },
+  "PistolW": {
+    "reload": 2.5,
+    "fireRate": 80,
+    "firingMode": "Semi-automatic",
+    "wikiTitle": "Ahti Model 2"
+  },
+  "RPGTW": {
+    "fireRate": 10.9,
+    "wikiTitle": "Cutler Foebreaker"
+  },
+  "RelicAPC": {
+    "crew": 3,
+    "passengers": 5,
+    "wikiTitle": "Heavy Infantry Carrier"
+  },
+  "RelicArmouredCar": {
+    "speedKmh": 5.96,
+    "offspeedKmh": 4.17,
+    "crew": 2,
+    "wikiTitle": "Armoured Fighting Tractor"
+  },
+  "RelicLightTank": {
+    "speedKmh": 6.8,
+    "offspeedKmh": 4.76,
+    "crew": 3,
+    "wikiTitle": "Storm Tank"
+  },
+  "RelicMediumTank": {
+    "speedKmh": 3.72,
+    "offspeedKmh": 2.6,
+    "crew": 4,
+    "passengers": 3,
+    "wikiTitle": "Relic Assault Tank"
+  },
+  "RelicScoutVehicle": {
+    "speedKmh": 15.39,
+    "offspeedKmh": 4.62,
+    "crew": 1,
+    "passengers": 1,
+    "wikiTitle": "Staff Car"
+  },
+  "RelicTruck": {
+    "speedKmh": 15.47,
+    "offspeedKmh": 4.64,
+    "crew": 1,
+    "passengers": 5,
+    "wikiTitle": "Repurposed Truck"
+  },
+  "Revolver": {
+    "reload": 3,
+    "fireRate": 60,
+    "firingMode": "Revolver",
+    "wikiTitle": "Cometa T2-9"
+  },
+  "RifleAutomaticC": {
+    "reload": 3.5,
+    "fireRate": 133,
+    "firingMode": "Automatic",
+    "wikiTitle": "Catena rt.IV Auto-Rifle"
+  },
+  "RifleAutomaticW": {
+    "reload": 3.5,
+    "fireRate": 240,
+    "firingMode": "Auto / Semi",
+    "encumbrance": 100,
+    "wikiTitle": "Sampo Auto-Rifle 77"
+  },
+  "RifleC": {
+    "reload": 3.5,
+    "fireRate": 81,
+    "firingMode": "Semi-automatic",
+    "wikiTitle": "Argenti r.II Rifle"
+  },
+  "RifleHeavyC": {
+    "reload": 3.5,
+    "fireRate": 46.2,
+    "firingMode": "Lever-action",
+    "wikiTitle": "Volta r.I Repeater"
+  },
+  "RifleHeavyW": {
+    "reload": 3.5,
+    "fireRate": 56.4,
+    "firingMode": "Revolver",
+    "wikiTitle": "The Hangman 757"
+  },
+  "RifleLightC": {
+    "reload": 3.5,
+    "fireRate": 180,
+    "firingMode": "3-round burst",
+    "encumbrance": 100,
+    "wikiTitle": "Fuscina pi.I"
+  },
+  "RifleLightW": {
+    "reload": 2.5,
+    "fireRate": 112.5,
+    "firingMode": "Semi-automatic",
+    "wikiTitle": "Blakerow 871"
+  },
+  "RifleLongC": {
+    "reload": 3.5,
+    "fireRate": 30,
+    "firingMode": "Bolt-action",
+    "wikiTitle": "KRR2-790 Omen"
+  },
+  "RifleLongW": {
+    "reload": 3.5,
+    "fireRate": 42,
+    "firingMode": "Bolt-action",
+    "wikiTitle": "Clancy Cinder M3"
+  },
+  "RifleShortW": {
+    "reload": 2.75,
+    "fireRate": 60,
+    "firingMode": "Bolt-action",
+    "wikiTitle": "No.2B Hawthorne"
+  },
+  "RifleW": {
+    "reload": 3.5,
+    "fireRate": 55,
+    "firingMode": "Bolt-action",
+    "encumbrance": 100,
+    "wikiTitle": "No.2 Loughcaster"
+  },
+  "RpgW": {
+    "reload": 4,
+    "fireRate": 10.9,
+    "wikiTitle": "Cutler Launcher 4"
+  },
+  "SMGC": {
+    "reload": 2.5,
+    "fireRate": 240,
+    "firingMode": "Automatic",
+    "wikiTitle": "“The Pitch Gun” mc.V"
+  },
+  "SMGHeavyC": {
+    "reload": 3.2,
+    "fireRate": 240,
+    "firingMode": "Automatic",
+    "encumbrance": 100,
+    "wikiTitle": "“Lionclaw” mc.VIII"
+  },
+  "SMGHeavyW": {
+    "reload": 3.2,
+    "fireRate": 171,
+    "firingMode": "Automatic",
+    "encumbrance": 100,
+    "wikiTitle": "No.1 “The Liar” Submachine Gun"
+  },
+  "SMGW": {
+    "reload": 2.5,
+    "fireRate": 240,
+    "firingMode": "Automatic",
+    "wikiTitle": "Fiddler Submachine Gun Model 868"
+  },
+  "ScoutTankMultiW": {
+    "speedKmh": 6.67,
+    "offspeedKmh": 4.67,
+    "crew": 2,
+    "wikiTitle": "King Jester Mk. I-1"
+  },
+  "ScoutTankOffensiveW": {
+    "speedKmh": 6.53,
+    "offspeedKmh": 4.57,
+    "crew": 2,
+    "wikiTitle": "King Gallant Mk. II"
+  },
+  "ScoutTankW": {
+    "speedKmh": 7.21,
+    "offspeedKmh": 5.05,
+    "crew": 2,
+    "wikiTitle": "King Spire Mk. I"
+  },
+  "ScoutVehicleMobilityC": {
+    "speedKmh": 15.64,
+    "offspeedKmh": 10.17,
+    "crew": 1,
+    "passengers": 3,
+    "wikiTitle": "UV-05a “Argonaut”"
+  },
+  "ScoutVehicleOffensiveC": {
+    "speedKmh": 15.11,
+    "offspeedKmh": 6.03,
+    "crew": 2,
+    "passengers": 1,
+    "wikiTitle": "UV-24 “Icarus”"
+  },
+  "ScoutVehicleOffensiveW": {
+    "speedKmh": 15.11,
+    "offspeedKmh": 6.8,
+    "crew": 2,
+    "passengers": 1,
+    "wikiTitle": "Drummond Spitfire 100d"
+  },
+  "ScoutVehicleUtilityC": {
+    "speedKmh": 15.11,
+    "offspeedKmh": 7.56,
+    "crew": 2,
+    "passengers": 1,
+    "wikiTitle": "UV-5c “Odyssey”"
+  },
+  "ScoutVehicleUtilityW": {
+    "speedKmh": 13.94,
+    "offspeedKmh": 6.27,
+    "crew": 1,
+    "passengers": 3,
+    "wikiTitle": "Drummond Loscann 55c"
+  },
+  "ScoutVehicleW": {
+    "speedKmh": 15.11,
+    "offspeedKmh": 7.56,
+    "crew": 1,
+    "passengers": 1,
+    "wikiTitle": "Drummond 100a"
+  },
+  "ShotgunC": {
+    "reload": 3,
+    "fireRate": 50,
+    "firingMode": "Pump-action",
+    "wikiTitle": "KRF1-750 Dragonfly"
+  },
+  "ShotgunW": {
+    "reload": 3,
+    "fireRate": 120,
+    "firingMode": "Break-action",
+    "wikiTitle": "No.4 The Pillory Scattergun"
+  },
+  "SmallTrainEngine": {
+    "speedKmh": 4,
+    "crew": 1,
+    "wikiTitle": "BMS Mineseeker"
+  },
+  "SmallTrainLiquid": {
+    "crew": 1,
+    "wikiTitle": "BMS Tinderbox"
+  },
+  "SmallTrainMaterial": {
+    "crew": 1,
+    "wikiTitle": "BMS Linerunner"
+  },
+  "SmallTrainResource": {
+    "crew": 1,
+    "wikiTitle": "BMS Railtruck"
+  },
+  "SmallTrainShipping": {
+    "crew": 1,
+    "wikiTitle": "BMS Stowheel"
+  },
+  "SniperRifleC": {
+    "reload": 4,
+    "fireRate": 30,
+    "firingMode": "Bolt-action",
+    "wikiTitle": "KRR3-792 Auger"
+  },
+  "SniperRifleW": {
+    "reload": 4,
+    "fireRate": 30,
+    "firingMode": "Bolt-action",
+    "wikiTitle": "Clancy-Raca M4"
+  },
+  "SuperTankC": {
+    "speedKmh": 5,
+    "offspeedKmh": 3.5,
+    "crew": 5,
+    "wikiTitle": "O-75b “Ares”"
+  },
+  "SuperTankW": {
+    "speedKmh": 7.21,
+    "offspeedKmh": 5.05,
+    "crew": 6,
+    "wikiTitle": "Cullen Predator Mk. III"
+  },
+  "SwordC": {
+    "firingMode": "Quick / Charged",
+    "wikiTitle": "Eleos Infantry Dagger"
+  },
+  "TanketteC": {
+    "speedKmh": 5.4,
+    "offspeedKmh": 4.59,
+    "crew": 2,
+    "passengers": 2,
+    "wikiTitle": "T12 “Actaeon” Tankette"
+  },
+  "TanketteFlameC": {
+    "speedKmh": 5.76,
+    "offspeedKmh": 4.03,
+    "crew": 2,
+    "wikiTitle": "T14 “Vesta” Tankette"
+  },
+  "TanketteMultiC": {
+    "speedKmh": 5.76,
+    "offspeedKmh": 4.03,
+    "crew": 2,
+    "wikiTitle": "T13 “Deioneus” Rocket Battery"
+  },
+  "TanketteOffensiveC": {
+    "speedKmh": 5.76,
+    "offspeedKmh": 4.03,
+    "crew": 2,
+    "wikiTitle": "T20 “Ixion” Tankette"
+  },
+  "TrailerLiquid": {
+    "crew": 0,
+    "wikiTitle": "Rooster - Lamploader"
+  },
+  "TrailerMaterial": {
+    "crew": 0,
+    "wikiTitle": "Rooster - Tumblebox"
+  },
+  "TrailerResource": {
+    "crew": 0,
+    "wikiTitle": "Rooster - Junkwagon"
+  },
+  "TrainCaboose": {
+    "passengers": 4,
+    "wikiTitle": "BMS Roadhouse"
+  },
+  "TrainCombatCarC": {
+    "crew": 4,
+    "wikiTitle": "Aegis Steelbreaker K5a"
+  },
+  "TrainCombatCarW": {
+    "crew": 6,
+    "wikiTitle": "O'Brien Warsmith v.215"
+  },
+  "TrainEngine": {
+    "speedKmh": 8,
+    "crew": 2,
+    "wikiTitle": "BMS Black Bolt"
+  },
+  "TrainHospital": {
+    "crew": 1,
+    "wikiTitle": "BMS Bloodtender"
+  },
+  "TrainInfantry": {
+    "crew": 2,
+    "passengers": 4,
+    "wikiTitle": "BMS Holdout"
+  },
+  "TrainLRArtillery": {
+    "crew": 1,
+    "wikiTitle": "Tempest Cannon RA-2"
+  },
+  "TruckC": {
+    "speedKmh": 17.32,
+    "offspeedKmh": 3.46,
+    "crew": 1,
+    "passengers": 5,
+    "wikiTitle": "R-1 Hauler"
+  },
+  "TruckDefensiveW": {
+    "speedKmh": 17.32,
+    "offspeedKmh": 3.46,
+    "crew": 1,
+    "passengers": 5,
+    "wikiTitle": "Dunne Leatherback 2a"
+  },
+  "TruckLiquidC": {
+    "speedKmh": 13.84,
+    "offspeedKmh": 4.15,
+    "crew": 1,
+    "passengers": 1,
+    "wikiTitle": "RR-3 “Stolon” Tanker"
+  },
+  "TruckLiquidW": {
+    "speedKmh": 13.84,
+    "offspeedKmh": 4.15,
+    "crew": 1,
+    "passengers": 1,
+    "wikiTitle": "Dunne Fuelrunner 2d"
+  },
+  "TruckMobilityC": {
+    "speedKmh": 17.32,
+    "offspeedKmh": 3.46,
+    "crew": 1,
+    "passengers": 5,
+    "wikiTitle": "R-5b “Sisyphus” Hauler"
+  },
+  "TruckMobilityW": {
+    "speedKmh": 12.62,
+    "offspeedKmh": 5.06,
+    "crew": 1,
+    "passengers": 5,
+    "wikiTitle": "Dunne Landrunner 12c"
+  },
+  "TruckMultiC": {
+    "speedKmh": 14.28,
+    "offspeedKmh": 2.86,
+    "crew": 2,
+    "wikiTitle": "R-17 “Retiarius” Skirmisher"
+  },
+  "TruckOffensiveC": {
+    "speedKmh": 17.32,
+    "offspeedKmh": 3.46,
+    "crew": 2,
+    "passengers": 4,
+    "wikiTitle": "R-9 “Speartip” Escort"
+  },
+  "TruckResourceC": {
+    "speedKmh": 18.05,
+    "offspeedKmh": 3.61,
+    "crew": 1,
+    "passengers": 1,
+    "wikiTitle": "R-5 “Atlas” Hauler"
+  },
+  "TruckResourceW": {
+    "speedKmh": 18.05,
+    "offspeedKmh": 3.61,
+    "crew": 1,
+    "passengers": 1,
+    "wikiTitle": "Dunne Loadlugger 3c"
+  },
+  "TruckW": {
+    "speedKmh": 17.32,
+    "offspeedKmh": 3.46,
+    "crew": 1,
+    "passengers": 5,
+    "wikiTitle": "Dunne Transport"
+  },
+  "WaterBucket": {
+    "reload": 2,
+    "wikiTitle": "Water Bucket"
+  }
+}

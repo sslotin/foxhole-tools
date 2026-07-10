@@ -27,11 +27,32 @@ const DATA_DIR = GAME_DATA + '/Data/';
 const ICON_BASE_DIR = '/home/sereja/Projects/foxhole/public/';
 const OUTPUT_METADATA = 'parser/data/metadata.json';
 const OUTPUT_RECIPES = 'parser/data/recipes.json';
+const SCRIPT_DIR = import.meta.dirname;
+
+// A few item icons are missing from the game-data exports (e.g. Diesel's
+// ResourceFuelIcon.png). These committed source PNGs are used as fallbacks and
+// re-emitted into public/icons every run, so they survive the icons-dir wipe
+// above. Keyed by item codeName -> absolute path to a source PNG in this repo.
+const HARDCODED_ICONS = {
+  Diesel: SCRIPT_DIR + '/assets/ResourceFuelIcon.png',
+};
 
 // Clean and recreate icons directory, remove old subtypes dir
 fs.rmSync(ICON_BASE_DIR + 'icons', { recursive: true, force: true });
 fs.rmSync(ICON_BASE_DIR + 'subtypes', { recursive: true, force: true });
 fs.mkdirSync(ICON_BASE_DIR + 'icons', { recursive: true });
+
+// Extra UI icons not tied to a single item, so they must be re-emitted here every
+// run (otherwise the rmSync above deletes them). `Energy.png` is the power/energy
+// resource icon (mapped from the game's IconFilterPower texture); `MapIconVehicle.png`
+// is the Garage build icon. Both come from game_data exports — the wiki is NOT used.
+fs.copyFileSync(EXPORTS_ROOT + 'War/Content/Textures/UI/Menus/IconFilterPower.png', ICON_BASE_DIR + 'icons/Energy.png');
+fs.copyFileSync(EXPORTS_ROOT + 'War/Content/Textures/UI/MapIcons/MapIconVehicle.png', ICON_BASE_DIR + 'icons/MapIconVehicle.png');
+// Shipyard build icon (mapped from the game's Dry Dock item icon) and the
+// hammer icon for world-built ("hammered in the field") vehicles/structures.
+// All come from game_data exports — the wiki is NOT used.
+fs.copyFileSync(EXPORTS_ROOT + 'War/Content/Textures/UI/ItemIcons/DryDockItemIcon.png', ICON_BASE_DIR + 'icons/Shipyard.png');
+fs.copyFileSync(EXPORTS_ROOT + 'War/Content/Textures/UI/ItemIcons/HammerIcon.png', ICON_BASE_DIR + 'icons/Hammer.png');
 
 // ── Resolve icon path from its ObjectPath (format: "War/Content/Textures/UI/...") ──
 function resolveIconPath(objectPath) {
@@ -995,8 +1016,10 @@ for (const dir of SEARCH_DIRS) {
     metadata[codeName] = item;
 
     // ── Icon extraction ────────────────────────────────────
+    // Use a hardcoded source PNG if one is provided (game export is missing),
+    // otherwise resolve the icon from the item's game-data ObjectPath.
     const iconRef = raw.Icon.ObjectPath;
-    const iconPath = resolveIconPath(iconRef);
+    const iconPath = HARDCODED_ICONS[codeName] || resolveIconPath(iconRef);
 
     if (iconPath && fs.existsSync(iconPath)) {
       try {
@@ -1244,6 +1267,13 @@ for (const [codeName, row] of Object.entries(itemData)) {
   if (!row.CostPerCrate || row.CostPerCrate.length === 0) continue;
   const hasRealInput = row.CostPerCrate.some(inp => inp.ItemCodeName && inp.ItemCodeName !== 'None' && inp.Quantity > 0);
   if (!hasRealInput) continue;
+  // Only items the game actually assigns to a Factory/MPF queue
+  // (productionCategories.factory / .massProduction, sourced from
+  // BPFactory.json / BPMassProduction.json) are genuinely crate-producible
+  // there. Many facility-only items (Cmats, Coal, Metal…) carry a legacy
+  // CostPerCrate in BPItemDynamicData but are NOT Factory/MPF products —
+  // including them would falsely list them as Factory/MPF-makeable.
+  if (!productionCategories.factory[codeName] && !productionCategories.massProduction[codeName]) continue;
 
   crateRecipes[codeName] = {
     inputs: row.CostPerCrate

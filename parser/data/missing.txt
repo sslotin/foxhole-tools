@@ -1,8 +1,7 @@
-# Missing / inconsistent files — generated 2026-07-10T02:17:09.629Z
-# Total: 5 issues
+# Missing / inconsistent files — generated 2026-07-10T21:39:48.958Z
+# Total: 4 issues
 
 icon file not found for Lore: /home/sereja/Projects/foxhole/game_data/content/Output/Exports/War/Content/Slate/Images/ResourceClothIcon.png
-icon file not found for Diesel: /home/sereja/Projects/foxhole/game_data/content/Output/Exports/War/Content/Slate/Images/ResourceFuelIcon.png
 icon file not found for Mech: /home/sereja/Projects/foxhole/game_data/content/Output/Exports/War/Content/Textures/Event/MechVehicleIcon.png
 icon file not found for MechW: /home/sereja/Projects/foxhole/game_data/content/Output/Exports/War/Content/Textures/Event/MechWardenVehicleIcon.png
 icon file not found for HalfTrackTwinW: /home/sereja/Projects/foxhole/game_data/content/Output/Exports/War/Content/Textures/Vehicles/HalftrackTwinW.png

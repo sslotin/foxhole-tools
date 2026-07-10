@@ -25,12 +25,12 @@
 // output recipe appears in the grouped UI. See recipes.mjs for the rationale
 // behind each assignment.
 
-import { defaultRecipe, facLabel, recipesFor } from './recipes.mjs'
+import { defaultRecipe, facLabel, recipesFor, energyMWh, effectiveDuration, defaultPowerRecipe } from './recipes.mjs'
 
 const procKey = (recipe, item) => `${recipe.facilityKey}|${recipe.mod || ''}|${item}`
 const EPS = 1e-9
 
-export function resolvePlan (desired, selectedRecipes, imported = new Set()) {
+export function resolvePlan (desired, selectedRecipes, imported = new Set(), opts = {}) {
   const raw = {}
   const intermediate = {}
   const inputs = {} // user-imported items (not manufactured)
@@ -38,12 +38,26 @@ export function resolvePlan (desired, selectedRecipes, imported = new Set()) {
   const processes = {}
   const involved = new Set()
 
-  const queue = desired.map(d => ({ item: d.codeName, qty: d.qty, root: true }))
+  // Surplus-reabsorb heuristic: process recipes that EMIT byproducts before the
+  // rest. A byproduct generated early lands in `excess` and can satisfy a later
+  // desired/intermediate demand instead of being manufactured and then wasted as
+  // a leftover. This removes most order-dependent over-counting, e.g. pinning
+  // [Sulfur, Concrete] with Concrete's Coal-Liquefier recipe (which byproducts
+  // Sulfur) used to gather Sulfur AND emit it as a wasted byproduct; with this
+  // ordering Concrete runs first and its Sulfur surplus covers the Sulfur demand.
+  const producerQ = []
+  const otherQ = []
+  const enqueue = (entry) => {
+    const r = selectedRecipes[entry.item] || defaultRecipe(entry.item)
+    const isProducer = r && r.outputs.some(o => o.codeName !== entry.item)
+    ;(isProducer ? producerQ : otherQ).push(entry)
+  }
+  for (const d of desired) enqueue({ item: d.codeName, qty: d.qty, root: true })
 
   let guard = 0
-  while (queue.length) {
+  while (producerQ.length || otherQ.length) {
     if (++guard > 200000) break // recipe-cycle guard
-    const { item, qty, root } = queue.shift()
+    const { item, qty, root } = (producerQ.length ? producerQ : otherQ).shift()
     if (!(qty > 0)) continue
 
     // Reuse any surplus byproduct of this item before manufacturing more.
@@ -81,9 +95,9 @@ export function resolvePlan (desired, selectedRecipes, imported = new Set()) {
     const pkey = procKey(recipe, item)
     if (processes[pkey]) {
       processes[pkey].runs += runs
-      processes[pkey].time += (recipe.duration || 0) * runs
+      processes[pkey].time += effectiveDuration(recipe) * runs
     } else {
-      processes[pkey] = { recipe, runs, time: (recipe.duration || 0) * runs, item }
+      processes[pkey] = { recipe, runs, time: effectiveDuration(recipe) * runs, item }
     }
 
     // Node mine (no item inputs). Root items stay gathered (raw).
@@ -107,7 +121,33 @@ export function resolvePlan (desired, selectedRecipes, imported = new Set()) {
     }
 
     for (const inp of recipe.inputs) {
-      queue.push({ item: inp.codeName, qty: inp.quantity * runs, root: false })
+      enqueue({ item: inp.codeName, qty: inp.quantity * runs, root: false })
+    }
+  }
+
+  // --- Energy pass ---------------------------------------------------------
+  // Energy is a pseudo-resource. By default it is imported (an external grid
+  // cost) — the resolver just reports the net deficit via the processes below.
+  // Only when energy is toggled to 'produced' (opts.energyImported === false)
+  // OR the user has picked a specific power recipe (selectedRecipes['Energy'])
+  // do we manufacture it. Manufacturing adds the chosen power recipe to cover
+  // the remaining deficit; its fuel inputs are merged into `raw` (NOT
+  // enqueued) so a fuel that itself needs power (e.g. refining Diesel to run a
+  // Diesel Power Plant) can't feed back and create a chicken-and-egg loop.
+  // This keeps the pass cycle-free and bounded.
+  const netEnergy = Object.values(processes).reduce(
+    (s, p) => s + energyMWh(p.recipe) * p.runs, 0)
+  const produceEnergy = opts.energyImported === false || selectedRecipes['Energy']
+  if (produceEnergy && netEnergy < -EPS) {
+    const powerRecipe = selectedRecipes['Energy'] || defaultPowerRecipe()
+    const perRun = powerRecipe ? energyMWh(powerRecipe) : 0
+    if (powerRecipe && perRun > EPS) {
+      const runs = (-netEnergy) / perRun
+      const pkey = procKey(powerRecipe, 'Energy')
+      processes[pkey] = { recipe: powerRecipe, runs, time: effectiveDuration(powerRecipe) * runs, item: 'Energy' }
+      for (const inp of powerRecipe.inputs) {
+        raw[inp.codeName] = (raw[inp.codeName] || 0) + inp.quantity * runs
+      }
     }
   }
 
@@ -156,6 +196,12 @@ export function reachableRecipes (desired) {
       if (!result.has(r)) result.set(r, r.primaryOutput)
       for (const inp of r.inputs) if (!seen.has(inp.codeName)) queue.push(inp.codeName)
     }
+  }
+  // Energy is a pseudo-resource: always offer the power recipes so the user
+  // can click one to produce power (covering the import need) or toggle
+  // energy to 'produced'. Power recipes carry primaryOutput 'Energy'.
+  for (const r of recipesFor('Energy')) {
+    if (!result.has(r)) result.set(r, r.primaryOutput)
   }
   return result
 }

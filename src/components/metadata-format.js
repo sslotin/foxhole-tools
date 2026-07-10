@@ -198,12 +198,21 @@ export function formatEntry(codeName, v) {
       // Fuel: push guns (fuel use 0) show neither capacity nor use.
       const fuelUse = vd?.fuelConsumptionPerSecond
       if (fuelUse != null && fuelUse > 0) {
-        let fuelVal = `${vd.fuelCapacity} L`
-        if (vd?.fuelCapacity != null) {
-          const minutes = Math.floor(vd.fuelCapacity / fuelUse / 60)
-          fuelVal += ` (${minutes} minutes)`
+        // Trains burn Coal — their "fuel capacity" is the coal load. Render it as
+        // a coal-consumption line (qty × icon), matching the Repair cost styling,
+        // instead of a liquid fuel-capacity figure. Generalizes to any train
+        // (e.g. a future large locomotive with capacity 300 shows "300 × Coal").
+        if (/^(Train|SmallTrain)/i.test(codeName)) {
+          const coalItems = [{ qty: vd.fuelCapacity, code: 'Coal', name: 'Coal' }]
+          push('Coal', coalItems, 'vehicleData.fuelCapacity', coalItems)
+        } else {
+          let fuelVal = `${vd.fuelCapacity} L`
+          if (vd?.fuelCapacity != null) {
+            const minutes = Math.floor(vd.fuelCapacity / fuelUse / 60)
+            fuelVal += ` (${minutes} minutes)`
+          }
+          push('Fuel cap', fuelVal, 'vehicleData.fuelCapacity')
         }
-        push('Fuel cap', fuelVal, 'vehicleData.fuelCapacity')
       }
       if (vd?.defaultSurfaceMovementRate != null) {
         // Top speed row disabled — see topSpeedMps() documentation above.
@@ -211,6 +220,9 @@ export function formatEntry(codeName, v) {
         // if (ts != null) push('Top speed', `~${ts.toFixed(1)} m/s`, 'vehicleData.defaultSurfaceMovementRate')
       }
       if (vd?.itemHolderCapacity != null && vd.itemHolderCapacity !== 0) push('Inventory', `${vd.itemHolderCapacity}`, 'vehicleData.itemHolderCapacity')
+      // Road/off-road km/h speed, crew and passengers are NOT in the game exports
+      // (only a normalized defaultSurfaceMovementRate exists). Omitted on purpose —
+      // the wiki is not a data source. See tmp/wiki-check.mjs for a sanity comparison.
       if (v.shippableType) push('Shippable size', v.shippableType, 'shippableType')
       break
     }
@@ -296,10 +308,10 @@ export function classify(v) {
 // never appear as 'missing'. NOTE: reload / fire_rate / firing_mode / range
 // in meters for guns live only in the live client, not in these exports.
 const WIKI_FIELDS = {
-  'Firearm': ['Fire Rate', 'Reload', 'Firing Mode', 'Range (m)'],
-  'Mount/Deployed': ['Fire Rate', 'Reload', 'Firing Mode', 'Range (m)', 'Pallet Amount'],
-  'Melee Weapon': ['Damage Type', 'Firing Mode'],
-  'Grenade/Thrown': ['Damage Type', 'Firing Mode'],
+  'Firearm': ['Fire rate', 'Reload', 'Firing mode', 'Range (m)'],
+  'Mount/Deployed': ['Fire rate', 'Reload', 'Firing mode', 'Range (m)', 'Pallet Amount'],
+  'Melee Weapon': ['Damage Type', 'Firing mode'],
+  'Grenade/Thrown': ['Damage Type', 'Firing mode'],
   'Ammunition': ['Weight'],
   'Material/Supply': ['Uses'],
   'Tool/Equip': ['Pallet Amount'],

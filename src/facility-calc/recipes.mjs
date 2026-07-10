@@ -124,14 +124,25 @@ for (const [facKey, fac] of Object.entries(recipesData.facilities)) {
   // *_UpgradeSlotComponent file by the parser. Falls back to the camelCase key.
   const modName = modKey => fac.modifications?.[modKey]?.displayName || prettifyMod(modKey)
   const push = (mod, modDispName, r) => {
-    if (!r.outputs || r.outputs.length === 0) return
+    // Power producers get a synthetic 'Energy' output (MWh per run) so they
+    // show up in the calculator under an 'Energy' group and can be picked to
+    // satisfy the plan's power need. Energy is a pseudo-resource (not in
+    // metadata.json); the resolver treats it as imported by default and only
+    // manufactures it when the user selects a power recipe or toggles energy
+    // to 'produced'. Done BEFORE the empty-output skip-check so pure power
+    // recipes (no item outputs) are no longer dropped.
+    let outputs = r.outputs || []
+    if (r.powerDelta > 0) {
+      outputs = [...outputs, { codeName: 'Energy', quantity: (r.powerDelta * (r.duration || 0)) / 3_600_000 }]
+    }
+    if (outputs.length === 0) return
     const recipe = markRaw({
       facilityKey: facKey,
       facility: fac.displayName,
       mod: mod || null,
       modName: modDispName,
       inputs: (r.inputs || []).map(i => ({ codeName: canon(i.codeName), quantity: i.quantity })),
-      outputs: r.outputs.map(o => ({ codeName: canon(o.codeName), quantity: o.quantity })),
+      outputs: outputs.map(o => ({ codeName: canon(o.codeName), quantity: o.quantity })),
       duration: r.duration || 0,
       powerDelta: r.powerDelta || 0,
       consumeResourceNodes: !!r.consumeResourceNodes,
@@ -182,16 +193,41 @@ export const PAD_FACILITIES = new Set([
 export function isPad (recipe) {
   return PAD_FACILITIES.has(recipe.facilityKey)
 }
-// Per-order effective power (MW). A multi-order facility's draw is shared across
-// its 5 parallel orders, so divide by 5 — except for power producers and
-// single-order pads. Used for energy (power × time) accounting.
+// Per-order effective power (kW). This is the facility's RAW draw/generation
+// (powerDelta) — the historical "÷5" does NOT belong here. A powered
+// (grid-connected) multi-order facility's 5× speed-up is reflected in the
+// TIME via effectiveDuration, not the power. Used for energy (power × time)
+// accounting and the Facilities panel.
 export function effectivePower (recipe) {
-  if (recipe.powerDelta > 0 || isPad(recipe)) return recipe.powerDelta
-  return recipe.powerDelta / 5
+  return recipe.powerDelta || 0
+}
+// Effective processing time of one run (seconds). A powered multi-order
+// facility runs 5× faster than manual cranking, so its time is divided by 5 —
+// except for power producers and single-order assembly pads (which run a
+// single order). This is where the "÷5" belongs: on TIME, not on power.
+export function effectiveDuration (recipe) {
+  const d = recipe.duration || 0
+  return (recipe.powerDelta < 0 && !isPad(recipe)) ? d / 5 : d
+}
+// Energy yielded/consumed by one production run, in MWh.
+// effectivePower is in kW; MWh = kW·s / 3.6e6. Sign follows powerDelta
+// (producers positive, consumers negative). Because the ÷5 now lives on the
+// time, this equals the old (powerDelta/5) × duration — total energy is
+// unchanged.
+export function energyMWh (recipe) {
+  return effectivePower(recipe) * effectiveDuration(recipe) / 3_600_000
 }
 
 export function recipesFor (item) {
   return recipesByOutput[item] || []
+}
+
+// The power recipe used to auto-cover an energy deficit when energy is toggled
+// to 'produced' and the user hasn't picked a specific one. Prefer the standard
+// Power Station (Oil); fall back to any available power recipe.
+export function defaultPowerRecipe () {
+  const candidates = recipesFor('Energy')
+  return candidates.find(r => r.facilityKey === 'FacilityPowerOil' && r.mod === null) || candidates[0] || null
 }
 
 // Recipes that CONSUME `item` as an input (reverse index). Used by the Search

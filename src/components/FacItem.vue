@@ -10,6 +10,7 @@ const props = defineProps({
   plain: { type: Boolean, default: false },
   disp: { type: String, default: null },
   link: { type: Boolean, default: false },
+  label: { type: String, default: null },
 })
 const emit = defineEmits(['select'])
 
@@ -27,7 +28,7 @@ const factionClass = metadata[props.codeName]?.warden === true ? 'warden'
          @error="$event.target.style.visibility = 'hidden'" />
     <span v-if="disp !== null" class="qty">{{ disp }}</span>
     <span v-else-if="qty !== null" class="qty">{{ qty }}<span v-if="suffix" class="suffix">{{ suffix }}</span></span>
-    <span class="nm" :class="factionClass">{{ displayName(codeName) }}</span>
+    <span class="nm" :class="factionClass">{{ props.label ?? displayName(codeName) }}</span>
   </span>
 </template>
 

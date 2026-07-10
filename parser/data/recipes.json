@@ -1,35 +1,17 @@
 {
-  "_generated": "2026-07-10T02:17:09.640Z",
+  "_generated": "2026-07-10T21:39:48.970Z",
   "_sources": [
     "War/Content/Blueprints/Data/BPItemDynamicData.json — Factory/MPF crate recipes",
     "War/Content/Blueprints/Structures/ — facility conversion recipes"
   ],
   "_recipeCounts": {
-    "factoryMpfCrateRecipes": 244,
+    "factoryMpfCrateRecipes": 131,
     "facilityFiles": 22
   },
   "factory": {
     "displayName": "Factory / Mass Production Factory",
     "codeName": "Factory / MassProduction",
     "crateRecipes": {
-      "RelicRifle": {
-        "inputs": [
-          {
-            "codeName": "Cloth",
-            "quantity": 150
-          }
-        ],
-        "outputs": [
-          {
-            "codeName": "RelicRifle",
-            "quantity": 5
-          }
-        ],
-        "duration": 60,
-        "retrieveSingle": 10,
-        "retrieveCrate": 20,
-        "researchLevel": 0
-      },
       "Radio": {
         "inputs": [
           {
@@ -128,78 +110,6 @@
         "retrieveCrate": 20,
         "researchLevel": 0
       },
-      "Sulfur": {
-        "inputs": [
-          {
-            "codeName": "Sulfur",
-            "quantity": 105
-          }
-        ],
-        "outputs": [
-          {
-            "codeName": "Sulfur",
-            "quantity": 100
-          }
-        ],
-        "duration": 200,
-        "retrieveSingle": 6,
-        "retrieveCrate": 6,
-        "researchLevel": 0
-      },
-      "Components": {
-        "inputs": [
-          {
-            "codeName": "Components",
-            "quantity": 70
-          }
-        ],
-        "outputs": [
-          {
-            "codeName": "Components",
-            "quantity": 100
-          }
-        ],
-        "duration": 200,
-        "retrieveSingle": 6,
-        "retrieveCrate": 6,
-        "researchLevel": 0
-      },
-      "UpgradePart": {
-        "inputs": [
-          {
-            "codeName": "RFuel",
-            "quantity": 20
-          }
-        ],
-        "outputs": [
-          {
-            "codeName": "UpgradePart",
-            "quantity": 1
-          }
-        ],
-        "duration": 300,
-        "retrieveSingle": 5,
-        "retrieveCrate": 5,
-        "researchLevel": 0
-      },
-      "Metal": {
-        "inputs": [
-          {
-            "codeName": "Metal",
-            "quantity": 45
-          }
-        ],
-        "outputs": [
-          {
-            "codeName": "Metal",
-            "quantity": 100
-          }
-        ],
-        "duration": 100,
-        "retrieveSingle": 3,
-        "retrieveCrate": 3,
-        "researchLevel": 0
-      },
       "GrenadeW": {
         "inputs": [
           {
@@ -276,24 +186,6 @@
         "retrieveCrate": 7,
         "researchLevel": 0
       },
-      "FieldMGAmmo": {
-        "inputs": [
-          {
-            "codeName": "Cloth",
-            "quantity": 100
-          }
-        ],
-        "outputs": [
-          {
-            "codeName": "FieldMGAmmo",
-            "quantity": 20
-          }
-        ],
-        "duration": 100,
-        "retrieveSingle": 5,
-        "retrieveCrate": 20,
-        "researchLevel": 0
-      },
       "GreenAsh": {
         "inputs": [
           {
@@ -334,42 +226,6 @@
         "retrieveCrate": 20,
         "researchLevel": 0
       },
-      "Totem": {
-        "inputs": [
-          {
-            "codeName": "Cloth",
-            "quantity": 100
-          }
-        ],
-        "outputs": [
-          {
-            "codeName": "Totem",
-            "quantity": 10
-          }
-        ],
-        "duration": 60,
-        "retrieveSingle": 6,
-        "retrieveCrate": 12,
-        "researchLevel": 0
-      },
-      "BunkerSupplies": {
-        "inputs": [
-          {
-            "codeName": "Cloth",
-            "quantity": 75
-          }
-        ],
-        "outputs": [
-          {
-            "codeName": "BunkerSupplies",
-            "quantity": 150
-          }
-        ],
-        "duration": 190,
-        "retrieveSingle": 1.5,
-        "retrieveCrate": 16,
-        "researchLevel": 0
-      },
       "Tripod": {
         "inputs": [
           {
@@ -384,96 +240,6 @@
           }
         ],
         "duration": 60,
-        "retrieveSingle": 10,
-        "retrieveCrate": 20,
-        "researchLevel": 0
-      },
-      "Cloth": {
-        "inputs": [
-          {
-            "codeName": "Cloth",
-            "quantity": 100
-          }
-        ],
-        "outputs": [
-          {
-            "codeName": "Cloth",
-            "quantity": 100
-          }
-        ],
-        "duration": 500,
-        "retrieveSingle": 5,
-        "retrieveCrate": 5,
-        "researchLevel": 0
-      },
-      "Explosive": {
-        "inputs": [
-          {
-            "codeName": "Explosive",
-            "quantity": 200
-          }
-        ],
-        "outputs": [
-          {
-            "codeName": "Explosive",
-            "quantity": 40
-          }
-        ],
-        "duration": 750,
-        "retrieveSingle": 3,
-        "retrieveCrate": 3,
-        "researchLevel": 0
-      },
-      "HeavyExplosive": {
-        "inputs": [
-          {
-            "codeName": "HeavyExplosive",
-            "quantity": 400
-          }
-        ],
-        "outputs": [
-          {
-            "codeName": "HeavyExplosive",
-            "quantity": 30
-          }
-        ],
-        "duration": 1000,
-        "retrieveSingle": 5,
-        "retrieveCrate": 5,
-        "researchLevel": 0
-      },
-      "Wood": {
-        "inputs": [
-          {
-            "codeName": "Wood",
-            "quantity": 400
-          }
-        ],
-        "outputs": [
-          {
-            "codeName": "Wood",
-            "quantity": 20
-          }
-        ],
-        "duration": 1000,
-        "retrieveSingle": 10,
-        "retrieveCrate": 10,
-        "researchLevel": 0
-      },
-      "SniperRifleAmmo": {
-        "inputs": [
-          {
-            "codeName": "Cloth",
-            "quantity": 150
-          }
-        ],
-        "outputs": [
-          {
-            "codeName": "SniperRifleAmmo",
-            "quantity": 10
-          }
-        ],
-        "duration": 100,
         "retrieveSingle": 10,
         "retrieveCrate": 20,
         "researchLevel": 0
@@ -516,28 +282,6 @@
         "duration": 50,
         "retrieveSingle": 10,
         "retrieveCrate": 16,
-        "researchLevel": 0
-      },
-      "RpgAmmo": {
-        "inputs": [
-          {
-            "codeName": "Cloth",
-            "quantity": 60
-          },
-          {
-            "codeName": "Explosive",
-            "quantity": 90
-          }
-        ],
-        "outputs": [
-          {
-            "codeName": "RpgAmmo",
-            "quantity": 15
-          }
-        ],
-        "duration": 100,
-        "retrieveSingle": 5,
-        "retrieveCrate": 20,
         "researchLevel": 0
       },
       "RifleAmmo": {
@@ -740,50 +484,6 @@
         "retrieveCrate": 20,
         "researchLevel": 0
       },
-      "LRArtilleryAmmo": {
-        "inputs": [
-          {
-            "codeName": "Cloth",
-            "quantity": 135
-          },
-          {
-            "codeName": "HeavyExplosive",
-            "quantity": 45
-          }
-        ],
-        "outputs": [
-          {
-            "codeName": "LRArtilleryAmmo",
-            "quantity": 1
-          }
-        ],
-        "duration": 125,
-        "retrieveSingle": 10,
-        "retrieveCrate": 10,
-        "researchLevel": 0
-      },
-      "StaticArtilleryAmmo": {
-        "inputs": [
-          {
-            "codeName": "Cloth",
-            "quantity": 80
-          },
-          {
-            "codeName": "HeavyExplosive",
-            "quantity": 20
-          }
-        ],
-        "outputs": [
-          {
-            "codeName": "StaticArtilleryAmmo",
-            "quantity": 20
-          }
-        ],
-        "duration": 200,
-        "retrieveSingle": 10,
-        "retrieveCrate": 40,
-        "researchLevel": 0
-      },
       "AssaultRifleW": {
         "inputs": [
           {
@@ -846,24 +546,6 @@
         "retrieveCrate": 16,
         "researchLevel": 0
       },
-      "Concrete": {
-        "inputs": [
-          {
-            "codeName": "StrongMaterials",
-            "quantity": 20
-          }
-        ],
-        "outputs": [
-          {
-            "codeName": "Concrete",
-            "quantity": 1
-          }
-        ],
-        "duration": 200,
-        "retrieveSingle": 1.5,
-        "retrieveCrate": 10,
-        "researchLevel": 0
-      },
       "GasMaskFilter": {
         "inputs": [
           {
@@ -882,24 +564,6 @@
         "retrieveCrate": 10,
         "researchLevel": 0
       },
-      "CriticalSoldier": {
-        "inputs": [
-          {
-            "codeName": "Cloth",
-            "quantity": 50
-          }
-        ],
-        "outputs": [
-          {
-            "codeName": "CriticalSoldier",
-            "quantity": 50
-          }
-        ],
-        "duration": 125,
-        "retrieveSingle": 2.5,
-        "retrieveCrate": 25,
-        "researchLevel": 0
-      },
       "RifleLightW": {
         "inputs": [
           {
@@ -915,24 +579,6 @@
         ],
         "duration": 80,
         "retrieveSingle": 3.5,
-        "retrieveCrate": 10,
-        "researchLevel": 0
-      },
-      "CarbineAmmo": {
-        "inputs": [
-          {
-            "codeName": "Cloth",
-            "quantity": 80
-          }
-        ],
-        "outputs": [
-          {
-            "codeName": "CarbineAmmo",
-            "quantity": 40
-          }
-        ],
-        "duration": 50,
-        "retrieveSingle": 1.25,
         "retrieveCrate": 10,
         "researchLevel": 0
       },
@@ -1080,50 +726,6 @@
         "retrieveCrate": 8,
         "researchLevel": 0
       },
-      "ArtilleryAmmoHE": {
-        "inputs": [
-          {
-            "codeName": "Cloth",
-            "quantity": 200
-          },
-          {
-            "codeName": "HeavyExplosive",
-            "quantity": 200
-          }
-        ],
-        "outputs": [
-          {
-            "codeName": "ArtilleryAmmoHE",
-            "quantity": 20
-          }
-        ],
-        "duration": 200,
-        "retrieveSingle": 10,
-        "retrieveCrate": 40,
-        "researchLevel": 0
-      },
-      "ArtilleryAmmoAP": {
-        "inputs": [
-          {
-            "codeName": "Cloth",
-            "quantity": 200
-          },
-          {
-            "codeName": "Wood",
-            "quantity": 200
-          }
-        ],
-        "outputs": [
-          {
-            "codeName": "ArtilleryAmmoAP",
-            "quantity": 20
-          }
-        ],
-        "duration": 200,
-        "retrieveSingle": 10,
-        "retrieveCrate": 40,
-        "researchLevel": 0
-      },
       "SledgeHammer": {
         "inputs": [
           {
@@ -1140,28 +742,6 @@
         "duration": 100,
         "retrieveSingle": 10,
         "retrieveCrate": 20,
-        "researchLevel": 0
-      },
-      "ArtilleryAmmo": {
-        "inputs": [
-          {
-            "codeName": "Cloth",
-            "quantity": 200
-          },
-          {
-            "codeName": "HeavyExplosive",
-            "quantity": 100
-          }
-        ],
-        "outputs": [
-          {
-            "codeName": "ArtilleryAmmo",
-            "quantity": 20
-          }
-        ],
-        "duration": 200,
-        "retrieveSingle": 10,
-        "retrieveCrate": 40,
         "researchLevel": 0
       },
       "TraumaKit": {
@@ -1182,46 +762,6 @@
         "retrieveCrate": 10,
         "researchLevel": 0
       },
-      "PistolC": {
-        "inputs": [
-          {
-            "codeName": "Cloth",
-            "quantity": 60
-          }
-        ],
-        "outputs": [
-          {
-            "codeName": "PistolC",
-            "quantity": 20
-          }
-        ],
-        "duration": 50,
-        "retrieveSingle": 1.5,
-        "retrieveCrate": 10,
-        "researchLevel": 0
-      },
-      "TankMine": {
-        "inputs": [
-          {
-            "codeName": "Cloth",
-            "quantity": 100
-          },
-          {
-            "codeName": "Explosive",
-            "quantity": 20
-          }
-        ],
-        "outputs": [
-          {
-            "codeName": "TankMine",
-            "quantity": 10
-          }
-        ],
-        "duration": 100,
-        "retrieveSingle": 10,
-        "retrieveCrate": 20,
-        "researchLevel": 0
-      },
       "RifleW": {
         "inputs": [
           {
@@ -1237,24 +777,6 @@
         ],
         "duration": 70,
         "retrieveSingle": 3.5,
-        "retrieveCrate": 10,
-        "researchLevel": 0
-      },
-      "WorkHammer": {
-        "inputs": [
-          {
-            "codeName": "Cloth",
-            "quantity": 20
-          }
-        ],
-        "outputs": [
-          {
-            "codeName": "WorkHammer",
-            "quantity": 20
-          }
-        ],
-        "duration": 50,
-        "retrieveSingle": 4,
         "retrieveCrate": 10,
         "researchLevel": 0
       },
@@ -1312,28 +834,6 @@
         "retrieveCrate": 16,
         "researchLevel": 0
       },
-      "SniperRifleW": {
-        "inputs": [
-          {
-            "codeName": "Cloth",
-            "quantity": 250
-          },
-          {
-            "codeName": "Wood",
-            "quantity": 25
-          }
-        ],
-        "outputs": [
-          {
-            "codeName": "SniperRifleW",
-            "quantity": 3
-          }
-        ],
-        "duration": 250,
-        "retrieveSingle": 10,
-        "retrieveCrate": 16,
-        "researchLevel": 0
-      },
       "SoldierSupplies": {
         "inputs": [
           {
@@ -1350,50 +850,6 @@
         "duration": 80,
         "retrieveSingle": 8,
         "retrieveCrate": 16,
-        "researchLevel": 0
-      },
-      "StaticArtilleryAmmoGA": {
-        "inputs": [
-          {
-            "codeName": "Cloth",
-            "quantity": 120
-          },
-          {
-            "codeName": "Explosive",
-            "quantity": 80
-          }
-        ],
-        "outputs": [
-          {
-            "codeName": "StaticArtilleryAmmoGA",
-            "quantity": 20
-          }
-        ],
-        "duration": 200,
-        "retrieveSingle": 10,
-        "retrieveCrate": 40,
-        "researchLevel": 0
-      },
-      "StaticArtilleryAmmoSMK": {
-        "inputs": [
-          {
-            "codeName": "Cloth",
-            "quantity": 120
-          },
-          {
-            "codeName": "Explosive",
-            "quantity": 40
-          }
-        ],
-        "outputs": [
-          {
-            "codeName": "StaticArtilleryAmmoSMK",
-            "quantity": 20
-          }
-        ],
-        "duration": 200,
-        "retrieveSingle": 10,
-        "retrieveCrate": 40,
         "researchLevel": 0
       },
       "StickyBomb": {
@@ -1454,146 +910,6 @@
         "retrieveCrate": 10,
         "researchLevel": 0
       },
-      "UnexplodedOrdnance": {
-        "inputs": [
-          {
-            "codeName": "Cloth",
-            "quantity": 100
-          },
-          {
-            "codeName": "HeavyExplosive",
-            "quantity": 60
-          }
-        ],
-        "outputs": [
-          {
-            "codeName": "UnexplodedOrdnance",
-            "quantity": 5
-          }
-        ],
-        "duration": 100,
-        "retrieveSingle": 20,
-        "retrieveCrate": 20,
-        "researchLevel": 0
-      },
-      "BattleTankAmmoAP": {
-        "inputs": [
-          {
-            "codeName": "Cloth",
-            "quantity": 200
-          },
-          {
-            "codeName": "Wood",
-            "quantity": 200
-          },
-          {
-            "codeName": "Explosive",
-            "quantity": 400
-          }
-        ],
-        "outputs": [
-          {
-            "codeName": "BattleTankAmmoAP",
-            "quantity": 20
-          }
-        ],
-        "duration": 200,
-        "retrieveSingle": 10,
-        "retrieveCrate": 40,
-        "researchLevel": 0
-      },
-      "BattleTankAmmoHE": {
-        "inputs": [
-          {
-            "codeName": "Cloth",
-            "quantity": 200
-          },
-          {
-            "codeName": "HeavyExplosive",
-            "quantity": 400
-          }
-        ],
-        "outputs": [
-          {
-            "codeName": "BattleTankAmmoHE",
-            "quantity": 20
-          }
-        ],
-        "duration": 200,
-        "retrieveSingle": 10,
-        "retrieveCrate": 40,
-        "researchLevel": 0
-      },
-      "BattleTankAmmoSH": {
-        "inputs": [
-          {
-            "codeName": "Cloth",
-            "quantity": 200
-          },
-          {
-            "codeName": "Wood",
-            "quantity": 80
-          }
-        ],
-        "outputs": [
-          {
-            "codeName": "BattleTankAmmoSH",
-            "quantity": 20
-          }
-        ],
-        "duration": 200,
-        "retrieveSingle": 10,
-        "retrieveCrate": 40,
-        "researchLevel": 0
-      },
-      "LightTankAmmoAP": {
-        "inputs": [
-          {
-            "codeName": "Cloth",
-            "quantity": 160
-          },
-          {
-            "codeName": "Wood",
-            "quantity": 60
-          },
-          {
-            "codeName": "Explosive",
-            "quantity": 120
-          }
-        ],
-        "outputs": [
-          {
-            "codeName": "LightTankAmmoAP",
-            "quantity": 20
-          }
-        ],
-        "duration": 200,
-        "retrieveSingle": 10,
-        "retrieveCrate": 40,
-        "researchLevel": 0
-      },
-      "LightTankAmmoHE": {
-        "inputs": [
-          {
-            "codeName": "Cloth",
-            "quantity": 160
-          },
-          {
-            "codeName": "HeavyExplosive",
-            "quantity": 140
-          }
-        ],
-        "outputs": [
-          {
-            "codeName": "LightTankAmmoHE",
-            "quantity": 20
-          }
-        ],
-        "duration": 200,
-        "retrieveSingle": 10,
-        "retrieveCrate": 40,
-        "researchLevel": 0
-      },
       "LightTankAmmo": {
         "inputs": [
           {
@@ -1616,28 +932,6 @@
         "retrieveCrate": 20,
         "researchLevel": 0
       },
-      "LightTankAmmoSH": {
-        "inputs": [
-          {
-            "codeName": "Cloth",
-            "quantity": 160
-          },
-          {
-            "codeName": "Wood",
-            "quantity": 40
-          }
-        ],
-        "outputs": [
-          {
-            "codeName": "LightTankAmmoSH",
-            "quantity": 20
-          }
-        ],
-        "duration": 200,
-        "retrieveSingle": 10,
-        "retrieveCrate": 40,
-        "researchLevel": 0
-      },
       "ATAmmo": {
         "inputs": [
           {
@@ -1658,144 +952,6 @@
         "duration": 200,
         "retrieveSingle": 10,
         "retrieveCrate": 20,
-        "researchLevel": 0
-      },
-      "IronA": {
-        "inputs": [
-          {
-            "codeName": "IronA",
-            "quantity": 20
-          }
-        ],
-        "outputs": [
-          {
-            "codeName": "IronA",
-            "quantity": 20
-          }
-        ],
-        "duration": 1000,
-        "retrieveSingle": 10,
-        "retrieveCrate": 10,
-        "researchLevel": 0
-      },
-      "CopperA": {
-        "inputs": [
-          {
-            "codeName": "CopperA",
-            "quantity": 20
-          }
-        ],
-        "outputs": [
-          {
-            "codeName": "CopperA",
-            "quantity": 20
-          }
-        ],
-        "duration": 1000,
-        "retrieveSingle": 10,
-        "retrieveCrate": 10,
-        "researchLevel": 0
-      },
-      "AluminumA": {
-        "inputs": [
-          {
-            "codeName": "AluminumA",
-            "quantity": 20
-          }
-        ],
-        "outputs": [
-          {
-            "codeName": "AluminumA",
-            "quantity": 20
-          }
-        ],
-        "duration": 1000,
-        "retrieveSingle": 10,
-        "retrieveCrate": 10,
-        "researchLevel": 0
-      },
-      "ATMortar": {
-        "inputs": [
-          {
-            "codeName": "Cloth",
-            "quantity": 100
-          },
-          {
-            "codeName": "Wood",
-            "quantity": 25
-          }
-        ],
-        "outputs": [
-          {
-            "codeName": "ATMortar",
-            "quantity": 5
-          }
-        ],
-        "duration": 50,
-        "retrieveSingle": 10,
-        "retrieveCrate": 16,
-        "researchLevel": 0
-      },
-      "SoulstoneT3": {
-        "inputs": [
-          {
-            "codeName": "Cloth",
-            "quantity": 300
-          },
-          {
-            "codeName": "HeavyExplosive",
-            "quantity": 50
-          }
-        ],
-        "outputs": [
-          {
-            "codeName": "SoulstoneT3",
-            "quantity": 3
-          }
-        ],
-        "duration": 100,
-        "retrieveSingle": 20,
-        "retrieveCrate": 20,
-        "researchLevel": 0
-      },
-      "RelicMaterials": {
-        "inputs": [
-          {
-            "codeName": "RelicMaterials",
-            "quantity": 100
-          }
-        ],
-        "outputs": [
-          {
-            "codeName": "RelicMaterials",
-            "quantity": 20
-          }
-        ],
-        "duration": 200,
-        "retrieveSingle": 6,
-        "retrieveCrate": 6,
-        "researchLevel": 0
-      },
-      "SniperRifleC": {
-        "inputs": [
-          {
-            "codeName": "Cloth",
-            "quantity": 250
-          },
-          {
-            "codeName": "Wood",
-            "quantity": 30
-          }
-        ],
-        "outputs": [
-          {
-            "codeName": "SniperRifleC",
-            "quantity": 5
-          }
-        ],
-        "duration": 250,
-        "retrieveSingle": 10,
-        "retrieveCrate": 16,
         "researchLevel": 0
       },
       "GrenadeC": {
@@ -2202,28 +1358,6 @@
         "retrieveCrate": 20,
         "researchLevel": 0
       },
-      "MGHeavyTW": {
-        "inputs": [
-          {
-            "codeName": "Cloth",
-            "quantity": 150
-          },
-          {
-            "codeName": "Wood",
-            "quantity": 5
-          }
-        ],
-        "outputs": [
-          {
-            "codeName": "MGHeavyTW",
-            "quantity": 5
-          }
-        ],
-        "duration": 125,
-        "retrieveSingle": 10,
-        "retrieveCrate": 10,
-        "researchLevel": 0
-      },
       "RifleHeavyC": {
         "inputs": [
           {
@@ -2312,28 +1446,6 @@
         "duration": 70,
         "retrieveSingle": 3.5,
         "retrieveCrate": 10,
-        "researchLevel": 0
-      },
-      "HeavyATAmmo": {
-        "inputs": [
-          {
-            "codeName": "Cloth",
-            "quantity": 120
-          },
-          {
-            "codeName": "Explosive",
-            "quantity": 120
-          }
-        ],
-        "outputs": [
-          {
-            "codeName": "HeavyATAmmo",
-            "quantity": 20
-          }
-        ],
-        "duration": 200,
-        "retrieveSingle": 10,
-        "retrieveCrate": 40,
         "researchLevel": 0
       },
       "MGTW": {
@@ -2427,24 +1539,6 @@
           {
             "codeName": "ArmourUniformW",
             "quantity": 5
-          }
-        ],
-        "duration": 90,
-        "retrieveSingle": 5,
-        "retrieveCrate": 16,
-        "researchLevel": 0
-      },
-      "ChemicalUniformW": {
-        "inputs": [
-          {
-            "codeName": "Cloth",
-            "quantity": 100
-          }
-        ],
-        "outputs": [
-          {
-            "codeName": "ChemicalUniformW",
-            "quantity": 15
           }
         ],
         "duration": 90,
@@ -2668,42 +1762,6 @@
         "retrieveCrate": 16,
         "researchLevel": 0
       },
-      "SoldierUniformC": {
-        "inputs": [
-          {
-            "codeName": "Cloth",
-            "quantity": 100
-          }
-        ],
-        "outputs": [
-          {
-            "codeName": "SoldierUniformC",
-            "quantity": 15
-          }
-        ],
-        "duration": 90,
-        "retrieveSingle": 5,
-        "retrieveCrate": 16,
-        "researchLevel": 0
-      },
-      "SoldierUniformW": {
-        "inputs": [
-          {
-            "codeName": "Cloth",
-            "quantity": 100
-          }
-        ],
-        "outputs": [
-          {
-            "codeName": "SoldierUniformW",
-            "quantity": 15
-          }
-        ],
-        "duration": 90,
-        "retrieveSingle": 5,
-        "retrieveCrate": 16,
-        "researchLevel": 0
-      },
       "TankUniformC": {
         "inputs": [
           {
@@ -2776,24 +1834,6 @@
         "retrieveCrate": 6,
         "researchLevel": 0
       },
-      "BarbedWireMaterials": {
-        "inputs": [
-          {
-            "codeName": "Cloth",
-            "quantity": 15
-          }
-        ],
-        "outputs": [
-          {
-            "codeName": "BarbedWireMaterials",
-            "quantity": 5
-          }
-        ],
-        "duration": 15,
-        "retrieveSingle": 1.5,
-        "retrieveCrate": 6,
-        "researchLevel": 0
-      },
       "MetalBeamMaterials": {
         "inputs": [
           {
@@ -2810,24 +1850,6 @@
         "duration": 20,
         "retrieveSingle": 1.5,
         "retrieveCrate": 6,
-        "researchLevel": 0
-      },
-      "PistolW": {
-        "inputs": [
-          {
-            "codeName": "Cloth",
-            "quantity": 60
-          }
-        ],
-        "outputs": [
-          {
-            "codeName": "PistolW",
-            "quantity": 20
-          }
-        ],
-        "duration": 50,
-        "retrieveSingle": 1.5,
-        "retrieveCrate": 10,
         "researchLevel": 0
       },
       "ATRifleTC": {
@@ -2940,184 +1962,6 @@
         "retrieveCrate": 16,
         "researchLevel": 0
       },
-      "GroundMaterials": {
-        "inputs": [
-          {
-            "codeName": "Coal",
-            "quantity": 100
-          }
-        ],
-        "outputs": [
-          {
-            "codeName": "GroundMaterials",
-            "quantity": 20
-          }
-        ],
-        "duration": 500,
-        "retrieveSingle": 3,
-        "retrieveCrate": 3,
-        "researchLevel": 0
-      },
-      "ATLargeAmmo": {
-        "inputs": [
-          {
-            "codeName": "Cloth",
-            "quantity": 200
-          },
-          {
-            "codeName": "HeavyExplosive",
-            "quantity": 20
-          }
-        ],
-        "outputs": [
-          {
-            "codeName": "ATLargeAmmo",
-            "quantity": 1
-          }
-        ],
-        "duration": 125,
-        "retrieveSingle": 12,
-        "retrieveCrate": 20,
-        "researchLevel": 0
-      },
-      "BattleTankAmmo": {
-        "inputs": [
-          {
-            "codeName": "Cloth",
-            "quantity": 200
-          },
-          {
-            "codeName": "HeavyExplosive",
-            "quantity": 20
-          }
-        ],
-        "outputs": [
-          {
-            "codeName": "BattleTankAmmo",
-            "quantity": 1
-          }
-        ],
-        "duration": 125,
-        "retrieveSingle": 12,
-        "retrieveCrate": 20,
-        "researchLevel": 0
-      },
-      "FireRocketAmmo": {
-        "inputs": [
-          {
-            "codeName": "Cloth",
-            "quantity": 60
-          },
-          {
-            "codeName": "Explosive",
-            "quantity": 15
-          }
-        ],
-        "outputs": [
-          {
-            "codeName": "FireRocketAmmo",
-            "quantity": 1
-          }
-        ],
-        "duration": 55,
-        "retrieveSingle": 6,
-        "retrieveCrate": 20,
-        "researchLevel": 0
-      },
-      "HERocketAmmo": {
-        "inputs": [
-          {
-            "codeName": "Cloth",
-            "quantity": 60
-          },
-          {
-            "codeName": "Explosive",
-            "quantity": 15
-          }
-        ],
-        "outputs": [
-          {
-            "codeName": "HERocketAmmo",
-            "quantity": 1
-          }
-        ],
-        "duration": 55,
-        "retrieveSingle": 6,
-        "retrieveCrate": 20,
-        "researchLevel": 0
-      },
-      "Oil": {
-        "inputs": [
-          {
-            "codeName": "Oil",
-            "quantity": 2
-          }
-        ],
-        "outputs": [
-          {
-            "codeName": "Oil",
-            "quantity": 1
-          }
-        ],
-        "duration": 15,
-        "retrieveSingle": 1.5,
-        "retrieveCrate": 3,
-        "researchLevel": 0
-      },
-      "PipeMaterials": {
-        "inputs": [
-          {
-            "codeName": "Cloth",
-            "quantity": 50
-          }
-        ],
-        "outputs": [
-          {
-            "codeName": "PipeMaterials",
-            "quantity": 2
-          }
-        ],
-        "duration": 15,
-        "retrieveSingle": 1.5,
-        "retrieveCrate": 10,
-        "researchLevel": 0
-      },
-      "Water": {
-        "inputs": [
-          {
-            "codeName": "Water",
-            "quantity": 2
-          }
-        ],
-        "outputs": [
-          {
-            "codeName": "Water",
-            "quantity": 1
-          }
-        ],
-        "duration": 15,
-        "retrieveSingle": 1.5,
-        "retrieveCrate": 3,
-        "researchLevel": 0
-      },
-      "Coal": {
-        "inputs": [
-          {
-            "codeName": "Coal",
-            "quantity": 100
-          }
-        ],
-        "outputs": [
-          {
-            "codeName": "Coal",
-            "quantity": 100
-          }
-        ],
-        "duration": 15,
-        "retrieveSingle": 1.5,
-        "retrieveCrate": 10,
-        "researchLevel": 0
-      },
       "WaterBucket": {
         "inputs": [
           {
@@ -3134,280 +1978,6 @@
         "duration": 40,
         "retrieveSingle": 5,
         "retrieveCrate": 8,
-        "researchLevel": 0
-      },
-      "FlameAmmo": {
-        "inputs": [
-          {
-            "codeName": "Cloth",
-            "quantity": 60
-          },
-          {
-            "codeName": "Explosive",
-            "quantity": 45
-          }
-        ],
-        "outputs": [
-          {
-            "codeName": "FlameAmmo",
-            "quantity": 1
-          }
-        ],
-        "duration": 125,
-        "retrieveSingle": 7.5,
-        "retrieveCrate": 20,
-        "researchLevel": 0
-      },
-      "FacilityMaterials1": {
-        "inputs": [
-          {
-            "codeName": "Cloth",
-            "quantity": 50
-          }
-        ],
-        "outputs": [
-          {
-            "codeName": "FacilityMaterials1",
-            "quantity": 20
-          }
-        ],
-        "duration": 15,
-        "retrieveSingle": 1.5,
-        "retrieveCrate": 10,
-        "researchLevel": 0
-      },
-      "FacilityMaterials2": {
-        "inputs": [
-          {
-            "codeName": "Cloth",
-            "quantity": 50
-          }
-        ],
-        "outputs": [
-          {
-            "codeName": "FacilityMaterials2",
-            "quantity": 1
-          }
-        ],
-        "duration": 15,
-        "retrieveSingle": 1.5,
-        "retrieveCrate": 10,
-        "researchLevel": 0
-      },
-      "FacilityMaterials3": {
-        "inputs": [
-          {
-            "codeName": "Cloth",
-            "quantity": 50
-          }
-        ],
-        "outputs": [
-          {
-            "codeName": "FacilityMaterials3",
-            "quantity": 1
-          }
-        ],
-        "duration": 15,
-        "retrieveSingle": 1.5,
-        "retrieveCrate": 10,
-        "researchLevel": 0
-      },
-      "FacilityMaterials4": {
-        "inputs": [
-          {
-            "codeName": "Cloth",
-            "quantity": 50
-          }
-        ],
-        "outputs": [
-          {
-            "codeName": "FacilityMaterials4",
-            "quantity": 1
-          }
-        ],
-        "duration": 15,
-        "retrieveSingle": 1.5,
-        "retrieveCrate": 10,
-        "researchLevel": 0
-      },
-      "FacilityMaterials5": {
-        "inputs": [
-          {
-            "codeName": "Cloth",
-            "quantity": 50
-          }
-        ],
-        "outputs": [
-          {
-            "codeName": "FacilityMaterials5",
-            "quantity": 1
-          }
-        ],
-        "duration": 15,
-        "retrieveSingle": 1.5,
-        "retrieveCrate": 10,
-        "researchLevel": 0
-      },
-      "FacilityOil1": {
-        "inputs": [
-          {
-            "codeName": "Cloth",
-            "quantity": 50
-          }
-        ],
-        "outputs": [
-          {
-            "codeName": "FacilityOil1",
-            "quantity": 1
-          }
-        ],
-        "duration": 15,
-        "retrieveSingle": 1.5,
-        "retrieveCrate": 3,
-        "researchLevel": 0
-      },
-      "FacilityOil2": {
-        "inputs": [
-          {
-            "codeName": "Cloth",
-            "quantity": 50
-          }
-        ],
-        "outputs": [
-          {
-            "codeName": "FacilityOil2",
-            "quantity": 1
-          }
-        ],
-        "duration": 15,
-        "retrieveSingle": 1.5,
-        "retrieveCrate": 3,
-        "researchLevel": 0
-      },
-      "FacilityCoal1": {
-        "inputs": [
-          {
-            "codeName": "Cloth",
-            "quantity": 1
-          }
-        ],
-        "outputs": [
-          {
-            "codeName": "FacilityCoal1",
-            "quantity": 1
-          }
-        ],
-        "duration": 15,
-        "retrieveSingle": 1.5,
-        "retrieveCrate": 10,
-        "researchLevel": 0
-      },
-      "FacilityMaterials6": {
-        "inputs": [
-          {
-            "codeName": "Cloth",
-            "quantity": 50
-          }
-        ],
-        "outputs": [
-          {
-            "codeName": "FacilityMaterials6",
-            "quantity": 1
-          }
-        ],
-        "duration": 15,
-        "retrieveSingle": 1.5,
-        "retrieveCrate": 10,
-        "researchLevel": 0
-      },
-      "FacilityMaterials7": {
-        "inputs": [
-          {
-            "codeName": "Cloth",
-            "quantity": 50
-          }
-        ],
-        "outputs": [
-          {
-            "codeName": "FacilityMaterials7",
-            "quantity": 1
-          }
-        ],
-        "duration": 15,
-        "retrieveSingle": 1.5,
-        "retrieveCrate": 10,
-        "researchLevel": 0
-      },
-      "FacilityMaterials8": {
-        "inputs": [
-          {
-            "codeName": "Cloth",
-            "quantity": 50
-          }
-        ],
-        "outputs": [
-          {
-            "codeName": "FacilityMaterials8",
-            "quantity": 1
-          }
-        ],
-        "duration": 15,
-        "retrieveSingle": 1.5,
-        "retrieveCrate": 10,
-        "researchLevel": 0
-      },
-      "FacilityMaterials9": {
-        "inputs": [
-          {
-            "codeName": "Cloth",
-            "quantity": 50
-          }
-        ],
-        "outputs": [
-          {
-            "codeName": "FacilityMaterials9",
-            "quantity": 1
-          }
-        ],
-        "duration": 15,
-        "retrieveSingle": 1.5,
-        "retrieveCrate": 10,
-        "researchLevel": 0
-      },
-      "FacilityMaterials10": {
-        "inputs": [
-          {
-            "codeName": "Cloth",
-            "quantity": 50
-          }
-        ],
-        "outputs": [
-          {
-            "codeName": "FacilityMaterials10",
-            "quantity": 1
-          }
-        ],
-        "duration": 15,
-        "retrieveSingle": 1.5,
-        "retrieveCrate": 10,
-        "researchLevel": 0
-      },
-      "FacilityMaterials11": {
-        "inputs": [
-          {
-            "codeName": "Cloth",
-            "quantity": 50
-          }
-        ],
-        "outputs": [
-          {
-            "codeName": "FacilityMaterials11",
-            "quantity": 1
-          }
-        ],
-        "duration": 15,
-        "retrieveSingle": 1.5,
-        "retrieveCrate": 10,
         "researchLevel": 0
       },
       "FlameBackpackC": {
@@ -3498,24 +2068,6 @@
         "retrieveCrate": 16,
         "researchLevel": 0
       },
-      "FacilityComponents1": {
-        "inputs": [
-          {
-            "codeName": "Components",
-            "quantity": 70
-          }
-        ],
-        "outputs": [
-          {
-            "codeName": "FacilityComponents1",
-            "quantity": 100
-          }
-        ],
-        "duration": 200,
-        "retrieveSingle": 6,
-        "retrieveCrate": 6,
-        "researchLevel": 0
-      },
       "GrenadeLauncherTC": {
         "inputs": [
           {
@@ -3535,24 +2087,6 @@
         ],
         "duration": 125,
         "retrieveSingle": 10,
-        "retrieveCrate": 10,
-        "researchLevel": 0
-      },
-      "Excavation": {
-        "inputs": [
-          {
-            "codeName": "Cloth",
-            "quantity": 200
-          }
-        ],
-        "outputs": [
-          {
-            "codeName": "Excavation",
-            "quantity": 10
-          }
-        ],
-        "duration": 100,
-        "retrieveSingle": 7.5,
         "retrieveCrate": 10,
         "researchLevel": 0
       },
@@ -3636,78 +2170,6 @@
         "retrieveCrate": 10,
         "researchLevel": 0
       },
-      "DepthChargeAmmo": {
-        "inputs": [
-          {
-            "codeName": "Cloth",
-            "quantity": 100
-          }
-        ],
-        "outputs": [
-          {
-            "codeName": "DepthChargeAmmo",
-            "quantity": 1
-          }
-        ],
-        "duration": 0,
-        "retrieveSingle": 10,
-        "retrieveCrate": 10,
-        "researchLevel": 0
-      },
-      "RareMetal": {
-        "inputs": [
-          {
-            "codeName": "Components",
-            "quantity": 100
-          }
-        ],
-        "outputs": [
-          {
-            "codeName": "RareMetal",
-            "quantity": 2
-          }
-        ],
-        "duration": 100,
-        "retrieveSingle": 6,
-        "retrieveCrate": 6,
-        "researchLevel": 0
-      },
-      "WaterMine": {
-        "inputs": [
-          {
-            "codeName": "Wood",
-            "quantity": 40
-          }
-        ],
-        "outputs": [
-          {
-            "codeName": "WaterMine",
-            "quantity": 1
-          }
-        ],
-        "duration": 0,
-        "retrieveSingle": 10,
-        "retrieveCrate": 10,
-        "researchLevel": 0
-      },
-      "TorpedoAmmo": {
-        "inputs": [
-          {
-            "codeName": "Cloth",
-            "quantity": 100
-          }
-        ],
-        "outputs": [
-          {
-            "codeName": "TorpedoAmmo",
-            "quantity": 1
-          }
-        ],
-        "duration": 80,
-        "retrieveSingle": 10,
-        "retrieveCrate": 10,
-        "researchLevel": 0
-      },
       "WindsockT": {
         "inputs": [
           {
@@ -3760,100 +2222,6 @@
         "duration": 100,
         "retrieveSingle": 2.5,
         "retrieveCrate": 10,
-        "researchLevel": 0
-      },
-      "MortarAmmoFlame": {
-        "inputs": [
-          {
-            "codeName": "Cloth",
-            "quantity": 60
-          },
-          {
-            "codeName": "Explosive",
-            "quantity": 70
-          }
-        ],
-        "outputs": [
-          {
-            "codeName": "MortarAmmoFlame",
-            "quantity": 15
-          }
-        ],
-        "duration": 100,
-        "retrieveSingle": 7.5,
-        "retrieveCrate": 16,
-        "researchLevel": 0
-      },
-      "ATRifleAssaultW": {
-        "inputs": [
-          {
-            "codeName": "Cloth",
-            "quantity": 150
-          }
-        ],
-        "outputs": [
-          {
-            "codeName": "ATRifleAssaultW",
-            "quantity": 5
-          }
-        ],
-        "duration": 37.5,
-        "retrieveSingle": 7.5,
-        "retrieveCrate": 12,
-        "researchLevel": 0
-      },
-      "ATRifleSniperC": {
-        "inputs": [
-          {
-            "codeName": "Cloth",
-            "quantity": 150
-          }
-        ],
-        "outputs": [
-          {
-            "codeName": "ATRifleSniperC",
-            "quantity": 3
-          }
-        ],
-        "duration": 37.5,
-        "retrieveSingle": 7.5,
-        "retrieveCrate": 12,
-        "researchLevel": 0
-      },
-      "ATRifleAutomaticW": {
-        "inputs": [
-          {
-            "codeName": "Cloth",
-            "quantity": 150
-          }
-        ],
-        "outputs": [
-          {
-            "codeName": "ATRifleAutomaticW",
-            "quantity": 3
-          }
-        ],
-        "duration": 37.5,
-        "retrieveSingle": 7.5,
-        "retrieveCrate": 12,
-        "researchLevel": 0
-      },
-      "ATRifleLightC": {
-        "inputs": [
-          {
-            "codeName": "Cloth",
-            "quantity": 150
-          }
-        ],
-        "outputs": [
-          {
-            "codeName": "ATRifleLightC",
-            "quantity": 3
-          }
-        ],
-        "duration": 37.5,
-        "retrieveSingle": 7.5,
-        "retrieveCrate": 12,
         "researchLevel": 0
       },
       "ShotgunC": {
@@ -3914,28 +2282,6 @@
         "retrieveCrate": 16,
         "researchLevel": 0
       },
-      "InfantryMine": {
-        "inputs": [
-          {
-            "codeName": "Cloth",
-            "quantity": 100
-          },
-          {
-            "codeName": "Explosive",
-            "quantity": 20
-          }
-        ],
-        "outputs": [
-          {
-            "codeName": "InfantryMine",
-            "quantity": 10
-          }
-        ],
-        "duration": 100,
-        "retrieveSingle": 10,
-        "retrieveCrate": 20,
-        "researchLevel": 0
-      },
       "ATRPGHeavyW": {
         "inputs": [
           {
@@ -3956,60 +2302,6 @@
         "duration": 75,
         "retrieveSingle": 10,
         "retrieveCrate": 16,
-        "researchLevel": 0
-      },
-      "BannerTC": {
-        "inputs": [
-          {
-            "codeName": "Cloth",
-            "quantity": 150
-          }
-        ],
-        "outputs": [
-          {
-            "codeName": "BannerTC",
-            "quantity": 5
-          }
-        ],
-        "duration": 60,
-        "retrieveSingle": 10,
-        "retrieveCrate": 20,
-        "researchLevel": 0
-      },
-      "BannerTW": {
-        "inputs": [
-          {
-            "codeName": "Cloth",
-            "quantity": 150
-          }
-        ],
-        "outputs": [
-          {
-            "codeName": "BannerTW",
-            "quantity": 5
-          }
-        ],
-        "duration": 60,
-        "retrieveSingle": 10,
-        "retrieveCrate": 20,
-        "researchLevel": 0
-      },
-      "ReservePower": {
-        "inputs": [
-          {
-            "codeName": "Cloth",
-            "quantity": 200
-          }
-        ],
-        "outputs": [
-          {
-            "codeName": "ReservePower",
-            "quantity": 10
-          }
-        ],
-        "duration": 100,
-        "retrieveSingle": 7.5,
-        "retrieveCrate": 10,
         "researchLevel": 0
       },
       "MortarTankAmmoBR": {
@@ -4132,78 +2424,6 @@
         "retrieveCrate": 20,
         "researchLevel": 0
       },
-      "BomberAmmo": {
-        "inputs": [
-          {
-            "codeName": "Cloth",
-            "quantity": 200
-          }
-        ],
-        "outputs": [
-          {
-            "codeName": "BomberAmmo",
-            "quantity": 5
-          }
-        ],
-        "duration": 65,
-        "retrieveSingle": 6,
-        "retrieveCrate": 20,
-        "researchLevel": 0
-      },
-      "PilotUniformC": {
-        "inputs": [
-          {
-            "codeName": "Cloth",
-            "quantity": 150
-          }
-        ],
-        "outputs": [
-          {
-            "codeName": "PilotUniformC",
-            "quantity": 1
-          }
-        ],
-        "duration": 90,
-        "retrieveSingle": 5,
-        "retrieveCrate": 5,
-        "researchLevel": 0
-      },
-      "PilotUniformW": {
-        "inputs": [
-          {
-            "codeName": "Cloth",
-            "quantity": 150
-          }
-        ],
-        "outputs": [
-          {
-            "codeName": "PilotUniformW",
-            "quantity": 1
-          }
-        ],
-        "duration": 90,
-        "retrieveSingle": 5,
-        "retrieveCrate": 5,
-        "researchLevel": 0
-      },
-      "DiveBomberAmmo": {
-        "inputs": [
-          {
-            "codeName": "Cloth",
-            "quantity": 120
-          }
-        ],
-        "outputs": [
-          {
-            "codeName": "DiveBomberAmmo",
-            "quantity": 5
-          }
-        ],
-        "duration": 65,
-        "retrieveSingle": 6,
-        "retrieveCrate": 20,
-        "researchLevel": 0
-      },
       "AAAmmo": {
         "inputs": [
           {
@@ -4224,60 +2444,6 @@
         "duration": 65,
         "retrieveSingle": 6,
         "retrieveCrate": 20,
-        "researchLevel": 0
-      },
-      "ParatrooperBackpack": {
-        "inputs": [
-          {
-            "codeName": "Cloth",
-            "quantity": 100
-          }
-        ],
-        "outputs": [
-          {
-            "codeName": "ParatrooperBackpack",
-            "quantity": 10
-          }
-        ],
-        "duration": 100,
-        "retrieveSingle": 5,
-        "retrieveCrate": 15,
-        "researchLevel": 0
-      },
-      "ParatrooperUniformC": {
-        "inputs": [
-          {
-            "codeName": "Cloth",
-            "quantity": 150
-          }
-        ],
-        "outputs": [
-          {
-            "codeName": "ParatrooperUniformC",
-            "quantity": 15
-          }
-        ],
-        "duration": 90,
-        "retrieveSingle": 5,
-        "retrieveCrate": 16,
-        "researchLevel": 0
-      },
-      "ParatrooperUniformW": {
-        "inputs": [
-          {
-            "codeName": "Cloth",
-            "quantity": 150
-          }
-        ],
-        "outputs": [
-          {
-            "codeName": "ParatrooperUniformW",
-            "quantity": 15
-          }
-        ],
-        "duration": 90,
-        "retrieveSingle": 5,
-        "retrieveCrate": 16,
         "researchLevel": 0
       },
       "MiniTorpedoAmmo": {
@@ -4302,294 +2468,6 @@
         "retrieveCrate": 20,
         "researchLevel": 0
       },
-      "AircraftPartSmallEngineW": {
-        "inputs": [
-          {
-            "codeName": "Cloth",
-            "quantity": 100
-          }
-        ],
-        "outputs": [
-          {
-            "codeName": "AircraftPartSmallEngineW",
-            "quantity": 1
-          }
-        ],
-        "duration": 80,
-        "retrieveSingle": 10,
-        "retrieveCrate": 10,
-        "researchLevel": 0
-      },
-      "AircraftPartSmallEngineC": {
-        "inputs": [
-          {
-            "codeName": "Cloth",
-            "quantity": 100
-          }
-        ],
-        "outputs": [
-          {
-            "codeName": "AircraftPartSmallEngineC",
-            "quantity": 1
-          }
-        ],
-        "duration": 80,
-        "retrieveSingle": 10,
-        "retrieveCrate": 10,
-        "researchLevel": 0
-      },
-      "AircraftPartSmallMechanicalW": {
-        "inputs": [
-          {
-            "codeName": "Cloth",
-            "quantity": 100
-          }
-        ],
-        "outputs": [
-          {
-            "codeName": "AircraftPartSmallMechanicalW",
-            "quantity": 1
-          }
-        ],
-        "duration": 80,
-        "retrieveSingle": 10,
-        "retrieveCrate": 10,
-        "researchLevel": 0
-      },
-      "AircraftPartSmallMechanicalC": {
-        "inputs": [
-          {
-            "codeName": "Cloth",
-            "quantity": 100
-          }
-        ],
-        "outputs": [
-          {
-            "codeName": "AircraftPartSmallMechanicalC",
-            "quantity": 1
-          }
-        ],
-        "duration": 80,
-        "retrieveSingle": 10,
-        "retrieveCrate": 10,
-        "researchLevel": 0
-      },
-      "AircraftPartSmallEngineWreckedW": {
-        "inputs": [
-          {
-            "codeName": "Cloth",
-            "quantity": 100
-          }
-        ],
-        "outputs": [
-          {
-            "codeName": "AircraftPartSmallEngineWreckedW",
-            "quantity": 1
-          }
-        ],
-        "duration": 80,
-        "retrieveSingle": 10,
-        "retrieveCrate": 10,
-        "researchLevel": 0
-      },
-      "AircraftPartSmallEngineWreckedC": {
-        "inputs": [
-          {
-            "codeName": "Cloth",
-            "quantity": 100
-          }
-        ],
-        "outputs": [
-          {
-            "codeName": "AircraftPartSmallEngineWreckedC",
-            "quantity": 1
-          }
-        ],
-        "duration": 80,
-        "retrieveSingle": 10,
-        "retrieveCrate": 10,
-        "researchLevel": 0
-      },
-      "AircraftPartSmallMechanicalWreckedW": {
-        "inputs": [
-          {
-            "codeName": "Cloth",
-            "quantity": 100
-          }
-        ],
-        "outputs": [
-          {
-            "codeName": "AircraftPartSmallMechanicalWreckedW",
-            "quantity": 1
-          }
-        ],
-        "duration": 80,
-        "retrieveSingle": 10,
-        "retrieveCrate": 10,
-        "researchLevel": 0
-      },
-      "AircraftPartSmallMechanicalWreckedC": {
-        "inputs": [
-          {
-            "codeName": "Cloth",
-            "quantity": 100
-          }
-        ],
-        "outputs": [
-          {
-            "codeName": "AircraftPartSmallMechanicalWreckedC",
-            "quantity": 1
-          }
-        ],
-        "duration": 80,
-        "retrieveSingle": 10,
-        "retrieveCrate": 10,
-        "researchLevel": 0
-      },
-      "AircraftPartLargeEngineC": {
-        "inputs": [
-          {
-            "codeName": "Cloth",
-            "quantity": 100
-          }
-        ],
-        "outputs": [
-          {
-            "codeName": "AircraftPartLargeEngineC",
-            "quantity": 1
-          }
-        ],
-        "duration": 80,
-        "retrieveSingle": 10,
-        "retrieveCrate": 10,
-        "researchLevel": 0
-      },
-      "AircraftPartLargeEngineW": {
-        "inputs": [
-          {
-            "codeName": "Cloth",
-            "quantity": 100
-          }
-        ],
-        "outputs": [
-          {
-            "codeName": "AircraftPartLargeEngineW",
-            "quantity": 1
-          }
-        ],
-        "duration": 80,
-        "retrieveSingle": 10,
-        "retrieveCrate": 10,
-        "researchLevel": 0
-      },
-      "AircraftPartLargeMechanicalC": {
-        "inputs": [
-          {
-            "codeName": "Cloth",
-            "quantity": 100
-          }
-        ],
-        "outputs": [
-          {
-            "codeName": "AircraftPartLargeMechanicalC",
-            "quantity": 1
-          }
-        ],
-        "duration": 80,
-        "retrieveSingle": 10,
-        "retrieveCrate": 10,
-        "researchLevel": 0
-      },
-      "AircraftPartLargeMechanicalW": {
-        "inputs": [
-          {
-            "codeName": "Cloth",
-            "quantity": 100
-          }
-        ],
-        "outputs": [
-          {
-            "codeName": "AircraftPartLargeMechanicalW",
-            "quantity": 1
-          }
-        ],
-        "duration": 80,
-        "retrieveSingle": 10,
-        "retrieveCrate": 10,
-        "researchLevel": 0
-      },
-      "AircraftPartLargeEngineWreckedC": {
-        "inputs": [
-          {
-            "codeName": "Cloth",
-            "quantity": 100
-          }
-        ],
-        "outputs": [
-          {
-            "codeName": "AircraftPartLargeEngineWreckedC",
-            "quantity": 1
-          }
-        ],
-        "duration": 80,
-        "retrieveSingle": 10,
-        "retrieveCrate": 10,
-        "researchLevel": 0
-      },
-      "AircraftPartLargeEngineWreckedW": {
-        "inputs": [
-          {
-            "codeName": "Cloth",
-            "quantity": 100
-          }
-        ],
-        "outputs": [
-          {
-            "codeName": "AircraftPartLargeEngineWreckedW",
-            "quantity": 1
-          }
-        ],
-        "duration": 80,
-        "retrieveSingle": 10,
-        "retrieveCrate": 10,
-        "researchLevel": 0
-      },
-      "AircraftPartLargeMechanicalWreckedC": {
-        "inputs": [
-          {
-            "codeName": "Cloth",
-            "quantity": 100
-          }
-        ],
-        "outputs": [
-          {
-            "codeName": "AircraftPartLargeMechanicalWreckedC",
-            "quantity": 1
-          }
-        ],
-        "duration": 80,
-        "retrieveSingle": 10,
-        "retrieveCrate": 10,
-        "researchLevel": 0
-      },
-      "AircraftPartLargeMechanicalWreckedW": {
-        "inputs": [
-          {
-            "codeName": "Cloth",
-            "quantity": 100
-          }
-        ],
-        "outputs": [
-          {
-            "codeName": "AircraftPartLargeMechanicalWreckedW",
-            "quantity": 1
-          }
-        ],
-        "duration": 80,
-        "retrieveSingle": 10,
-        "retrieveCrate": 10,
-        "researchLevel": 0
-      },
       "AircraftAmmo": {
         "inputs": [
           {
@@ -4606,24 +2484,6 @@
         "duration": 55,
         "retrieveSingle": 3.5,
         "retrieveCrate": 14,
-        "researchLevel": 0
-      },
-      "FacilityMaterials12": {
-        "inputs": [
-          {
-            "codeName": "Cloth",
-            "quantity": 50
-          }
-        ],
-        "outputs": [
-          {
-            "codeName": "FacilityMaterials12",
-            "quantity": 1
-          }
-        ],
-        "duration": 15,
-        "retrieveSingle": 1.5,
-        "retrieveCrate": 10,
         "researchLevel": 0
       },
       "LightAAAmmo": {
@@ -4646,24 +2506,6 @@
         "duration": 55,
         "retrieveSingle": 10,
         "retrieveCrate": 20,
-        "researchLevel": 0
-      },
-      "AircraftTorpedoAmmo": {
-        "inputs": [
-          {
-            "codeName": "Cloth",
-            "quantity": 100
-          }
-        ],
-        "outputs": [
-          {
-            "codeName": "AircraftTorpedoAmmo",
-            "quantity": 1
-          }
-        ],
-        "duration": 80,
-        "retrieveSingle": 10,
-        "retrieveCrate": 10,
         "researchLevel": 0
       },
       "AirSirenT": {

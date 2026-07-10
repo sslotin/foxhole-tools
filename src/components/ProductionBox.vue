@@ -4,6 +4,7 @@
 // highlighting, no time). Items are clickable to navigate to that item.
 import { computed } from 'vue'
 import FacItem from './FacItem.vue'
+import PowerChip from './PowerChip.vue'
 
 const props = defineProps({
   recipes: { type: Array, default: () => [] },
@@ -16,26 +17,34 @@ const used = computed(() => props.recipes.filter(r => r.kind === 'facility-in'))
 </script>
 
 <template>
-  <div class="infobox" v-if="recipes.length">
-    <div class="infoclass">Production</div>
-
-    <div v-for="(r, i) in made" :key="'m' + i" class="recipe-row">
-      <span class="fac-info">
-        <img v-if="r.iconKey" :src="`/icons/${r.iconKey}.png`" class="fac-icon"
-             @error="$event.target.style.visibility = 'hidden'" />
-        <span class="fac-label">{{ r.label }}</span>
-      </span>
-      <span class="io-inputs">
-        <FacItem v-for="(inp, k) in r.inputs" :key="k" :codeName="inp.codeName" :qty="inp.quantity" link @select="emit('select', $event)" />
-      </span>
-      <span class="arrow-col">→</span>
-      <span class="io-outputs">
-        <FacItem v-for="(o, k) in r.outputs" :key="k" :codeName="o.codeName" :qty="o.quantity" :disp="o.disp" link @select="emit('select', $event)" />
-      </span>
+  <!-- "Production": every way the item is MADE (facility output recipes,
+       Garage / Construction Yard build, Factory crate, Mass Production). -->
+  <template v-if="made.length">
+    <div class="infobox">
+      <div class="infoclass">Production</div>
+      <div v-for="(r, i) in made" :key="'m' + i" class="recipe-row">
+        <span class="fac-info">
+          <img v-if="r.iconKey" :src="`/icons/${r.iconKey}.png`" class="fac-icon"
+               @error="$event.target.style.visibility = 'hidden'" />
+          <span class="fac-label">{{ r.label }}</span>
+        </span>
+        <span class="io-inputs">
+          <FacItem v-for="(inp, k) in r.inputs" :key="k" :codeName="inp.codeName" :qty="inp.quantity" link @select="emit('select', $event)" />
+          <PowerChip v-if="r.powerDelta < 0" :recipe="r" />
+        </span>
+        <span class="arrow-col">→</span>
+        <span class="io-outputs">
+          <FacItem v-for="(o, k) in r.outputs" :key="k" :codeName="o.codeName" :qty="o.quantity" :disp="o.disp" link @select="emit('select', $event)" />
+          <PowerChip v-if="r.powerDelta > 0" :recipe="r" />
+        </span>
+      </div>
     </div>
+  </template>
 
-    <template v-if="used.length">
-      <div class="prod-sub">Used in</div>
+  <!-- "Used in": facility recipes that CONSUME the item. -->
+  <template v-if="used.length">
+    <div class="infobox">
+      <div class="infoclass">Used in</div>
       <div v-for="(r, i) in used" :key="'u' + i" class="recipe-row">
         <span class="fac-info">
           <img v-if="r.iconKey" :src="`/icons/${r.iconKey}.png`" class="fac-icon"
@@ -44,14 +53,16 @@ const used = computed(() => props.recipes.filter(r => r.kind === 'facility-in'))
         </span>
         <span class="io-inputs">
           <FacItem v-for="(inp, k) in r.inputs" :key="k" :codeName="inp.codeName" :qty="inp.quantity" link @select="emit('select', $event)" />
+          <PowerChip v-if="r.powerDelta < 0" :recipe="r" />
         </span>
         <span class="arrow-col">→</span>
         <span class="io-outputs">
           <FacItem v-for="(o, k) in r.outputs" :key="k" :codeName="o.codeName" :qty="o.quantity" :disp="o.disp" link @select="emit('select', $event)" />
+          <PowerChip v-if="r.powerDelta > 0" :recipe="r" />
         </span>
       </div>
-    </template>
-  </div>
+    </div>
+  </template>
 </template>
 
 <style scoped lang="sass">
@@ -60,7 +71,7 @@ const used = computed(() => props.recipes.filter(r => r.kind === 'facility-in'))
   border-radius: 8px
   padding: 4px 0
   margin-bottom: 14px
-  max-width: 700px
+  width: 100%
   background: #141414
 
   .infoclass
@@ -113,12 +124,4 @@ const used = computed(() => props.recipes.filter(r => r.kind === 'facility-in'))
     align-self: center
     margin-right: 4px
 
-.prod-sub
-  margin: 6px 14px 0
-  padding-top: 8px
-  border-top: 1px solid #333
-  font-size: 12px
-  letter-spacing: 0.06em
-  text-transform: uppercase
-  color: #999
 </style>

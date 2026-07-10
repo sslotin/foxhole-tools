@@ -9,7 +9,9 @@
     "preview": "vite preview",
     "test": "vitest run",
     "generate-positions": "node parser/scripts/generate-positions.js",
-    "check-diff": "node parser/scripts/generate-positions.js --check"
+    "check-diff": "node parser/scripts/generate-positions.js --check",
+    "check:wiki": "node tmp/wiki-check.mjs",
+    "build:data": "node parser/scripts/process-game-data.js"
   },
   "dependencies": {
     "canvas": "^3.2.3",
@@ -22,6 +24,7 @@
     "sass": "^1.84.0",
     "sass-loader": "^16.0.4",
     "vite": "^6.0.11",
+    "vite-plugin-restart": "^2.0.0",
     "vite-plugin-vue-devtools": "^7.7.0",
     "vitest": "^3.0.0"
   }

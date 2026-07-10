@@ -1,10 +1,14 @@
 # MEMORY.md — Project Context & Status
 
-> **Dev-server note (read first):** If a UI change does not appear in the browser, it is
-> almost always a stale Vite dev server / npm HMR issue — **not** a code bug. The fix is
-> to stop and re-run `npm run dev` (or `npx vite`) so the server picks up the changes and
-> hot-reloads automatically. When suggesting a fix that relies on the dev server reflecting
-> new code, remind the user to restart `npm run dev` if they don't see the change.
+> **Dev-server note (read first):** The **user runs their own dev server at `:7173`** —
+> the agent must **NEVER start, stop, or restart it** (and must not run a dev server on
+> `:5173`/`:5174` either; those are stray and should be left alone/killed, not adopted).
+> If a UI change does not appear, it is almost always a **stale Vite HMR / module-graph
+> desync** (e.g. a `does not provide an export` error after several rapid source edits) —
+> **not** a code bug. The fix is for the **user** to restart `npm run dev` (or `npx vite`)
+> so the server re-transforms from scratch. When this happens, **advise the user to restart
+> their server; do NOT restart it yourself.** Always `npm run build` first to confirm the
+> code itself is valid (a clean build rules out a real syntax error).
 
 Last updated: Jul 10, 2026 (metadata display styling + docs accuracy pass).
 
@@ -73,7 +77,7 @@ Paste → App.vue.addCSV(text) → parser/csv-parser.parseCSV(text)
 
 **Facility cost calculator** (sub-mode of Search): each result row for a *facility-produced* item shows a green **+** button (`src/facility-calc/`). Clicking it pins the item to the top of the left panel (`src/components/FacDesired.vue`, green-tinted row matching the search-result row height/styling, editable quantity + remove) and reveals the calculator (`src/components/FacilityCalc.vue`) in the right panel. **Search results filter:** when the calculator is active (item pinned), results are filtered to show only facility-producible items. **Search scope:** matches `displayName`, `codeName`, and `description` — sorted so `displayName` matches appear first. Removing the last pinned item closes the calculator (no title/close button). The calculator resolves the recipe graph bottom-up through the 158 facility recipes (base + modification tiers; mines = raw-from-node leaves) and shows **two panels**: **left** = Raw resources + Intermediate resources; **right** = building/modification groups. Recipes run at **fractional scale** (no integer-run rounding, no discretization leftovers); byproducts are produced exactly and reused to offset downstream demand, but final surplus is ignored (not shown). Only the **production time** is shown per active recipe (not run counts). Headers are grey (`#999`, matching the stockpile report's secondary label shade), not green.
 
-  The right panel groups recipes by **primary output** (what the recipe is "for" conceptually — see `primaryOutput` in `recipes.mjs`). No group headers are shown — the grouping is purely structural (recipes for the same primary output are visually adjacent, separated from other groups by spacing). Each recipe row carries a **facility icon** on its left edge with a `title` tooltip showing the modification name (hover to see e.g. "Assembly Bay", "Excavator", "Coke Furnace"). **Modification display names come from the game data** (`*_UpgradeSlotComponent.json` files, sourced by `parser/scripts/process-game-data.js`), not prettified enum keys — the enum key `Recycler` is in-game "Assembly Bay", `RocketFactory` is "Rocket Battery Workshop", etc. The recipe object carries `modName` (in-game name) and `mod` (enum key). The displayed recipe set is the **stable closure** of all recipes that could possibly be involved (`reachableRecipes` in `resolver.mjs`, independent of `selectedRecipes`) — so toggling a recipe choice never adds/removes sections, only flips lit/dim. Each recipe is presented under its **primary output** (a multi-output recipe co-producing a byproduct appears under what the recipe primarily produces, e.g. the Excavator Sulfur mine — which also makes Coal — appears under "Coal"). Each recipe row is **clickable to select it** (no radio buttons). Each recipe row is laid out as a **5-column grid**: facility icon (28×28), inputs (flex column), arrow separator, outputs (flex column), time (top-right corner, shown only for the active recipe). Dimming is driven by **activatability**, not by active-ness: a recipe is *activatable* (rendered full-bright) iff the item it's presented under is actually produced in the current plan (`activeItems = new Set(plan.processes.map(p => p.item))`, which includes gathered raws since mines create processes too); recipes presented under items not in the plan (e.g. Coke/Coal recipes while the base Cmats recipe — which needs no Coke — is selected, or Components recipes pulled in by the Recycler alternative) are **dimmed** (`opacity: 0.4`, un-dim on hover) because clicking them would change nothing. The currently-selected recipe (the one in the active plan) additionally gets a green background (`#2a5a2a`) and shows its production time; activatable alternatives stay full-bright so they're clearly clickable. Selecting a recipe that newly needs an item flips that item's recipes from dim to activatable. **Primary-output groups** are ordered with any group that contains a **target-producing recipe** (one whose primary output is a pinned/desired item) sorted first, then alphabetical by group label — so the product group that actually makes what you pinned sits at the top. Within each group, recipes producing a target output also sort above intermediate producers (secondary sort by facility/mod). Aggregated resource counts are **ceiled** for display (you must source a whole unit even if the fractional plan needs less) via `Math.ceil(n - 1e-6)`; the resolver still runs fractionally so byproduct reuse and timings stay exact. Left panel sections: **Raw resources**, **Intermediate resources**, **By-products** (leftover co-produced surplus not reused downstream, in its own section).
+  The right panel groups recipes by **primary output** (what the recipe is "for" conceptually — see `primaryOutput` in `recipes.mjs`). No group headers are shown — the grouping is purely structural (recipes for the same primary output are visually adjacent, separated from other groups by spacing). Each recipe row carries a **facility icon** on its left edge with a `title` tooltip showing the modification name (hover to see e.g. "Assembly Bay", "Excavator", "Coke Furnace"). **Modification display names come from the game data** (`*_UpgradeSlotComponent.json` files, sourced by `parser/scripts/process-game-data.js`), not prettified enum keys — the enum key `Recycler` is in-game "Assembly Bay", `RocketFactory` is "Rocket Battery Workshop", etc. The recipe object carries `modName` (in-game name) and `mod` (enum key). The displayed recipe set is the **stable closure** of all recipes that could possibly be involved (`reachableRecipes` in `resolver.mjs`, independent of `selectedRecipes`) — so toggling a recipe choice never adds/removes sections, only flips lit/dim. Each recipe is presented under its **primary output** (a multi-output recipe co-producing a byproduct appears under what the recipe primarily produces, e.g. the Excavator Sulfur mine — which also makes Coal — appears under "Coal"). Each recipe row is **clickable to select it** (no radio buttons). Each recipe row is laid out as a **5-column grid**: facility icon (28×28), inputs (flex column), arrow separator, outputs (flex column), time (top-right corner, shown only for the active recipe). Dimming is driven by **activatability**, not by active-ness: a recipe is *activatable* (rendered full-bright, clickable) iff it **produces an item in the current plan's imports, intermediates, or the Energy pseudo-resource** — `relevantItems = plan.raw ∪ plan.inputs ∪ plan.intermediate ∪ {Energy}` (logic in `src/facility-calc/activation.mjs`, pure & unit-tested: Property 1, Property 2, Invariants 1–4). The **clickable** set is `activatableRecipes ∪ activeRecipes` (see `clickableRecipes()` in activation.mjs) — so an active/pinned recipe is **never dimmed**, even if its output has left the relevant set; it stays clickable so it can be deactivated. ~2669 of 8427 reachable recipes are *not* activatable (e.g. a recipe whose only outputs are a desired target, or a byproduct the plan covers elsewhere) and are **dimmed** (`opacity: 0.4`, `pointer-events: none` so un-clickable). Because `reachableRecipes` explores the full recipe graph while `rel` only contains plan items, dimmed rows are expected and shown greyed-out, not interactive. The currently-selected recipe (the one in the active plan) additionally gets a green background (`#2a5a2a`) and shows its production time; activatable alternatives stay full-bright so they're clearly clickable. Selecting a recipe that newly needs an item flips that item's recipes from dim to activatable. **Primary-output groups** are ordered with any group that contains a **target-producing recipe** (one whose primary output is a pinned/desired item) sorted first, then alphabetical by group label — so the product group that actually makes what you pinned sits at the top. Within each group, recipes producing a target output also sort above intermediate producers (secondary sort by facility/mod). Aggregated resource counts are **ceiled** for display (you must source a whole unit even if the fractional plan needs less) via `Math.ceil(n - 1e-6)`; the resolver still runs fractionally so byproduct reuse and timings stay exact. Left panel sections: **Raw resources**, **Intermediate resources**, **By-products** (leftover co-produced surplus not reused downstream, in its own section).
 
   **Reactivity gotcha (solved):** recipe objects are stored in reactive `calc.selectedRecipes` and read back inside the resolver's computed. Vue 3 deep-reactivity wraps them in proxies on read, so the object the resolver sees is a *different reference* than the raw objects returned by `recipesFor()` in the template — breaking identity-based `activeRecipes.has(entry.r)` and making the selected recipe never light up. Fix: every recipe object is `markRaw(...)` at construction in `recipes.mjs`, so Vue never proxies them and identity is preserved. State lives in a shared reactive store (`src/facility-calc/store.mjs`); the resolver is a FIFO worklist (`src/facility-calc/resolver.mjs`). **codeName canonicalization:** four facility-recipe codeNames are lowercase in the raw export (`metal`, `coal`, `heavyartilleryammo`, `lightartilleryammo`) but their icons + metadata exist only under PascalCase; `recipes.mjs` `CANON` canonicalizes all four on read so icon paths and metadata lookups resolve. |
 
@@ -89,10 +93,12 @@ Paste → App.vue.addCSV(text) → parser/csv-parser.parseCSV(text)
   `detailEl.scrollTop = 0` inside `nextTick` — instant (no smooth scroll) — whenever a *new* item
   is opened, including clicks on in-detail links (Production-box "used in" items, kill-table ammo
   links). `detailEl` is a `ref` on the `.detail` div. Clicking the same item toggles it off.
+- **'+' (`.add-fac`) in search results → `addToFacility(codeName)`**: calls `addDesired()` (which sets `calc.active=true`) and then clears `selectedCodeName`, so the right `.detail` panel switches from `ItemDetail` to `FacilityCalc`. I.e. clicking '+' both adds the target AND jumps to the calculator view (clearing the metadata view).
 - `ItemDetail` emits `select` (bubbled from child links via `ProductionBox`/`FacItem`); `Search.select`
   handles it, so every in-detail navigation reuses the same path and scrolls to top.
 - **Dev-server note:** Vite HMR usually applies UI changes, but if something doesn't appear, restart
   `npm run dev`. Always `npm run build` to compile/typecheck.
+- **build:data auto-restarts the dev server** (`vite.config.js` → `vite-plugin-restart` watching `parser/data/metadata.json` + `recipes.json`, `contentCheck:false`) — running `build:data` triggers a server restart that also re-serves `public/icons/` fresh, so no manual restart is needed after regenerating data. Source/HMR changes still work normally. Do NOT watch `public/icons/**` (hundreds of recursive inotify watches → ENOSPC crash).
 
 ## Facility Cost Calculator — Algorithm
 
@@ -142,10 +148,10 @@ Paste → App.vue.addCSV(text) → parser/csv-parser.parseCSV(text)
 - **ALWAYS_RAW resources** (`Metal`, `Coal`, `Sulfur`, `Components`, `Oil`): no longer force-moved to Inputs. Instead, a **two-pass plan resolution** auto-imports them by default (so they appear in Inputs), but they remain clickable — clicking removes the auto-import, letting them appear in Intermediates (if manufactured) or By-products (if co-produced). Items with no facility recipe at all (leaf items) always appear in Inputs with no toggle.
 - Right panel: recipes grouped by **primary output** (the `primaryOutput` field on each recipe), sorted target-producers-first then alphabetically by group label. Each recipe row shows its facility/mod via icon + label on the left.
 - **Power & Energy** (`powerDelta` from raw recipes, MW; not a material item):
-  - Each recipe row shows power as a flow line — **consumption** (`powerDelta < 0`) as a red **input** line, **production** (`powerDelta > 0`) as a green **output** line. Format: `P MW × Ds` where `P` is `powerDelta` to 1 decimal and `D` is the recipe `duration` (one "turn"). For **multi-order facilities** (all except power producers and vehicle/structure pads) the shown power is divided by 5 — rendered as `P/5 MW × Ds` — because a facility's draw is shared across its 5 parallel orders, so effective per-order power = `powerDelta / 5`. Power producers and **pads** (Small/Large Assembly Station, Dry Dock) keep the undivided value.
-  - `effectivePower(recipe)` = `powerDelta` for producers/pads, else `powerDelta / 5`.
+  - Power is the facility's **raw** draw/generation: `effectivePower(recipe) = powerDelta` (never divided by 5). A powered (grid-connected) **multi-order facility runs 5× faster**, so the `÷5` lives on **time**, not power: `effectiveDuration(recipe) = duration / 5` for consumers (`powerDelta < 0`, non-pad); producers and **pads** (Small/Large Assembly Station, Dry Dock) keep raw duration. Energy MWh = `effectivePower × effectiveDuration / 3.6e6` (total energy is unchanged from the old model — only the power/time split differs).
+  - Each recipe row (PowerChip) shows `P MW × Ds` where `P = |powerDelta|/1000` (raw) and `D = effectiveDuration` (the 5×-speed time); a ` (/5)` suffix marks the multi-order speed-up. The **Facilities** panel lists each facility with raw MW (consumers red, producers green) + active time, **power-producing buildings sorted LAST**; `Peak: xMW` = sum of per-facility **consumption** only (producers excluded — they supply, not demand). Aggregation + peak are pure in `src/facility-calc/power.mjs` (unit-tested by `power.test.mjs`). The PowerChip (the `P MW × Ds` line) is never clipped — `.io-inputs/.io-outputs .power-chip` keeps `overflow: visible`.
   - **Engine Rooms (T2/T3) and ReservePower are excluded from the calculator entirely** (`SKIP_FACILITIES` in `recipes.mjs`) — their only output, ReservePower, is consumed by nothing.
-  - **Energy** (left panel, `Energy` section): net MWh = Σ over `plan.processes` of `effectivePower(recipe) × time / 3600`, ceiled up to 1 decimal (`ceil1`). Negative net = more produced than consumed → labeled "produced".
+  - **Energy** (left panel, `Energy` section): net MWh = Σ over `plan.processes` of `effectivePower(recipe) × effectiveDuration(recipe) / 3.6e6`, ceiled up to 1 decimal (`ceil1`). Negative net = more produced than consumed → labeled "produced".
   - **Sulfuric Reactor** (Power Station mod) is a **power producer**: its `primaryOutput` is the synthetic `"Energy"` (grouped under an "Energy" heading in the right panel); Sulfur is its (byproduct) item output.
 
 ---
@@ -266,10 +272,12 @@ codeName → { short, target }  // hardcoded targets, needs audit vs latest meta
   is flagged as a semantic loop, stop re-deriving and apply the next concrete change.
 - **Don't fully read large JSON** (`metadata.json`, `recipes.json`, game_data exports): use `jq`/
   `grep`/`head`/`python3` to inspect structure and spot-check.
-- **Wiki is Cloudflare-blocked** (HTTP 403) for direct fetch. Use the `web_search` tool for Damage
-  Resistance / Health tables and other wiki facts; verify against authoritative game files when present.
-- **Trust game files over wiki** on divergence, but a wiki-derived mapping is acceptable where the
-  game files lack a field (e.g. world-structure armour types — see Known limitation).
+- **Data provenance (authoritative).** Every displayed value is derived from the exported `game_data/`
+  files via `process-game-data.js`. The foxhole wiki (and `enrich-wiki.mjs`) is **NOT** a data source —
+  it is used only for *testing and sanity checks* (comparing our game-derived values against the wiki
+  to catch extraction bugs). Where a field is absent from the game exports, it is omitted unless the
+  user supplies the value in conversation (a "conversation exception"), stored as an explicit override
+  — never scraped from the wiki. (Wiki is also Cloudflare-blocked, HTTP 403, for direct fetch.)
 - **Resistance matrix stores a RESISTANCE FRACTION** (`0` = full damage, `1` = immune), NOT a damage
   multiplier. Effective damage = `base × (1 − fraction)`.
 - **Dev-server:** restart `npm run dev` if a UI change doesn't appear; always `npm run build` to check.
@@ -282,7 +290,7 @@ codeName → { short, target }  // hardcoded targets, needs audit vs latest meta
 
 | Command | Action |
 |---|---|
-| `node parser/scripts/process-game-data.js` | ⭐ Regenerate `metadata.json` + `recipes.json` + `public/icons/` from `game_data/` exports. Walks all blueprint files, extracts full stats + profiles + icons + recipes in one pass. Also reads sibling `*_UpgradeSlotComponent.json` files for in-game modification display names (e.g. enum `Recycler` → "Assembly Bay"). **⚠️ Restart `npm run dev` afterward** — the parser does `rmSync`+`mkdirSync` on `public/icons/`, which Vite's chokidar watcher loses track of, causing icons to vanish (served as SPA-fallback HTML) until the dev server restarts. |
+| `node parser/scripts/process-game-data.js` | ⭐ Regenerate `metadata.json` + `recipes.json` + `public/icons/` from `game_data/` exports. Walks all blueprint files, extracts full stats + profiles + icons + recipes in one pass. Also reads sibling `*_UpgradeSlotComponent.json` files for in-game modification display names (e.g. enum `Recycler` → "Assembly Bay"). **Auto-restarts the dev server** (via `vite-plugin-restart` in `vite.config.js`, watching `parser/data/metadata.json`+`recipes.json` with `contentCheck:false`) — the parser does `rmSync`+`mkdirSync` on `public/icons/`, which Vite's chokidar watcher loses track of (icons get served as SPA-fallback HTML); the auto-restart re-serves them fresh. No manual restart needed after build:data. |
 | `npm run generate-positions` | Rebuild `parser/data/positions-*.js` from `examples/u65_stockpile.csv` + `u65_base.csv` |
 | `npm run check-diff -- <csv>` | Compare CSV display names vs `metadata.json` (exit 0 = all known) |
 
@@ -371,6 +379,32 @@ The override map `DEFAULT_OVERRIDES` keys by codeName and matches by `facilityKe
 8. **Ship interior components** — 12 ship engine rooms/parts rooms missing from export (sub-items, not standalone)
 
 ---
+
+## Known data quirks (verified against game_data exports)
+
+- **Handheld weapon reload is NOT in game exports.** `ReloadTime` appears in 0 export files; only
+  `mountData.reloadDuration` (deployed weapons) and a never-hit `itemComponent.reloadTime` exist.
+  Reload / fire-rate / firing-mode were historically wiki-enriched, but the wiki is no longer a data
+  source — these are omitted; do not re-add them from the wiki.
+- **Vehicle speed is a physics-sim output, not a scalar.** `defaultSurfaceMovementRate` is normalized
+  0..1 (no km/h in exports). A linear fit from `engineForce/mass/airResistance/rollingResistance`
+  reaches only R²≈0.53; the ratio `wikiKmh/dsmr` spans ~2.7–90. Aircraft/ship speed lives only in
+  `airData`/`shipData` and is not surfaced.
+- **5 firearms have no `encumbrance`** in exports (SMGHeavyW/C, RifleW, RifleLightC, RifleAutomaticW).
+  No other source exists (wiki decommissioned) → rendered gracefully as absent.
+- **`maxAmmo: 0` is correct** for 9 melee/launchers (Sword, Bayonet, RPG, Mortar, FlameBackpack, …)
+  and flamethrowers (fuel tank, not a magazine) — not a bug.
+- **`engineForce: 0` is correct** for 42 towed/relic vehicles (trailers, train cars, relic APC) —
+  they are pulled, not self-propelled.
+- **Factory/MPF `crateRecipes` must be gated by `productionCategories`** (factory/massProduction
+  queue type, sourced from `BPFactory.json`/`BPMassProduction.json` via `loadProductionCategories()`
+  in `process-game-data.js`). Many facility-only items (Cmats, Coal, Metal, large ammo, aircraft
+  parts…) carry a legacy `CostPerCrate` in `BPItemDynamicData` but are **NOT** Factory/MPF products —
+  listing them there is the (fixed) bug where e.g. Construction Materials appeared makeable at a
+  Factory/MPF. `productionRecipes` (`src/components/production-recipes.js`) guards the Factory +
+  MPF-item rows with `isFactoryMpfItem(entry) = !!entry.productionCategories`. Vehicles/structures
+  correctly have `productionCategories: null` yet ARE MPF-eligible via build cost (`isMpfEligible`) —
+  do **not** gate those by it.
 
 ## Stockpile State Export/Import (Jul 7, 2026)
 
@@ -621,10 +655,26 @@ category by category. Reference material saved under `tmp/wiki-matching/`:
   recipe rows (building/garage icon + label · inputs → outputs; no time, no active highlighting;
   items clickable to navigate). Built by `src/components/production-recipes.js`.
 - Recipe sources: facility recipes where the item is an **OUTPUT** (`recipesFor`) + where it is an
-  **INPUT** ("used in", full list — `recipesWithInput` added to `recipes.mjs`); **Garage** (vehicles,
-  text-label only — no icon asset exists) / **Construction Yard** (structures) build from `buildCost`;
+  **INPUT** ("used in", full list — `recipesWithInput` added to `recipes.mjs`); **build facility is data-driven** (resolves from game exports, not a blanket 'all vehicles → Garage'):
+  `productionRecipes()` reads `vehicle.vehicleBuildType` → Shipyard/LargeShip=`Shipyard`,
+  AircraftFactory=`Aircraft Hangar`, BuildableAnywhere=`World` (hammer pseudo-facility), default
+  (VehicleFactory/VehicleFacility/RailTrackCrane/none)=`Garage`; and `structure.buildLocationType`
+  → ConstructionYard=`Construction Yard`, Anywhere/Facility=`World` (hammer), default=`no build row` (an unknown/absent build location is NOT assumed to be a Construction Yard build). Structures are MPF-eligible only when `buildLocationType === 'ConstructionYard'` (world-placed structures are not mass-producible).
+  Build rows use `buildCost`.
+  **Exception:** `Crane` and `Construction` (the construction vehicle, "CV") emit BOTH a `World`
+  (Hammer) and a `Garage` (MapIconVehicle) build row — built both in the field and at a Garage
+  (see `DUAL_BUILD_WORLD_GARAGE` in production-recipes.js).
   **Factory** crate + **Mass Production Factory** from `crateCost`/`buildCost` via the MPF per-order
   discount math (moved out of `metadata-format.js`).
+- **MPF mass-production is also available for shippable containers** (`ShippingContainer`,
+  `ResourceContainer`, `LiquidContainer`) — each gets an `mpf-veh` row (5 shippable-crate orders =
+  3 units × 3.5 discount; e.g. ShippingContainer = 1050 Cloth). They are deliberately EXCLUDED from
+  `NON_MPF_WORLD_STRUCTURES`, which holds only static world structures (TownBase1/2/3, GarrisonStation
+  & /1, StorageBox, StorageFacility, MaterialPlatform, FacilitySiloOil, Seaport, SignPost, WeaponRack,
+  ResourceBox, ObservationTower).
+- **Facility icon assets** (all mapped from game textures, re-emitted by `process-game-data.js` after
+  its `rmSync` on `public/icons` so `build:data` never wipes them): `Shipyard.png` ← `DryDockItemIcon.png`,
+  `Hammer.png` ← `HammerIcon.png`, `Energy.png` ← `IconFilterPower.png`, `MapIconVehicle.png` ← `MapIconVehicle.png`.
 - **Crate-count display convention:** outputs are crate counts, not per-unit. A Factory order =
   `1c <item>` (1 crate); MPF = `9c <item>` (items) / `5c <item>` (vehicles/structures, shippable
   crates). `FacItem` appends `c` to `crateItems` (Infantry Kit Factory outputs + crate-form inputs)
@@ -635,3 +685,107 @@ category by category. Reference material saved under `tmp/wiki-matching/`:
 - `metadata-format.js` no longer renders **Build cost / Factory cost / MPF cost** rows (moved here);
   Repair cost + Upgrade from remain. `buildCost`/`crateCost` are marked `used` so they don't appear
   in the unformatted-fields list.
+
+---
+
+## Jul 10 (night) — Wiki enrichment pipeline (reload / speed / crew / passengers)
+
+**Status (updated 2026-07-10):** this pipeline was built to enrich `metadata.json` from the
+Foxhole wiki, but the wiki is **no longer a data source** (see Data provenance) — `enrich-wiki.mjs`
+was deleted, `build:data` is game-only, and the wiki-only fields are omitted from `metadata.json`.
+The logic survives only in `tmp/wiki-check.mjs` as a sanity check. The underlying *data findings*
+(below) about what is/isn't in the game exports remain valid and are summarized in **Known data quirks**.
+
+**Why:** `ReloadTime` is absent from ALL game_data exports (only `mountData.reloadDuration`
+for deployed weapons). `defaultSurfaceMovementRate` is a normalized 0..1 value, not km/h;
+top speed is a full vehicle-sim output (tried to fit from `engineForce/mass/airResistance/
+rollingResistance` → best R²≈0.53, no clean closed form). So these are wiki-published
+constants, not derivable from the exported fields.
+
+**Pipeline (offline + reproducible):**
+- `tmp/night/wiki-fetch.mjs` — cached wiki fetcher (title resolution validated by infobox
+  `codename`, 429 backoff; caches to `tmp/wiki/<codeName>.json`).
+- `tmp/night/build-enrich.mjs` — emits `parser/data/wiki-enrich.json` (committed snapshot of
+  wiki-only fields: `reload`, `fireRate`, `firingMode` for firearms; `speedKmh`, `offspeedKmh`,
+  `crew`, `passengers` for land vehicles/boats; `encumbrance` fill for the 5 firearms the game
+  data lacks).
+- **Wiki is NOT a data source.** `parser/scripts/enrich-wiki.mjs` was deleted. The merge/compare
+  logic moved to `tmp/wiki-check.mjs` (sanity check ONLY — compares `wiki-enrich.json` against
+  game-derived `metadata.json`, reports wiki-only fields, never writes). `build:data` is now
+  game-only (`= process-game-data.js`). `npm run check:wiki` runs the comparison.
+- `src/parser/metadata-quality.test.mjs` — 14 tests; full suite 23 passing.
+
+**Wiki-only fields (`reload`, `fireRate`, `firingMode`, `speedKmh`, `offspeedKmh`, `crew`,
+`passengers`) are intentionally NOT in `metadata.json` — they are absent from the game
+exports and the wiki is not a data source. They survive only in `wiki-enrich.json` for the
+`tmp/wiki-check.mjs` sanity comparison. Game-derived fields that remain: `encumbrance`
+(where the export has it) and `mountData.reloadDuration` for deployed weapons.
+Aircraft/ship speed lives in `airData`/`shipData` (not yet enriched — follow-up).
+
+**Display:** `metadata-format.js` shows Reload / Fire rate / Firing mode (weapons) and
+Speed / Off-road speed / Crew / Passengers (land vehicles). `push()` no-ops on undefined,
+so the app degrades gracefully if `enrich` wasn't run.
+
+**Data-quality findings (all resolved/confirmed):** 5 firearms missing `encumbrance`
+(SMGHeavyW/C, RifleW, RifleLightC, RifleAutomaticW) → filled from wiki. `maxAmmo:0` for
+melee/launchers + flamethrowers is correct (no magazine). `engineForce:0` for 42 towed/relic
+vehicles (trailers, train cars) is correct. **1 divergence kept:** `TrainEngine` fuelcap —
+wiki 300 vs game 100; trust game files. `SMGHeavyW` wiki title was mis-resolving to a patch
+page → fixed with a title override + codename validation.
+
+---
+
+## Jul 10 (bug scan) — 3 fixes
+- **MPF cost bug** (`production-recipes.js`): per-crate-per-material flooring zeroed out 1-unit
+  crate materials (Coke's Cloth → 0). Fixed to floor the aggregated discounted total per material
+  once (Coke → Cloth ×5). New test `src/components/production-recipes.test.mjs`.
+- **ALWAYS_RAW toggle dead** (`FacilityCalc.vue`): `calc.skipAutoImport` was defined but never
+  called; `handleInputClick` always ran `toggleImported`, so default-raw toggles (Coal/Metal/
+  Sulfur/Components/Oil) did nothing. `plan` now respects `skipAutoImport` and the click handler
+  branches by `DEFAULT_IMPORTED`.
+- **Wiki "missing fields" false positive** (`metadata-format.js`): `WIKI_FIELDS` used
+  `'Fire Rate'`/`'Firing Mode'` but rows are labeled `'Fire rate'`/`'Firing mode'`, so enriched
+  weapons were wrongly listed as missing those fields. Label strings aligned.
+- **Recorded + FIXED (2026-07-10):** greedy `resolvePlan` over-count when a desired
+  item is also a byproduct of another desired item's recipe. Fixed via producer-first
+  ordering in resolver.mjs (items whose recipe emits a byproduct run before the rest,
+  so the byproduct surplus is absorbed by later demand). Regression test in
+  facilities.test.mjs. Deep byproduct chains still imperfect (documented in NIGHT_LOG).
+
+- **Trains show coal consumption, not fuel cap** (`metadata-format.js`, 2026-07-10): in
+  the Land Vehicle case, trains (codeName `/^(Train|SmallTrain)/i`) push a `Coal` row
+  as `[{qty: fuelCapacity, code:'Coal'}]`, rendered qty×icon like Repair cost (small
+  loco cap 100 → "100 × [coal]"; future large cap 300 auto-shows "300 × [coal]").
+  Relic vehicles keep `Fuel cap` (they burn Petrol, not Coal). `metadata.Coal` exists
+  so the icon resolves. UI/display change — restart `npm run dev` if a stale server runs.
+
+- **Energy = pseudo-resource (2026-07-10):** Power is modeled as a pseudo-resource
+  `Energy` (not in metadata.json). Power-producing recipes (`FacilityPowerDiesel`
+  Diesel/Petrol/Coal plants, `FacilityPowerOil` Power Station + Sulfuric Reactor)
+  get a SYNTHETIC `Energy` output in `recipes.mjs` (`push`): quantity =
+  `powerDelta * duration / 3.6e6` MWh per run, only when `powerDelta > 0`.
+  `engineRoomT2/T3` stay excluded via `SKIP_FACILITIES` (ReservePower, no real
+  output). `energyMWh(recipe) = effectivePower * duration / 3.6e6` (true MWh;
+  the old `/3600` was a kWh-as-MWh bug, fixed). `defaultPowerRecipe()` =
+  Power Station (Oil).
+  - **Default = imported** (no auto-resolution → no chicken-and-egg). `calc.energyImported`
+    (store, default `true`) drives it. The resolver (`resolvePlan`) takes
+    `opts.energyImported`; if `false` OR `selectedRecipes['Energy']` is set AND
+    there is a net deficit, it adds the chosen power recipe (selected or
+    `defaultPowerRecipe`) to cover the deficit; its FUEL goes to `raw` (NOT
+    enqueued) so a fuel that itself needs power can't loop. Cycle-free + bounded.
+  - **UI:** `FacilityCalc.vue` shows an `Energy` row LAST in **Imports** (import
+    mode, value = deficit MWh) or **Intermediates** (produced mode, value =
+    produced MWh), styled `<Energy icon> <qty> MWh` with normal-font "MWh",
+    clickable to toggle `calc.energyImported`. `reachableRecipes` always includes
+    the power recipes under an `Energy` group, so clicking one produces power
+    (covers the deficit). `rawDisplay` merges raw+inputs additively (so power
+    fuel sums with default-imported fuel).
+  - **Recipe chips:** `PowerChip.vue` shows magnitude ONLY (NO `+`/`-`); direction
+    is color-coded — red = consumed (in), green = produced (out). `formatPower`
+    uses `Math.abs(powerDelta)/1000` MW + ` (/5)` for multi-order. Metadata
+    (`production-recipes.js`) FILTERS `Energy` out of recipe outputs (PowerChip
+    already shows power) — so the metadata test asserting no `Energy` output
+    still passes.
+  - Icon `public/icons/Energy.png`; ItemDetail `.content` width = 800px. UI
+    change — user restarts their own `:7173` dev server (agent must not run it).

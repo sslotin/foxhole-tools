@@ -311,7 +311,7 @@ const prodRecipes = computed(() =>
 <style scoped lang="sass">
 .content
   width: 100%
-  max-width: 1200px
+  max-width: 800px
   margin: 0 auto
 
 .header
@@ -430,7 +430,7 @@ const prodRecipes = computed(() =>
   color: #999
   font-size: 14px
   line-height: 1.5
-  max-width: 700px
+  width: 100%
 
 pre
   font-size: 13px
@@ -445,7 +445,7 @@ pre
   border-radius: 8px
   padding: 4px 0
   margin-bottom: 14px
-  max-width: 700px
+  width: 100%
   background: #141414
 
   .infoclass

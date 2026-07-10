@@ -97,6 +97,14 @@ function select(codeName) {
   selectedCodeName.value = selectedCodeName.value === codeName ? undefined : codeName
 }
 
+// "+" in search results: pin the item to the facility calculator AND jump to
+// that view by clearing the metadata (ItemDetail) panel. addDesired() already
+// flips calc.active on, so clearing the selection shows FacilityCalc.
+function addToFacility(codeName) {
+  addDesired(codeName)
+  selectedCodeName.value = undefined
+}
+
 // Reflect the open item in the URL as /data/<codeName> so links are
 // shareable and browser back/forward works. No router is used.
 function urlFor(codeName) {
@@ -168,8 +176,8 @@ watch(query, q => {
           <button
             v-if="facilityProduced.has(e.codeName)"
             class="add-fac"
-            @click.stop="addDesired(e.codeName)"
-            title="add to facility cost calculator"
+            @click.stop="addToFacility(e.codeName)"
+            title="add to facility cost calculator (opens calculator)"
           >+</button>
         </div>
         <p v-if="results.length === 0 && pinnedMatches === 0" class="no-results">no matches</p>

@@ -11,6 +11,7 @@ export const calc = reactive({
   selectedRecipes: {},    // codeName -> chosen recipe object (override of default)
   imported: [],           // codeNames the user treats as imported inputs (not manufactured)
   skipAutoImport: [],     // codeNames the user explicitly opted out of auto-import for
+  energyImported: true,   // energy pseudo-resource: true = imported (grid), false = produced
 })
 
 export function addDesired (codeName, qty = 1) {
