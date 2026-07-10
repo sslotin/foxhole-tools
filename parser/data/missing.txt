@@ -1,4 +1,4 @@
-# Missing / inconsistent files — generated 2026-07-10T00:17:55.998Z
+# Missing / inconsistent files — generated 2026-07-10T02:17:09.629Z
 # Total: 5 issues
 
 icon file not found for Lore: /home/sereja/Projects/foxhole/game_data/content/Output/Exports/War/Content/Slate/Images/ResourceClothIcon.png

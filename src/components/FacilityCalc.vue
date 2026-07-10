@@ -2,7 +2,7 @@
 import { computed } from 'vue'
 import { calc } from '../facility-calc/store.mjs'
 import {
-  recipesFor, displayName, modLabel,
+  recipesFor, displayName, modLabel, effectivePower, isPad,
 } from '../facility-calc/recipes.mjs'
 import { resolvePlan, reachableRecipes } from '../facility-calc/resolver.mjs'
 import { toggleImported } from '../facility-calc/store.mjs'
@@ -91,6 +91,16 @@ const groups = computed(() => {
   return arr
 })
 
+// Total energy consumed/produced across the plan (MWh). Energy = power × time,
+// summed over every running process using its per-order effective power.
+const energyMWh = computed(() => {
+  let mwh = 0
+  for (const p of plan.value.processes) {
+    mwh += effectivePower(p.recipe) * (p.time || 0) / 3600
+  }
+  return mwh
+})
+
 // Unique facilities used in the active plan, for the Facilities section.
 // Each entry has the facility icon key and the display label (mod name
 // with resource disambiguation, e.g. "Excavator (Sulfur)").
@@ -103,6 +113,7 @@ const facilities = computed(() => {
     seen.add(key)
     result.push({
       facilityKey: p.recipe.facilityKey,
+      mod: p.recipe.mod || '',
       label: modLabel(p.recipe),
     })
   }
@@ -127,6 +138,14 @@ function fmt (n) {
   // Resources are aggregated from fractional runs; round up so a partial
   // unit still has to be sourced. Tiny epsilon absorbs FP noise.
   return String(Math.ceil(n - 1e-6))
+}
+// Power shown per recipe: MW to 1 decimal (e.g. "6,000.0").
+function fmtMW (n) {
+  return n.toLocaleString(undefined, { minimumFractionDigits: 1, maximumFractionDigits: 1 })
+}
+// Round a value UP to 1 decimal place (for energy budget, overestimate).
+function ceil1 (n) {
+  return Math.ceil(n * 10 - 1e-9) / 10
 }
 function fmtTime (s) {
   if (!s || s <= 0) return ''
@@ -229,11 +248,21 @@ const alwaysInputSet = computed(() => {
         <section v-if="facilities.length" class="fc-block">
           <h3>Facilities</h3>
           <div class="fac-list">
-            <div v-for="fac in facilities" :key="fac.facilityKey" class="fac-row">
+            <div v-for="fac in facilities" :key="fac.facilityKey + '|' + fac.mod" class="fac-row">
               <img :src="`/icons/${fac.facilityKey}.png`"
                    class="fac-icon"
                    @error="$event.target.style.visibility = 'hidden'" />
               <span class="nm">{{ fac.label }}</span>
+            </div>
+          </div>
+        </section>
+
+        <section v-if="Math.abs(energyMWh) > 1e-6" class="fc-block">
+          <h3>Energy</h3>
+          <div class="io-list">
+            <div class="energy-row">
+              <span class="qty">{{ energyMWh >= 0 ? ceil1(energyMWh) : ceil1(-energyMWh) }} MWh</span>
+              <span v-if="energyMWh < 0" class="nm">produced</span>
             </div>
           </div>
         </section>
@@ -256,10 +285,18 @@ const alwaysInputSet = computed(() => {
             <span class="fac-label">{{ modLabel(entry.r) }}</span>
           </span>
             <span class="io-inputs">
+              <span v-if="entry.r.powerDelta < 0" class="fac-item power-chip in">
+                <span class="qty">{{ fmtMW(entry.r.powerDelta) }}<template v-if="!isPad(entry.r)">/5</template> MW × {{ entry.r.duration }}s</span>
+                <span class="nm">Power</span>
+              </span>
               <FacItem v-for="(inp, k) in entry.r.inputs" :key="k" :codeName="inp.codeName" :qty="inp.quantity" />
             </span>
             <span class="arrow-col">→</span>
             <span class="io-outputs">
+              <span v-if="entry.r.powerDelta > 0" class="fac-item power-chip out">
+                <span class="qty">+{{ fmtMW(entry.r.powerDelta) }} MW × {{ entry.r.duration }}s</span>
+                <span class="nm">Power</span>
+              </span>
               <FacItem v-for="(out, k) in entry.r.outputs" :key="k" :codeName="out.codeName" :qty="out.quantity" />
             </span>
             <span class="io-time" :class="{ visible: activeRecipes.has(entry.r) }">{{ activeRecipes.has(entry.r) ? fmtTime(timeByRecipe.get(entry.r)) : '' }}</span>
@@ -480,6 +517,34 @@ const alwaysInputSet = computed(() => {
     color: #888
     align-self: center
     margin-right: 4px
+
+  .power-chip
+    .qty
+      color: #e8c674
+      font-weight: 600
+      flex-shrink: 0
+
+    &.in .qty
+      color: #e89a9a
+
+    &.out .qty
+      color: #8fd98f
+
+  .energy-row
+    display: flex
+    align-items: center
+    gap: 8px
+    padding: 3px 8px
+    width: 100%
+
+    .qty
+      color: #e8c674
+      font-weight: 600
+      font-size: 15px
+
+    .nm
+      color: #8fd98f
+      font-size: 14px
 
   .io-time
     color: #9ad

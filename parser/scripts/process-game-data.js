@@ -1499,6 +1499,11 @@ for (const { path, key } of FACILITY_FILES) {
   const props = entry.Properties || {};
   const baseConversions = props.ConversionEntries || [];
   const modifications = props.Modifications || [];
+  // Building-level power draw (MW) from PowerGridInfo. Every recipe of the
+  // facility inherits it whenever its own conversion PowerDelta is 0 — i.e. a
+  // facility draws its base power whenever it runs, and only recipes that
+  // specify their own (non-zero) PowerDelta override it.
+  const buildingPower = (props.PowerGridInfo?.PowerDelta) || 0;
 
   // Modification display names live in a sibling *_UpgradeSlotComponent.json
   // file (the facility file's own DisplayName is null). Load it and build a
@@ -1527,9 +1532,11 @@ for (const { path, key } of FACILITY_FILES) {
   // Vehicle factories use AssemblyItems instead of ConversionEntries
   const baseAssemblyItems = props.AssemblyItems || [];
   if (baseAssemblyItems.length > 0) {
-    facility.baseRecipes = baseAssemblyItems.flatMap(parseAssemblyItem);
+    facility.baseRecipes = baseAssemblyItems.flatMap(parseAssemblyItem)
+      .map(r => ({ ...r, powerDelta: r.powerDelta || buildingPower }));
   } else {
-    facility.baseRecipes = baseConversions.map(parseConversion);
+    facility.baseRecipes = baseConversions.map(parseConversion)
+      .map(r => ({ ...r, powerDelta: r.powerDelta || buildingPower }));
   }
 
   for (const mod of modifications) {
@@ -1539,12 +1546,14 @@ for (const { path, key } of FACILITY_FILES) {
     if (modAssemblyItems.length > 0) {
       facility.modifications[modKey] = {
         displayName: modNames[modKey] || modValue.DisplayName?.SourceString || null,
-        recipes: modAssemblyItems.flatMap(parseAssemblyItem),
+        recipes: modAssemblyItems.flatMap(parseAssemblyItem)
+          .map(r => ({ ...r, powerDelta: r.powerDelta || buildingPower })),
       };
     } else {
       facility.modifications[modKey] = {
         displayName: modNames[modKey] || modValue.DisplayName?.SourceString || null,
-        recipes: (modValue.ConversionEntries || []).map(parseConversion),
+        recipes: (modValue.ConversionEntries || []).map(parseConversion)
+          .map(r => ({ ...r, powerDelta: r.powerDelta || buildingPower })),
       };
     }
   }

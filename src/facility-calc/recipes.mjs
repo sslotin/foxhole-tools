@@ -30,6 +30,11 @@ import { markRaw } from 'vue'
 // Some facility-recipe codeNames are lowercase even though the canonical
 // (metadata + icon) form is PascalCase — canonicalize on read so both the icon
 // path (`/icons/<codeName>.png`) and metadata lookup resolve correctly.
+
+// Facilities excluded from the calculator entirely (power infrastructure, not
+// production — their only output is ReservePower, which nothing consumes).
+const SKIP_FACILITIES = new Set(['EngineRoomT2', 'EngineRoomT3'])
+
 const CANON = {
   metal: 'Metal',
   coal: 'Coal',
@@ -50,6 +55,10 @@ const canon = c => CANON[c] || c
 // This function is called once per recipe at module load time (not on every
 // computed re-evaluation), so clarity trumps brevity.
 function determinePrimaryOutput(recipe) {
+  // Power-producing recipes (e.g. Sulfuric Reactor) primarily yield energy;
+  // their item output (e.g. Sulfur) is a byproduct. Grouped under a synthetic
+  // "Energy" heading in the calculator.
+  if (recipe.powerDelta > 0) return 'Energy'
   const { facilityKey, mod, outputs } = recipe
   if (outputs.length === 1) return outputs[0].codeName
 
@@ -108,6 +117,7 @@ const _recipesByInput = {}
 const _crateItems = new Set()
 
 for (const [facKey, fac] of Object.entries(recipesData.facilities)) {
+  if (SKIP_FACILITIES.has(facKey)) continue
   const isCrateFacility = facKey === 'FacilityFactorySmallArms'
   // In-game modification display names (e.g. enum "Recycler" → "Assembly Bay",
   // "RocketFactory" → "Rocket Battery Workshop") sourced from the
@@ -123,6 +133,7 @@ for (const [facKey, fac] of Object.entries(recipesData.facilities)) {
       inputs: (r.inputs || []).map(i => ({ codeName: canon(i.codeName), quantity: i.quantity })),
       outputs: r.outputs.map(o => ({ codeName: canon(o.codeName), quantity: o.quantity })),
       duration: r.duration || 0,
+      powerDelta: r.powerDelta || 0,
       consumeResourceNodes: !!r.consumeResourceNodes,
     })
     // Primary output: for multi-output recipes this dictates grouping;
@@ -160,6 +171,23 @@ export const crateItems = _crateItems
 
 export function isLiquid (codeName) {
   return metadata[codeName]?.itemProfileType === 'RefinedFuel'
+}
+
+// Vehicle/structure assembly pads run a single production order (like power
+// plants), so their power draw is NOT divided by 5 the way multi-order
+// facilities are. Engine rooms are excluded entirely (see SKIP_FACILITIES).
+export const PAD_FACILITIES = new Set([
+  'FacilityVehicleFactory1', 'FacilityVehicleFactory2', 'FacilityVehicleFactory3',
+])
+export function isPad (recipe) {
+  return PAD_FACILITIES.has(recipe.facilityKey)
+}
+// Per-order effective power (MW). A multi-order facility's draw is shared across
+// its 5 parallel orders, so divide by 5 — except for power producers and
+// single-order pads. Used for energy (power × time) accounting.
+export function effectivePower (recipe) {
+  if (recipe.powerDelta > 0 || isPad(recipe)) return recipe.powerDelta
+  return recipe.powerDelta / 5
 }
 
 export function recipesFor (item) {

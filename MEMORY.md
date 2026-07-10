@@ -141,6 +141,12 @@ Paste → App.vue.addCSV(text) → parser/csv-parser.parseCSV(text)
 - **By-products** section: not clickable.
 - **ALWAYS_RAW resources** (`Metal`, `Coal`, `Sulfur`, `Components`, `Oil`): no longer force-moved to Inputs. Instead, a **two-pass plan resolution** auto-imports them by default (so they appear in Inputs), but they remain clickable — clicking removes the auto-import, letting them appear in Intermediates (if manufactured) or By-products (if co-produced). Items with no facility recipe at all (leaf items) always appear in Inputs with no toggle.
 - Right panel: recipes grouped by **primary output** (the `primaryOutput` field on each recipe), sorted target-producers-first then alphabetically by group label. Each recipe row shows its facility/mod via icon + label on the left.
+- **Power & Energy** (`powerDelta` from raw recipes, MW; not a material item):
+  - Each recipe row shows power as a flow line — **consumption** (`powerDelta < 0`) as a red **input** line, **production** (`powerDelta > 0`) as a green **output** line. Format: `P MW × Ds` where `P` is `powerDelta` to 1 decimal and `D` is the recipe `duration` (one "turn"). For **multi-order facilities** (all except power producers and vehicle/structure pads) the shown power is divided by 5 — rendered as `P/5 MW × Ds` — because a facility's draw is shared across its 5 parallel orders, so effective per-order power = `powerDelta / 5`. Power producers and **pads** (Small/Large Assembly Station, Dry Dock) keep the undivided value.
+  - `effectivePower(recipe)` = `powerDelta` for producers/pads, else `powerDelta / 5`.
+  - **Engine Rooms (T2/T3) and ReservePower are excluded from the calculator entirely** (`SKIP_FACILITIES` in `recipes.mjs`) — their only output, ReservePower, is consumed by nothing.
+  - **Energy** (left panel, `Energy` section): net MWh = Σ over `plan.processes` of `effectivePower(recipe) × time / 3600`, ceiled up to 1 decimal (`ceil1`). Negative net = more produced than consumed → labeled "produced".
+  - **Sulfuric Reactor** (Power Station mod) is a **power producer**: its `primaryOutput` is the synthetic `"Energy"` (grouped under an "Energy" heading in the right panel); Sulfur is its (byproduct) item output.
 
 ---
 
@@ -342,6 +348,14 @@ The override map `DEFAULT_OVERRIDES` keys by codeName and matches by `facilityKe
 **Fix:** Added VF1/VF2/VF3 to `FACILITY_FILES`. Added `parseAssemblyItem()` which reads the `AssemblyItems` format and looks up resource costs from the vehicle dynamic data. All vehicle pad recipes use `AltResourceAmounts` (processed materials) — the `UpgradeResourceAmounts` field is for garage tier upgrades, not pad recipes. The prerequisite vehicle is included as an input for upgrade variants.
 
 **Stats:** ~118 new vehicle/assembly recipes across 3 facilities. Items without vehicle data (ship parts, fort parts, rocket parts) emit with just outputs + duration (no inputs).
+
+### Jul 10 — Facility building power (PowerGridInfo) now extracted
+
+**Root cause:** A facility's power draw lives on the building, not per recipe — `PowerGridInfo.PowerDelta` on the facility blueprint's `Properties` (e.g. Materials Factory = −2000, Metalworks = −5000). `parseConversion()` only read each conversion entry's own `PowerDelta`, which is `0` for most recipes, so nearly every recipe showed `powerDelta: 0`.
+
+**Fix:** In `process-game-data.js`, extract `buildingPower = Properties.PowerGridInfo.PowerDelta` per facility and apply it to every emitted recipe: `powerDelta = recipePowerDelta ? recipePowerDelta : buildingPower` (the per-recipe value is the recipe's TOTAL power and overrides the building base; a `0` recipe inherits the building base). Applied to both `parseConversion` and vehicle-pad `parseAssemblyItem` recipes. Engine rooms (`EngineRoomT2/3`) are excluded entirely via `SKIP_FACILITIES`.
+
+**Note — powerless buildings (source data):** only `Water Pump`, **base** `Oil Well` (its `Electric`/`Fracker` upgrades DO draw power), and — per the exported `PowerGridInfo` — also the resource **harvesters** (Salvage/Components/Sulfur/Coal mines), **Offshore Platform**, and **Concrete Mixer** have `0` building power. The user believed only Water Pump + base Oil Well lack power; the game data says the harvesters/platform/concrete mixer are also `0`. Trust the data.
 
 ---
 

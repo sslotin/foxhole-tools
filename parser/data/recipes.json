@@ -1,5 +1,5 @@
 {
-  "_generated": "2026-07-10T00:17:56.012Z",
+  "_generated": "2026-07-10T02:17:09.640Z",
   "_sources": [
     "War/Content/Blueprints/Data/BPItemDynamicData.json — Factory/MPF crate recipes",
     "War/Content/Blueprints/Structures/ — facility conversion recipes"
@@ -4748,7 +4748,7 @@
             }
           ],
           "duration": 25,
-          "powerDelta": 0,
+          "powerDelta": -4000,
           "consumeResourceNodes": false
         },
         {
@@ -4772,7 +4772,7 @@
             }
           ],
           "duration": 30,
-          "powerDelta": 0,
+          "powerDelta": -4000,
           "consumeResourceNodes": false
         },
         {
@@ -4796,7 +4796,7 @@
             }
           ],
           "duration": 25,
-          "powerDelta": 0,
+          "powerDelta": -4000,
           "consumeResourceNodes": false
         },
         {
@@ -4820,7 +4820,7 @@
             }
           ],
           "duration": 25,
-          "powerDelta": 0,
+          "powerDelta": -4000,
           "consumeResourceNodes": false
         },
         {
@@ -4844,7 +4844,7 @@
             }
           ],
           "duration": 90,
-          "powerDelta": 0,
+          "powerDelta": -4000,
           "consumeResourceNodes": false
         },
         {
@@ -4868,7 +4868,7 @@
             }
           ],
           "duration": 1500,
-          "powerDelta": 0,
+          "powerDelta": -4000,
           "consumeResourceNodes": false
         },
         {
@@ -4897,7 +4897,7 @@
             }
           ],
           "duration": 30,
-          "powerDelta": 0,
+          "powerDelta": -4000,
           "consumeResourceNodes": false
         },
         {
@@ -4916,7 +4916,7 @@
             }
           ],
           "duration": 25,
-          "powerDelta": 0,
+          "powerDelta": -4000,
           "consumeResourceNodes": false
         },
         {
@@ -4935,7 +4935,7 @@
             }
           ],
           "duration": 10,
-          "powerDelta": 0,
+          "powerDelta": -4000,
           "consumeResourceNodes": false
         },
         {
@@ -4954,7 +4954,7 @@
             }
           ],
           "duration": 25,
-          "powerDelta": 0,
+          "powerDelta": -4000,
           "consumeResourceNodes": false
         },
         {
@@ -4973,7 +4973,7 @@
             }
           ],
           "duration": 25,
-          "powerDelta": 0,
+          "powerDelta": -4000,
           "consumeResourceNodes": false
         }
       ],
@@ -5002,7 +5002,7 @@
                 }
               ],
               "duration": 25,
-              "powerDelta": 0,
+              "powerDelta": -4000,
               "consumeResourceNodes": false
             },
             {
@@ -5026,7 +5026,7 @@
                 }
               ],
               "duration": 25,
-              "powerDelta": 0,
+              "powerDelta": -4000,
               "consumeResourceNodes": false
             },
             {
@@ -5074,7 +5074,7 @@
                 }
               ],
               "duration": 25,
-              "powerDelta": 0,
+              "powerDelta": -4000,
               "consumeResourceNodes": false
             }
           ]
@@ -5103,7 +5103,7 @@
                 }
               ],
               "duration": 60,
-              "powerDelta": 0,
+              "powerDelta": -4000,
               "consumeResourceNodes": false
             },
             {
@@ -5127,7 +5127,7 @@
                 }
               ],
               "duration": 60,
-              "powerDelta": 0,
+              "powerDelta": -4000,
               "consumeResourceNodes": false
             },
             {
@@ -5175,7 +5175,7 @@
                 }
               ],
               "duration": 25,
-              "powerDelta": 0,
+              "powerDelta": -4000,
               "consumeResourceNodes": false
             },
             {
@@ -5199,7 +5199,7 @@
                 }
               ],
               "duration": 40,
-              "powerDelta": 0,
+              "powerDelta": -4000,
               "consumeResourceNodes": false
             },
             {
@@ -5223,7 +5223,7 @@
                 }
               ],
               "duration": 25,
-              "powerDelta": 0,
+              "powerDelta": -4000,
               "consumeResourceNodes": false
             },
             {
@@ -5295,7 +5295,7 @@
                 }
               ],
               "duration": 25,
-              "powerDelta": 0,
+              "powerDelta": -4000,
               "consumeResourceNodes": false
             },
             {
@@ -5367,7 +5367,7 @@
                 }
               ],
               "duration": 25,
-              "powerDelta": 0,
+              "powerDelta": -4000,
               "consumeResourceNodes": false
             },
             {
@@ -5386,7 +5386,7 @@
                 }
               ],
               "duration": 25,
-              "powerDelta": 0,
+              "powerDelta": -4000,
               "consumeResourceNodes": false
             },
             {
@@ -5405,7 +5405,7 @@
                 }
               ],
               "duration": 25,
-              "powerDelta": 0,
+              "powerDelta": -4000,
               "consumeResourceNodes": false
             },
             {
@@ -5424,7 +5424,7 @@
                 }
               ],
               "duration": 25,
-              "powerDelta": 0,
+              "powerDelta": -4000,
               "consumeResourceNodes": false
             },
             {
@@ -5443,7 +5443,7 @@
                 }
               ],
               "duration": 25,
-              "powerDelta": 0,
+              "powerDelta": -4000,
               "consumeResourceNodes": false
             },
             {
@@ -5462,7 +5462,7 @@
                 }
               ],
               "duration": 25,
-              "powerDelta": 0,
+              "powerDelta": -4000,
               "consumeResourceNodes": false
             },
             {
@@ -5481,7 +5481,7 @@
                 }
               ],
               "duration": 25,
-              "powerDelta": 0,
+              "powerDelta": -4000,
               "consumeResourceNodes": false
             },
             {
@@ -5500,7 +5500,7 @@
                 }
               ],
               "duration": 25,
-              "powerDelta": 0,
+              "powerDelta": -4000,
               "consumeResourceNodes": false
             },
             {
@@ -5524,7 +5524,7 @@
                 }
               ],
               "duration": 25,
-              "powerDelta": 0,
+              "powerDelta": -4000,
               "consumeResourceNodes": false
             },
             {
@@ -5548,7 +5548,7 @@
                 }
               ],
               "duration": 25,
-              "powerDelta": 0,
+              "powerDelta": -4000,
               "consumeResourceNodes": false
             }
           ]
@@ -7048,7 +7048,7 @@
             }
           ],
           "duration": 25,
-          "powerDelta": 0,
+          "powerDelta": -2000,
           "consumeResourceNodes": false
         },
         {
@@ -7096,7 +7096,7 @@
                 }
               ],
               "duration": 60,
-              "powerDelta": 0,
+              "powerDelta": -2000,
               "consumeResourceNodes": false
             },
             {
@@ -7120,7 +7120,7 @@
                 }
               ],
               "duration": 60,
-              "powerDelta": 0,
+              "powerDelta": -2000,
               "consumeResourceNodes": false
             }
           ]
@@ -7178,7 +7178,7 @@
                 }
               ],
               "duration": 25,
-              "powerDelta": 0,
+              "powerDelta": -2000,
               "consumeResourceNodes": false
             },
             {
@@ -7202,7 +7202,7 @@
                 }
               ],
               "duration": 25,
-              "powerDelta": 0,
+              "powerDelta": -2000,
               "consumeResourceNodes": false
             },
             {
@@ -7226,7 +7226,7 @@
                 }
               ],
               "duration": 25,
-              "powerDelta": 0,
+              "powerDelta": -2000,
               "consumeResourceNodes": false
             }
           ]
@@ -7287,7 +7287,7 @@
             }
           ],
           "duration": 60,
-          "powerDelta": 0,
+          "powerDelta": -5000,
           "consumeResourceNodes": false
         },
         {
@@ -7306,7 +7306,7 @@
             }
           ],
           "duration": 120,
-          "powerDelta": 0,
+          "powerDelta": -5000,
           "consumeResourceNodes": false
         }
       ],
@@ -7388,7 +7388,7 @@
                 }
               ],
               "duration": 120,
-              "powerDelta": 0,
+              "powerDelta": -5000,
               "consumeResourceNodes": false
             },
             {
@@ -7412,7 +7412,7 @@
                 }
               ],
               "duration": 120,
-              "powerDelta": 0,
+              "powerDelta": -5000,
               "consumeResourceNodes": false
             },
             {
@@ -7494,7 +7494,7 @@
                 }
               ],
               "duration": 180,
-              "powerDelta": 0,
+              "powerDelta": -5000,
               "consumeResourceNodes": false
             }
           ]
@@ -7628,7 +7628,7 @@
             }
           ],
           "duration": 270,
-          "powerDelta": 0,
+          "powerDelta": -3000,
           "consumeResourceNodes": false
         }
       ],
@@ -7657,7 +7657,7 @@
                 }
               ],
               "duration": 270,
-              "powerDelta": 0,
+              "powerDelta": -3000,
               "consumeResourceNodes": false
             }
           ]
@@ -7791,7 +7791,7 @@
             }
           ],
           "duration": 50,
-          "powerDelta": 0,
+          "powerDelta": -1000,
           "consumeResourceNodes": false
         }
       ],
@@ -7820,7 +7820,7 @@
                 }
               ],
               "duration": 50,
-              "powerDelta": 0,
+              "powerDelta": -1000,
               "consumeResourceNodes": false
             }
           ]
@@ -7958,7 +7958,7 @@
           ],
           "outputs": [],
           "duration": 45,
-          "powerDelta": 0,
+          "powerDelta": 5000,
           "consumeResourceNodes": false
         }
       ],
@@ -8596,7 +8596,8 @@
               "quantity": 25
             }
           ],
-          "requires": null
+          "requires": null,
+          "powerDelta": -2000
         },
         {
           "outputs": [
@@ -8616,7 +8617,8 @@
               "quantity": 5
             }
           ],
-          "requires": "MotorcycleC"
+          "requires": "MotorcycleC",
+          "powerDelta": -2000
         },
         {
           "outputs": [
@@ -8636,7 +8638,8 @@
               "quantity": 10
             }
           ],
-          "requires": "TruckC"
+          "requires": "TruckC",
+          "powerDelta": -2000
         },
         {
           "outputs": [
@@ -8656,7 +8659,8 @@
               "quantity": 10
             }
           ],
-          "requires": "TruckC"
+          "requires": "TruckC",
+          "powerDelta": -2000
         },
         {
           "outputs": [
@@ -8676,7 +8680,8 @@
               "quantity": 10
             }
           ],
-          "requires": "TruckW"
+          "requires": "TruckW",
+          "powerDelta": -2000
         },
         {
           "outputs": [
@@ -8696,7 +8701,8 @@
               "quantity": 10
             }
           ],
-          "requires": "TruckW"
+          "requires": "TruckW",
+          "powerDelta": -2000
         },
         {
           "outputs": [
@@ -8720,7 +8726,8 @@
               "quantity": 20
             }
           ],
-          "requires": null
+          "requires": null,
+          "powerDelta": -2000
         },
         {
           "outputs": [
@@ -8744,7 +8751,8 @@
               "quantity": 5
             }
           ],
-          "requires": null
+          "requires": null,
+          "powerDelta": -2000
         },
         {
           "outputs": [
@@ -8768,7 +8776,8 @@
               "quantity": 5
             }
           ],
-          "requires": null
+          "requires": null,
+          "powerDelta": -2000
         },
         {
           "outputs": [
@@ -8792,7 +8801,8 @@
               "quantity": 5
             }
           ],
-          "requires": "AmbulanceC"
+          "requires": "AmbulanceC",
+          "powerDelta": -2000
         },
         {
           "outputs": [
@@ -8816,7 +8826,8 @@
               "quantity": 5
             }
           ],
-          "requires": "AmbulanceW"
+          "requires": "AmbulanceW",
+          "powerDelta": -2000
         },
         {
           "outputs": [
@@ -8840,7 +8851,8 @@
               "quantity": 15
             }
           ],
-          "requires": null
+          "requires": null,
+          "powerDelta": -2000
         },
         {
           "outputs": [
@@ -8864,7 +8876,8 @@
               "quantity": 15
             }
           ],
-          "requires": null
+          "requires": null,
+          "powerDelta": -2000
         }
       ],
       "modifications": {
@@ -8893,7 +8906,8 @@
                   "quantity": 10
                 }
               ],
-              "requires": "ArmoredCarC"
+              "requires": "ArmoredCarC",
+              "powerDelta": -2000
             },
             {
               "outputs": [
@@ -8917,7 +8931,8 @@
                   "quantity": 10
                 }
               ],
-              "requires": "ArmoredCarC"
+              "requires": "ArmoredCarC",
+              "powerDelta": -2000
             },
             {
               "outputs": [
@@ -8941,7 +8956,8 @@
                   "quantity": 15
                 }
               ],
-              "requires": "TanketteC"
+              "requires": "TanketteC",
+              "powerDelta": -2000
             },
             {
               "outputs": [
@@ -8965,7 +8981,8 @@
                   "quantity": 15
                 }
               ],
-              "requires": "TanketteC"
+              "requires": "TanketteC",
+              "powerDelta": -2000
             },
             {
               "outputs": [
@@ -8985,7 +9002,8 @@
                   "quantity": 3
                 }
               ],
-              "requires": "ScoutVehicleMobilityC"
+              "requires": "ScoutVehicleMobilityC",
+              "powerDelta": -2000
             },
             {
               "outputs": [
@@ -9009,7 +9027,8 @@
                   "quantity": 10
                 }
               ],
-              "requires": "ScoutVehicleMobilityC"
+              "requires": "ScoutVehicleMobilityC",
+              "powerDelta": -2000
             },
             {
               "outputs": [
@@ -9033,7 +9052,8 @@
                   "quantity": 10
                 }
               ],
-              "requires": "ArmoredCarW"
+              "requires": "ArmoredCarW",
+              "powerDelta": -2000
             },
             {
               "outputs": [
@@ -9057,7 +9077,8 @@
                   "quantity": 5
                 }
               ],
-              "requires": "ArmoredCarW"
+              "requires": "ArmoredCarW",
+              "powerDelta": -2000
             },
             {
               "outputs": [
@@ -9081,7 +9102,8 @@
                   "quantity": 10
                 }
               ],
-              "requires": "ArmoredCarW"
+              "requires": "ArmoredCarW",
+              "powerDelta": -2000
             },
             {
               "outputs": [
@@ -9105,7 +9127,8 @@
                   "quantity": 15
                 }
               ],
-              "requires": "ArmoredCar2TwinW"
+              "requires": "ArmoredCar2TwinW",
+              "powerDelta": -2000
             },
             {
               "outputs": [
@@ -9129,7 +9152,8 @@
                   "quantity": 10
                 }
               ],
-              "requires": "ScoutVehicleW"
+              "requires": "ScoutVehicleW",
+              "powerDelta": -2000
             },
             {
               "outputs": [
@@ -9153,7 +9177,8 @@
                   "quantity": 5
                 }
               ],
-              "requires": "ScoutVehicleW"
+              "requires": "ScoutVehicleW",
+              "powerDelta": -2000
             },
             {
               "outputs": [
@@ -9177,7 +9202,8 @@
                   "quantity": 20
                 }
               ],
-              "requires": "FieldMGC"
+              "requires": "FieldMGC",
+              "powerDelta": -2000
             },
             {
               "outputs": [
@@ -9201,7 +9227,8 @@
                   "quantity": 20
                 }
               ],
-              "requires": "FieldMGW"
+              "requires": "FieldMGW",
+              "powerDelta": -2000
             }
           ]
         },
@@ -9234,7 +9261,8 @@
                   "quantity": 8
                 }
               ],
-              "requires": "TruckC"
+              "requires": "TruckC",
+              "powerDelta": -2000
             },
             {
               "outputs": [
@@ -9258,7 +9286,8 @@
                   "quantity": 3
                 }
               ],
-              "requires": null
+              "requires": null,
+              "powerDelta": -2000
             },
             {
               "outputs": [
@@ -9274,7 +9303,8 @@
                   "quantity": 1
                 }
               ],
-              "requires": "HalftrackW"
+              "requires": "HalftrackW",
+              "powerDelta": -2000
             },
             {
               "outputs": [
@@ -9290,7 +9320,8 @@
                   "quantity": 1
                 }
               ],
-              "requires": "HalftrackC"
+              "requires": "HalftrackC",
+              "powerDelta": -2000
             },
             {
               "outputs": [
@@ -9306,7 +9337,8 @@
                   "quantity": 1
                 }
               ],
-              "requires": "HalftrackC"
+              "requires": "HalftrackC",
+              "powerDelta": -2000
             },
             {
               "outputs": [
@@ -9322,7 +9354,8 @@
                   "quantity": 1
                 }
               ],
-              "requires": "HalftrackW"
+              "requires": "HalftrackW",
+              "powerDelta": -2000
             },
             {
               "outputs": [
@@ -9350,7 +9383,8 @@
                   "quantity": 3
                 }
               ],
-              "requires": "ScoutTankW"
+              "requires": "ScoutTankW",
+              "powerDelta": -2000
             },
             {
               "outputs": [
@@ -9378,7 +9412,8 @@
                   "quantity": 3
                 }
               ],
-              "requires": "TanketteC"
+              "requires": "TanketteC",
+              "powerDelta": -2000
             },
             {
               "outputs": [
@@ -9402,7 +9437,8 @@
                   "quantity": 5
                 }
               ],
-              "requires": "HalftrackW"
+              "requires": "HalftrackW",
+              "powerDelta": -2000
             },
             {
               "outputs": [
@@ -9426,7 +9462,8 @@
                   "quantity": 3
                 }
               ],
-              "requires": null
+              "requires": null,
+              "powerDelta": -2000
             },
             {
               "outputs": [
@@ -9454,7 +9491,8 @@
                   "quantity": 8
                 }
               ],
-              "requires": "ArmoredCar2TwinW"
+              "requires": "ArmoredCar2TwinW",
+              "powerDelta": -2000
             },
             {
               "outputs": [
@@ -9478,7 +9516,8 @@
                   "quantity": 20
                 }
               ],
-              "requires": null
+              "requires": null,
+              "powerDelta": -2000
             },
             {
               "outputs": [
@@ -9502,7 +9541,8 @@
                   "quantity": 20
                 }
               ],
-              "requires": null
+              "requires": null,
+              "powerDelta": -2000
             }
           ]
         },
@@ -9527,7 +9567,8 @@
                   "quantity": 25
                 }
               ],
-              "requires": null
+              "requires": null,
+              "powerDelta": -2000
             },
             {
               "outputs": [
@@ -9547,7 +9588,8 @@
                   "quantity": 10
                 }
               ],
-              "requires": "Construction"
+              "requires": "Construction",
+              "powerDelta": -2000
             },
             {
               "outputs": [
@@ -9571,7 +9613,8 @@
                   "quantity": 3
                 }
               ],
-              "requires": "LandingCraftC"
+              "requires": "LandingCraftC",
+              "powerDelta": -2000
             },
             {
               "outputs": [
@@ -9595,7 +9638,8 @@
                   "quantity": 5
                 }
               ],
-              "requires": "FieldATC"
+              "requires": "FieldATC",
+              "powerDelta": -2000
             },
             {
               "outputs": [
@@ -9619,7 +9663,8 @@
                   "quantity": 5
                 }
               ],
-              "requires": "ScoutTankW"
+              "requires": "ScoutTankW",
+              "powerDelta": -2000
             },
             {
               "outputs": [
@@ -9643,7 +9688,8 @@
                   "quantity": 5
                 }
               ],
-              "requires": "FieldATW"
+              "requires": "FieldATW",
+              "powerDelta": -2000
             },
             {
               "outputs": [
@@ -9659,7 +9705,8 @@
                   "quantity": 40
                 }
               ],
-              "requires": null
+              "requires": null,
+              "powerDelta": -2000
             },
             {
               "outputs": [
@@ -9675,7 +9722,8 @@
                   "quantity": 40
                 }
               ],
-              "requires": null
+              "requires": null,
+              "powerDelta": -2000
             }
           ]
         },
@@ -9708,7 +9756,8 @@
                   "quantity": 15
                 }
               ],
-              "requires": "DestroyerTankW"
+              "requires": "DestroyerTankW",
+              "powerDelta": -2000
             },
             {
               "outputs": [
@@ -9736,7 +9785,8 @@
                   "quantity": 5
                 }
               ],
-              "requires": "LightTankC"
+              "requires": "LightTankC",
+              "powerDelta": -2000
             },
             {
               "outputs": [
@@ -9764,7 +9814,8 @@
                   "quantity": 5
                 }
               ],
-              "requires": "LightTankC"
+              "requires": "LightTankC",
+              "powerDelta": -2000
             },
             {
               "outputs": [
@@ -9792,7 +9843,8 @@
                   "quantity": 5
                 }
               ],
-              "requires": "LightTankC"
+              "requires": "LightTankC",
+              "powerDelta": -2000
             },
             {
               "outputs": [
@@ -9820,7 +9872,8 @@
                   "quantity": 8
                 }
               ],
-              "requires": "MediumTankC"
+              "requires": "MediumTankC",
+              "powerDelta": -2000
             },
             {
               "outputs": [
@@ -9848,7 +9901,8 @@
                   "quantity": 10
                 }
               ],
-              "requires": "MediumTank2C"
+              "requires": "MediumTank2C",
+              "powerDelta": -2000
             },
             {
               "outputs": [
@@ -9872,7 +9926,8 @@
                   "quantity": 15
                 }
               ],
-              "requires": null
+              "requires": null,
+              "powerDelta": -2000
             },
             {
               "outputs": [
@@ -9900,7 +9955,8 @@
                   "quantity": 5
                 }
               ],
-              "requires": "LightTankW"
+              "requires": "LightTankW",
+              "powerDelta": -2000
             },
             {
               "outputs": [
@@ -9928,7 +9984,8 @@
                   "quantity": 3
                 }
               ],
-              "requires": "LightTankW"
+              "requires": "LightTankW",
+              "powerDelta": -2000
             },
             {
               "outputs": [
@@ -9956,7 +10013,8 @@
                   "quantity": 8
                 }
               ],
-              "requires": "MediumTankW"
+              "requires": "MediumTankW",
+              "powerDelta": -2000
             },
             {
               "outputs": [
@@ -9984,7 +10042,8 @@
                   "quantity": 5
                 }
               ],
-              "requires": "MediumTank2W"
+              "requires": "MediumTank2W",
+              "powerDelta": -2000
             },
             {
               "outputs": [
@@ -10008,7 +10067,8 @@
                   "quantity": 15
                 }
               ],
-              "requires": null
+              "requires": null,
+              "powerDelta": -2000
             },
             {
               "outputs": [
@@ -10036,7 +10096,8 @@
                   "quantity": 10
                 }
               ],
-              "requires": "MediumTank2W"
+              "requires": "MediumTank2W",
+              "powerDelta": -2000
             },
             {
               "outputs": [
@@ -10060,7 +10121,8 @@
                   "quantity": 15
                 }
               ],
-              "requires": "LightTank2InfantryC"
+              "requires": "LightTank2InfantryC",
+              "powerDelta": -2000
             }
           ]
         },
@@ -10097,7 +10159,8 @@
                   "quantity": 15
                 }
               ],
-              "requires": "MediumTankC"
+              "requires": "MediumTankC",
+              "powerDelta": -2000
             },
             {
               "outputs": [
@@ -10129,7 +10192,8 @@
                   "quantity": 15
                 }
               ],
-              "requires": "MediumTank2W"
+              "requires": "MediumTank2W",
+              "powerDelta": -2000
             },
             {
               "outputs": [
@@ -10157,7 +10221,8 @@
                   "quantity": 25
                 }
               ],
-              "requires": "MediumTankW"
+              "requires": "MediumTankW",
+              "powerDelta": -2000
             },
             {
               "outputs": [
@@ -10185,7 +10250,8 @@
                   "quantity": 15
                 }
               ],
-              "requires": "FieldATC"
+              "requires": "FieldATC",
+              "powerDelta": -2000
             },
             {
               "outputs": [
@@ -10213,7 +10279,8 @@
                   "quantity": 15
                 }
               ],
-              "requires": "FieldCannonW"
+              "requires": "FieldCannonW",
+              "powerDelta": -2000
             },
             {
               "outputs": [
@@ -10241,7 +10308,8 @@
                   "quantity": 15
                 }
               ],
-              "requires": "FieldMortarC"
+              "requires": "FieldMortarC",
+              "powerDelta": -2000
             }
           ]
         },
@@ -10278,7 +10346,8 @@
                   "quantity": 25
                 }
               ],
-              "requires": null
+              "requires": null,
+              "powerDelta": -2000
             },
             {
               "outputs": [
@@ -10310,7 +10379,8 @@
                   "quantity": 125
                 }
               ],
-              "requires": null
+              "requires": null,
+              "powerDelta": -2000
             },
             {
               "outputs": [
@@ -10334,7 +10404,8 @@
                   "quantity": 45
                 }
               ],
-              "requires": null
+              "requires": null,
+              "powerDelta": -2000
             },
             {
               "outputs": [
@@ -10358,7 +10429,8 @@
                   "quantity": 225
                 }
               ],
-              "requires": null
+              "requires": null,
+              "powerDelta": -2000
             },
             {
               "outputs": [
@@ -10382,7 +10454,8 @@
                   "quantity": 15
                 }
               ],
-              "requires": null
+              "requires": null,
+              "powerDelta": -2000
             },
             {
               "outputs": [
@@ -10406,7 +10479,8 @@
                   "quantity": 45
                 }
               ],
-              "requires": null
+              "requires": null,
+              "powerDelta": -2000
             },
             {
               "outputs": [
@@ -10430,7 +10504,8 @@
                   "quantity": 15
                 }
               ],
-              "requires": null
+              "requires": null,
+              "powerDelta": -2000
             },
             {
               "outputs": [
@@ -10454,7 +10529,8 @@
                   "quantity": 150
                 }
               ],
-              "requires": null
+              "requires": null,
+              "powerDelta": -2000
             },
             {
               "outputs": [
@@ -10478,7 +10554,8 @@
                   "quantity": 35
                 }
               ],
-              "requires": null
+              "requires": null,
+              "powerDelta": -2000
             },
             {
               "outputs": [
@@ -10502,7 +10579,8 @@
                   "quantity": 15
                 }
               ],
-              "requires": null
+              "requires": null,
+              "powerDelta": -2000
             }
           ]
         },
@@ -10543,7 +10621,8 @@
                   "quantity": 4
                 }
               ],
-              "requires": null
+              "requires": null,
+              "powerDelta": -2000
             },
             {
               "outputs": [
@@ -10563,7 +10642,8 @@
                   "quantity": 1
                 }
               ],
-              "requires": null
+              "requires": null,
+              "powerDelta": -2000
             },
             {
               "outputs": [
@@ -10583,7 +10663,8 @@
                   "quantity": 20
                 }
               ],
-              "requires": null
+              "requires": null,
+              "powerDelta": -2000
             }
           ]
         }
@@ -10615,7 +10696,8 @@
               "quantity": 50
             }
           ],
-          "requires": null
+          "requires": null,
+          "powerDelta": -8000
         },
         {
           "outputs": [
@@ -10639,7 +10721,8 @@
               "quantity": 5
             }
           ],
-          "requires": null
+          "requires": null,
+          "powerDelta": -8000
         },
         {
           "outputs": [
@@ -10663,7 +10746,8 @@
               "quantity": 5
             }
           ],
-          "requires": null
+          "requires": null,
+          "powerDelta": -8000
         },
         {
           "outputs": [
@@ -10687,7 +10771,8 @@
               "quantity": 10
             }
           ],
-          "requires": null
+          "requires": null,
+          "powerDelta": -8000
         },
         {
           "outputs": [
@@ -10711,7 +10796,8 @@
               "quantity": 5
             }
           ],
-          "requires": null
+          "requires": null,
+          "powerDelta": -8000
         }
       ],
       "modifications": {
@@ -10740,7 +10826,8 @@
                   "quantity": 30
                 }
               ],
-              "requires": null
+              "requires": null,
+              "powerDelta": -8000
             },
             {
               "outputs": [
@@ -10764,7 +10851,8 @@
                   "quantity": 30
                 }
               ],
-              "requires": null
+              "requires": null,
+              "powerDelta": -8000
             },
             {
               "outputs": [
@@ -10796,7 +10884,8 @@
                   "quantity": 2
                 }
               ],
-              "requires": null
+              "requires": null,
+              "powerDelta": -8000
             },
             {
               "outputs": [
@@ -10832,7 +10921,8 @@
                   "quantity": 45
                 }
               ],
-              "requires": null
+              "requires": null,
+              "powerDelta": -8000
             }
           ]
         },
@@ -10865,7 +10955,8 @@
                   "quantity": 35
                 }
               ],
-              "requires": null
+              "requires": null,
+              "powerDelta": -8000
             },
             {
               "outputs": [
@@ -10893,7 +10984,8 @@
                   "quantity": 35
                 }
               ],
-              "requires": null
+              "requires": null,
+              "powerDelta": -8000
             },
             {
               "outputs": [
@@ -10921,7 +11013,8 @@
                   "quantity": 65
                 }
               ],
-              "requires": null
+              "requires": null,
+              "powerDelta": -8000
             },
             {
               "outputs": [
@@ -10949,7 +11042,8 @@
                   "quantity": 45
                 }
               ],
-              "requires": null
+              "requires": null,
+              "powerDelta": -8000
             },
             {
               "outputs": [
@@ -10977,7 +11071,8 @@
                   "quantity": 85
                 }
               ],
-              "requires": null
+              "requires": null,
+              "powerDelta": -8000
             },
             {
               "outputs": [
@@ -11005,7 +11100,8 @@
                   "quantity": 85
                 }
               ],
-              "requires": null
+              "requires": null,
+              "powerDelta": -8000
             },
             {
               "outputs": [
@@ -11037,7 +11133,8 @@
                   "quantity": 3
                 }
               ],
-              "requires": null
+              "requires": null,
+              "powerDelta": -8000
             },
             {
               "outputs": [
@@ -11069,7 +11166,8 @@
                   "quantity": 3
                 }
               ],
-              "requires": null
+              "requires": null,
+              "powerDelta": -8000
             }
           ]
         },
@@ -11106,7 +11204,8 @@
                   "quantity": 2
                 }
               ],
-              "requires": null
+              "requires": null,
+              "powerDelta": -8000
             },
             {
               "outputs": [
@@ -11138,7 +11237,8 @@
                   "quantity": 2
                 }
               ],
-              "requires": null
+              "requires": null,
+              "powerDelta": -8000
             },
             {
               "outputs": [
@@ -11170,7 +11270,8 @@
                   "quantity": 2
                 }
               ],
-              "requires": null
+              "requires": null,
+              "powerDelta": -8000
             },
             {
               "outputs": [
@@ -11206,7 +11307,8 @@
                   "quantity": 4
                 }
               ],
-              "requires": null
+              "requires": null,
+              "powerDelta": -8000
             },
             {
               "outputs": [
@@ -11242,7 +11344,8 @@
                   "quantity": 4
                 }
               ],
-              "requires": null
+              "requires": null,
+              "powerDelta": -8000
             },
             {
               "outputs": [
@@ -11278,7 +11381,8 @@
                   "quantity": 10
                 }
               ],
-              "requires": null
+              "requires": null,
+              "powerDelta": -8000
             },
             {
               "outputs": [
@@ -11314,7 +11418,8 @@
                   "quantity": 10
                 }
               ],
-              "requires": null
+              "requires": null,
+              "powerDelta": -8000
             },
             {
               "outputs": [
@@ -11354,7 +11459,8 @@
                   "quantity": 10
                 }
               ],
-              "requires": null
+              "requires": null,
+              "powerDelta": -8000
             },
             {
               "outputs": [
@@ -11394,7 +11500,8 @@
                   "quantity": 10
                 }
               ],
-              "requires": null
+              "requires": null,
+              "powerDelta": -8000
             }
           ]
         }
@@ -11422,7 +11529,8 @@
               "quantity": 15
             }
           ],
-          "requires": null
+          "requires": null,
+          "powerDelta": -10000
         },
         {
           "outputs": [
@@ -11442,7 +11550,8 @@
               "quantity": 15
             }
           ],
-          "requires": null
+          "requires": null,
+          "powerDelta": -10000
         },
         {
           "outputs": [
@@ -11462,7 +11571,8 @@
               "quantity": 25
             }
           ],
-          "requires": null
+          "requires": null,
+          "powerDelta": -10000
         },
         {
           "outputs": [
@@ -11482,7 +11592,8 @@
               "quantity": 12
             }
           ],
-          "requires": null
+          "requires": null,
+          "powerDelta": -10000
         },
         {
           "outputs": [
@@ -11502,7 +11613,8 @@
               "quantity": 15
             }
           ],
-          "requires": null
+          "requires": null,
+          "powerDelta": -10000
         },
         {
           "outputs": [
@@ -11513,7 +11625,8 @@
           ],
           "duration": 36000,
           "inputs": [],
-          "requires": null
+          "requires": null,
+          "powerDelta": -10000
         },
         {
           "outputs": [
@@ -11524,7 +11637,8 @@
           ],
           "duration": 36000,
           "inputs": [],
-          "requires": null
+          "requires": null,
+          "powerDelta": -10000
         },
         {
           "outputs": [
@@ -11535,7 +11649,8 @@
           ],
           "duration": 36000,
           "inputs": [],
-          "requires": null
+          "requires": null,
+          "powerDelta": -10000
         },
         {
           "outputs": [
@@ -11555,7 +11670,8 @@
               "quantity": 12
             }
           ],
-          "requires": null
+          "requires": null,
+          "powerDelta": -10000
         },
         {
           "outputs": [
@@ -11575,7 +11691,8 @@
               "quantity": 15
             }
           ],
-          "requires": null
+          "requires": null,
+          "powerDelta": -10000
         },
         {
           "outputs": [
@@ -11595,7 +11712,8 @@
               "quantity": 20
             }
           ],
-          "requires": null
+          "requires": null,
+          "powerDelta": -10000
         }
       ],
       "modifications": {}
