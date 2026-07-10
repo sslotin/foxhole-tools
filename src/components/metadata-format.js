@@ -21,46 +21,6 @@ const NOISE_SUBS = new Set([
   'productionCategories', 'fuelTank',
 ])
 
-function costLine(crateCost) {
-  if (!crateCost || !crateCost.length) return null
-  return crateCost.map(c => ({ qty: c.quantity, code: c.codeName, name: c.displayName }))
-}
-
-// MPF (Mass Production Factory) max-order cost. Each crate gets a 10% discount
-// up to 50% (crate 5+), and the game applies Math.floor() to EACH crate's
-// discounted cost (not round, and not on the total). Reverse-engineered from
-// in-game behaviour / foxholelogi.com:
-//   cost = Σ floor(base × (1 - min(i,5)/10))   for i = 1..numCrates
-// A full 9-crate item order uses MPF_ITEM_DISCOUNTS; 5-crate vehicle/structure
-// orders would use the first 5 entries.
-// NOTE: add 1e-9 before flooring to cancel binary floating-point dust
-// (e.g. 0.7*360 === 251.99999999999997, which must floor to 252, not 251).
-const MPF_ITEM_DISCOUNTS = [0.9, 0.8, 0.7, 0.6, 0.5, 0.5, 0.5, 0.5, 0.5]
-function mpfFloor(base, d) { return Math.floor(base * d + 1e-9) }
-function mpfLine(crateCost) {
-  if (!crateCost || !crateCost.length) return null
-  return crateCost.map(c => {
-    const total = MPF_ITEM_DISCOUNTS.reduce((s, d) => s + mpfFloor(c.quantity, d), 0)
-    return { qty: total, code: c.codeName, name: c.displayName }
-  })
-}
-
-// MPF cost for vehicles/structures: a shippable crate's material cost is the
-// standard 3-unit-equivalent build cost (the per-unit ResourceAmounts × 3),
-// regardless of how many units actually spawn per crate (VehiclesPerCrateBonus
-// adds free units, it does not increase material cost). Max order is 5 crates,
-// same floor-per-crate discount as items. Per material:
-//   Σ floor(3 × qty × discountᵢ)   for i = 1..5
-const MPF_VEHICLE_DISCOUNTS = [0.9, 0.8, 0.7, 0.6, 0.5]
-const UNITS_PER_SHIPPABLE_CRATE = 3
-function mpfLine5(buildCost) {
-  if (!buildCost || !buildCost.length) return null
-  return buildCost.map(c => {
-    const total = MPF_VEHICLE_DISCOUNTS.reduce((s, d) => s + mpfFloor(c.quantity * UNITS_PER_SHIPPABLE_CRATE, d), 0)
-    return { qty: total, code: c.codeName, name: c.displayName }
-  })
-}
-
 function crateLine(v) {
   return v.quantityPerCrate != null ? v.quantityPerCrate : null
 }
@@ -221,27 +181,20 @@ export function formatEntry(codeName, v) {
     case 'Ship':
     case 'Aircraft': {
       const vd = v.vehicleData
-      // Health: merge HP + disable chance into "<hp> (<disable>% disable)"
+      // Health + disable moved to the "Resistances" block (ItemDetail renders
+      // item.resistances). Mark used so they aren't listed as unformatted.
       if (vd?.maxHealth != null) {
-        const disable = vd.minorDamagePercent != null ? ` (${Math.round(vd.minorDamagePercent * 100)}% disable)` : ''
-        push('Health', `${vd.maxHealth}${disable}`, 'vehicleData.maxHealth')
+        used.add('vehicleData.maxHealth')
         used.add('minorDamagePercent')
       }
-      // Armour: merge HP + type into "<hp> (<type>)"
-      const tankArmour = (v.vehicleData || {}).tankArmour
-      if (tankArmour != null || v.armourType) {
-        const hpPart = tankArmour === 0 ? 'Unarmored' : (tankArmour != null ? tankArmour : '')
-        const val = v.armourType ? (hpPart ? `${hpPart} (${v.armourType})` : `(${v.armourType})`) : hpPart
-        push('Armour', val, 'vehicleData.tankArmour')
+      // Armour: rendered in the Resistances block (ItemDetail), not the main
+      // infobox. Keep the fields marked used so they aren't listed as unformatted.
+      if (vd?.tankArmour != null || v.armourType) {
+        used.add('vehicleData.tankArmour')
         used.add('armourType')
       }
       if (vd?.tankArmourMinPenetrationChance != null)
         push('Min pen chance', `${Math.round((vd.tankArmourMinPenetrationChance) * 100)}%`, 'vehicleData.tankArmourMinPenetrationChance')
-      if (vd?.repairCost != null) {
-        // Repair cost is paid in Basic Materials (Cloth) — show like other costs.
-        const repairItems = [{ qty: vd.repairCost, code: 'Cloth', name: 'Basic Materials' }]
-        push('Repair cost', repairItems, 'vehicleData.repairCost', repairItems)
-      }
       // Fuel: push guns (fuel use 0) show neither capacity nor use.
       const fuelUse = vd?.fuelConsumptionPerSecond
       if (fuelUse != null && fuelUse > 0) {
@@ -263,19 +216,12 @@ export function formatEntry(codeName, v) {
     }
     case 'Structure': {
       const sd = v.structureData
+      // Health + armour type moved to the "Resistances" block (ItemDetail
+      // renders item.resistances). Mark used so they aren't unformatted.
       if (sd?.maxHealth != null) {
-        // Health: merge HP + armour type into "<hp> (<armortype>)", like vehicles.
-        const hp = sd.maxHealth
-        push('Health', v.armourType ? `${hp} (${v.armourType})` : hp, 'structureData.maxHealth')
+        used.add('structureData.maxHealth')
         used.add('armourType')
       }
-      if (sd?.buildCost) {
-        const bc = sd.buildCost
-        const s = Object.entries(bc).map(([k, val]) => `${val}x ${k}`).join(', ')
-        push('Build cost', s, 'structureData.buildCost')
-        used.add('structureData.buildCost')
-      }
-      if (sd?.repairCost != null) push('Repair cost', sd.repairCost, 'structureData.repairCost')
       if (sd?.decayStartHours != null && sd.decayStartHours !== 0) push('Decay starts', `${sd.decayStartHours.toFixed(1).replace(/\.0$/, '')}h`, 'structureData.decayStartHours')
       if (sd?.decayDurationHours != null && sd.decayDurationHours !== 0) push('Decay over', `${sd.decayDurationHours.toFixed(1).replace(/\.0$/, '')}h`, 'structureData.decayDurationHours')
       if (sd?.storedItemCapacity != null && sd.storedItemCapacity !== 0) push('Inventory', `${sd.storedItemCapacity}`, 'structureData.storedItemCapacity')
@@ -288,51 +234,22 @@ export function formatEntry(codeName, v) {
     }
   }
 
-  // Logistics extras (app is logistics-first).
-  // Items are produced at a Factory in crates; MPF max order = 9 crates.
-  // NOTE: structures/vehicles are NOT crate items here — their MPF cost is
-  // governed by the build-cost branch below (Construction Yard / Garage rule),
-  // so suppress the generic crate MPF for them (e.g. deployable banners that
-  // carry a crateCost but are not Construction-Yard/Garage built).
-  const isCrateItem = v.itemType !== 'structure' && v.itemType !== 'vehicle'
-  // Some items carry a crateCost in the exports but are NOT factory/MPF
-  // producible in-game (e.g. Sniper Rifles, obtained via other means). The
-  // game data has no IsMPFable flag, so this is a documented exclusion list,
-  // mirroring NON_MPF_VEHICLES. Extend as more such items are identified.
-  const NON_FACTORY_ITEMS = new Set(['SniperRifleW', 'SniperRifleC'])
-  const showCrateCost = isCrateItem && !NON_FACTORY_ITEMS.has(codeName)
-  const c = showCrateCost ? costLine(v.crateCost) : null
-  if (c) { push('Factory cost', c, 'crateCost', c) }
-  const mpf = showCrateCost ? mpfLine(v.crateCost) : null
-  if (mpf) { push('MPF cost x9', mpf, 'crateCost', mpf) }
-  // Vehicles/structures are normally built at a Garage/Construction Yard per
-  // unit, then packed into shippable crates (3 units) for MPF; MPF max order = 5 crates.
-  // Rule: anything buildable at a Garage or Construction Yard is MPF-able.
-  // Facility buildings and mines are NOT Construction-Yard-built (they are
-  // facility-built / placed), so they are excluded even though they carry a
-  // Construction-Yard material cost. Signalled by their structure profileType.
-  const NON_MPF_STRUCTURE_PROFILETYPES = new Set(['FieldStructure', 'FieldLogiStructure', 'LandMine'])
-  // Vehicles built only at a Vehicle Pad (not a Garage) are NOT MPF-able.
-  // The Garage-vs-Pad restriction is hardcoded in the C++ War base class and is
-  // NOT exposed in the JSON exports (no buildLocationType / pad flag on vehicle
-  // blueprints), so this list is derived from game knowledge and must be extended
-  // as more pad-only vehicles are identified.
-  const NON_MPF_VEHICLES = new Set(['HeavyTruckW', 'HeavyTruckC'])
-  const buildCost = v.buildCost && v.buildCost.length ? v.buildCost.map(b => ({ qty: b.quantity, code: b.codeName, name: b.displayName })) : null
-  if (v.upgradeFromCodeName && buildCost) {
+  // Build / MPF / Factory costs are surfaced in the dedicated "Production"
+  // infobox (see production-recipes.js), not here. Mark the fields used so they
+  // don't appear in the unformatted-fields list.
+  if (v.buildCost && v.buildCost.length) used.add('buildCost')
+  if (v.crateCost && v.crateCost.length) used.add('crateCost')
+
+  // Repair cost (unified for vehicles + structures): paid in Basic Materials
+  // (Cloth); rendered above the Upgrade from row (or alone when no build cost).
+  const repairCostVal = v.vehicleData?.repairCost ?? v.structureData?.repairCost
+  if (repairCostVal != null) {
+    const repairItems = [{ qty: repairCostVal, code: 'Cloth', name: 'Basic Materials' }]
+    push('Repair cost', repairItems, v.vehicleData?.repairCost != null ? 'vehicleData.repairCost' : 'structureData.repairCost', repairItems)
+  }
+  if (v.upgradeFromCodeName) {
     const src = v.upgradeFromCodeName
     push('Upgrade from', src, 'upgradeFromCodeName', src)
-  } else if (buildCost) {
-    push('Build cost', buildCost, 'buildCost', buildCost)
-    // Label reflects units spawned per crate (3 base + VehiclesPerCrateBonus);
-    // the MPF material cost itself is always the 3-unit-equivalent crate cost.
-    const isMpfEligible = (v.itemType !== 'structure' || !NON_MPF_STRUCTURE_PROFILETYPES.has(v.profileType)) &&
-      (v.itemType !== 'vehicle' || !NON_MPF_VEHICLES.has(codeName))
-    if (isMpfEligible) {
-      const unitsPerCrate = UNITS_PER_SHIPPABLE_CRATE + (v.vehiclesPerCrateBonus || 0)
-      const mpf5 = mpfLine5(v.buildCost)
-      if (mpf5) { push(`MPF cost x5x${unitsPerCrate}`, mpf5, 'buildCost', mpf5) }
-    }
   }
   const cl = crateLine(v)
   if (cl != null) { push('Crate size', cl, 'quantityPerCrate') }
@@ -371,7 +288,7 @@ export function classify(v) {
 // so they never appear as "missing". The matcher compares against the
 // set of labels our infobox actually rendered.
   // Wiki infobox fields (expressed in OUR row-label vocabulary) that our data
-// CANNOT supply. Derived from real wiki infoboxes in parser/wiki-matching/infoboxes.json
+// CANNOT supply. Derived from real wiki infoboxes in tmp/wiki-matching/infoboxes.json
 // (Jul 9) cross-checked against game_data exports. Fields we DO surface
 // (Health, Damage, Weight, Crate, Accuracy, Slot, Ammo, Magazine, Fuze,
 // Max range, Explosion radius, Repair, Decay, Storage, Disable at, Fuel,

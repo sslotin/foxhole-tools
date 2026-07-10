@@ -151,11 +151,141 @@ const mountData = loadDataTable('BPMountDynamicData.json');
 const aircraftPartData = loadDataTable('BPAircraftPartDynamicData.json');
 const itemData = loadDataTable('BPItemDynamicData.json');
 const armourData = loadDataTable('BPArmourProfiles.json');
+const damageProfiles = loadDataTable('DTDamageProfiles.json');
+// Every armour-type column key present in the resistance matrix (used to test
+// whether an item's armourType is a real, mappable profile).
+const ARMOR_TYPES = new Set();
+for (const prof of Object.values(damageProfiles)) {
+  for (const k of Object.keys(prof)) {
+    if (k !== 'ObjectName' && k !== 'ObjectPath') ARMOR_TYPES.add(k);
+  }
+}
 
 const itemProfiles = loadProfileMap('BPItemProfileTable.json', 'ItemProfileTable');
 const vehicleProfiles = loadProfileMap('BPVehicleProfileList.json', 'VehicleProfileMap');
 const vehicleMovementProfiles = loadProfileMap('BPVehicleMovementProfileList.json', 'VehicleMovementProfileMap');
 const structureProfiles = loadProfileMap('BPStructureProfileList.json', 'StructureProfileMap');
+
+// ── Ammo / explosive reference (for destruction tables) ─────────
+// Base damage per ammo/explosive type lives in BPAmmoDynamicData (covers ammo,
+// shells, grenades, RPGs, mines — all with Damage + DamageType). BPGrenadeDynamicData
+// has no Damage field, so it is not used here. The DamageType.ObjectPath maps to a
+// resistance key via getDamageType().type (e.g. EDamageType::AntiTankExplosive).
+// Built lazily (getDamageType / damageTypeCache are defined later in this file).
+let _ammoRefs = null;
+// True when an icon PNG exists for an ammo code (deprecated ammo have none).
+const _iconHas = {};
+function ammoHasIcon(code) {
+  if (!(code in _iconHas)) _iconHas[code] = fs.existsSync(ICON_BASE_DIR + 'icons/' + code + '.png');
+  return _iconHas[code];
+}
+
+function getAmmoRefs() {
+  if (_ammoRefs) return _ammoRefs;
+  const refs = [];
+  const seen = new Set();
+  for (const [code, row] of Object.entries(ammoData)) {
+    const dmg = row.Damage;
+    if (!dmg || dmg <= 0) continue; // zero/no damage (flares, smoke, gas) -> excluded
+    const dt = row.DamageType?.ObjectPath ? getDamageType(row.DamageType.ObjectPath) : null;
+    if (!dt || !dt.type) continue;
+    const key = ENUM_CLEAN(dt.type); // -> AntiTankExplosive, LightKinetic, ...
+    if (!damageProfiles[key]) continue; // not a resistance-keyed damage type
+    if (seen.has(code)) continue;
+    seen.add(code);
+    refs.push({ code, damage: dmg, damageTypeKey: key });
+  }
+  _ammoRefs = refs;
+  return refs;
+}
+
+// Tier families: an item whose armourType ends with one of these gets T1/T2/T3 columns.
+const TIER_FAMILIES = {
+  GarrisonHouse: ['Tier1GarrisonHouse', 'Tier2GarrisonHouse', 'Tier3GarrisonHouse'],
+  Structure: ['Tier1Structure', 'Tier2Structure', 'Tier3Structure'],
+  Tank: ['Tier1Tank', 'Tier2Tank'],
+};
+function tierInfo(armourType) {
+  for (const [fam, arr] of Object.entries(TIER_FAMILIES)) {
+    if (armourType.endsWith(fam)) {
+      const digit = parseInt((armourType.match(/Tier(\d)/) || [])[1] || '1', 10);
+      const idx = arr.findIndex(t => t === `Tier${digit}${fam}`);
+      return { labels: arr.map((_, i) => 'T' + (i + 1)), armourTypes: arr, currentIndex: idx < 0 ? 0 : idx };
+    }
+  }
+  return null;
+}
+
+// Kinetic weapons randomize damage per shot (≈75%–175% of base); the wiki's
+// kill counts use the average, i.e. 1.25× the listed base damage.
+const RANDOM_DAMAGE_TYPES = new Set(['LightKinetic', 'HeavyKinetic', 'AntiTankKinetic']);
+// Round up to one decimal place (ceil at 0.1 precision).
+function ceil1(x) { return Math.ceil(x * 10) / 10; }
+
+// Compute the resistances + destruction table for a structure/vehicle.
+function computeDestruction(item, labelOf) {
+  const armourType = item.armourType;
+  // Health lives at item.maxHealth (structures) or item.vehicleData.maxHealth (vehicles).
+  const health = item.maxHealth ?? item.vehicleData?.maxHealth ?? item.health;
+  if (!armourType || !health || health <= 0) return null;
+  const isVehicle = item.itemType === 'vehicle';
+  const disablePercent = isVehicle ? (item.vehicleData?.minorDamagePercent ?? 0) : 0;
+  const tier = tierInfo(armourType);
+  const rows = [];
+  for (const a of getAmmoRefs()) {
+    const prof = damageProfiles[a.damageTypeKey];
+    const mult = prof ? prof[armourType] : undefined;
+    // `mult` is the RESISTANCE FRACTION (0 = no resistance / full damage taken,
+    // 1 = immune). Effective damage = raw × (1 − resistance).
+    if (mult === undefined) continue; // no profile entry for this armour/damage combo
+    const dmgMult = 1 - mult;
+    if (dmgMult <= 0) continue;       // immune (resistance ≥ 100%)
+    // Kinetic weapons randomize damage per shot (≈75%–175% of base); the wiki's
+    // kill counts use the average, i.e. 1.25× the listed base damage.
+    const avgMult = RANDOM_DAMAGE_TYPES.has(a.damageTypeKey) ? 1.25 : 1;
+    const effective = a.damage * avgMult * dmgMult;
+    const toKill = ceil1(health / effective);
+    const toDisable = disablePercent > 0 ? ceil1((health * disablePercent) / effective) : null;
+    const tierCells = tier
+      ? tier.armourTypes.map(at => {
+          const mRaw = damageProfiles[a.damageTypeKey]?.[at]; // resistance fraction
+          const dmg = mRaw === undefined ? 1 : 1 - mRaw;      // damage taken (default: full)
+          const eff = a.damage * avgMult * dmg;
+          return {
+            mult: mRaw ?? null,
+            toKill: eff > 0 ? ceil1(health / eff) : null,
+            toDisable: disablePercent > 0 && eff > 0 ? ceil1((health * disablePercent) / eff) : null,
+          };
+        })
+      : null;
+    rows.push({
+      code: a.code,
+      label: labelOf(a.code),
+      damageType: a.damageTypeKey,
+      baseDamage: a.damage,
+      mult,
+      hasIcon: ammoHasIcon(a.code),
+      toKill,
+      toDisable,
+      tierCells,
+    });
+  }
+  if (!rows.length) return null;
+  // Resistance % per damage type for this armourType (for the Resistances block).
+  const resistance = {};
+  for (const [dt, prof] of Object.entries(damageProfiles)) {
+    if (prof[armourType] !== undefined) resistance[dt] = prof[armourType];
+  }
+  return {
+    armourType,
+    health,
+    disablePercent,
+    isVehicle,
+    resistance,
+    tiers: tier ? { labels: tier.labels, currentIndex: tier.currentIndex } : null,
+    ammo: rows,
+  };
+}
 
 // ── Damage type cache ──────────────────────────────────────────────
 
@@ -407,6 +537,30 @@ for (const dir of SEARCH_DIRS) {
     const def = findDefaultEntry(data);
     if (!def) continue;
 
+    // World-structure armour mapping. A few build-site world structures have no
+    // ArmourType in their blueprint but use a known resistance profile (official
+    // wiki Structure Health Table):
+    //   Safe House (Garrison Station) tiers -> Tier1/2/3 Garrison House
+    //   Relic Base (small model)    -> Tier3Structure
+    // (The Town Base blueprints are re-expressed as three named Town-Hall types —
+    // Post Office / School / Town Center — each a 3-tier Garrison House structure;
+    // see the synthesis step just before the family-merge pass.)
+    const WORLD_STRUCTURE_ARMOUR = (() => {
+      const m = {};
+      // Safe House: base GarrisonStation = tier 0 -> Tier1; GarrisonStation1 =
+      // tier 1 -> Tier2. A Tier 3 member is absent from the game export.
+      m.GarrisonStation = 'Tier1GarrisonHouse';
+      m.GarrisonStation1 = 'Tier2GarrisonHouse';
+      // Relic Base has no three-tier system; all models use Tier3Structure.
+      m.RelicBase1 = 'Tier3Structure';
+      return m;
+    })();
+    function resolveArmourType(cn, rawArmourType) {
+      if (rawArmourType && ARMOR_TYPES.has(rawArmourType)) return rawArmourType;
+      const mapped = WORLD_STRUCTURE_ARMOUR[cn];
+      return mapped && ARMOR_TYPES.has(mapped) ? mapped : null;
+    }
+
     const raw = collectProperties(data, CORE_KEYS);
     const codeName = raw.CodeName;
     if (!codeName || !raw.DisplayName?.SourceString || !raw.Description?.SourceString || !raw.Icon?.ObjectPath) continue;
@@ -444,7 +598,7 @@ for (const dir of SEARCH_DIRS) {
     if (raw.VehicleBuildType) item.vehicleBuildType = ENUM_CLEAN(raw.VehicleBuildType);
     if (raw.VehicleProfileType) item.vehicleProfileType = ENUM_CLEAN(raw.VehicleProfileType);
     if (raw.VehicleMovementProfileType) item.vehicleMovementProfileType = ENUM_CLEAN(raw.VehicleMovementProfileType);
-    if (raw.ArmourType) item.armourType = ENUM_CLEAN(raw.ArmourType);
+    item.armourType = resolveArmourType(codeName, raw.ArmourType ? ENUM_CLEAN(raw.ArmourType) : null);
     if (raw.ProfileType) item.profileType = ENUM_CLEAN(raw.ProfileType);
     if (raw.BuildLocationType) item.buildLocationType = ENUM_CLEAN(raw.BuildLocationType);
     if (raw.MapIconType) item.mapIconType = ENUM_CLEAN(raw.MapIconType);
@@ -881,6 +1035,188 @@ for (const dir of SEARCH_DIRS) {
     }
   }
 }
+
+// ── Destruction / resistance tables (structures + vehicles) ────
+// Attach `resistances` (Health + resistance %) to EVERY structure/vehicle that
+// has health, so the Resistances block always shows Health — even for world
+// structures (e.g. Town Base) whose armourType is `None` (no armour profile to
+// derive percentages from). `destruction` (to-kill / disable|kill) needs the
+// armour→damage-type multiplier matrix, so it is only attached when the item
+// has a real, mappable armourType.
+let resistCount = 0;
+let destructionCount = 0;
+for (const codeName of Object.keys(metadata)) {
+  const item = metadata[codeName];
+  if (item.itemType !== 'structure' && item.itemType !== 'vehicle') continue;
+  const health = item.maxHealth ?? item.vehicleData?.maxHealth ?? item.health;
+  if (!health || health <= 0) continue;
+  const armourType = item.armourType && ARMOR_TYPES.has(item.armourType) ? item.armourType : null;
+  const disablePercent = item.itemType === 'vehicle' ? (item.vehicleData?.minorDamagePercent ?? 0) : 0;
+  // Resistance % per damage type — only meaningful for a real armour profile.
+  const byDamageType = {};
+  if (armourType) {
+    for (const [dt, prof] of Object.entries(damageProfiles)) {
+      if (prof[armourType] !== undefined) byDamageType[dt] = prof[armourType];
+    }
+  }
+  item.resistances = { armourType: item.armourType ?? null, health, disablePercent, byDamageType };
+  resistCount++;
+  if (armourType) {
+    const d = computeDestruction(item, (code) => metadata[code]?.displayName || code);
+    if (d) {
+      item.destruction = { armourType: d.armourType, health: d.health, disablePercent: d.disablePercent, isVehicle: d.isVehicle, tiers: d.tiers, ammo: d.ammo };
+      destructionCount++;
+    }
+  }
+}
+console.log(`  ${resistCount} structures/vehicles with resistances (Health); ${destructionCount} with a destruction table`);
+
+// ── Synthesized world-structure families (wiki-derived names/sizes) ──
+// Several buildable world structures either omit ArmourType in their blueprint or
+// ship only a subset of their tiers/sizes in the game export. Per the official wiki
+// we re-express them as named families/items, using real resistance profiles from
+// DTDamageProfiles (Tier1/2/3 Garrison House, Tier3Structure) and the wiki Structure
+// Health Table for health. computeDestruction() builds the kill-count tables from the
+// real profiles. The upgrade-family pass below then groups each family's tiers.
+//   Town Base        -> Post Office / School / Town Center (3 types × 3 GH tiers)
+//   Safe House       -> 3 Garrison House tiers (2000 hp)
+//   Garrisoned House -> 3 sizes (Small 800 / Medium 1000 / Large 1200) × 3 GH tiers
+//   Relic Base       -> 3 sizes (Small 4450 / Medium 5150 / Large 5850), Tier3Structure
+const GH_TIERS = ['Tier1GarrisonHouse', 'Tier2GarrisonHouse', 'Tier3GarrisonHouse'];
+const synthWorldFamily = (displayName, codenamePrefix, healthByTier, armourByTier, template) => {
+  for (let i = 0; i < healthByTier.length; i++) {
+    const cn = `${codenamePrefix}${i + 1}`;
+    const health = healthByTier[i];
+    const armour = armourByTier[i];
+    const item = { armourType: armour, maxHealth: health, itemType: 'structure', displayName };
+    const d = computeDestruction(item, (code) => metadata[code]?.displayName || code);
+    const byDamageType = {};
+    for (const [dt, prof] of Object.entries(damageProfiles)) {
+      if (prof[armour] !== undefined) byDamageType[dt] = prof[armour];
+    }
+    metadata[cn] = {
+      displayName,
+      description: template.description,
+      itemType: 'structure',
+      equipmentSlot: template.equipmentSlot,
+      maxHealth: health,
+      armourType: armour,
+      mapIconType: template.mapIconType,
+      structureData: template.structureData,
+      buildCost: template.buildCost,
+      resistances: { armourType: armour, health, disablePercent: 0, byDamageType },
+      destruction: d ? { armourType: d.armourType, health: d.health, disablePercent: d.disablePercent, isVehicle: d.isVehicle, tiers: d.tiers, ammo: d.ammo } : undefined,
+    };
+  }
+};
+const synthWorldItem = (codename, displayName, health, armour, template) => {
+  const item = { armourType: armour, maxHealth: health, itemType: 'structure', displayName };
+  const d = computeDestruction(item, (code) => metadata[code]?.displayName || code);
+  const byDamageType = {};
+  for (const [dt, prof] of Object.entries(damageProfiles)) {
+    if (prof[armour] !== undefined) byDamageType[dt] = prof[armour];
+  }
+  metadata[codename] = {
+    displayName,
+    description: template.description,
+    itemType: 'structure',
+    equipmentSlot: template.equipmentSlot,
+    maxHealth: health,
+    armourType: armour,
+    mapIconType: template.mapIconType,
+    structureData: template.structureData,
+    buildCost: template.buildCost,
+    resistances: { armourType: armour, health, disablePercent: 0, byDamageType },
+    destruction: d ? { armourType: d.armourType, health: d.health, disablePercent: d.disablePercent, isVehicle: d.isVehicle, tiers: d.tiers, ammo: d.ammo } : undefined,
+  };
+};
+
+const tbTmpl = metadata['TownBase1'] || {};
+const shTmpl = metadata['GarrisonStation'] || {};
+const relicTmpl = metadata['RelicBase1'] || {};
+// Drop the generic / partial export entries; the named families below replace them.
+for (const cn of ['TownBase1', 'TownBase2', 'TownBase3', 'TownBase', 'GarrisonStation', 'GarrisonStation1', 'GarrisonStation2']) delete metadata[cn];
+// Town Base -> three named types.
+synthWorldFamily('Post Office', 'PostOffice', [7000, 7000, 7000], GH_TIERS, tbTmpl);
+synthWorldFamily('School', 'School', [5000, 5000, 5000], GH_TIERS, tbTmpl);
+synthWorldFamily('Town Center', 'TownCenter', [4000, 4000, 4000], GH_TIERS, tbTmpl);
+// Safe House -> three Garrison House tiers.
+synthWorldFamily('Safe House', 'SafeHouse', [2000, 2000, 2000], GH_TIERS, shTmpl);
+// Garrisoned House -> three sizes × three Garrison House tiers.
+synthWorldFamily('Garrisoned House (Small)', 'GarrisonedHouseSmall', [800, 800, 800], GH_TIERS, shTmpl);
+synthWorldFamily('Garrisoned House (Medium)', 'GarrisonedHouseMedium', [1000, 1000, 1000], GH_TIERS, shTmpl);
+synthWorldFamily('Garrisoned House (Large)', 'GarrisonedHouseLarge', [1200, 1200, 1200], GH_TIERS, shTmpl);
+// Relic Base -> three sizes (Small already exists as RelicBase1; rename + add Medium/Large).
+if (metadata['RelicBase1']) metadata['RelicBase1'].displayName = 'Relic Base (Small)';
+synthWorldItem('RelicBaseMedium', 'Relic Base (Medium)', 5150, 'Tier3Structure', relicTmpl);
+synthWorldItem('RelicBaseLarge', 'Relic Base (Large)', 5850, 'Tier3Structure', relicTmpl);
+// The synthesized entries were added after the counting loop above; recompute so the
+// summary reflects the final catalog exactly.
+resistCount = 0; destructionCount = 0;
+for (const v of Object.values(metadata)) {
+  if (v.resistances) resistCount++;
+  if (v.destruction) destructionCount++;
+}
+
+// ── Upgrade families: merge T1/T2/T3 codename tiers into one page ────
+// Group by codename prefix (trailing digits stripped) and require the same
+// displayName (with any "(Tier N)" suffix removed). This catches real upgrade
+// chains (Town Base, Bunkers, Trenches, Garrisons…) without wrongly merging
+// unrelated numeric-suffix blueprints (e.g. FacilityMaterials1-12 are 12
+// distinct materials, not tiers).
+const famKey = (cn) => cn.replace(/\d+$/, '')
+const famName = (dn) => (dn || '').replace(/\s*\(Tier \d\)\s*$/, '').trim()
+const trailingNum = (cn) => {
+  let i = cn.length - 1
+  while (i >= 0 && cn[i] >= '0' && cn[i] <= '9') i--
+  return i < cn.length - 1 ? +cn.slice(i + 1) : -1
+}
+const famGroups = {}
+for (const cn of Object.keys(metadata)) {
+  const k = famKey(cn)
+  ;(famGroups[k] ||= []).push(cn)
+}
+let familyCount = 0
+for (const [k, members] of Object.entries(famGroups)) {
+  if (members.length < 2) continue
+  const nk = famName(metadata[members[0]].displayName)
+  if (!members.every((c) => famName(metadata[c].displayName) === nk)) continue
+  const sorted = [...members].sort((a, b) => {
+    const va = trailingNum(a), vb = trailingNum(b)
+    return va - vb || a.localeCompare(b)
+  })
+  sorted.forEach((cn) => {
+    const t = trailingNum(cn)
+    metadata[cn].upgradeFamily = k
+    metadata[cn].upgradeTier = t >= 0 ? t : 0
+    if (cn !== k) metadata[cn].inFamily = true // hide non-base members from search
+  })
+  const rep = metadata[sorted[0]]
+  const base = metadata[k]
+  if (base && sorted.includes(k)) {
+    // Base codename is itself a member (e.g. GarrisonStation) → augment it.
+    base.isFamily = true
+    base.familyBase = k
+    base.familyMembers = sorted
+    base.displayName = nk
+    base.description = rep.description
+  } else {
+    metadata[k] = {
+      isFamily: true,
+      familyBase: k,
+      familyMembers: sorted,
+      displayName: nk,
+      description: rep.description,
+      itemType: rep.itemType,
+      category: rep.category,
+      chassisName: rep.chassisName,
+      mapIconType: rep.mapIconType,
+      upgradeFamily: k,
+    }
+  }
+  familyCount++
+}
+console.log(`  ${familyCount} upgrade families merged`)
 
 fs.writeFileSync(OUTPUT_METADATA, JSON.stringify(metadata, null, 2));
 console.log(`${Object.keys(metadata).length} items processed → ${OUTPUT_METADATA}`);

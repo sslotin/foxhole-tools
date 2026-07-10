@@ -1,5 +1,9 @@
 All project context, architecture, and status are consolidated in MEMORY.md. Start by reading MEMORY.md and keep it updated as the project evolves.
 
+Write all temporary files you need just for research in tmp/.
+
+When you change a data-processing script, inspect the diff of the derived data to see if there are any unintended side effects and whether the change was correct.
+
 This project involves parsing large JSON/CSV files. Avoid fully reading them and instead use search or tools such as head, grep and jq to analyze their structure.
 
 Avoid running commands that can potentially "hang" for a prolonged period of time. If you need to run a script that could hang, make sure it has a time limit. This is not a compute-intensive project; if a script hangs, you're doing something wrong. You should be excluding game_data from most code searches.

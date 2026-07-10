@@ -6,7 +6,7 @@
 > hot-reloads automatically. When suggesting a fix that relies on the dev server reflecting
 > new code, remind the user to restart `npm run dev` if they don't see the change.
 
-Last updated: Jul 9, 2026 (wiki-style metadata infobox in Search).
+Last updated: Jul 10, 2026 (metadata display styling + docs accuracy pass).
 
 ## Product Context
 
@@ -26,7 +26,7 @@ Items must be logically grouped (consumption is correlated). Also hosts an advan
 foxhole/
 ├── parser/                 # CSV/metadata module (Vue-independent)
 │   ├── csv-parser.js       # CSV → structured items
-│   ├── metadata.json       # 662 items: codeName → {displayName, stats, recipes, ...}
+│   ├── metadata.json       # 715 entries: codeName → {displayName, stats, recipes, ...}
 │   ├── data/
 │   │   ├── positions-stockpile.js   # 433 stockpile positions mapped
 │   │   ├── positions-inventory.js   # 219 inventory positions mapped
@@ -69,7 +69,7 @@ Paste → App.vue.addCSV(text) → parser/csv-parser.parseCSV(text)
 |---|---|---|
 | Inventory | ~220 | Single report, delta tracking, compact groups, "live guns" min(guns, ammo/3) |
 | Stockpile | ~430 | Multi-source/target, crate planning, category filters, shopping list auto-fill, export |
-| **Search** | — | **Default landing view (`src/components/Search.vue`)**, shown when `submissions.length === 0`. Left panel: search bar + live results (icon + `displayName`, all 662 items/vehicles/structures). Case-insensitive substring match on `displayName` only; results list hidden until you type. Click an entry → right panel shows a **wiki-style infobox** (`src/metadata-format.js`) of cleaned/labeled fields + a collapsible "unformatted fields" list + the full raw JSON. The landing view also shows a collapsible **item categories** table (12 metadata-shape classes). × button clears the search; emptying the box resets to the default placeholder view. Paste still works globally to switch to CSV modes. |
+| **Search** | — | **Default landing view (`src/components/Search.vue`)**, shown when `submissions.length === 0`. Left panel: search bar + live results (icon + `displayName`, all 715 entries (625 searchable; 31 upgrade families, 90 hidden tier members)). Case-insensitive substring match on `displayName` only; results list hidden until you type. Click an entry → right panel shows a **wiki-style infobox** (`src/metadata-format.js`) of cleaned/labeled fields + a collapsible "unformatted fields" list + the full raw JSON. The landing view also shows a collapsible **item categories** table (11 metadata-shape classes). × button clears the search; emptying the box resets to the default placeholder view. Paste still works globally to switch to CSV modes. |
 
 **Facility cost calculator** (sub-mode of Search): each result row for a *facility-produced* item shows a green **+** button (`src/facility-calc/`). Clicking it pins the item to the top of the left panel (`src/components/FacDesired.vue`, green-tinted row matching the search-result row height/styling, editable quantity + remove) and reveals the calculator (`src/components/FacilityCalc.vue`) in the right panel. **Search results filter:** when the calculator is active (item pinned), results are filtered to show only facility-producible items. **Search scope:** matches `displayName`, `codeName`, and `description` — sorted so `displayName` matches appear first. Removing the last pinned item closes the calculator (no title/close button). The calculator resolves the recipe graph bottom-up through the 158 facility recipes (base + modification tiers; mines = raw-from-node leaves) and shows **two panels**: **left** = Raw resources + Intermediate resources; **right** = building/modification groups. Recipes run at **fractional scale** (no integer-run rounding, no discretization leftovers); byproducts are produced exactly and reused to offset downstream demand, but final surplus is ignored (not shown). Only the **production time** is shown per active recipe (not run counts). Headers are grey (`#999`, matching the stockpile report's secondary label shade), not green.
 
@@ -77,7 +77,24 @@ Paste → App.vue.addCSV(text) → parser/csv-parser.parseCSV(text)
 
   **Reactivity gotcha (solved):** recipe objects are stored in reactive `calc.selectedRecipes` and read back inside the resolver's computed. Vue 3 deep-reactivity wraps them in proxies on read, so the object the resolver sees is a *different reference* than the raw objects returned by `recipesFor()` in the template — breaking identity-based `activeRecipes.has(entry.r)` and making the selected recipe never light up. Fix: every recipe object is `markRaw(...)` at construction in `recipes.mjs`, so Vue never proxies them and identity is preserved. State lives in a shared reactive store (`src/facility-calc/store.mjs`); the resolver is a FIFO worklist (`src/facility-calc/resolver.mjs`). **codeName canonicalization:** four facility-recipe codeNames are lowercase in the raw export (`metal`, `coal`, `heavyartilleryammo`, `lightartilleryammo`) but their icons + metadata exist only under PascalCase; `recipes.mjs` `CANON` canonicalizes all four on read so icon paths and metadata lookups resolve. |
 
-### Facility Cost Calculator — Algorithm
+## Detail panel, routing & scroll (Jul 10, 2026)
+- **No vue-router.** Navigation is `history.pushState` + a `popstate` listener. `Search.vue` owns
+  `selectedCodeName` (a `ref`); selecting an item sets it and pushes `/data/<codeName>` via a
+  `watch(selectedCodeName, syncUrl)`. `ItemDetail` renders with `:codeName="selectedCodeName"`
+  (no `:key`, so the component instance is reused across items — only the prop changes).
+- **Layout** (`Search.vue`, flex row `.ms`, `height: calc(100vh - 8px)`): left `.panel` (370px) =
+  search bar + `.results` (`overflow-y:auto`); right `.detail` = `flex:1; overflow:auto; padding`.
+  **`.detail` is the scroll container for the item page** (not the window).
+- **Scroll-to-top on open** (Jul 10): a `watch(selectedCodeName, …)` in `Search.vue` resets
+  `detailEl.scrollTop = 0` inside `nextTick` — instant (no smooth scroll) — whenever a *new* item
+  is opened, including clicks on in-detail links (Production-box "used in" items, kill-table ammo
+  links). `detailEl` is a `ref` on the `.detail` div. Clicking the same item toggles it off.
+- `ItemDetail` emits `select` (bubbled from child links via `ProductionBox`/`FacItem`); `Search.select`
+  handles it, so every in-detail navigation reuses the same path and scrolls to top.
+- **Dev-server note:** Vite HMR usually applies UI changes, but if something doesn't appear, restart
+  `npm run dev`. Always `npm run build` to compile/typecheck.
+
+## Facility Cost Calculator — Algorithm
 
 **Inputs:** `desired = [{codeName, qty}]` (pinned items) + `selectedRecipes = {item → recipe}` (user's per-item recipe override; defaults via `defaultRecipe` = base recipe, else first available).
 
@@ -131,12 +148,16 @@ Paste → App.vue.addCSV(text) → parser/csv-parser.parseCSV(text)
 
 ### Metadata structure & wiki-field coverage (Jul 9, 2026)
 
-`metadata.json` (666 entries, `parser/data/metadata.json`) is keyed by `codeName`.
-Each entry is classified into **12 behavioral classes** by `src/components/metadata-format.js`:
-`Structure` (245), `Land Vehicle` (139), `Material/Supply` (66), `Ammunition` (54),
-`Tool/Equip` (52), `Firearm` (39), `Misc` (29), `Ship` (24), `Aircraft` (13),
-`Grenade/Thrown` (11), `Melee Weapon` (3), `Mount/Deployed`. The display subheader uses
+`metadata.json` (**715 entries**, `parser/data/metadata.json`) is keyed by `codeName`.
+Each entry is classified into **11 behavioral classes** by `src/components/metadata-format.js`
+(`Mount/Deployed` exists in the classifier but currently has 0 items):
+`Structure` (270), `Land Vehicle` (139), `Material/Supply` (62), `Ammunition` (45),
+`Tool/Equip` (46), `Firearm` (50), `Misc` (29), `Ship` (24), `Aircraft` (13),
+`Grenade/Thrown` (10), `Melee Weapon` (3). The display subheader uses
 `chassisName` (e.g. "Rifle", "Raw Material"); the coarse class is only a fallback for items lacking one.
+**28** entries are upgrade `isFamily` pages; **79** tier members are `inFamily` (hidden from
+search, rolled into their family). Searchable pages = **625**. **434** entries carry `resistances`,
+**389** carry a `destruction` table.
 
 The Search detail panel (`Search.vue`) renders a wiki-style **infobox** + two catch-all lists:
 - **unformatted fields** — raw metadata keys the infobox did NOT show (internal/physics noise).
@@ -146,7 +167,7 @@ The Search detail panel (`Search.vue`) renders a wiki-style **infobox** + two ca
 structure stats from the `BP*DynamicData.json` tables under `game_data/.../Blueprints/Data/`.
 Those tables DO NOT contain several fields the wiki shows. Confirmed absent (string-search across
 ALL non-localization JSON in `game_data`):
-- `reloadTime` — **0/666** items have it; wiki shows reload for every gun.
+- `reloadTime` — **0/715** items have it; wiki shows reload for every gun.
 - `FiringMode` for guns (e.g. "Bolt-action", "Automatic") — only 2 grenade items have it.
 - `encumbrance` for rifles — present for 227 items but **missing for RifleW / RifleLightW / SniperRifleW / SMGW** etc.
 - `range_effective` / `range_max` in meters — our `weaponData.maximumRange` is in raw game units (e.g. 2700), not meters.
@@ -155,7 +176,7 @@ So reload, gun firing mode, rifle encumbrance, and effective/max range **cannot 
 exported game data this repo holds (the wiki sources them from client `.uasset` binaries not exported here).
 The `metadata-format.js` formatter correctly omits them and the "missing wiki fields" list transparently reports them.
 
-### `metadata.json` — Full Item Catalog (662 items)
+### `metadata.json` — Full Item Catalog (715 entries)
 
 Keyed by `codeName`. Each entry contains:
 
@@ -231,6 +252,24 @@ codeName → { short, target }  // hardcoded targets, needs audit vs latest meta
 
 ---
 
+## Operational notes (agentic workflow)
+- **Loop-police:** `metadata-format.js`, `process-game-data.js`, `ItemDetail.vue` are auto-blocked
+  from being read after ~4 reads in a session. Use `grep`/`sed`/`python3` to inspect and make
+  targeted edits; re-reading the same large file yields no new info — move forward with edits.
+- **Semantic-loop guard:** when iterating, you must *act* with concrete edits, not re-plan. If a turn
+  is flagged as a semantic loop, stop re-deriving and apply the next concrete change.
+- **Don't fully read large JSON** (`metadata.json`, `recipes.json`, game_data exports): use `jq`/
+  `grep`/`head`/`python3` to inspect structure and spot-check.
+- **Wiki is Cloudflare-blocked** (HTTP 403) for direct fetch. Use the `web_search` tool for Damage
+  Resistance / Health tables and other wiki facts; verify against authoritative game files when present.
+- **Trust game files over wiki** on divergence, but a wiki-derived mapping is acceptable where the
+  game files lack a field (e.g. world-structure armour types — see Known limitation).
+- **Resistance matrix stores a RESISTANCE FRACTION** (`0` = full damage, `1` = immune), NOT a damage
+  multiplier. Effective damage = `base × (1 − fraction)`.
+- **Dev-server:** restart `npm run dev` if a UI change doesn't appear; always `npm run build` to check.
+- **Small implementations; minimal comments.** Don't dump full example files into comments — rely on
+  the example CSVs / `data/` files. Prefer `python3`/shell one-offs in `tmp/` for research.
+
 ## Scripts Reference
 
 ### Primary (use these)
@@ -268,7 +307,7 @@ The override map `DEFAULT_OVERRIDES` keys by codeName and matches by `facilityKe
 
 | Metric | Value |
 |---|---|
-| `metadata.json` items | **666** (245 items, 176 vehicles, 245 structures) |
+| `metadata.json` entries | **715** (245 items, 176 vehicles, 294 structures; 31 families, 90 hidden tier members, 625 searchable) |
 | Stockpile positions | **424** positions, **424** lines, **all mapped** ✅ |
 | Inventory positions | **221** positions, **221** lines, **all mapped** ✅ |
 | Missing icons | **5** genuinely missing source PNG files (event-only content) |
@@ -417,7 +456,7 @@ See `parser/data/recipes.json` for complete listing per facility with all modifi
 ## Wiki infobox matching (Jul 9, 2026)
 
 Goal: make the Search detail infobox match the official foxhole.wiki.gg infobox,
-category by category. Reference material saved under `parser/wiki-matching/`:
+category by category. Reference material saved under `tmp/wiki-matching/`:
 - `infoboxes.json` — 12 representative wiki infoboxes + full raw wikitext, one per class
   (Structure, Land Vehicle, Ship, Aircraft, Firearm, Material/Supply, Ammunition,
   Tool/Equip, Grenade/Thrown, Melee Weapon, Misc, Mount/Deployed).
@@ -476,3 +515,109 @@ category by category. Reference material saved under `parser/wiki-matching/`:
   (tankArmourMinPenetrationChance). Listed as "missing" since we don't convert units.
 - Remaining achievable extraction: vehicle crew/passengers from blueprint seat
   components (only some blueprints e.g. submarines/large ships expose Seats).
+
+---
+
+## Damage Resistance / Destruction Tables (Jul 9, 2026)
+
+**Goal:** Add wiki-style **"x to kill" (structures) / "disable|kill" (vehicles)** destruction tables to Search detail pages, and a **"Resistances"** infobox block (Health moved there + damage-resistance %). Source = authoritative game files (not wiki).
+
+### How armor / upgrades are represented (verified)
+- **Resistance matrix (authoritative):** `game_data/.../Blueprints/Data/DTDamageProfiles.json` → `damageType → armourType → resistanceFraction` (NOT a damage multiplier). The value is the **fraction of damage resisted**: `0` = no resistance (takes full damage), `1` = immune. E.g. `AntiTankExplosive → Tier1Tank`=0.0 (tanks take full anti-tank), `Explosive → Tier3GarrisonHouse`=0.9 (90% resisted). 19 damage types × 20 armor types.
+- **Base damage per ammo/explosive:** `BPAmmoDynamicData.json` (64 rows: `Damage` + `DamageType.ObjectPath`) and `BPGrenadeDynamicData.json`. Map ammo `DamageType.ObjectPath` → resistance key via existing `getDamageType(objectPath).type` (returns `Explosive`, `LightKinetic`, etc., matching `DTDamageProfiles` keys). Class-name also decodes directly (`BPAntiTankExplosiveStickyBombDamageType` → `AntiTankExplosive`).
+- **Armor is per-blueprint** via `raw.ArmourType` → `armourType` field. Families: `Tier1/2/2B/3/3BStructure`, `Tier1/2/3GarrisonHouse`, `Tier1/2Tank`, `Tier1/1Large/2Ship`, `Tier1Aircraft`, `Trench`, `NoArmour`, `WorldStructureHusk`, `Ice`, `HeavyBuildSite`.
+- **Effective damage = `baseDamage × (1 − resistanceFraction)`** (kinetic types `LightKinetic/HeavyKinetic/AntiTankKinetic` also ×1.25 for the per-shot average). `x-to-kill = ceil1(maxHealth / effective)` (ceil to 0.1). Immune when fraction ≥ 1 (`effective ≤ 0` → ammo dropped). Vehicles: `toDisable = ceil1(maxHealth × minorDamagePercent / effective)`, `toKill = ceil1(maxHealth / effective)`.
+- **Upgrades change armor type** = the `armourType` (and thus the resistance) differs per tier. The armor-type change is exactly what shifts the resistance. In-metadata tier families: `TownBase1/2/3` (7000/5000/4000 HP, mapped to `Tier1/2/3GarrisonHouse` armour) and `FortGarrisonStation`(T3,10000)/`FortGarrisonStationPart`(T2,1000). Town Base has no `ArmourType` in its blueprint but maps to Garrison House (see Known limitation). Only items with a resolvable armourType+`maxHealth` get a table (some world structures like Safe House/Relic Base still lack one).
+- **World-structure Safe House (GS2/GS3) are NOT in `metadata.json`** — only `TownCLargeGarrisonGS1` (+BuildSite) exist in exports; T2/T3 applied at runtime, not statically extractable. So the 1+3 tier-column table is only faithful where a tier FAMILY with armourType exists in metadata (currently just the Forts). Decision: render tier columns (T1/T2/T3) using each tier's armourType multiplier with the item's current health + a clear "actual tier HP may differ" note; otherwise single column.
+
+### Requirements (from user)
+- Scope: **Structures + Vehicles**.
+- Columns = ammo/explosive types that do **non-zero damage** for that item's armor. Drop columns where the **resistance fraction ≥ 1** (immune / no damage taken); a fraction of `0` (no resistance) is now shown with **full damage** (previously mis-skipped as "immune").
+- Upgradable buildings: table with **1 + 3 columns per tier (T1, T2, T3)**.
+- **Health → moved into "Resistances" block** (same block as damage calcs); include **damage-resistance %** there.
+- **No duplicate buildings** in search box.
+
+### Implementation plan
+1. `process-game-data.js`: load `DTDamageProfiles` + `BPAmmoDynamicData` + `BPGrenadeDynamicData`; build ammo reference (code,label,baseDamage,damageTypeKey); for each structure/vehicle with `armourType`+`maxHealth>0` compute `item.resistances` (health + byDamageType map) and `item.destruction` (filtered ammo rows; tier columns where family exists).
+2. `metadata-format.js`: expose `resistances` + `destruction` (passthrough or helper).
+3. `ItemDetail.vue`: render **Resistances** block (Health + resistance %) and **destruction table** (1+3 tier columns; disable|kill for vehicles).
+4. De-dupe search if needed.
+
+### Reference saved
+- `tmp/wiki-matching/wiki-damage-resistance.md` — wiki Damage Resistance / Structure & Vehicle Health tables (for display format + which damage types exist; values are wiki, not authoritative).
+
+### Known limitation
+- Per-tier HP for world structures (safe house) not in static exports → tier columns use current HP with a note. Forts are the only in-metadata tier family with armourType.
+- **Synthesized world-structure families** (Jul 10, 2026): several buildable world structures omit `ArmourType` in their blueprint or ship only a subset of tiers/sizes. `process-game-data.js` re-expresses them as named families/items just before the family-merge pass, using the real `DTDamageProfiles` resistance profiles (Tier1/2/3 Garrison House, Tier3Structure) + the wiki Structure Health Table for health; `computeDestruction()` builds the kill tables. All health/resistance values are game-accurate (Garrison House / Structure matrices); only the **names, sizes and per-tier health layout** are wiki-derived. Families/items produced:
+  - **Town Base** → Post Office (7000) / School (5000) / Town Center (4000), each 3 Garrison House tiers (generic `TownBase1-3` deleted).
+  - **Safe House** → 3 Garrison House tiers @ 2000 (generic `GarrisonStation`/`GarrisonStation1` deleted, replaced by `SafeHouse1-3`).
+  - **Garrisoned House** → 3 sizes (Small 800 / Medium 1000 / Large 1200) × 3 Garrison House tiers.
+  - **Relic Base** → 3 sizes (Small 4450 / Medium 5150 / Large 5850), all Tier3Structure (Small = original `RelicBase1`, renamed; Medium/Large added).
+  The "Unarmored" note only appears for genuinely unarmored items. `FortGarrisonStation` (Keep, 10000hp, Tier3Structure) is a separate fort structure and is left untouched.
+
+### Upgrade families (merged T1/T2/T3 pages) — DONE
+- 31 families merged (Post Office / School / Town Center, Safe House, Garrisoned House Small/Medium/Large, Bunkers, Trenches, Garrisons, Relic Base Small/Medium/Large, …); 90 tier
+  members hidden from search; 715 total entries. Detection: codename prefix (trailing
+  digits stripped) + identical `displayName` (minus " (Tier N)").
+- **Resistances + Destruction merged into ONE pane** (Jul 9, 2026): Destruction is folded
+  into the "Resistances" infobox, grouped by damage type. One `merged` computed handles both
+  single items and families; `familyMerged()` builds per-tier kill counts; `familyCostTiers`
+  (build/MPF) kept separate. Base codename augmented in place when it is itself a member
+  (e.g. `GarrisonStation` -> "Safe House"). `npm run build` passes.
+- **Resistances pane rendering (Jul 10, 2026):** both the family branch and the non-family
+  branch render ONE `<table class="ktab">` (replaces the old `.mtab`/`.dtgroup` tables, which
+  were nested under `.destruction` and never actually applied). Layout:
+  - Header row shows `T1 (x) T2 (y) T3 (z)` (per-tier **health** in parentheses) only when
+    `merged.tiers.length > 1` (upgrade families); `th` cells are **left-aligned**. The health is
+    removed from the subheader for families (single items still show `… hp` there).
+  - Each damage type = a bolded `resist-row` (`<tr class="resist-row">`, `font-weight: 600`)
+    whose left cell shows `DamageType (resist% …)` — the resistance % is rendered **inline in
+    the label** (e.g. `Explosive (25-25-25%)`); tiers are **hyphen-separated** for upgrade
+    families; empty `.kval` placeholder cells reserve the tier columns so ammo rows stay aligned.
+  - Ammo rows follow: left cell = clickable icon + name link (`class="link"`, `@click` emits
+    `select` to open that ammo's page); value cells = `x to kill` counts (one per tier).
+  - **Vehicles:** cell content is `toDisable|toKill`; `toDisable` is wrapped in
+    `<span class="dim dis">` (dimmed via global `.dim { opacity:0.5 }`, right-aligned in a fixed
+    `~3.6em` slot); `toKill` follows. No-damage ammo shows `–`.
+  - **Alignment / non-wrapping:** `.ktab` is `border-collapse: collapse; width:100%`. First column
+    `td.klabel` is `white-space: nowrap; width:1%` (shrink-to-fit) + `min-width:180px` → labels
+    never wrap and stay full-width. Value cells `.kval` are `width:6em; text-align:left;
+    white-space:nowrap` → fixed-width columns that line up across all rows.
+  - **Link color:** `.link` is a subtle greyish dark blue `#7488a8` (hover `#9fb2cf`), used for
+    cost links and the kill-table ammo links.
+  - **Note:** each pane ends with `<p class="dnote">Numbers do not account for low/high velocity
+    modifiers and RNG.</p>`.
+  - **Unarmored / empty tables:** structures/vehicles with no resolvable armour (no `armourType` in the game data AND no `WORLD_STRUCTURE_ARMOUR` override) have no resistance multipliers, so `dtRows` is empty. Instead of a blank table, a note row `Unarmored — no damage-resistance profile.` spans the columns. (Root cause: those blueprints omit `ArmourType` and are not world structures with a known wiki profile — genuinely unarmored, not a bug. Town Base, Safe House and Relic Base are overridden to Garrison House / Tier3Structure respectively.)
+  - **Filtered damage types:** `HIDDEN_DAMAGE_TYPES = {Karate, PoisonGas, GroundZero, Decay,
+    Environment, Incendiary, Extinguishing}` are skipped at render (faithful in data, hidden for
+    display). `IncendiaryHighExplosive` is intentionally **kept** (distinct mechanic). 8 deprecated
+    ammo codes with no icon are dropped via the build-time `hasIcon` flag.
+  - **Page order** — non-family items: main infobox → Resistances/destruction pane → description →
+    unformatted fields → missing wiki fields → raw metadata. Families (synthesized pages):
+    Resistances pane → description → raw metadata (no unformatted/missing lists, since those are
+    per-item). **Production infobox** (see bullet below) sits right below the main infobox and is
+    the first box on family pages, so effective order is main → Production → Resistances → …
+    (families: Production → Resistances → …).
+- Files: `process-game-data.js` (family detection post-pass; `hasIcon` from `ammoHasIcon()`),
+  `Search.vue` (filter `inFamily`), `ItemDetail.vue` (`merged`/`familyMerged`/`mergedHeader` computeds + `.ktab` CSS).
+
+### Production infobox (Jul 10, 2026)
+- New "Production" infobox in `ItemDetail.vue`, **right below the main (stats) infobox** and
+  first box on family pages. Lists every way an item is made/consumed as facility-calc-style
+  recipe rows (building/garage icon + label · inputs → outputs; no time, no active highlighting;
+  items clickable to navigate). Built by `src/components/production-recipes.js`.
+- Recipe sources: facility recipes where the item is an **OUTPUT** (`recipesFor`) + where it is an
+  **INPUT** ("used in", full list — `recipesWithInput` added to `recipes.mjs`); **Garage** (vehicles,
+  text-label only — no icon asset exists) / **Construction Yard** (structures) build from `buildCost`;
+  **Factory** crate + **Mass Production Factory** from `crateCost`/`buildCost` via the MPF per-order
+  discount math (moved out of `metadata-format.js`).
+- **Crate-count display convention:** outputs are crate counts, not per-unit. A Factory order =
+  `1c <item>` (1 crate); MPF = `9c <item>` (items) / `5c <item>` (vehicles/structures, shippable
+  crates). `FacItem` appends `c` to `crateItems` (Infantry Kit Factory outputs + crate-form inputs)
+  and `l` to `liquidItems`; the Production box sets an explicit `disp` (`1c`/`9c`/`5c`) on factory/MPF
+  outputs so no spurious `c` is appended to the per-crate unit quantity.
+- `FacItem.vue` props: `disp` (override qty label, used for `1c`/`9c`/`5c`), `link` (clickable →
+  emits `select`), `plain` (suppress crate/liquid suffix).
+- `metadata-format.js` no longer renders **Build cost / Factory cost / MPF cost** rows (moved here);
+  Repair cost + Upgrade from remain. `buildCost`/`crateCost` are marked `used` so they don't appear
+  in the unformatted-fields list.

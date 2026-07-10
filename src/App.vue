@@ -305,6 +305,7 @@ body
 code
   background: #333
   padding: 2px 6px
+  margin-top: 4px
   border-radius: 3px
   font-size: 14px
 

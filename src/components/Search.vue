@@ -1,5 +1,5 @@
 <script setup>
-import { ref, computed, watch, onMounted, onBeforeUnmount } from 'vue'
+import { ref, computed, watch, onMounted, onBeforeUnmount, nextTick } from 'vue'
 import metadata from '../../parser/data/metadata.json'
 import { facilityProduced, displayName } from '../facility-calc/recipes.mjs'
 import { calc, addDesired } from '../facility-calc/store.mjs'
@@ -9,14 +9,18 @@ import FacDesired from './FacDesired.vue'
 
 const query = ref('')
 const selectedCodeName = ref(undefined)
+const detailEl = ref(null)
 
-// Flatten metadata into a list once for filtering.
-const entries = Object.entries(metadata).map(([codeName, data]) => ({
-  codeName,
-  displayName: data.displayName,
-  description: data.description || '',
-  chassisName: data.chassisName || ''
-}))
+// Flatten metadata into a list once for filtering. Members of an upgrade
+// family (T1/T2/T3) are hidden — the merged family entry is shown instead.
+const entries = Object.entries(metadata)
+  .filter(([, data]) => !data.inFamily)
+  .map(([codeName, data]) => ({
+    codeName,
+    displayName: data.displayName,
+    description: data.description || '',
+    chassisName: data.chassisName || ''
+  }))
 
 // Items already pinned for production are hidden from the results.
 const pinned = computed(() => new Set(calc.desired.map(d => d.codeName)))
@@ -58,6 +62,24 @@ const results = computed(() => {
       return a.displayName.localeCompare(b.displayName)
     })
   }
+
+  // De-duplicate buildings that share a displayName (e.g. Town Base T1/T2/T3,
+  // Safe House variants, Bunker Base tiers). Keep the most informative / base
+  // variant so the search box never lists the same building twice.
+  const preference = (e) => {
+    const d = metadata[e.codeName]
+    let p = 0
+    if (d?.destruction) p += 4
+    if (d?.armourType) p += 2
+    p -= e.codeName.length * 0.01 // shorter (base) codename preferred
+    return p
+  }
+  const best = new Map()
+  for (const e of matched) {
+    const cur = best.get(e.displayName)
+    if (!cur || preference(e) > preference(cur)) best.set(e.displayName, e)
+  }
+  matched = matched.filter(e => best.get(e.displayName) === e)
 
   return matched
 })
@@ -102,6 +124,11 @@ onBeforeUnmount(() => window.removeEventListener('popstate', onPopState))
 
 // Keep the URL in sync whenever the selection changes.
 watch(selectedCodeName, syncUrl)
+
+// Scroll the detail panel to the top instantly whenever a new item is opened.
+watch(selectedCodeName, () => {
+  nextTick(() => { if (detailEl.value) detailEl.value.scrollTop = 0 })
+})
 
 // Empty search box → return to the default (empty) view.
 watch(query, q => {
@@ -148,7 +175,7 @@ watch(query, q => {
         <p v-if="results.length === 0 && pinnedMatches === 0" class="no-results">no matches</p>
       </div>
     </div>
-    <div class="detail">
+    <div class="detail" ref="detailEl">
       <ItemDetail v-if="selectedCodeName" :codeName="selectedCodeName" @select="select" />
       <div class="content fac-content" v-else-if="calc.active">
         <FacilityCalc />

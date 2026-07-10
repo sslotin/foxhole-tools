@@ -100,6 +100,7 @@ export function facLabel (recipe) {
 
 export const recipesByOutput = {}
 const _facilityProduced = new Set()
+const _recipesByInput = {}
 
 // Items produced or consumed as crates by the Infantry Kit Factory and its
 // modifications. These represent crate-form items where the recipe quantity
@@ -131,6 +132,9 @@ for (const [facKey, fac] of Object.entries(recipesData.facilities)) {
       ;(recipesByOutput[o.codeName] ||= []).push(recipe)
       _facilityProduced.add(o.codeName)
     }
+    for (const i of recipe.inputs) {
+      ;(_recipesByInput[i.codeName] ||= []).push(recipe)
+    }
     // If this is a crate facility, mark its outputs and crate-form inputs
     if (isCrateFacility) {
       for (const o of recipe.outputs) _crateItems.add(o.codeName)
@@ -160,6 +164,12 @@ export function isLiquid (codeName) {
 
 export function recipesFor (item) {
   return recipesByOutput[item] || []
+}
+
+// Recipes that CONSUME `item` as an input (reverse index). Used by the Search
+// detail "Production" box to list what an item is "used in".
+export function recipesWithInput (item) {
+  return _recipesByInput[item] || []
 }
 
 // Preferred default recipe overrides. When multiple recipes produce the same

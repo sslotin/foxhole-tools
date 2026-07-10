@@ -4,23 +4,29 @@
 import { displayName, isLiquid, crateItems } from '../facility-calc/recipes.mjs'
 import metadata from '../../parser/data/metadata.json'
 
-const { codeName, qty } = defineProps({
+const props = defineProps({
   codeName: { type: String, required: true },
   qty: { type: [Number, String], default: null },
+  plain: { type: Boolean, default: false },
+  disp: { type: String, default: null },
+  link: { type: Boolean, default: false },
 })
+const emit = defineEmits(['select'])
 
-const suffix = crateItems.has(codeName) ? 'c' : isLiquid(codeName) ? 'l' : ''
+const suffix = (!props.plain && crateItems.has(props.codeName)) ? 'c'
+  : (!props.plain && isLiquid(props.codeName)) ? 'l' : ''
 
-const factionClass = metadata[codeName]?.warden === true ? 'warden'
-  : metadata[codeName]?.warden === false ? 'collie'
+const factionClass = metadata[props.codeName]?.warden === true ? 'warden'
+  : metadata[props.codeName]?.warden === false ? 'collie'
   : ''
 </script>
 
 <template>
-  <span class="fac-item">
+  <span class="fac-item" :class="{ link: props.link }" @click="props.link && emit('select', codeName)">
     <img :src="`/icons/${codeName}.png`" loading="lazy"
          @error="$event.target.style.visibility = 'hidden'" />
-    <span v-if="qty !== null" class="qty">{{ qty }}<span v-if="suffix" class="suffix">{{ suffix }}</span></span>
+    <span v-if="disp !== null" class="qty">{{ disp }}</span>
+    <span v-else-if="qty !== null" class="qty">{{ qty }}<span v-if="suffix" class="suffix">{{ suffix }}</span></span>
     <span class="nm" :class="factionClass">{{ displayName(codeName) }}</span>
   </span>
 </template>
@@ -68,4 +74,10 @@ const factionClass = metadata[codeName]?.warden === true ? 'warden'
     font-weight: bold
     color: green
     margin-right: 2px
+
+  &.link
+    cursor: pointer
+
+    &:hover .nm
+      color: #9fb2cf
 </style>

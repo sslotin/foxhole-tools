@@ -45,10 +45,10 @@ DOTNET_BUNDLE_EXTRACT_BASE_DIR=. WINEPREFIX=~/.wine64 wine FModel.exe
 
 You may need to open settings and point it to directory with .pak and specify UE version. The game is running UE 4.26 or at least something that seems compatible.
 
-Switch to "Folders", right click "War" and export all as json, then export only textures from War/Content/Textures/UI.
+Switch to "Folders", right click "War" and export all as json, repeat it for "Engine", and then export only textures from War/Content/Textures/UI.
 
 Run `process-game-data.js`, pointing it to correct directories. It will generate metadata, recipes and icons.
 
 Then get an English-language csv output of any base and any stockpile and feed it into `generate-positions.js`. It will generate a lookup table that works for any language (to avoid actually parsing CSVs at runtime, maybe some forwards-compatible fallback will be added in the future).
 
-I usually delegate running the scripts and checking diffs to an agent.
+I usually delegate running the scripts and checking diffs to an agent while pointing it to patch notes.
