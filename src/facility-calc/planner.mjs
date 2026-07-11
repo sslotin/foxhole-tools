@@ -112,7 +112,29 @@ export function expandState (desired, selectedRecipes = {}, imported = new Set()
       assigned[d.codeName] = imported.has(d.codeName) ? null : defaultRecipe(d.codeName)
     }
   }
+  // Energy is a pseudo-resource: if it was manually assigned a power recipe
+  // (via selectedRecipes.Energy), its inputs must also be expanded so they
+  // become resolvable nodes. (In produce mode resolvePlan assigns the default
+  // power recipe after this and calls expandInputs again.)
+  if (assigned.Energy) expandInputs(assigned, imported, assigned.Energy)
   return assigned
+}
+
+// Expand a recipe's inputs into `assigned` (default recipe, or null if imported /
+// no recipe), recursing through their inputs. Does NOT override an existing
+// assignment. Used to pull a manually/produced power recipe's fuel requirements
+// into the plan so evaluate() can resolve them.
+function expandInputs (assigned, imported, recipe) {
+  const queue = []
+  for (const inp of recipe.inputs) if (!(inp.codeName in assigned)) queue.push(inp.codeName)
+  while (queue.length) {
+    const R = queue.shift()
+    if (R in assigned) continue
+    if (imported.has(R) || recipesFor(R).length === 0) { assigned[R] = null; continue }
+    const rec = defaultRecipe(R)
+    assigned[R] = rec
+    for (const inp of rec.inputs) if (!(inp.codeName in assigned)) queue.push(inp.codeName)
+  }
 }
 
 // Deterministic topological order over the resources present in `assigned`
@@ -266,5 +288,8 @@ export function resolvePlan (desired, selectedRecipes = {}, imported = new Set()
   } else {
     assigned.Energy = null
   }
+  // Pull the power recipe's fuel/input requirements into the plan so evaluate
+  // can resolve them. (In import mode assigned.Energy is null, so skipped.)
+  if (assigned.Energy) expandInputs(assigned, imported, assigned.Energy)
   return evaluate(assigned, desired, imported)
 }

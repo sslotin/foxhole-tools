@@ -41,6 +41,16 @@ Last updated: Jul 11, 2026 (energy import/produce toggle + sticky-hover focus + 
     else the default power recipe. So: clicking the energy row toggles import↔produce; selecting a
     power recipe in the right panel produces with it (even from import mode); unassigning reverts
     to import/default. Fully tested in `facilities.test.mjs` + `store.test.mjs`.
+- **Power recipe inputs MUST be expanded into the plan (Jul 11 fix):** a power
+  recipe's fuel (e.g. the default SulfuricReactor burns `FacilityOil1`) was
+  dropped — `evaluate` adds the input to `demand`, but `expandState` builds the
+  assignment BEFORE `resolvePlan` assigns the Energy recipe, so the power
+  recipe's inputs never entered `assigned` and were never resolved (free fuel).
+  Fix: `expandInputs(assigned, imported, recipe)` pulls a recipe's inputs in
+  (default recipe, or null if imported / no recipe), called for the Energy
+  recipe in BOTH `expandState` (manual `selectedRecipes.Energy`) and `resolvePlan`
+  (produce-mode default). Regression test in `planner.test.mjs` (power recipe's
+  fuel inputs must be resolved in produce mode).
 - **Recipe-row click (right panel → `handleRecipePick` in `FacilityCalc.vue`):** clicking an
   *inactive* recipe PINs it (`chooseRecipe(item, r)`); clicking the *already-active* recipe
   **DEACTIVATES** it — clears the `selectedRecipes` pin AND **force-imports** the resource (adds

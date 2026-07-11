@@ -103,6 +103,21 @@ describe('Energy is an assignable resource (MWh)', () => {
     // FlameAmmo + its chain consume power; the Energy import is the net deficit (MWh).
     expect(plan.raw['Energy']).toBeGreaterThan(0)
   })
+it('BUG: produced mode pulls a power recipe\'s fuel inputs into the plan', () => {
+    const plan = resolvePlan([{ codeName: 'FlameAmmo', qty: 50 }], {}, DEFAULT_IMPORTED, { energyImported: false })
+    const power = plan.processes.find(p => p.item === 'Energy')
+    expect(power).toBeTruthy()
+    // Every input of the running power recipe must be resolved (imported,
+    // produced, or have its own process) — otherwise the power plant gets
+    // "free" fuel. Previously these inputs were dropped because Energy's
+    // recipe inputs were never expanded into the assignment state.
+    for (const inp of power.recipe.inputs) {
+      const resolved = plan.processes.some(p => p.item === inp.codeName)
+        || (plan.intermediate[inp.codeName] || 0) > 0
+        || (plan.raw[inp.codeName] || 0) > 0
+      expect(resolved).toBe(true)
+    }
+  })
 })
 
 describe('multi-output recipes produce every output; byproducts are leftovers', () => {
