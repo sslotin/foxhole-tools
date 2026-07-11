@@ -462,6 +462,40 @@ The override map `DEFAULT_OVERRIDES` keys by codeName and matches by `facilityKe
   correctly have `productionCategories: null` yet ARE MPF-eligible via build cost (`isMpfEligible`) —
   do **not** gate those by it.
 
+### Production-recipe display rules (Jul 11, 2026) — which facility builds what
+
+`src/components/production-recipes.js` (`productionRecipes`) decides which recipe rows a metadata
+page shows. Verified against the foxhole wiki (Garage / MPF / Construction Yard / Dry Dock / Aircraft
+Hangar lists) and the exported `productionCategories` / `vehicleBuildType` / `buildLocationType`.
+Key invariants (regression-tested in `production-recipes.test.mjs`):
+
+- **MPF items** need `productionCategories.massProductionQueueType != null`. Tools (`Utility`) and
+  meds (`Medical`) have a `factoryQueueType` but a **null** `massProductionQueueType` → Factory-only,
+  never MPF. Gating uses a separate `isMpfItem` (= massProductionQueueType set); the Factory row keeps
+  `isFactoryMpfItem` (= any `productionCategories`).
+- **An item with a `facility-out` recipe (`recipesFor(codeName).length > 0`) is produced ONLY there**
+  → suppress its generic `build` row (Garage/Shipyard/Construction Yard/Dry Dock/World) AND its MPF
+  row. This covers: vehicles modified at a Small/Large Assembly Station (e.g. `TruckMobilityC` from
+  `TruckC`), trains (Large Assembly Station), fighters/bombers (Aircraft Assembly), all large ships
+  (Dry Dock), emplacements (Battery Line). `isMpfEligible` excludes any vehicle with a facility-out
+  recipe for the same reason.
+- **MPF builds anything made at a Garage or Shipyard — never Aircraft Hangar, Dry Dock, or field.**
+  `isMpfEligible` returns false for vehicles with `vehicleBuildType` ∈ {`AircraftFactory` (scout
+  planes not MPF), `LargeShip` (Dry Dock), `BuildableAnywhere` (World)}. Small/medium ships
+  (`Shipyard`) stay MPF-eligible; field vehicles (Motorboat) are not.
+- **Large ships (`vehicleBuildType: LargeShip`) build at the Dry Dock**, not a Shipyard — `buildFacility`
+  maps `LargeShip → {iconKey: 'FacilityVehicleFactory3', label: 'Dry Dock'}` (reuses the Dry Dock
+  facility icon; no standalone `DryDock.png` exists, and `build:data` would wipe any new icon file).
+- **EmplacedMultiC** (and other `buildLocationType: Facility` emplacements) are facility-produced
+  (Battery Line) → their bogus `World` build row is suppressed. Basic emplacements with
+  `buildLocationType: ConstructionYard` (e.g. `EmplacedAircraftW/C`) correctly keep BOTH the
+  Construction Yard build and the MPF row (built both ways per wiki).
+- **Battleship codeName casing:** the Dry Dock (`FacilityVehicleFactory3`) recipe outputs use
+  `LargeShipBattleShip*` (one 's') while the vehicle metadata/icon codeName is `LargeShipBattleship*`.
+  Added to `CANON` in `recipes.mjs` so the recipe resolves to metadata (otherwise battleships wrongly
+  showed a Garage + MPF instead of the Dry Dock). Note: battleship Dry Dock recipes have empty inputs
+  in the export (`AltResourceAmounts: None`) — faithful to game data, NOT a bug to "fix".
+
 ## Stockpile State Export/Import (Jul 7, 2026)
 
 The JSON export button (`StockpileReport.vue`) now saves a full state snapshot that can be pasted back (ctrl+v) to restore the exact same stockpile mode state.

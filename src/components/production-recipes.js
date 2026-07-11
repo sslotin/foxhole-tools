@@ -71,7 +71,18 @@ const DUAL_BUILD_WORLD_GARAGE = new Set(['Crane', 'Construction'])
 
 function isMpfEligible (entry, codeName) {
   if (!entry.buildCost || !entry.buildCost.length) return false
-  if (entry.itemType === 'vehicle' && NON_MPF_VEHICLES.has(codeName)) return false
+  if (entry.itemType === 'vehicle') {
+    if (NON_MPF_VEHICLES.has(codeName)) return false
+    // MPF builds anything made at a Garage or Shipyard — never at an Aircraft
+    // Hangar, Dry Dock, or in the field (BuildableAnywhere). Scout planes
+    // (AircraftFactory) and large ships (LargeShip/Dry Dock) are not MPF-able.
+    if (['AircraftFactory', 'LargeShip', 'BuildableAnywhere'].includes(entry.vehicleBuildType)) return false
+    // Vehicles produced at a player-built facility (Small/Large Assembly
+    // Station, Dry Dock, Aircraft Assembly, Battery Line…) are facility-only
+    // and cannot also be mass-produced — they have a facility-out recipe.
+    if (recipesFor(codeName).length > 0) return false
+    return true
+  }
   if (entry.itemType === 'structure') {
     // Only structures actually built at a Construction Yard are mass-producible.
     // World-placed structures (buildLocationType Anywhere/Facility/undefined/None/
@@ -79,20 +90,25 @@ function isMpfEligible (entry, codeName) {
     if (entry.buildLocationType !== 'ConstructionYard') return false
     if (NON_MPF_STRUCTURE_PROFILETYPES.has(entry.profileType)) return false
     if (NON_MPF_WORLD_STRUCTURES.has(codeName)) return false
+    return true
   }
-  return true
+  return false
 }
 
 const isCrateItem = (entry) => entry.itemType !== 'structure' && entry.itemType !== 'vehicle'
 // Only items the game actually assigns to a Factory/MPF queue
-// (productionCategories.factoryQueueType / massProductionQueueType, sourced
-// from BPFactory.json / BPMassProduction.json) are crate-producible there.
-// Many facility-only items (Cmats, Coal, Metal…) carry a legacy CostPerCrate
-// in BPItemDynamicData but are NOT factory/MPF products — exclude them so the
-// Production box doesn't falsely list them as Factory/MPF-makeable.
+// (productionCategories.factoryQueueType, sourced from BPFactory.json) are
+// crate-producible at a Factory. Many facility-only items (Cmats, Coal, Metal…)
+// carry a legacy CostPerCrate in BPItemDynamicData but are NOT factory/MPF
+// products — exclude them so the Production box doesn't falsely list them.
+// MPF eligibility additionally requires massProductionQueueType to be set:
+// several Factory-only categories (tools = Utility, meds = Medical) have a
+// factoryQueueType but a null massProductionQueueType, i.e. they are made at a
+// Factory but NOT at a Mass Production Factory.
 const isFactoryMpfItem = (entry) => !!entry.productionCategories
+const isMpfItem = (entry) => !!(entry.productionCategories && entry.productionCategories.massProductionQueueType)
 const showCrateCost = (entry, codeName) =>
-  isCrateItem(entry) && !NON_FACTORY_ITEMS.has(codeName) && entry.crateCost && entry.crateCost.length && isFactoryMpfItem(entry)
+  isCrateItem(entry) && !NON_FACTORY_ITEMS.has(codeName) && entry.crateCost && entry.crateCost.length && isMpfItem(entry)
 
 // Resolve the build facility for a buildable item from its game-exported build
 // type (NOT a blanket "all vehicles = Garage"). The FacilityCalc / Production
@@ -111,8 +127,11 @@ function buildFacility (entry) {
   if (entry.itemType === 'vehicle') {
     switch (entry.vehicleBuildType) {
       case 'Shipyard':
-      case 'LargeShip':
         return { iconKey: 'Shipyard', label: 'Shipyard' }
+      case 'LargeShip':
+        // Large ships are built at a Dry Dock, not a Shipyard. Reuse the Dry
+        // Dock facility icon (FacilityVehicleFactory3) — no standalone icon.
+        return { iconKey: 'FacilityVehicleFactory3', label: 'Dry Dock' }
       case 'AircraftFactory':
         return { iconKey: 'AircraftFactory', label: 'Aircraft Hangar' }
       case 'BuildableAnywhere':
@@ -142,6 +161,15 @@ const toIn = (arr) => (arr || []).map(c => ({ codeName: c.codeName, quantity: c.
 export function productionRecipes (codeName, entry) {
   const out = []
 
+  // An item produced at a player-built facility (has a facility-out recipe) is
+  // produced ONLY there. Such items must not also show a generic world build
+  // (Garage / Shipyard / Construction Yard / Dry Dock / Aircraft Hangar / World)
+  // or an MPF row — the facility recipe already represents their production.
+  // For structures, a Construction-Yard build may legitimately coexist with a
+  // facility recipe (basic emplacements are built both ways), so keep it then.
+  const facilityProduced = recipesFor(codeName).length > 0
+  const suppressBuild = facilityProduced && (entry.itemType !== 'structure' || entry.buildLocationType !== 'ConstructionYard')
+
   // Power recipes carry a synthetic 'Energy' output (from recipes.mjs, used by
   // the calculator); PowerChip already renders power, so drop 'Energy' from
   // the metadata list to avoid duplicating the power display.
@@ -158,7 +186,8 @@ export function productionRecipes (codeName, entry) {
   // 3. Build facility (data-driven from the item's build type — see buildFacility()).
   //     Crane + Construction additionally show a second "World" build entry (built both
   //     in the field and at a Garage) — identical build cost, label/icon differ only.
-  if (entry.buildCost && entry.buildCost.length && (entry.itemType === 'vehicle' || !entry.upgradeFromCodeName)) {
+  //     Facility-produced items (facilityProduced) skip this entirely.
+  if (!suppressBuild && entry.buildCost && entry.buildCost.length && (entry.itemType === 'vehicle' || !entry.upgradeFromCodeName)) {
     const facilities = DUAL_BUILD_WORLD_GARAGE.has(codeName)
       ? [{ iconKey: 'Hammer', label: 'World' }, { iconKey: 'MapIconVehicle', label: 'Garage' }]
       : [buildFacility(entry)]

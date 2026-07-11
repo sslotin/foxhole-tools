@@ -43,6 +43,12 @@ const CANON = {
   lighttankammo: 'LightTankAmmo',
   stickybomb: 'StickyBomb',
   rpgammo: 'RpgAmmo',
+  // Large-ship facility recipes in the export use "BattleShip" (one 's') while
+  // the vehicle metadata/icon codeName is "Battleship" — canonicalize so the
+  // Dry Dock recipe resolves to the metadata item (and its icon path).
+  LargeShipBattleShipW: 'LargeShipBattleshipW',
+  LargeShipBattleShipC: 'LargeShipBattleshipC',
+  LargeShipBattleShipAircraftW: 'LargeShipBattleshipAircraftW',
 }
 const canon = c => CANON[c] || c
 

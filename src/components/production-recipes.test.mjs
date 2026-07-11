@@ -83,14 +83,17 @@ describe('energy output + icons in recipe rows', () => {
     const buildRow = productionRecipes(structCode, meta[structCode]).find(r => r.kind === 'build')
     expect(buildRow.iconKey).toBe('ConstructionYard')
   })
-  it('vehicle with an upgradeFromCodeName still shows its build row (#9)', () => {
-    // Vehicles list their upgrade-from elsewhere in Production, so the build row
-    // must NOT be suppressed by the upgradeFromCodeName exclusion (non-vehicles keep it).
+  it('facility-produced upgraded vehicle shows the facility, not a Garage build row (#9)', () => {
+    // Every vehicle carrying upgradeFromCodeName is a modification produced at a
+    // Small/Large Assembly Station (it has a facility-out recipe), so it must
+    // NOT also show a Garage build row — the facility recipe is its sole
+    // production. (The upgradeFromCodeName exclusion is for non-vehicles.)
     const code = Object.keys(meta).find(c =>
       meta[c].itemType === 'vehicle' && meta[c].upgradeFromCodeName && meta[c].buildCost?.length)
-    expect(code, 'a vehicle with upgradeFromCodeName + buildCost should exist').toBeTruthy()
-    const buildRow = productionRecipes(code, meta[code]).find(r => r.kind === 'build')
-    expect(buildRow, `${code} should have a build row`).toBeTruthy()
+    expect(code, 'an upgraded vehicle should exist').toBeTruthy()
+    const recs = productionRecipes(code, meta[code])
+    expect(recs.some(r => r.kind === 'facility-out'), `${code} produced at a facility`).toBe(true)
+    expect(recs.some(r => r.kind === 'build'), `${code} must NOT show a Garage/build row`).toBe(false)
   })
   it('non-vehicle with upgradeFromCodeName is still excluded from the build row', () => {
     const clone = { ...meta.ShippingContainer, upgradeFromCodeName: 'SomeBase' }
@@ -107,10 +110,10 @@ describe('build facility is data-driven (not blanket Garage)', () => {
     expect(r.iconKey).toBe('Shipyard')
     expect(r.label).toBe('Shipyard')
   })
-  it('landing ships (LargeShip) build at the Shipyard', () => {
+  it('landing ships (LargeShip) build at the Dry Dock, not a Shipyard', () => {
     const r = buildRow('LandingShipW')
-    expect(r.iconKey).toBe('Shipyard')
-    expect(r.label).toBe('Shipyard')
+    expect(r.iconKey).toBe('FacilityVehicleFactory3')
+    expect(r.label).toBe('Dry Dock')
   })
   it('scout planes (AircraftScoutC) build at the Aircraft Hangar', () => {
     const r = buildRow('AircraftScoutC')
@@ -206,5 +209,69 @@ describe('world structures without a known build location are not mislabeled', (
   it('a World structure (WatchTower, Anywhere) still shows World', () => {
     const recs = productionRecipes('WatchTower', meta.WatchTower)
     expect(recs.find(r => r.kind === 'build')?.label).toBe('World')
+  })
+})
+
+describe('facility-produced items show no fake Garage/Construction-Yard/MPF rows', () => {
+  // An item produced at a player-built facility (has a facility-out recipe) is
+  // produced ONLY there. It must not also show a generic world build (Garage /
+  // Dry Dock / Construction Yard / World) or an MPF row. See the 6 categories
+  // of fake recipes that previously leaked onto metadata pages.
+
+  it('tools and meds are Factory-only, never MPF', () => {
+    for (const code of ['WorkWrench', 'Bandages']) {
+      const recs = productionRecipes(code, meta[code])
+      expect(recs.some(r => r.kind === 'factory'), `${code} should keep its Factory row`).toBe(true)
+      expect(recs.some(r => r.kind === 'mpf-item'), `${code} must NOT have an MPF row`).toBe(false)
+    }
+  })
+  it('vehicles produced at a facility show only the facility (no Garage/MPF)', () => {
+    for (const code of ['MotorcycleOffensiveC', 'TruckMobilityC', 'TrainEngine', 'LargeShipBaseShip', 'AircraftFighterW']) {
+      const recs = productionRecipes(code, meta[code])
+      expect(recs.some(r => r.kind === 'facility-out'), `${code} should have a facility-out row`).toBe(true)
+      expect(recs.some(r => r.kind === 'build'), `${code} must NOT have a generic build row`).toBe(false)
+      expect(recs.some(r => r.kind === 'mpf-veh'), `${code} must NOT have an MPF row`).toBe(false)
+    }
+  })
+  it('scout planes build at the Aircraft Hangar but never at the MPF', () => {
+    for (const code of ['AircraftScoutW', 'AircraftScoutC', 'AircraftScout2W']) {
+      const recs = productionRecipes(code, meta[code])
+      expect(recs.find(r => r.kind === 'build')?.label, `${code} builds at the Aircraft Hangar`).toBe('Aircraft Hangar')
+      expect(recs.some(r => r.kind === 'mpf-veh'), `${code} must NOT be MPF-eligible`).toBe(false)
+    }
+  })
+  it('large planes are produced only at the Aircraft Assembly (no Garage/MPF)', () => {
+    for (const code of ['AircraftFighterW', 'AircraftBomberW', 'AircraftDiveC']) {
+      const recs = productionRecipes(code, meta[code])
+      expect(recs.some(r => r.kind === 'facility-out' && r.label === 'Aircraft Assembly'), `${code} at Aircraft Assembly`).toBe(true)
+      expect(recs.some(r => r.kind === 'build'), `${code} no Garage build`).toBe(false)
+      expect(recs.some(r => r.kind === 'mpf-veh'), `${code} no MPF`).toBe(false)
+    }
+  })
+  it('large ships build only at the Dry Dock (never Garage/Shipyard/MPF)', () => {
+    for (const code of ['LargeShipBaseShip', 'LandingShipW', 'LargeShipDestroyerW', 'LargeShipBattleshipW']) {
+      const recs = productionRecipes(code, meta[code])
+      const build = recs.find(r => r.kind === 'build')
+      // LandingShip has no facility-out recipe, so it shows a Dry Dock *build* row;
+      // the rest show a Dry Dock facility-out. Either way: no Garage/Shipyard/MPF.
+      if (build) expect(build.label, `${code} builds at the Dry Dock`).toBe('Dry Dock')
+      expect(recs.some(r => r.kind === 'build' && r.label === 'Garage'), `${code} no Garage`).toBe(false)
+      expect(recs.some(r => r.kind === 'build' && r.label === 'Shipyard'), `${code} no Shipyard`).toBe(false)
+      expect(recs.some(r => r.kind === 'mpf-veh'), `${code} no MPF`).toBe(false)
+    }
+  })
+  it('EmplacedMultiC is produced only at the Battery Line, not in the World', () => {
+    const recs = productionRecipes('EmplacedMultiC', meta.EmplacedMultiC)
+    expect(recs.some(r => r.kind === 'facility-out' && r.label === 'Battery Line'), 'Battery Line facility-out').toBe(true)
+    expect(recs.some(r => r.kind === 'build'), 'no generic build row').toBe(false)
+  })
+  it('battleship Dry Dock recipe resolves to metadata (BattleShip→Battleship canon)', () => {
+    // recipes.json output uses "BattleShip" (one s); metadata uses "Battleship".
+    // After canonicalization the Dry Dock recipe must resolve so battleships show
+    // the Dry Dock, not a bogus Garage + MPF.
+    const recs = productionRecipes('LargeShipBattleshipW', meta.LargeShipBattleshipW)
+    expect(recs.some(r => r.kind === 'facility-out' && r.label === 'Dry Dock'), 'Dry Dock facility-out').toBe(true)
+    expect(recs.some(r => r.kind === 'build' && r.label === 'Garage'), 'no Garage').toBe(false)
+    expect(recs.some(r => r.kind === 'mpf-veh'), 'no MPF').toBe(false)
   })
 })
