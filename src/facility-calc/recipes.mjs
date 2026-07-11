@@ -43,6 +43,13 @@ const CANON = {
   lighttankammo: 'LightTankAmmo',
   stickybomb: 'StickyBomb',
   rpgammo: 'RpgAmmo',
+  Facilitymaterials4: 'FacilityMaterials4',
+  HalftrackW: 'HalfTrackW',
+  HalftrackC: 'HalfTrackC',
+  HalftrackDefensiveC: 'HalfTrackDefensiveC',
+  HalftrackArtilleryC: 'HalfTrackArtilleryC',
+  HalftrackOffensiveW: 'HalfTrackOffensiveW',
+  HalftrackTwinW: 'HalfTrackTwinW',
   // Large-ship facility recipes in the export use "BattleShip" (one 's') while
   // the vehicle metadata/icon codeName is "Battleship" — canonicalize so the
   // Dry Dock recipe resolves to the metadata item (and its icon path).
