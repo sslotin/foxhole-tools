@@ -421,7 +421,7 @@ const alwaysInputSet = computed(() => {
     display: flex
     align-items: center
     gap: 8px
-    padding: 3px 8px
+    padding: 1px 8px
     border-radius: 4px
     cursor: pointer
     width: 100%
@@ -441,7 +441,7 @@ const alwaysInputSet = computed(() => {
     display: flex
     align-items: center
     gap: 8px
-    padding: 3px 8px
+    padding: 1px 8px
     border-radius: 4px
     width: 100%
     cursor: default
@@ -513,7 +513,7 @@ const alwaysInputSet = computed(() => {
   display: flex
   align-items: center
   gap: 8px
-  padding: 3px 8px
+  padding: 1px 8px
   border-radius: 4px
   width: 100%
 
