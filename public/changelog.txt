@@ -6,6 +6,11 @@ TODO:
 - Smart targets
 - Persistent history
 
+v.2.2.0 (July 11, 2026):
+- Add energy to facility calculator
+- Facility calculator algorithm and UI redesigned around resources instead of recipes
+- Metadata enrichment
+
 v.2.1.1 (July 7, 2026):
 - Facility calculator has separate imports that can be toggled
 
@@ -48,7 +53,7 @@ v1.0.1 (May 22, 2025):
 - Target shirts step changed from 10 to 50
 - Adjusted item margins in inventory mode
 
-v1.0 (May 15, 2025):
+v1.0.0 (May 15, 2025):
 - Screenshot content recognition, supporting Clean Icons Essential and New Icons Mod
 - Inventory mode: comparing two base inventories, automatic previous base detection, faction-specific targets, setting overall supply level
 - Stockpile mode: comparing target and source stockpiles, picking shipments, filtering, displaying recommended targets

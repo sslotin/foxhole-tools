@@ -190,7 +190,7 @@ watch(query, q => {
       </div>
       <div class="content" v-else>
         <div class="empty">
-          <p class="app-title">s6's foxhole tools <span class="version-label">v2.1.1-u65</span></p>
+          <p class="app-title">s6's foxhole tools <span class="version-label">v2.2.0-u65</span></p>
           <p><strong>1. Inventory mode.</strong> Pin a base, update, copy csv data, ctrl+v. Track deltas, delivery times and burn rates. Click to change report, shift-click to set reference. Set shirts target with a slider, other color-coded targets are proportional. Click to dim tech-locked items. Click faction logo to filter warden/collie/all items.</p>
           <p><strong>2. Stockpile mode.</strong> Ctrl+v a stockpile, shift-click for source, click for target. Filter categories or click items. Auto-fill and edit a shopping list. Ctrl-click on arrow increments in steps of 15, shift-click adds all available. Export shopping list as text or export full state as json that can be imported with ctrl+v or drag-and-drop.</p>
           <p><strong>3. Metadata search.</strong> Look up items, vehicles and structures. Check stats, costs and recipes. WIP</p>
