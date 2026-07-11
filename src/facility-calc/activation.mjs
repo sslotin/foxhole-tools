@@ -84,7 +84,11 @@ export function isDeactivatable (recipe, plan) {
 // `item` is the focused resource the recipe produces.
 export function toggleRecipe (src, item, recipe) {
   const next = { ...src }
-  if (next[item] === recipe) delete next[item]
+  // recipe === null is an explicit "unassign": drop the entry so the resource
+  // falls back to its natural state (default recipe if produced, imported if
+  // it is in the imported set). Clicking the already-active recipe also
+  // unassigns (next[item] === recipe).
+  if (recipe === null || next[item] === recipe) delete next[item]
   else next[item] = recipe
   return next
 }

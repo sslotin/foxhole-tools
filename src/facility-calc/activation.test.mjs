@@ -142,6 +142,15 @@ describe('toggleRecipe (assign / unassign)', () => {
     const next = toggleRecipe({ Sulfur: r }, 'Sulfur', r)
     expect(next.Sulfur).toBeUndefined()
   })
+  it('null explicitly unassigns (drops the entry -> natural state)', () => {
+    const r = producingRecipes('Sulfur')[0]
+    const next = toggleRecipe({ Sulfur: r }, 'Sulfur', null)
+    expect(next.Sulfur).toBeUndefined()
+  })
+  it('null on an unassigned item is a no-op', () => {
+    const next = toggleRecipe({}, 'Sulfur', null)
+    expect(next.Sulfur).toBeUndefined()
+  })
 })
 
 describe('activeRecipes / isDeactivatable reflect the assignment state', () => {

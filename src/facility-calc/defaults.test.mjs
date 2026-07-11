@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest'
-import { defaultRecipe } from './recipes.mjs'
+import { defaultRecipe, recipesByOutput } from './recipes.mjs'
 
 describe('defaultRecipe specific overrides', () => {
   // [codeName, expected modName]. null modName = the base (mod-less) recipe.
@@ -13,6 +13,14 @@ describe('defaultRecipe specific overrides', () => {
     ['Petrol', null],                                           // base Oil Refinery recipe
     ['FacilityCoal1', 'Coke Furnace'],                          // Coke
     ['GroundMaterials', null],                                  // Gravel (Concrete Mixer, Metal variant)
+    // Basic / harvested resources: base Stationary Harvester (not Excavator),
+    // Electric Oil Well, and Sulfuric Reactor (Heavy Oil) for power.
+    ['Metal', null],                                             // Stationary Harvester (Salvage)
+    ['Coal', null],                                              // Stationary Harvester (Coal)
+    ['Sulfur', null],                                            // Stationary Harvester (Sulfur)
+    ['Components', null],                                        // Stationary Harvester (Components)
+    ['Oil', 'Electric Oil Well'],                                 // Electric Oil Well
+    ['Energy', 'Sulfuric Reactor'],                              // Sulfuric Reactor (Heavy Oil)
   ]
   for (const [code, modName] of cases) {
     it(`${code} defaults to the expected recipe`, () => {
@@ -35,6 +43,24 @@ describe('defaultRecipe specific overrides', () => {
     expect(r.inputs.some(i => i.codeName === 'Metal')).toBe(true)
     expect(r.inputs.some(i => i.codeName === 'Coal')).toBe(false)
   })
+
+  it('Power default is the Sulfuric Reactor burning Heavy Oil (not base Power Station)', () => {
+    const r = defaultRecipe('Energy')
+    expect(r.facilityKey).toBe('FacilityPowerOil')
+    expect(r.mod).toBe('SulfuricReactor')
+    expect(r.inputs.some(i => i.codeName === 'FacilityOil1')).toBe(true)
+  })
+})
+
+describe('every resource with multiple recipes has a default', () => {
+  for (const [code, recipes] of Object.entries(recipesByOutput)) {
+    if (recipes.length < 2) continue
+    it(`${code} (${recipes.length} recipes) resolves to a non-null default`, () => {
+      const d = defaultRecipe(code)
+      expect(d).toBeTruthy()
+      expect(recipes).toContain(d)
+    })
+  }
 })
 
 describe('aircraft parts default to new-build, not repair-from-wreckage', () => {

@@ -24,8 +24,15 @@ import {
   recipesFor, defaultRecipe, defaultPowerRecipe, energyMWh, effectiveDuration
 } from './recipes.mjs'
 
-// Terminal resources: the planner never manufactures these (they stay imported
-// unless the user explicitly assigns a recipe, e.g. Energy -> power plant).
+// Terminal resources: when IMPORTED they are never auto-assigned a recipe
+// (they stay imported). They are: salvage(Metal), coal, components, sulfur,
+// oil, energy. This is the "initial algorithm pass" stop condition — basics are
+// imported by default, so the expansion halts at them. But a basic is only
+// terminal while it is imported: if the user opts out of importing one (removes
+// it from the imported set) or explicitly assigns it a recipe, the planner
+// manufactures it with its default recipe, letting the user "break down" a
+// basic and explore further. So the terminal check below keys off `imported`,
+// not BASIC_RESOURCES directly.
 // salvage -> Metal, Coke -> FacilityCoal1, Heavy oil -> FacilityOil1,
 // Cmats -> FacilityMaterials1 (see PRODUCED_BEFORE for the rest).
 export const BASIC_RESOURCES = new Set([
@@ -87,7 +94,7 @@ export function expandState (desired, selectedRecipes = {}, imported = new Set()
       if (rec) for (const inp of rec.inputs) if (!seen.has(inp.codeName)) queue.push(inp.codeName)
       continue
     }
-    if (imported.has(R) || BASIC_RESOURCES.has(R) || recipesFor(R).length === 0) {
+    if (imported.has(R) || recipesFor(R).length === 0) {
       assigned[R] = null // imported (terminal / forced / no recipe)
       continue
     }
@@ -249,10 +256,15 @@ export function evaluate (assigned, desired, imported = new Set()) {
 // Public entry — compatible with the old resolver.mjs call shape.
 export function resolvePlan (desired, selectedRecipes = {}, imported = new Set(), opts = {}) {
   const assigned = expandState(desired, selectedRecipes, imported)
-  // Map the legacy energy toggle onto the assignment state.
-  if (!('Energy' in assigned)) {
-    if (opts.energyImported === false) assigned.Energy = defaultPowerRecipe()
-    else assigned.Energy = null
+  // Energy import/produce toggle. In IMPORT mode energy is always imported
+  // (no power plant runs) — any manually-selected power recipe is ignored but
+  // preserved in selectedRecipes so it reactivates when switched back to
+  // produce. In PRODUCE mode a manual selection is kept, else the default
+  // power recipe is used.
+  if (opts.energyImported === false) {
+    if (!('Energy' in assigned)) assigned.Energy = defaultPowerRecipe()
+  } else {
+    assigned.Energy = null
   }
   return evaluate(assigned, desired, imported)
 }

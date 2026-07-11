@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest'
 import { resolvePlan, reachableRecipes } from './resolver.mjs'
-import { modLabel, recipesFor, effectivePower, isPad, energyMWh } from './recipes.mjs'
+import { modLabel, recipesFor, effectivePower, isPad, energyMWh, defaultPowerRecipe } from './recipes.mjs'
 
 // Mirrors the FacilityCalc `facilities` computed + the template `:key`.
 // The bug: template used only `facilityKey` as `:key`. A single facility's
@@ -104,20 +104,35 @@ describe('energy pseudo-resource', () => {
     expect(net).toBeLessThan(0)
   })
 
-  it('toggled to produced: adds a power process covering the deficit; fuel in raw', () => {
+  it('toggled to produced: adds a power process (default = Sulfuric Reactor, Heavy Oil)', () => {
     const plan = resolvePlan([{ codeName: 'LRArtilleryAmmo', qty: 10 }], {}, new Set(), { energyImported: false })
     const energyProc = plan.processes.find(p => p.item === 'Energy')
     expect(energyProc).toBeTruthy()
-    let net = 0
-    for (const p of plan.processes) net += effectivePower(p.recipe) * p.time / 3_600_000
-    expect(net).toBeCloseTo(0, 1)
-    // power fuel (Oil) appears as a raw requirement, not enqueued
-    expect(Object.keys(plan.raw).length).toBeGreaterThan(0)
+    // The default power recipe produces energy and is the Sulfuric Reactor
+    // burning Heavy Oil (per project default), so its fuel (Heavy Oil) is
+    // produced via the Cracking Unit rather than imported raw — net power is
+    // therefore no longer ~0 as it was for the base Power Station.
+    expect(energyMWh(energyProc.recipe)).toBeGreaterThan(0)
+    const def = defaultPowerRecipe()
+    expect(def.facilityKey).toBe('FacilityPowerOil')
+    expect(def.mod).toBe('SulfuricReactor')
+    expect(def.inputs.some(i => i.codeName === 'FacilityOil1')).toBe(true)
+    // Heavy Oil (the reactor fuel) is accounted for in the plan.
+    expect(plan.intermediate['FacilityOil1'] ?? plan.raw['FacilityOil1']).toBeTruthy()
   })
 
-  it('selecting a power recipe in import mode also produces energy', () => {
+  it('import mode ignores a manually-selected power recipe (energy is imported)', () => {
     const station = recipesFor('Energy').find(r => r.facilityKey === 'FacilityPowerOil' && r.mod === null)
+    // With energyImported: true, energy is imported regardless of a selected
+    // power recipe — the import/produce toggle is authoritative.
     const plan = resolvePlan([{ codeName: 'LRArtilleryAmmo', qty: 10 }], { Energy: station }, new Set(), { energyImported: true })
+    expect(plan.processes.find(p => p.item === 'Energy')).toBeFalsy()
+    expect(plan.raw.Energy).toBeTruthy()
+  })
+
+  it('produce mode keeps a manually-selected power recipe (energy is produced)', () => {
+    const station = recipesFor('Energy').find(r => r.facilityKey === 'FacilityPowerOil' && r.mod === null)
+    const plan = resolvePlan([{ codeName: 'LRArtilleryAmmo', qty: 10 }], { Energy: station }, new Set(), { energyImported: false })
     expect(plan.processes.find(p => p.item === 'Energy')).toBeTruthy()
   })
 
@@ -155,22 +170,24 @@ describe('building base power fallback', () => {
 
 describe('imported (user-supplied) items', () => {
   it('treats a forced-import item as an import, not manufactured', () => {
-    // Coal is a basic/terminal resource. Whether or not the user explicitly
-    // opts to import it, the planner never manufactures it; it is reported as
-    // an import (in `raw`). There is no separate `inputs` bucket in the new
-    // uniform-import model.
+    // Coal is a basic resource and is in the imported set, so the planner
+    // reports it as an import (in `raw`). There is no separate `inputs` bucket
+    // in the new uniform-import model.
     const plan = resolvePlan([{ codeName: 'Coal', qty: 3 }], {}, new Set(['Coal']))
     expect(plan.raw.Coal).toBe(3)
     expect(plan.intermediate.Coal).toBeUndefined()
   })
-  it('basic/terminal resources stay imported even when not user-imported', () => {
-    // Coal is in BASIC_RESOURCES, so the planner never manufactures it; it is
-    // reported as an import regardless of the imported set (this replaces the
-    // old ALWAYS_RAW manufacture-when-unimported behavior).
+  it('a basic resource is manufactured with its default recipe when the user opts out of importing it', () => {
+    // Coal is a basic resource: by default it is imported (terminal) because
+    // the imported set seeds it. But when the user opts out (empty imported
+    // set) and it is demanded, the planner manufactures it with its default
+    // recipe instead of leaving it as an import — this is how a user "breaks
+    // down" a basic and explores further.
     const plan = resolvePlan([{ codeName: 'Coal', qty: 3 }], {}, new Set())
-    expect(plan.inputs.Coal).toBeUndefined()
-    expect(plan.raw.Coal).toBe(3)
-    expect(plan.intermediate.Coal).toBeUndefined()
+    expect(plan.raw.Coal).toBeUndefined()
+    expect(plan.assigned.Coal).toBeTruthy()           // manufactured with a recipe
+    expect(plan.assigned.Coal.mod).toBe(null)          // default = Stationary Harvester
+    expect(plan.assigned.Coal.facilityKey).toBe('FacilityMineResource4')
   })
   it('a non-basic item that has a recipe is manufactured', () => {
     // FlameAmmo (target) is made from Cmats (FacilityMaterials1), a non-basic

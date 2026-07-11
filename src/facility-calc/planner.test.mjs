@@ -7,7 +7,7 @@ import { recipesFor, defaultPowerRecipe } from './recipes.mjs'
 
 const DEFAULT_IMPORTED = new Set(['Metal', 'Coal', 'Sulfur', 'Components', 'Oil'])
 
-describe('basic resources are terminal (never auto-assigned a recipe)', () => {
+describe('basic resources are terminal while imported (never auto-assigned a recipe unless opted-in)', () => {
   it('no basic resource gets a recipe after expansion', () => {
     const a = expandState([{ codeName: 'FlameAmmo', qty: 50 }], {}, DEFAULT_IMPORTED)
     // A resource with no recipe in the state (undefined) or explicitly null

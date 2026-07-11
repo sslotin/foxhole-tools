@@ -226,8 +226,9 @@ export function recipesFor (item) {
 // to 'produced' and the user hasn't picked a specific one. Prefer the standard
 // Power Station (Oil); fall back to any available power recipe.
 export function defaultPowerRecipe () {
-  const candidates = recipesFor('Energy')
-  return candidates.find(r => r.facilityKey === 'FacilityPowerOil' && r.mod === null) || candidates[0] || null
+  // Prefer the configured default power recipe (Energy override), which is the
+  // Sulfuric Reactor burning Heavy Oil; fall back to any available recipe.
+  return defaultRecipe('Energy') || recipesFor('Energy')[0] || null
 }
 
 // Recipes that CONSUME `item` as an input (reverse index). Used by the Search
@@ -262,6 +263,17 @@ const DEFAULT_OVERRIDES = {
   FacilityCoal1: { facilityKey: 'FacilityRefineryCoal', mod: 'CokeFurnace' },
   // Gravel → produced from Salvage (Metal) rather than Coal
   GroundMaterials: { facilityKey: 'ConcreteMixer', mod: null, hasInput: 'Metal' },
+  // --- Basic / harvested resources: prefer the base Stationary Harvester
+  // (not the Excavator mod) for each mine. The "Salvage" field
+  // (FacilityMineResource1) yields Metal in our data.
+  Metal: { facilityKey: 'FacilityMineResource1', mod: null },
+  Coal: { facilityKey: 'FacilityMineResource4', mod: null },
+  Sulfur: { facilityKey: 'FacilityMineResource3', mod: null },
+  Components: { facilityKey: 'FacilityMineResource2', mod: null },
+  // Oil → Electric Oil Well (not the hand-cranked base or Fracker)
+  Oil: { facilityKey: 'FacilityMineOil', mod: 'Electric' },
+  // Power → Sulfuric Reactor burning Heavy Oil (not the base Power Station)
+  Energy: { facilityKey: 'FacilityPowerOil', mod: 'SulfuricReactor', hasInput: 'FacilityOil1' },
 }
 
 export function defaultRecipe (item) {

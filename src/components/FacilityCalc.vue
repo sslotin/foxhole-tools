@@ -2,7 +2,7 @@
 import { computed, ref } from 'vue'
 import { calc } from '../facility-calc/store.mjs'
 import {
-  recipesFor, displayName, modLabel, isPad, energyMWh,
+  recipesFor, displayName, modLabel, isPad, energyMWh, defaultRecipe,
 } from '../facility-calc/recipes.mjs'
 import { powerByFacility as computePowerByFacility, peakPowerMW as computePeakPowerMW } from '../facility-calc/power.mjs'
 import { resolvePlan, reachableRecipes } from '../facility-calc/resolver.mjs'
@@ -12,9 +12,8 @@ import {
   isActiveFor,
   activeRecipes as activeForPlan,
   clickableRecipes as clickableForReachable,
-  toggleRecipe,
 } from '../facility-calc/activation.mjs'
-import { toggleImported, toggleSkipAutoImport } from '../facility-calc/store.mjs'
+import { toggleImported, toggleSkipAutoImport, chooseRecipe, toggleEnergy } from '../facility-calc/store.mjs'
 import FacItem from './FacItem.vue'
 import PowerChip from './PowerChip.vue'
 
@@ -76,11 +75,16 @@ const pickerGroups = computed(() => {
   const items = focusItems(focused.value, calc.desired)
   const out = []
   for (const codeName of items) {
+    // The default recipe (used when the user hasn't pinned one) is tagged so
+    // the picker can show a subtle '(default)' note on its row when NO recipe
+    // is assigned for this resource (it is imported / terminal).
+    const def = defaultRecipe(codeName)
+    const assigned = plan.value.assigned[codeName]
     // Tag each option with whether it is the recipe assigned to produce THIS
     // resource (not merely a recipe that happens to also output it while being
     // assigned for some other resource).
     let recipes = recipeOptions(codeName)
-      .map(r => ({ r, item: codeName, active: isActiveFor(plan.value.assigned, codeName, r) }))
+      .map(r => ({ r, item: codeName, active: isActiveFor(plan.value.assigned, codeName, r), showDefault: r === def && !assigned }))
     if (recipes.length) out.push({ codeName, label: displayName(codeName), recipes })
   }
   return out
@@ -105,8 +109,9 @@ const energyProducedMWh = computed(() => {
 })
 // Energy shows in Imports only when it's an actual import need (imported mode
 // with a deficit); otherwise it's produced/covered and shows in Intermediates.
+// Energy shows in Imports only when it's an actual import need (imported mode
+// with a deficit); otherwise it's produced/covered and shows in Intermediates.
 const energyInImports = computed(() => calc.energyImported && energyDeficitMWh.value > 1e-6)
-function toggleEnergy () { calc.energyImported = !calc.energyImported }
 
 // Per-facility power aggregation + peak are pure (src/facility-calc/power.mjs,
 // unit-tested). Power-producing buildings sort LAST and contribute 0 to peak
@@ -115,10 +120,46 @@ const powerByFacility = computed(() => computePowerByFacility(plan.value))
 const peakPowerMW = computed(() => computePeakPowerMW(powerByFacility.value))
 
 function handleInputClick (codeName) {
-  // ALWAYS_RAW items toggle their auto-import opt-out; everything else toggles
-  // explicit import.
-  if (DEFAULT_IMPORTED.includes(codeName)) toggleSkipAutoImport(codeName)
-  else toggleImported(codeName)
+  if (DEFAULT_IMPORTED.includes(codeName)) { toggleSkipAutoImport(codeName); return }
+  // A manually-pinned intermediate (selectedRecipes[codeName] set) must have its
+  // pin cleared, otherwise expandState force-produces the pinned recipe and the
+  // import toggle is overridden — clicking the resource looks like a no-op
+  // (the "can't unassign Petrol" bug). After clearing the pin we force-import
+  // (add if missing), mirroring clicking the active recipe in the right panel.
+  if (codeName in calc.selectedRecipes) {
+    chooseRecipe(codeName, null)
+    if (!calc.imported.includes(codeName)) calc.imported.push(codeName)
+    return
+  }
+  // Unpinned intermediate: standard import <-> produce toggle.
+  toggleImported(codeName)
+}
+
+// Click a recipe row in the right-panel picker.
+//  - An inactive recipe is pinned (the resource is produced with it).
+//  - The already-active recipe is DEACTIVATED: the resource stops being
+//    produced and is imported instead. We must both drop the manual recipe
+//    pin (otherwise expandState would keep force-producing it) and mark the
+//    resource imported. This mirrors the left-panel row click (which toggles
+//    imported <-> produced-with-default) and matches the user's mental model:
+//    "click the assigned recipe to unassign it" => import it.
+function handleRecipePick (entry) {
+  if (!entry.active) {
+    chooseRecipe(entry.item, entry.r)
+    return
+  }
+  // Active recipe clicked -> unassign to an import. We must drop the manual
+  // pin (otherwise expandState keeps force-producing it) AND mark the
+  // resource imported. The import is FORCED (added if missing), not toggled
+  // — a resource that was already imported before being pinned must stay
+  // imported after unassign, not flip back to its default-produced recipe.
+  if (entry.item === 'Energy') { toggleEnergy(); return } // flips to import (clears pin)
+  chooseRecipe(entry.item, null) // drop the manual pin first
+  if (DEFAULT_IMPORTED.includes(entry.item)) {
+    if (calc.skipAutoImport.includes(entry.item)) toggleSkipAutoImport(entry.item)
+  } else if (!calc.imported.includes(entry.item)) {
+    calc.imported.push(entry.item)
+  }
 }
 
 // Click a recipe to toggle it: an already-active (pinned) recipe is
@@ -128,9 +169,6 @@ function handleInputClick (codeName) {
 // Click a recipe to toggle it (pure toggle in activation.mjs, kept in sync
 // with the tests): an already-active (pinned) recipe is deactivated
 // (reverts to the default), an inactive alternative is pinned.
-function chooseRecipe (item, recipe) {
-  calc.selectedRecipes = toggleRecipe(calc.selectedRecipes, item, recipe)
-}
 function fmt (n) {
   // Resources are aggregated from fractional runs; round up so a partial
   // unit still has to be sourced. Tiny epsilon absorbs FP noise.
@@ -306,7 +344,7 @@ const alwaysInputSet = computed(() => {
             class="recipe-row"
             :class="{ active: entry.active, clickable: clickableRecipes.has(entry.r) }"
             :title="entry.active ? 'click to deactivate' : ''"
-            @click="chooseRecipe(entry.item, entry.r)"
+            @click="handleRecipePick(entry)"
           >
             <span class="fac-info">
             <img :src="`/icons/${entry.r.facilityKey}.png`"
@@ -323,7 +361,7 @@ const alwaysInputSet = computed(() => {
               <FacItem v-for="(out, k) in entry.r.outputs.filter(o => o.codeName !== 'Energy')" :key="k" :codeName="out.codeName" :qty="out.quantity" />
               <PowerChip v-if="entry.r.powerDelta > 0" :recipe="entry.r" />
             </span>
-            <span class="io-time" :class="{ visible: entry.active }">{{ entry.active ? fmtTime(timeByRecipe.get(entry.r)) : '' }}</span>
+            <span class="io-time" :class="{ visible: entry.active || entry.showDefault, default: entry.showDefault }">{{ entry.active ? fmtTime(timeByRecipe.get(entry.r)) : (entry.showDefault ? '(default)' : '') }}</span>
           </div>
         </div>
       </div>
@@ -619,8 +657,16 @@ const alwaysInputSet = computed(() => {
     &.visible
       visibility: visible
 
+    &.default
+      color: #8a8a8a
+
   &.active
     background: var(--green-active)
+
+    // Hover on the active recipe: slightly lighter than --green-active so the
+    // user gets feedback that it is clickable to deactivate (unassign).
+    &:hover
+      background: #244824
 
   // Dimmed (not clickable): a recipe that neither produces a relevant item nor
   // is currently active. Clicking can't usefully change the plan for it, so

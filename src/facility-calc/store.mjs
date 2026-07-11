@@ -3,7 +3,8 @@
 // Both Search.vue (left picker, "+" button) and FacilityCalc.vue (right panel)
 // import this, avoiding prop drilling. State persists for the page session.
 
-import { reactive } from 'vue'
+import { reactive, watch } from 'vue'
+import { toggleRecipe } from './activation.mjs'
 
 export const calc = reactive({
   active: false,          // is the calculator panel shown in place of metadata?
@@ -13,6 +14,13 @@ export const calc = reactive({
   skipAutoImport: [],     // codeNames the user explicitly opted out of auto-import for
   energyImported: true,   // energy pseudo-resource: true = imported (grid), false = produced
 })
+
+// Recipe assignments are derived from the current targets. Whenever the target
+// set (or any target quantity) changes, drop all manual recipe choices and
+// recalculate from scratch using defaults — a stale per-item selection must not
+// carry over to a different plan. (Import/energy mode flags are preferences, not
+// assignments, so they are left untouched.)
+watch(() => calc.desired, () => { calc.selectedRecipes = {} }, { deep: true, flush: 'sync' })
 
 export function addDesired (codeName, qty = 1) {
   const existing = calc.desired.find(d => d.codeName === codeName)
@@ -31,4 +39,28 @@ export function toggleSkipAutoImport (codeName) {
   const idx = calc.skipAutoImport.indexOf(codeName)
   if (idx >= 0) calc.skipAutoImport.splice(idx, 1)
   else calc.skipAutoImport.push(codeName)
+}
+
+// Assign/unassign a facility recipe for an item. For the Energy pseudo-resource,
+// assigning a power recipe switches it to PRODUCE mode (an imported pseudo-
+// resource can't also run a power plant); unassigning leaves the import flag as-
+// is so the resolver falls back to import / default-recipe produce.
+export function chooseRecipe (item, recipe) {
+  const next = toggleRecipe(calc.selectedRecipes, item, recipe)
+  if (item === 'Energy' && next.Energy) calc.energyImported = false
+  calc.selectedRecipes = next
+}
+
+// Toggle Energy between import and produce. Any manually-selected power recipe
+// is cleared so the toggle is always authoritative and no stale selection can
+// linger while imported (which would make a later re-click unassign instead of
+// assign). The resolver additionally treats import mode as authoritative, so a
+// selection present alongside imported=true is ignored until cleared here.
+export function toggleEnergy () {
+  calc.energyImported = !calc.energyImported
+  if (calc.selectedRecipes.Energy) {
+    const next = { ...calc.selectedRecipes }
+    delete next.Energy
+    calc.selectedRecipes = next
+  }
 }

@@ -21,6 +21,8 @@
   "devDependencies": {
     "@esbuild-plugins/node-globals-polyfill": "^0.2.3",
     "@vitejs/plugin-vue": "^5.2.1",
+    "@vue/test-utils": "^2.4.11",
+    "happy-dom": "^15.11.7",
     "sass": "^1.84.0",
     "sass-loader": "^16.0.4",
     "vite": "^6.0.11",
