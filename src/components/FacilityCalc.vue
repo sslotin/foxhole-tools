@@ -405,7 +405,7 @@ const alwaysInputSet = computed(() => {
     color: #bfe6bf
 
 .fc-block
-  margin-bottom: 20px
+  margin-bottom: 12px
 
   h3
     margin: 0 0 8px
