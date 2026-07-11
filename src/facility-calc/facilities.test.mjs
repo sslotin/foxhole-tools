@@ -154,21 +154,29 @@ describe('building base power fallback', () => {
 })
 
 describe('imported (user-supplied) items', () => {
-  it('treats an imported ALWAYS_RAW item as an input, not manufactured', () => {
-    // Coal is an ALWAYS_RAW default. When the user opts to import it (or the
-    // component auto-imports it), it must land in `inputs` and its facility
-    // recipe must NOT run. The FacilityCalc bug ignored `skipAutoImport`, so
-    // this path was never reachable via the UI toggle.
+  it('treats a forced-import item as an import, not manufactured', () => {
+    // Coal is a basic/terminal resource. Whether or not the user explicitly
+    // opts to import it, the planner never manufactures it; it is reported as
+    // an import (in `raw`). There is no separate `inputs` bucket in the new
+    // uniform-import model.
     const plan = resolvePlan([{ codeName: 'Coal', qty: 3 }], {}, new Set(['Coal']))
-    expect(plan.inputs.Coal).toBe(3)
-    expect(plan.raw.Coal).toBeUndefined()
+    expect(plan.raw.Coal).toBe(3)
     expect(plan.intermediate.Coal).toBeUndefined()
   })
-  it('manufactures an unimported ALWAYS_RAW item through its facility recipe', () => {
+  it('basic/terminal resources stay imported even when not user-imported', () => {
+    // Coal is in BASIC_RESOURCES, so the planner never manufactures it; it is
+    // reported as an import regardless of the imported set (this replaces the
+    // old ALWAYS_RAW manufacture-when-unimported behavior).
     const plan = resolvePlan([{ codeName: 'Coal', qty: 3 }], {}, new Set())
     expect(plan.inputs.Coal).toBeUndefined()
-    // Its production chain (Petrol/Oil) is what ends up in intermediate.
-    expect(Object.keys(plan.intermediate).length).toBeGreaterThan(0)
+    expect(plan.raw.Coal).toBe(3)
+    expect(plan.intermediate.Coal).toBeUndefined()
+  })
+  it('a non-basic item that has a recipe is manufactured', () => {
+    // FlameAmmo (target) is made from Cmats (FacilityMaterials1), a non-basic
+    // manufactured item that must appear in intermediates (targets are excluded).
+    const plan = resolvePlan([{ codeName: 'FlameAmmo', qty: 5 }], {}, new Set())
+    expect(plan.intermediate.FacilityMaterials1).toBeGreaterThan(0)
   })
 })
 

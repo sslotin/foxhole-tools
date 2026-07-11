@@ -10,7 +10,24 @@
 > their server; do NOT restart it yourself.** Always `npm run build` first to confirm the
 > code itself is valid (a clean build rules out a real syntax error).
 
-Last updated: Jul 10, 2026 (metadata display styling + docs accuracy pass).
+Last updated: Jul 11, 2026 (energy import/produce toggle + sticky-hover focus + Facilities panel styling + docs accuracy pass).
+
+## Recent UI changes (Jul 11, 2026)
+- **Energy import↔produce toggle (verified working):** clicking the **Energy** row in either
+  *Imports* (only shown when imported mode has a deficit, `energyDeficitMWh > 1e-6`) or
+  *Intermediates* (shown when `energyProducedMWh > 1e-6`, i.e. produced mode) toggles
+  `calc.energyImported`. Toggling moves the pseudo-resource between the two sections — confirmed by
+  running the real `store.mjs` + `resolvePlan` (energy goes `intermediate.Energy → raw.Energy` on
+  import; clicking a non-energy intermediate like `FacilityMaterials1` likewise moves it to Imports).
+  A reported "click doesn't work" was a stale-HMR glitch, **not** a code bug (see dev-server note).
+- **Sticky hover focus:** hovering a left-panel resource row sets `focused = codeName`; the right
+  panel then filters to that resource's recipe options. `focused` persists while the mouse travels
+  from the row left→right into the right panel (per-row `@mouseleave` was removed; focus only resets
+  on leaving the whole `.fac-calc` root), so options stay visible while you move to click them.
+- **Facilities panel styling:** each `.power-row` is flex (`[icon] [name grows + ellipsizes] [power]`);
+  `.pw` is pinned right (`margin-left: auto; text-align: right`) and always displays fully
+  (`white-space: nowrap`); `.nm` ellipsizes with dots and has no right margin/padding. Peak line reads
+  `= xMW peak`.
 
 ## Product Context
 

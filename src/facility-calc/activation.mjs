@@ -1,73 +1,87 @@
 // Display-layer activation logic for the Facility Cost Calculator recipe
-// picker. Kept pure (no Vue / no UI imports) so it can be unit-tested
-// and shared with FacilityCalc.vue, which wires these into computeds. The
-// tests in activation.test.mjs exercise the same functions.
+// picker, adapted to the assignment-state model.
 //
-// Two user-facing rules drive everything:
-//   1. A recipe is clickable/activatable iff it PRODUCES at least one item
-//      that is listed in the left panel as an Import (raw/mined) or an
-//      Intermediate (manufactured in-chain). You can click to (re)choose how
-//      such an item is produced. Desired targets and the Energy pseudo-resource
-//      are deliberately excluded — a desired item's recipe is chosen by setting
-//      its quantity, not by pinning a recipe.
-//   2. You can click to DEACTIVATE any active recipe that ONLY produces
-//      imports/intermediates (never a desired target / Energy). Such a recipe
-//      is also clickable (rule 1), so the click is available; clicking
-//      toggles it back to the resolver's default choice.
+// Picker interaction (per spec):
+//   * The right panel shows recipe options for a FOCUSED resource — the
+//     resource the user is hovering in the left panel. When nothing is
+//     focused it shows the options for producing each desired TARGET.
+//   * A recipe is clickable (bright) iff it PRODUCES the focused resource (or,
+//     with no focus, a target). Clicking it assigns that recipe to the
+//     resource. Clicking an already-active recipe unassigns it (makes the
+//     resource an import).
+//   * Clickable also always includes every ACTIVE (running/assigned) recipe,
+//     so an active recipe is never dimmed and can always be deactivated.
+//     Dimmed (not clickable) is therefore everything else.
+//
+// These are pure functions (no Vue) so they can be unit-tested and shared with
+// FacilityCalc.vue. activation.test.mjs exercises the same functions.
 
-// Items the user may (re)choose a recipe for: things the plan lists as
-// Imports (plan.raw + plan.inputs), Intermediates (plan.intermediate), or
-// the Energy pseudo-resource (always relevant, so power-plant recipes stay
-// clickable like any other intermediate producer). Returns a Set of codeNames.
-export function relevantItems (plan) {
-  const s = new Set()
-  for (const c of Object.keys(plan.raw || {})) s.add(c)
-  for (const c of Object.keys(plan.inputs || {})) s.add(c)
-  for (const c of Object.keys(plan.intermediate || {})) s.add(c)
-  s.add('Energy')
-  return s
+import { recipesFor } from './recipes.mjs'
+
+// Recipes that directly produce `codeName` (primary or by-product output).
+export function producingRecipes (codeName) {
+  return recipesFor(codeName)
+}
+
+// Whether `recipe` is the one assigned to produce `codeName` SPECIFICALLY.
+// A recipe can output several resources (e.g. CoalLiquefier -> Concrete+Sulfur
+// +Oil); if it is assigned to Concrete it must NOT be highlighted as "active"
+// for Sulfur or Oil. This is what the picker uses to light up the active row.
+export function isActiveFor (assigned, codeName, recipe) {
+  return assigned[codeName] === recipe
+}
+
+// Recipes that can be assigned to produce `codeName`, offered as picker
+// options. Special exception: the Sulfuric Reactor is a power plant that only
+// yields sulfur as a by-product, so it must NOT be presented as a sulfur
+// recipe (it is still offered for Energy).
+export function recipeOptions (codeName) {
+  const opts = producingRecipes(codeName)
+  if (codeName === 'Sulfur') return opts.filter(r => r.mod !== 'SulfuricReactor')
+  return opts
+}
+
+// The resource(s) the right panel currently offers recipes for: the focused
+// resource, or (when nothing is focused) every desired target codeName.
+export function focusItems (focused, targets) {
+  if (focused) return [focused]
+  return targets.map(t => t.codeName)
 }
 
 // Recipes the picker offers (clickable / not dimmed): those whose outputs
-// intersect the relevant set. `reachable` is the Map<recipe, primaryOutput>
-// returned by reachableRecipes().
-export function activatableRecipes (reachable, relevant) {
-  const set = new Set()
+// intersect the focused item(s), PLUS every currently active recipe.
+// `reachable` is the Map<recipe, primaryOutput> from reachableRecipes().
+export function clickableRecipes (reachable, focused, active, targets) {
+  const set = new Set(active)
+  const items = focusItems(focused, targets)
   for (const [r] of reachable) {
-    if (r.outputs.some(o => relevant.has(o.codeName))) set.add(r)
+    if (items.some(it => r.outputs.some(o => o.codeName === it))) set.add(r)
   }
+  // Also include recipes that produce a focused item even if they lie outside
+  // the target dependency closure (e.g. producing a basic/imported resource
+  // the user wants to manufacture). `reachable` only covers the closure.
+  for (const it of items) for (const r of producingRecipes(it)) set.add(r)
   return set
 }
 
-// Recipes the picker presents as clickable (bright, never dimmed): every
-// activatable recipe PLUS every currently active (running/pinned) recipe.
-// This enforces the invariant "an active recipe is never dimmed" — a pinned
-// recipe can outlive its output leaving the relevant set, yet must stay
-// clickable so the user can deactivate it. Dimmed (not clickable) is therefore
-// everything else (neither activatable nor active). See activation.test.mjs.
-export function clickableRecipes (reachable, relevant, active) {
-  const set = activatableRecipes(reachable, relevant)
-  for (const r of active) set.add(r)
-  return set
-}
-
-// A recipe can be DEACTIVATED (clicked back to default) iff ALL its outputs
-// are relevant — i.e. it only produces imports/intermediates, never a desired
-// target or Energy. (A recipe with no outputs is never deactivatable.)
-export function isDeactivatable (recipe, relevant) {
-  return recipe.outputs.length > 0 &&
-    recipe.outputs.every(o => relevant.has(o.codeName))
-}
-
-// Recipes actually running in the current plan, by identity.
+// Recipes actually running in the current plan (assigned, non-null), by
+// identity. `plan.assigned` is the full assignment-state map from planner.mjs.
 export function activeRecipes (plan) {
-  return new Set(plan.processes.map(p => p.recipe))
+  const s = new Set()
+  for (const r of Object.values(plan.assigned || {})) if (r) s.add(r)
+  return s
 }
 
-// Toggle a recipe selection. If `recipe` is already the chosen one for
-// `item`, it is removed (deactivated -> reverts to the resolver default);
-// otherwise it is pinned. Returns a NEW selectedRecipes object (does not
-// mutate `src`). `item` is the primary output the recipe is chosen for.
+// A recipe can be deactivated (clicked back to an import) iff it is currently
+// active (assigned). Clicking it unassigns the focused resource.
+export function isDeactivatable (recipe, plan) {
+  return activeRecipes(plan).has(recipe)
+}
+
+// Toggle a recipe assignment. If `recipe` is already the chosen one for
+// `item`, it is removed (deactivated -> reverts to default/import); otherwise
+// it is pinned. Returns a NEW selectedRecipes object (does not mutate `src`).
+// `item` is the focused resource the recipe produces.
 export function toggleRecipe (src, item, recipe) {
   const next = { ...src }
   if (next[item] === recipe) delete next[item]

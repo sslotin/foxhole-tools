@@ -244,10 +244,24 @@ export function recipesWithInput (item) {
 // For modifications with multiple recipes producing the same item, `hasInput`
 // further disambiguates.
 const DEFAULT_OVERRIDES = {
-  // Processed Construction Materials → BlastFurnace (heavy oil recipe)
-  FacilityMaterials2: { facilityKey: 'FacilityRefinery2', mod: 'BlastFurnace' },
-  // Steel → EngineeringStation enriched oil recipe
+  // Processed Construction Materials → Recycler
+  FacilityMaterials2: { facilityKey: 'FacilityRefinery2', mod: 'Recycler' },
+  // Construction Materials → Metal Press (consumes Petrol)
+  FacilityMaterials1: { facilityKey: 'FacilityRefinery1', mod: 'MetalPress', hasInput: 'Petrol' },
+  // Steel Construction Materials → Engineering Station (consumes Enriched Oil)
   FacilityMaterials3: { facilityKey: 'FacilityRefinery2', mod: 'EngineeringStation', hasInput: 'FacilityOil2' },
+  // Concrete Materials → Advanced Coal Liquefier
+  Concrete: { facilityKey: 'FacilityRefineryCoal', mod: 'AdvCoalLiquefier' },
+  // Enriched Oil → Petrochemical Plant
+  FacilityOil2: { facilityKey: 'FacilityRefineryOil', mod: 'PetrochemicalPlant' },
+  // Heavy Oil → Cracking Unit
+  FacilityOil1: { facilityKey: 'FacilityRefineryOil', mod: 'CrackingUnit' },
+  // Petrol → base Oil Refinery recipe
+  Petrol: { facilityKey: 'FacilityRefineryOil', mod: null },
+  // Coke → Coke Furnace
+  FacilityCoal1: { facilityKey: 'FacilityRefineryCoal', mod: 'CokeFurnace' },
+  // Gravel → produced from Salvage (Metal) rather than Coal
+  GroundMaterials: { facilityKey: 'ConcreteMixer', mod: null, hasInput: 'Metal' },
 }
 
 export function defaultRecipe (item) {
@@ -263,6 +277,13 @@ export function defaultRecipe (item) {
     })
     if (preferred) return preferred
   }
+
+  // When a resource can be made both "new" and by repairing wreckage (the two
+  // recipes share facility + modification, differing only by a Wrecked input),
+  // prefer the new-build recipe as the default.
+  const usesWrecked = r => r.inputs.some(i => i.codeName.includes('Wrecked'))
+  const fresh = arr.filter(r => !usesWrecked(r))
+  if (fresh.length > 0 && fresh.length < arr.length) return fresh[0]
 
   return arr.find(r => r.mod === null) || arr[0] || null
 }

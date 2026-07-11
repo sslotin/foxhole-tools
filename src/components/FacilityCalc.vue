@@ -1,5 +1,5 @@
 <script setup>
-import { computed } from 'vue'
+import { computed, ref } from 'vue'
 import { calc } from '../facility-calc/store.mjs'
 import {
   recipesFor, displayName, modLabel, isPad, energyMWh,
@@ -7,8 +7,9 @@ import {
 import { powerByFacility as computePowerByFacility, peakPowerMW as computePeakPowerMW } from '../facility-calc/power.mjs'
 import { resolvePlan, reachableRecipes } from '../facility-calc/resolver.mjs'
 import {
-  relevantItems as relevantItemsForPlan,
-  activatableRecipes as activatableForReachable,
+  focusItems,
+  recipeOptions,
+  isActiveFor,
   activeRecipes as activeForPlan,
   clickableRecipes as clickableForReachable,
   toggleRecipe,
@@ -37,7 +38,8 @@ const plan = computed(() => {
   return resolvePlan(calc.desired, calc.selectedRecipes, effectiveImports, { energyImported: calc.energyImported })
 })
 
-// Recipes actually running in the current plan (by identity), with their times.
+// Recipes actually running in the current plan (by identity) — used by the
+// focus model so an active/pinned recipe can never get stuck dimmed.
 const activeRecipes = computed(() => activeForPlan(plan.value))
 const timeByRecipe = computed(() => {
   const m = new Map()
@@ -45,21 +47,15 @@ const timeByRecipe = computed(() => {
   return m
 })
 
-// A recipe is clickable/activatable iff it PRODUCES an Import, an
-// Intermediate, or Energy (pure logic in activation.mjs, unit-tested there).
-// Energy is treated as an intermediate so power-plant recipes stay clickable
-// like any other intermediate producer. Desired targets are excluded: you get
-// a desired item's recipe by setting its quantity, not by pinning a recipe.
-const relevantItems = computed(() => relevantItemsForPlan(plan.value))
-
-const activatableRecipes = computed(() =>
-  activatableForReachable(reachable.value, relevantItems.value))
-// Clickable (bright, never dimmed) = activatable recipes ∪ active recipes.
-// Guarantees an active/pinned recipe can never get stuck dimmed (its output
-// may have left the relevant set), so it stays deactivatable. See
-// clickableRecipes() in activation.mjs.
+// Focus model: the right panel highlights recipe OPTIONS for the currently
+// focused left-panel resource; with no focus it highlights the TARGET options.
+// A recipe is clickable (bright, never dimmed) iff it produces the focused
+// item — or, with no focus, a desired target — UNION every active recipe (so
+// an active/pinned recipe can never get stuck dimmed and can always be
+// deactivated). Pure logic in activation.mjs (focusItems / clickableRecipes).
+const focused = ref(null)
 const clickableRecipes = computed(() =>
-  clickableForReachable(reachable.value, relevantItems.value, activeRecipes.value))
+  clickableForReachable(reachable.value, focused.value, activeRecipes.value, calc.desired))
 
 // Stable set of every recipe that COULD be involved in producing the pinned
 // items, independent of recipe choices. Each recipe is mapped to its primary
@@ -69,40 +65,25 @@ const clickableRecipes = computed(() =>
 // never adds/removes sections — only each row's lit/dim state changes.
 const reachable = computed(() => reachableRecipes(calc.desired))
 
-// Desired (pinned) outputs — the plan's ultimate targets. Recipes that produce
-// one of these sort to the top of their group.
-const desiredSet = computed(() => new Set(calc.desired.map(d => d.codeName)))
 
-// Group reachable recipes by primary output (instead of building/modification).
-// No group headers are shown — each recipe row carries a facility icon on the
-// left (with a hover tooltip showing the modification name).
-const groups = computed(() => {
-  const map = new Map()
-  for (const [r, item] of reachable.value) {
-    const key = r.primaryOutput
-    if (!map.has(key)) map.set(key, { primaryOutput: key, label: displayName(key), recipes: [] })
-    map.get(key).recipes.push({ r, item })
+
+// Right-panel option groups. One group per FOCUSED resource, or (with no
+// focus) one group per desired TARGET. Each group lists the recipes that can
+// produce that resource, so the picker shows ONLY the relevant options.
+// Special exception: the Sulfuric Reactor is a power plant — it is never
+// offered as an assignable recipe for sulfur (sulfur is only its by-product).
+const pickerGroups = computed(() => {
+  const items = focusItems(focused.value, calc.desired)
+  const out = []
+  for (const codeName of items) {
+    // Tag each option with whether it is the recipe assigned to produce THIS
+    // resource (not merely a recipe that happens to also output it while being
+    // assigned for some other resource).
+    let recipes = recipeOptions(codeName)
+      .map(r => ({ r, item: codeName, active: isActiveFor(plan.value.assigned, codeName, r) }))
+    if (recipes.length) out.push({ codeName, label: displayName(codeName), recipes })
   }
-  const arr = [...map.values()]
-  for (const g of arr) {
-    // Within a group (same primary output), sort by facility/mod as secondary.
-    g.recipes.sort((a, b) => {
-      const at = a.r.outputs.some(o => desiredSet.value.has(o.codeName)) ? 0 : 1
-      const bt = b.r.outputs.some(o => desiredSet.value.has(o.codeName)) ? 0 : 1
-      if (at !== bt) return at - bt
-      const la = a.r.facility + '|' + (a.r.modName || '')
-      const lb = b.r.facility + '|' + (b.r.modName || '')
-      return la.localeCompare(lb)
-    })
-    g.hasTarget = g.recipes.some(({ r }) =>
-      r.outputs.some(o => desiredSet.value.has(o.codeName)))
-  }
-  // Groups containing a target-producer sort first, then by label.
-  arr.sort((a, b) => {
-    if (a.hasTarget !== b.hasTarget) return a.hasTarget ? -1 : 1
-    return a.label.localeCompare(b.label)
-  })
-  return arr
+  return out
 })
 
 // Net energy across the plan (MWh, signed). Producers positive, consumers
@@ -195,11 +176,14 @@ const sortBy = (a, b) => displayName(a[0]).localeCompare(displayName(b[0]))
 
 // Resources displayed under Imports section: raw (no recipe, or node-only
 // mines) + imported (user-toggled or default-gathered resources).
+// Energy is shown on its own dedicated row (as MWh) with the import/produce
+// toggle, so exclude it here to avoid a duplicate "Energy" entry beside the
+// "MWh" one.
 const rawDisplay = computed(() => {
   const r = {}
   for (const [c, q] of Object.entries(plan.value.raw)) r[c] = (r[c] || 0) + q
   for (const [c, q] of Object.entries(plan.value.inputs)) r[c] = (r[c] || 0) + q
-  return Object.entries(r).sort(sortBy)
+  return Object.entries(r).filter(([c]) => c !== 'Energy').sort(sortBy)
 })
 
 // Irreducible imports: items with no facility recipe at all — must be
@@ -218,7 +202,9 @@ const reducibleInputs = computed(() =>
 )
 
 const interDisplay = computed(() =>
-  Object.entries(plan.value.intermediate).sort(sortBy)
+  // Energy is shown on its own dedicated MWh row (with the import/produce
+  // toggle); exclude it from the generic intermediates list.
+  Object.entries(plan.value.intermediate).filter(([c]) => c !== 'Energy').sort(sortBy)
 )
 
 const byDisplay = computed(() =>
@@ -238,7 +224,7 @@ const alwaysInputSet = computed(() => {
 </script>
 
 <template>
-  <div class="fac-calc">
+  <div class="fac-calc" @mouseleave="focused = null">
     <div v-if="calc.desired.length === 0" class="fc-empty">
       <p>Click <b>+</b> next to a facility-produced item in the search list to add it.</p>
     </div>
@@ -249,17 +235,20 @@ const alwaysInputSet = computed(() => {
           <h3>Imports</h3>
           <div v-if="rawDisplay.length || energyInImports" class="io-list">
             <div v-for="[c, q] in irreducibleInputs" :key="c"
-                 class="input-row irreducible">
+                 class="input-row irreducible"
+                 @mouseenter="focused = c">
               <FacItem :codeName="c" :qty="fmt(q)" />
             </div>
             <div v-if="irreducibleInputs.length && reducibleInputs.length" class="input-separator"></div>
             <div v-for="[c, q] in reducibleInputs" :key="c"
                  class="input-row"
                  :class="{ clickable: !alwaysInputSet.has(c) }"
+                 @mouseenter="focused = c"
                  @click="alwaysInputSet.has(c) ? undefined : handleInputClick(c)">
               <FacItem :codeName="c" :qty="fmt(q)" />
             </div>
-            <div v-if="energyInImports" class="input-row clickable" @click="toggleEnergy" title="toggle energy: import / produce">
+            <div v-if="energyInImports" class="input-row clickable" @click="toggleEnergy" title="toggle energy: import / produce"
+                 @mouseenter="focused = 'Energy'">
               <FacItem codeName="Energy" :qty="fmtEnergyMWh(energyDeficitMWh)" label="MWh" />
             </div>
           </div>
@@ -269,10 +258,13 @@ const alwaysInputSet = computed(() => {
         <section v-if="interDisplay.length || energyProducedMWh > 1e-6" class="fc-block">
           <h3>Intermediates</h3>
           <div class="io-list">
-            <div v-for="[c, q] in interDisplay" :key="c" class="inter-row" @click="handleInputClick(c)">
+            <div v-for="[c, q] in interDisplay" :key="c" class="inter-row"
+                 @mouseenter="focused = c"
+                 @click="handleInputClick(c)">
               <FacItem :codeName="c" :qty="fmt(q)" />
             </div>
-            <div v-if="energyProducedMWh > 1e-6" class="inter-row" @click="toggleEnergy" title="toggle energy: import / produce">
+            <div v-if="energyProducedMWh > 1e-6" class="inter-row" @click="toggleEnergy" title="toggle energy: import / produce"
+                 @mouseenter="focused = 'Energy'">
               <FacItem codeName="Energy" :qty="fmtEnergyMWh(energyProducedMWh)" label="MWh" />
             </div>
           </div>
@@ -281,7 +273,10 @@ const alwaysInputSet = computed(() => {
         <section v-if="byDisplay.length" class="fc-block">
           <h3>By-products</h3>
           <div class="io-list">
-            <FacItem v-for="[c, q] in byDisplay" :key="c" :codeName="c" :qty="fmt(q)" />
+            <div v-for="[c, q] in byDisplay" :key="c" class="by-row"
+                 @mouseenter="focused = c">
+              <FacItem :codeName="c" :qty="fmt(q)" />
+            </div>
           </div>
         </section>
 
@@ -296,21 +291,21 @@ const alwaysInputSet = computed(() => {
               <span class="pw" :class="{ neg: f.consumptionKw > 0, pos: f.productionKw > 0 }">{{ facPowerText(f) }}</span>
             </div>
           </div>
-          <div class="peak-power">Peak: {{ fmtMW(peakPowerMW) }}MW</div>
+          <div class="peak-power">= {{ fmtMW(peakPowerMW) }}MW peak</div>
         </section>
 
         
       </div>
 
       <div class="fc-right">
-        <div v-for="g in groups" :key="g.primaryOutput"
+        <div v-for="g in pickerGroups" :key="g.codeName"
              class="group">
           <div
             v-for="entry in g.recipes"
             :key="entry.r.facilityKey + '|' + (entry.r.mod || '') + '|' + entry.item"
             class="recipe-row"
-            :class="{ active: activeRecipes.has(entry.r), clickable: clickableRecipes.has(entry.r) }"
-            :title="activeRecipes.has(entry.r) ? 'click to deactivate' : ''"
+            :class="{ active: entry.active, clickable: clickableRecipes.has(entry.r) }"
+            :title="entry.active ? 'click to deactivate' : ''"
             @click="chooseRecipe(entry.item, entry.r)"
           >
             <span class="fac-info">
@@ -328,7 +323,7 @@ const alwaysInputSet = computed(() => {
               <FacItem v-for="(out, k) in entry.r.outputs.filter(o => o.codeName !== 'Energy')" :key="k" :codeName="out.codeName" :qty="out.quantity" />
               <PowerChip v-if="entry.r.powerDelta > 0" :recipe="entry.r" />
             </span>
-            <span class="io-time" :class="{ visible: activeRecipes.has(entry.r) }">{{ activeRecipes.has(entry.r) ? fmtTime(timeByRecipe.get(entry.r)) : '' }}</span>
+            <span class="io-time" :class="{ visible: entry.active }">{{ entry.active ? fmtTime(timeByRecipe.get(entry.r)) : '' }}</span>
           </div>
         </div>
       </div>
@@ -345,6 +340,7 @@ const alwaysInputSet = computed(() => {
 
 .fc-left
   flex: 0 0 340px
+  padding-right: 16px
   overflow-y: auto
   overflow-x: hidden
   position: sticky
@@ -497,6 +493,8 @@ const alwaysInputSet = computed(() => {
     overflow: hidden
     text-overflow: ellipsis
     white-space: nowrap
+    margin-right: 0
+    padding-right: 0
 
   .pw
     color: #9ad
@@ -504,6 +502,8 @@ const alwaysInputSet = computed(() => {
     white-space: nowrap
     font-variant-numeric: tabular-nums
     flex-shrink: 0
+    margin-left: auto
+    text-align: right
 
     &.neg
       color: #e07a7a
@@ -513,6 +513,7 @@ const alwaysInputSet = computed(() => {
 
 .peak-power
   margin-top: 6px
+  margin-right: -7px
   text-align: right
   color: #ddd
   font-size: 15px
