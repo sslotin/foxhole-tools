@@ -10,8 +10,8 @@ This project involves parsing large JSON/CSV files. Avoid fully reading them and
 
 Avoid running commands that can potentially "hang" for a prolonged period of time, and always make sure they have a reasonable time limit. This is not a compute-intensive project; if a script hangs, you're doing something wrong. Specifically game_data has A LOT of files and you should be excluding it from most code searches.
 
-Search foxhole.wiki.gg via MediaWiki API to get more context about the game, and ask questions if it fails.
+Search foxhole.wiki.gg via MediaWiki API first to get more context about the game, and ask questions if it fails, but ultimately derive data from the game fields and not the wiki (the game regularly updates and the data needs to be re-extracted).
 
-Do not put full examples in comments/docs, rely on example files instead.
+Do not put full examples in comments/docs, rely on metadata and example files instead.
 
 This project does not have downstream users or compatibility requirements. Feel free to refactor.
