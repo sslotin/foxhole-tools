@@ -8,7 +8,7 @@ When you change a data-processing script, inspect the diff of the derived data t
 
 This project involves parsing large JSON/CSV files. Avoid fully reading them and instead use search or tools such as head, grep and jq to analyze their structure.
 
-Avoid running commands that can potentially "hang" for a prolonged period of time. If you need to run a script that could hang, make sure it has a time limit. This is not a compute-intensive project; if a script hangs, you're doing something wrong. You should be excluding game_data from most code searches.
+Avoid running commands that can potentially "hang" for a prolonged period of time, and always make sure they have a reasonable time limit. This is not a compute-intensive project; if a script hangs, you're doing something wrong. Specifically game_data has A LOT of files and you should be excluding it from most code searches.
 
 Search foxhole.wiki.gg via MediaWiki API to get more context about the game, and ask questions if it fails.
 

@@ -110,10 +110,8 @@ function determinePrimaryOutput(recipe) {
   // first output is treated as primary.
   return outputs[0].codeName
 }
-const ALIASES = {}
-
 export function displayName (codeName) {
-  return metadata[codeName]?.displayName ?? ALIASES[codeName] ?? codeName
+  return metadata[codeName]?.displayName ?? codeName
 }
 
 export function facLabel (recipe) {
