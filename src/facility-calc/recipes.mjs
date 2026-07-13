@@ -286,12 +286,12 @@ export function shippable (codeName, q) {
     // steps are kept explicit to match "litres → cans → LC".
     const litres = q * vol
     const cans = litres / vol
-    return { count: cans / 100, unit: 'lcs' }
+    return { count: cans / 100, unit: 'lc' }
   }
-  if (crateItems.has(codeName)) return { count: q / 60, unit: 'scs' }
+  if (crateItems.has(codeName)) return { count: q / 60, unit: 'sc' }
   const pallet = metadata[codeName]?.palletAmount
-  if (pallet != null) return { count: q / pallet, unit: 'pallets' }
-  return { count: q / 5000, unit: 'rcs' }
+  if (pallet != null) return { count: q / pallet, unit: 'plt' }
+  return { count: q / 5000, unit: 'rc' }
 }
 
 // Vehicle/structure assembly pads run a single production order (like power

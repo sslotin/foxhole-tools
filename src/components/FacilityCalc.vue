@@ -226,7 +226,7 @@ function fmtEnergyMWh (v) {
   return v < 0.1 ? '<0.1' : ceil1(v)
 }
 // Shippable readout for the Imports panel: converts a plan quantity into its
-// container equivalent (scs / pallets / lcs / rcs). Returns a styled string
+// container equivalent (sc / plt / lc / rc). Returns a styled string
 // like "2.5 scs", or null when the item isn't shippable or the count is < 0.5
 // (per spec: don't print anything below half a container).
 function ship (c, q) {
