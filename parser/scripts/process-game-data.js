@@ -1254,9 +1254,11 @@ console.log(`  ${familyCount} upgrade families merged`)
   let merged = 0
   for (const [code, e] of Object.entries(enrich)) {
     const v = metadata[code]
-    if (v && e.palletAmount != null) { v.palletAmount = e.palletAmount; merged++ }
+    if (!v) continue
+    if (e.palletAmount != null) { v.palletAmount = e.palletAmount; merged++ }
+    if (e.volumeLiters != null) { v.volumeLiters = e.volumeLiters; merged++ }
   }
-  console.log(`  ${merged} palletAmount overrides merged from overrides/wiki-enrich.json`)
+  console.log(`  ${merged} overrides merged from overrides/wiki-enrich.json (palletAmount + volumeLiters)`)
 }
 
 fs.writeFileSync(OUTPUT_METADATA, JSON.stringify(metadata, null, 2));
