@@ -35,6 +35,75 @@ import { markRaw } from 'vue'
 // production — their only output is ReservePower, which nothing consumes).
 const SKIP_FACILITIES = new Set(['EngineRoomT2', 'EngineRoomT3'])
 
+// Tech tier of each facility, per the Foxhole wiki "Technology" page
+// (https://foxhole.wiki.gg/wiki/Technology). T1 = available from the start of a
+// war; T2/T3 require advancing the faction's tech tree. This is NOT present in
+// the game data files, so it is hardcoded here from the user's authoritative
+// tier list (foxhole wiki "Technology" page cross-checked). Only the buildings
+// the user listed as T2 are marked; everything else is T1 ("all the rest are
+// T1"). NOTE: the wiki lists "Large Assembly Station" under Tier 2 Facilities,
+// but the user's list omits it -> left at T1 pending confirmation. Engine Room
+// T2/T3 are excluded from the calculator (see SKIP_FACILITIES).
+export const FACILITY_TIER = {
+  FacilityFactoryAmmo: 2,      // Ammunition Factory
+  FacilityFactorySmallArms: 1,  // Infantry Kit Factory
+  FacilityFactoryAircraft: 1,   // Aircraft Maintenance Factory
+  FacilityRefinery1: 1,         // Materials Factory
+  FacilityRefinery2: 2,         // Metalworks Factory
+  FacilityRefineryCoal: 1,      // Coal Refinery
+  FacilityRefineryOil: 1,       // Oil Refinery
+  ConcreteMixer: 1,             // Concrete Mixer
+  FacilityPowerDiesel: 1,       // Diesel Power Plant
+  FacilityPowerOil: 2,          // Power Station
+  FacilityMineResource1: 1,     // Stationary Harvester (Salvage)
+  FacilityMineResource2: 2,     // Stationary Harvester (Components)
+  FacilityMineResource3: 2,     // Stationary Harvester (Sulfur)
+  FacilityMineResource4: 1,     // Stationary Harvester (Coal)
+  FacilityMineOil: 1,           // Oil Well
+  FacilityMineOilRig: 1,        // Offshore Platform
+  FacilityMineWater: 1,         // Water Pump
+  FacilityVehicleFactory1: 1,    // Small Assembly Station
+  FacilityVehicleFactory3: 1,    // Dry Dock
+}
+
+export function facilityTier (facilityKey) {
+  return FACILITY_TIER[facilityKey] ?? 1
+}
+
+// Tech tier of each *modification* (recipe upgrade), per the user's authoritative
+// tier list — the wiki "Technology" page "Allows the following upgrades" lists
+// under "Tier 2 Facilities" (tier 2) and "Tier 3 Facilities" (tier 3). Keys are
+// the `mod` values used in recipes.json. Excavator is tiered per parent harvester
+// (Components = T2; Coal / Salvage / Sulfur = T3). NOTE: Battery Line and Field
+// Station are T2 per the list but have no matching recipe `mod` in recipes.json,
+// so they cannot be badged with the current data.
+export const MOD_TIER = {
+  Electric: 2,                 // Electric Oil Well
+  CoalLiquefier: 2,           // Coal Liquefier
+  CrackingUnit: 2,            // Cracking Unit
+  TankAssembly: 2,            // "Tank Factory" upgrade
+  SulfuricReactor: 3,
+  EngineeringStation: 3,
+  AdvCoalLiquefier: 3,        // Advanced Coal Liquefier
+  PetrochemicalPlant: 3,
+  WeaponsPlatformAssembly: 3, // "Weapons Platform" upgrade
+  TrainAssembly: 3,
+  HeavyTankAssembly: 3,
+}
+
+// Tech tier required to run a given recipe: the higher of the base facility's
+// tier and its modification's tier. A T1 facility with a T3 upgrade (e.g. Oil
+// Refinery + Petrochemical Plant) reports T3; a T2 facility's base recipe
+// reports T2. Used to badge recipes/productions not available from the start.
+export function recipeTechTier (recipe) {
+  const base = FACILITY_TIER[recipe.facilityKey] ?? 1
+  const mod = recipe.mod
+  if (!mod) return base
+  let t = MOD_TIER[mod] ?? 1
+  if (mod === 'Excavator') t = recipe.facilityKey === 'FacilityMineResource2' ? 2 : 3
+  return Math.max(base, t)
+}
+
 const CANON = {
   metal: 'Metal',
   coal: 'Coal',
@@ -193,6 +262,36 @@ export const crateItems = _crateItems
 
 export function isLiquid (codeName) {
   return metadata[codeName]?.itemProfileType === 'RefinedFuel'
+}
+
+// Shipping-container equivalents for the Imports panel. A plan quantity `q`
+// (in raw item/crate units) maps to a shippable count + unit label:
+//   - liquids (RefinedFuel):            q * volumeLiters / 100 -> "lcs"
+//                                     (1 Liquid Container = 100 L; volumeLiters
+//                                      is litres per item, i.e. 1 canister = 1 unit)
+//   - crated (crateItems):              q / 60              -> "scs"  (1 SC = 60 crates)
+//   - pallet-able (metadata.palletAmount set): q / palletAmount  -> "pallets"
+//   - everything else (raw/refined resources): q / 5000     -> "rcs"  (1 RC = 5000)
+// Precedence is liquid > crate > pallet > resource. Returns { count, unit } or
+// null for non-shippable pseudo-resources (e.g. Energy) or non-positive q. The
+// caller does the 1-dp rounding / <0.5 suppression; `count` is the raw divisor.
+export function shippable (codeName, q) {
+  if (!q || q <= 0 || codeName === 'Energy') return null
+  if (isLiquid(codeName)) {
+    const vol = metadata[codeName]?.volumeLiters
+    if (!vol) return null
+    // Plan q for liquids is in cans (the recipe's unit). Convert to litres
+    // (× volumeLiters), back to cans (÷ volumeLiters), then ÷100 cans per LC
+    // → Liquid Containers. The ×/÷ volume cancels, leaving q ÷ 100 LCs, but the
+    // steps are kept explicit to match "litres → cans → LC".
+    const litres = q * vol
+    const cans = litres / vol
+    return { count: cans / 100, unit: 'lcs' }
+  }
+  if (crateItems.has(codeName)) return { count: q / 60, unit: 'scs' }
+  const pallet = metadata[codeName]?.palletAmount
+  if (pallet != null) return { count: q / pallet, unit: 'pallets' }
+  return { count: q / 5000, unit: 'rcs' }
 }
 
 // Vehicle/structure assembly pads run a single production order (like power

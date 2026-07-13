@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest'
-import { mpfLine, mpfLine5, productionRecipes } from './production-recipes.js'
+import { mpfLine, mpfLine5, productionRecipes, buildingRecipes } from './production-recipes.js'
 import meta from '../../parser/data/metadata.json' with { type: 'json' }
 
 describe('MPF discount math', () => {
@@ -240,12 +240,17 @@ describe('facility-produced items show no fake Garage/Construction-Yard/MPF rows
       expect(recs.some(r => r.kind === 'mpf-veh'), `${code} must NOT be MPF-eligible`).toBe(false)
     }
   })
-  it('large planes are produced only at the Aircraft Assembly (no Garage/MPF)', () => {
+  it('finished large planes are assembled at the Aircraft Depot (frame built at Aircraft Assembly); no Garage/MPF', () => {
     for (const code of ['AircraftFighterW', 'AircraftBomberW', 'AircraftDiveC']) {
       const recs = productionRecipes(code, meta[code])
-      expect(recs.some(r => r.kind === 'facility-out' && r.label === 'Aircraft Assembly'), `${code} at Aircraft Assembly`).toBe(true)
+      expect(recs.some(r => r.kind === 'facility-out' && r.label === 'Aircraft Depot'), `${code} assembled at Aircraft Depot`).toBe(true)
       expect(recs.some(r => r.kind === 'build'), `${code} no Garage build`).toBe(false)
       expect(recs.some(r => r.kind === 'mpf-veh'), `${code} no MPF`).toBe(false)
+    }
+    for (const code of ['AircraftFighterWFrame', 'AircraftBomberWFrame', 'AircraftDiveCFrame']) {
+      const recs = productionRecipes(code, meta[code])
+      expect(recs.some(r => r.kind === 'facility-out' && r.label === 'Aircraft Assembly'), `${code} frame built at Aircraft Assembly`).toBe(true)
+      expect(recs.some(r => r.kind === 'build'), `${code} no Garage build`).toBe(false)
     }
   })
   it('large ships build only at the Dry Dock (never Garage/Shipyard/MPF)', () => {
@@ -273,5 +278,41 @@ describe('facility-produced items show no fake Garage/Construction-Yard/MPF rows
     expect(recs.some(r => r.kind === 'facility-out' && r.label === 'Dry Dock'), 'Dry Dock facility-out').toBe(true)
     expect(recs.some(r => r.kind === 'build' && r.label === 'Garage'), 'no Garage').toBe(false)
     expect(recs.some(r => r.kind === 'mpf-veh'), 'no MPF').toBe(false)
+  })
+})
+
+describe('buildingRecipes — RECIPES infobox for production buildings', () => {
+  it('a facility building lists every base + modification recipe it runs', () => {
+    const recs = buildingRecipes('FacilityRefinery1', meta.FacilityRefinery1)
+    expect(recs.length).toBeGreaterThan(0)
+    // Materials Factory base + Forge + Recycler (Assembly Bay) + Metal Press + …
+    expect(recs.some(r => r.label === 'Materials Factory')).toBe(true)
+    expect(recs.some(r => r.label === 'Forge')).toBe(true)
+    expect(recs.every(r => r.kind === 'facility-out')).toBe(true)
+    expect(recs.every(r => r.iconKey === 'FacilityRefinery1')).toBe(true)
+  })
+  it('pure-power recipes (Energy only) are excluded from a building\'s RECIPES', () => {
+    // Power Station base recipe outputs only Energy → not listed.
+    const recs = buildingRecipes('FacilityPowerOil', meta.FacilityPowerOil)
+    expect(recs.every(r => r.outputs.length > 0)).toBe(true)
+    expect(recs.every(r => r.outputs.some(o => o.codeName === 'Energy'))).toBe(false)
+  })
+  it('Factory lists its crate items (gated by productionCategories)', () => {
+    const recs = buildingRecipes('Factory', meta.Factory)
+    expect(recs.length).toBeGreaterThan(0)
+    expect(recs.every(r => r.kind === 'factory' && r.iconKey === 'Factory')).toBe(true)
+    // Facility-only items (no factoryQueueType) must NOT appear.
+    expect(recs.some(r => r.outputs[0].codeName === 'FacilityMaterials1')).toBe(false)
+    expect(recs.some(r => r.outputs[0].codeName === 'RifleAmmo')).toBe(true)
+  })
+  it('Mass Production Factory lists MPF items (9c) and shippables (5c)', () => {
+    const recs = buildingRecipes('MassProduction', meta.MassProduction)
+    expect(recs.length).toBeGreaterThan(0)
+    expect(recs.some(r => r.outputs[0].disp === '9c')).toBe(true)
+    expect(recs.some(r => r.outputs[0].disp === '5c')).toBe(true)
+  })
+  it('a non-production building returns no recipes', () => {
+    const recs = buildingRecipes('WatchTower', meta.WatchTower)
+    expect(recs).toEqual([])
   })
 })

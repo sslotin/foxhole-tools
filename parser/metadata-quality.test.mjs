@@ -19,7 +19,7 @@ function walkNumbers(obj, path, bad) {
 
 describe('metadata.json structural integrity', () => {
   it('has the expected entry count and valid top-level fields', () => {
-    expect(Object.keys(metaRaw).length).toBe(715)
+    expect(Object.keys(metaRaw).length).toBe(724)
     for (const [code, v] of Object.entries(metaRaw)) {
       expect(typeof v.displayName).toBe('string')
       expect(v.displayName.length).toBeGreaterThan(0)
@@ -33,12 +33,12 @@ describe('metadata.json structural integrity', () => {
     expect(bad, bad.join(', ')).toEqual([])
   })
 
-  it('family bookkeeping is consistent (625 searchable, 90 hidden tier members)', () => {
+  it('family bookkeeping is consistent (634 searchable, 90 hidden tier members)', () => {
     const infam = Object.values(metaRaw).filter(v => v.inFamily).length
     const fams = Object.values(metaRaw).filter(v => v.isFamily).length
     expect(infam).toBe(90)
     expect(fams).toBe(31)
-    expect(Object.keys(metaRaw).length - infam).toBe(625)
+    expect(Object.keys(metaRaw).length - infam).toBe(634)
   })
 })
 

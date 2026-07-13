@@ -19,7 +19,8 @@ const entries = Object.entries(metadata)
     codeName,
     displayName: data.displayName,
     description: data.description || '',
-    chassisName: data.chassisName || ''
+    chassisName: data.chassisName || '',
+    itemType: data.itemType || ''
   }))
 
 // Items already pinned for production are hidden from the results.
@@ -63,9 +64,12 @@ const results = computed(() => {
     })
   }
 
-  // De-duplicate buildings that share a displayName (e.g. Town Base T1/T2/T3,
-  // Safe House variants, Bunker Base tiers). Keep the most informative / base
-  // variant so the search box never lists the same building twice.
+  // De-duplicate entries that share a displayName *and* the same itemType —
+  // these are tier/variant duplicates of the same thing (Town Base T1/T2/T3,
+  // Safe House variants, rail track variants). Keep the most informative /
+  // base variant so the search box never lists the same thing twice. Entries
+  // that merely share a name across different types (e.g. the Barbed Wire
+  // item vs the Barbed Wire structure) are kept separate so both show up.
   const preference = (e) => {
     const d = metadata[e.codeName]
     let p = 0
@@ -76,10 +80,11 @@ const results = computed(() => {
   }
   const best = new Map()
   for (const e of matched) {
-    const cur = best.get(e.displayName)
-    if (!cur || preference(e) > preference(cur)) best.set(e.displayName, e)
+    const key = `${e.displayName}|${e.itemType}`
+    const cur = best.get(key)
+    if (!cur || preference(e) > preference(cur)) best.set(key, e)
   }
-  matched = matched.filter(e => best.get(e.displayName) === e)
+  matched = matched.filter(e => best.get(`${e.displayName}|${e.itemType}`) === e)
 
   return matched
 })
@@ -190,7 +195,7 @@ watch(query, q => {
       </div>
       <div class="content" v-else>
         <div class="empty">
-          <p class="app-title">s6's foxhole tools <span class="version-label">v2.2.0-u65</span></p>
+          <p class="app-title">s6's foxhole tools <span class="version-label">v2.2.1-u65</span></p>
           <p><strong>1. Inventory mode.</strong> Pin a base, update, copy csv data, ctrl+v. Track deltas, delivery times and burn rates. Click to change report, shift-click to set reference. Set shirts target with a slider, other color-coded targets are proportional. Click to dim tech-locked items. Click faction logo to filter warden/collie/all items.</p>
           <p><strong>2. Stockpile mode.</strong> Ctrl+v a stockpile, shift-click for source, click for target. Filter categories or click items. Auto-fill and edit a shopping list. Ctrl-click on arrow increments in steps of 15, shift-click adds all available. Export shopping list as text or export full state as json that can be imported with ctrl+v or drag-and-drop.</p>
           <p><strong>3. Metadata search.</strong> Look up items, vehicles and structures. Check stats, costs and recipes. WIP</p>

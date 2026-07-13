@@ -11,14 +11,25 @@ export function fmtMW (mw) {
   return Number.isInteger(v) ? String(v) : v.toFixed(1)
 }
 
-// "<mag>MW × <duration>s" — mag is the facility's raw power (powerDelta, in kW)
+// Duration in hours, shared by the PowerChip AND the Facilities list / io-time
+// so every "power × time" string in the app reads the same way. Integer when
+// whole, else up to 2 dp (trailing zeros trimmed): 900 -> "0.25h", 180 ->
+// "0.05h", 172800 -> "48h".
+export function fmtHours (s) {
+  if (!s || s <= 0) return ''
+  const h = s / 3600
+  if (Number.isInteger(h)) return h + 'h'
+  return (Math.round(h * 100) / 100) + 'h'
+}
+
+// "<mag>MW × <duration>h" — mag is the facility's raw power (powerDelta, in kW)
 // divided by 1000 -> MW, shown as a magnitude (NO +/- sign; the direction is
 // conveyed by color in <PowerChip>: red = consumed/in, green = produced/out).
 // A " (/5)" suffix marks multi-order facilities: those that are NOT power
 // producers and NOT vehicle/structure assembly pads (which run a single
-// order). E.g. a refinery: "4MW × 900s (/5)"; a power plant: "2MW × 900s".
+// order). E.g. a refinery: "4MW × 0.05h (/5)"; a power plant: "2MW × 0.25h".
 export function formatPower (recipe) {
   const mag = fmtMW(Math.abs(recipe.powerDelta) / 1000)
   const show5 = recipe.powerDelta < 0 && !isPad(recipe)
-  return `${mag}MW × ${effectiveDuration(recipe)}s${show5 ? ' (/5)' : ''}`
+  return `${mag}MW × ${fmtHours(effectiveDuration(recipe))}${show5 ? ' (/5)' : ''}`
 }

@@ -1,5 +1,5 @@
 {
-  "_generated": "2026-07-13T11:37:12.015Z",
+  "_generated": "2026-07-13T12:19:48.238Z",
   "_sources": [
     "War/Content/Blueprints/Data/BPItemDynamicData.json — Factory/MPF crate recipes",
     "War/Content/Blueprints/Structures/ — facility conversion recipes"
@@ -9019,16 +9019,12 @@
             {
               "outputs": [
                 {
-                  "codeName": "AircraftFighterC",
+                  "codeName": "AircraftFighterCFrame",
                   "quantity": 1
                 }
               ],
               "duration": 3600,
               "inputs": [
-                {
-                  "codeName": "AircraftCrate",
-                  "quantity": 1
-                },
                 {
                   "codeName": "FacilityMaterials2",
                   "quantity": 40
@@ -9052,16 +9048,12 @@
             {
               "outputs": [
                 {
-                  "codeName": "AircraftFighterW",
+                  "codeName": "AircraftFighterWFrame",
                   "quantity": 1
                 }
               ],
               "duration": 3600,
               "inputs": [
-                {
-                  "codeName": "AircraftCrate",
-                  "quantity": 1
-                },
                 {
                   "codeName": "FacilityMaterials2",
                   "quantity": 40
@@ -9085,16 +9077,12 @@
             {
               "outputs": [
                 {
-                  "codeName": "AircraftWaterW",
+                  "codeName": "AircraftWaterWFrame",
                   "quantity": 1
                 }
               ],
               "duration": 3600,
               "inputs": [
-                {
-                  "codeName": "AircraftCrate",
-                  "quantity": 1
-                },
                 {
                   "codeName": "FacilityMaterials2",
                   "quantity": 40
@@ -9118,16 +9106,12 @@
             {
               "outputs": [
                 {
-                  "codeName": "AircraftDiveC",
+                  "codeName": "AircraftDiveCFrame",
                   "quantity": 1
                 }
               ],
               "duration": 3600,
               "inputs": [
-                {
-                  "codeName": "AircraftCrate",
-                  "quantity": 1
-                },
                 {
                   "codeName": "FacilityMaterials2",
                   "quantity": 40
@@ -9155,16 +9139,12 @@
             {
               "outputs": [
                 {
-                  "codeName": "AircraftTorpedoW",
+                  "codeName": "AircraftTorpedoWFrame",
                   "quantity": 1
                 }
               ],
               "duration": 3600,
               "inputs": [
-                {
-                  "codeName": "AircraftCrate",
-                  "quantity": 1
-                },
                 {
                   "codeName": "FacilityMaterials2",
                   "quantity": 25
@@ -9192,16 +9172,12 @@
             {
               "outputs": [
                 {
-                  "codeName": "AircraftParatrooperC",
+                  "codeName": "AircraftParatrooperCFrame",
                   "quantity": 1
                 }
               ],
               "duration": 7200,
               "inputs": [
-                {
-                  "codeName": "AircraftCrate",
-                  "quantity": 1
-                },
                 {
                   "codeName": "FacilityMaterials3",
                   "quantity": 5
@@ -9229,16 +9205,12 @@
             {
               "outputs": [
                 {
-                  "codeName": "AircraftParatrooperW",
+                  "codeName": "AircraftParatrooperWFrame",
                   "quantity": 1
                 }
               ],
               "duration": 7200,
               "inputs": [
-                {
-                  "codeName": "AircraftCrate",
-                  "quantity": 1
-                },
                 {
                   "codeName": "FacilityMaterials3",
                   "quantity": 5
@@ -9266,16 +9238,12 @@
             {
               "outputs": [
                 {
-                  "codeName": "AircraftBomberC",
+                  "codeName": "AircraftBomberCFrame",
                   "quantity": 1
                 }
               ],
               "duration": 14400,
               "inputs": [
-                {
-                  "codeName": "AircraftCrate",
-                  "quantity": 1
-                },
                 {
                   "codeName": "FacilityMaterials3",
                   "quantity": 60
@@ -9307,16 +9275,12 @@
             {
               "outputs": [
                 {
-                  "codeName": "AircraftBomberW",
+                  "codeName": "AircraftBomberWFrame",
                   "quantity": 1
                 }
               ],
               "duration": 14400,
               "inputs": [
-                {
-                  "codeName": "AircraftCrate",
-                  "quantity": 1
-                },
                 {
                   "codeName": "FacilityMaterials3",
                   "quantity": 60
@@ -9559,6 +9523,238 @@
         }
       ],
       "modifications": {}
+    },
+    "AircraftDepot": {
+      "displayName": "Aircraft Depot",
+      "codeName": "AircraftDepot",
+      "pseudo": true,
+      "baseRecipes": [
+        {
+          "outputs": [
+            {
+              "codeName": "AircraftBomberC",
+              "quantity": 1
+            }
+          ],
+          "duration": 0,
+          "powerDelta": 0,
+          "requires": null,
+          "inputs": [
+            {
+              "codeName": "AircraftBomberCFrame",
+              "quantity": 1
+            },
+            {
+              "codeName": "AircraftPartLargeEngineC",
+              "quantity": 2
+            },
+            {
+              "codeName": "AircraftPartLargeMechanicalC",
+              "quantity": 9
+            }
+          ]
+        },
+        {
+          "outputs": [
+            {
+              "codeName": "AircraftBomberW",
+              "quantity": 1
+            }
+          ],
+          "duration": 0,
+          "powerDelta": 0,
+          "requires": null,
+          "inputs": [
+            {
+              "codeName": "AircraftBomberWFrame",
+              "quantity": 1
+            },
+            {
+              "codeName": "AircraftPartLargeEngineW",
+              "quantity": 2
+            },
+            {
+              "codeName": "AircraftPartLargeMechanicalW",
+              "quantity": 9
+            }
+          ]
+        },
+        {
+          "outputs": [
+            {
+              "codeName": "AircraftParatrooperC",
+              "quantity": 1
+            }
+          ],
+          "duration": 0,
+          "powerDelta": 0,
+          "requires": null,
+          "inputs": [
+            {
+              "codeName": "AircraftParatrooperCFrame",
+              "quantity": 1
+            },
+            {
+              "codeName": "AircraftPartLargeEngineC",
+              "quantity": 2
+            },
+            {
+              "codeName": "AircraftPartLargeMechanicalC",
+              "quantity": 6
+            }
+          ]
+        },
+        {
+          "outputs": [
+            {
+              "codeName": "AircraftParatrooperW",
+              "quantity": 1
+            }
+          ],
+          "duration": 0,
+          "powerDelta": 0,
+          "requires": null,
+          "inputs": [
+            {
+              "codeName": "AircraftParatrooperWFrame",
+              "quantity": 1
+            },
+            {
+              "codeName": "AircraftPartLargeEngineW",
+              "quantity": 2
+            },
+            {
+              "codeName": "AircraftPartLargeMechanicalW",
+              "quantity": 5
+            }
+          ]
+        },
+        {
+          "outputs": [
+            {
+              "codeName": "AircraftFighterC",
+              "quantity": 1
+            }
+          ],
+          "duration": 0,
+          "powerDelta": 0,
+          "requires": null,
+          "inputs": [
+            {
+              "codeName": "AircraftFighterCFrame",
+              "quantity": 1
+            },
+            {
+              "codeName": "AircraftPartSmallEngineC",
+              "quantity": 1
+            },
+            {
+              "codeName": "AircraftPartSmallMechanicalC",
+              "quantity": 5
+            }
+          ]
+        },
+        {
+          "outputs": [
+            {
+              "codeName": "AircraftFighterW",
+              "quantity": 1
+            }
+          ],
+          "duration": 0,
+          "powerDelta": 0,
+          "requires": null,
+          "inputs": [
+            {
+              "codeName": "AircraftFighterWFrame",
+              "quantity": 1
+            },
+            {
+              "codeName": "AircraftPartSmallEngineW",
+              "quantity": 1
+            },
+            {
+              "codeName": "AircraftPartSmallMechanicalW",
+              "quantity": 5
+            }
+          ]
+        },
+        {
+          "outputs": [
+            {
+              "codeName": "AircraftWaterW",
+              "quantity": 1
+            }
+          ],
+          "duration": 0,
+          "powerDelta": 0,
+          "requires": null,
+          "inputs": [
+            {
+              "codeName": "AircraftWaterWFrame",
+              "quantity": 1
+            },
+            {
+              "codeName": "AircraftPartSmallEngineW",
+              "quantity": 1
+            },
+            {
+              "codeName": "AircraftPartSmallMechanicalW",
+              "quantity": 5
+            }
+          ]
+        },
+        {
+          "outputs": [
+            {
+              "codeName": "AircraftDiveC",
+              "quantity": 1
+            }
+          ],
+          "duration": 0,
+          "powerDelta": 0,
+          "requires": null,
+          "inputs": [
+            {
+              "codeName": "AircraftDiveCFrame",
+              "quantity": 1
+            },
+            {
+              "codeName": "AircraftPartSmallEngineC",
+              "quantity": 1
+            },
+            {
+              "codeName": "AircraftPartSmallMechanicalC",
+              "quantity": 5
+            }
+          ]
+        },
+        {
+          "outputs": [
+            {
+              "codeName": "AircraftTorpedoW",
+              "quantity": 1
+            }
+          ],
+          "duration": 0,
+          "powerDelta": 0,
+          "requires": null,
+          "inputs": [
+            {
+              "codeName": "AircraftTorpedoWFrame",
+              "quantity": 1
+            },
+            {
+              "codeName": "AircraftPartSmallEngineW",
+              "quantity": 3
+            },
+            {
+              "codeName": "AircraftPartSmallMechanicalW",
+              "quantity": 5
+            }
+          ]
+        }
+      ]
     }
   }
 }

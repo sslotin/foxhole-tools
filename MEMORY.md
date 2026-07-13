@@ -78,6 +78,8 @@ Paste → App.vue.addCSV(text) → parser/csv-parser.parseCSV(text)
 
 **Facility cost calculator** (sub-mode of Search): each *facility-produced* result row shows a green **+** (`src/facility-calc/`). Clicking pins the item to the top left panel (`FacDesired.vue`, editable qty + remove) and reveals `FacilityCalc.vue` on the right. Removing the last pinned item closes the calculator. **Search scope narrows to facility-producible items** while the calculator is active.
 
+- **Tech-tier superscript:** each recipe row's facility name gets a small gold **T2/T3** `<sup>` badge (`recipeTechTier()` in `recipes.mjs`) for productions not available from the start. Tier = `max(baseFacilityTier, modificationTier)`: `FACILITY_TIER` (base buildings) + `MOD_TIER` (recipe upgrades), both hardcoded from the user's **authoritative tier list** (foxhole wiki "Technology" page cross-checked; user-approved conversation exception to the wiki-is-not-a-source rule). User's list — **T2**: Metalworks Factory, Power Station, Ammunition Factory (+ all upgrades), Harvester (Components), Harvester (Sulfur), Electric Oil Well, Excavator (Components), Coal Liquefier, Cracking Unit, Battery Line, Field Station, Tank Factory. **T3**: Sulfuric Reactor, Engineering Station, Adv. Coal Liquefier, Petrochemical Plant, Weapons Platform, Train Assembly, Heavy Tank Assembly, Excavator (Coal/Salvage/Sulfur). Everything else T1. Notable results: Oil Refinery + Petrochemical Plant → **T3**, Coal Refinery + Adv. Coal Liquefier → **T3**, Power Station + Sulfuric Reactor → **T3**, Metalworks + Engineering Station → **T3**, Oil Refinery + Cracking Unit / Coal Refinery + Coal Liquefier / Small Assembly Station + Tank Factory → **T2**, Excavator = **T2** on Components harvester but **T3** on Coal/Salvage/Sulfur. **Large Assembly Station** is intentionally T1 (user's list omits it; the wiki lists it under Tier 2 Facilities — pending user confirmation). **Battery Line** and **Field Station** are T2 per the list but have no matching recipe `mod` in `recipes.json`, so they can't be badged. Engine Room T2/T3 are excluded via `SKIP_FACILITIES` (not in the list). Guarded by `recipes.test.mjs` (revisit if a new facility/modification is added to `recipes.json`).
+
 ---
 
 ## Facility Cost Calculator
@@ -103,11 +105,11 @@ Resolves the recipe graph bottom-up over the facility recipes and shows **two pa
 
 ## Key Data Structures
 
-### `metadata.json` — 715 entries (245 items, 176 vehicles, 294 structures; 31 families, 90 hidden tier members, 625 searchable)
+### `metadata.json` — 724 entries (245 items, 185 vehicles, 294 structures; 31 families, 90 hidden tier members, 634 searchable)
 
-Classified into **11 behavioral classes** by `src/components/metadata-format.js` (`Mount/Deployed` currently has 0 items): `Structure` (270), `Land Vehicle` (139), `Material/Supply` (62), `Ammunition` (45), `Tool/Equip` (46), `Firearm` (50), `Misc` (29), `Ship` (24), `Aircraft` (13), `Grenade/Thrown` (10), `Melee Weapon` (3). **434** entries carry `resistances`, **389** carry a `destruction` table.
+Classified into **11 behavioral classes** by `src/components/metadata-format.js` (`Mount/Deployed` currently has 0 items): `Structure` (270), `Land Vehicle` (139), `Material/Supply` (62), `Ammunition` (45), `Tool/Equip` (46), `Firearm` (50), `Misc` (29), `Ship` (24), `Aircraft` (22), `Grenade/Thrown` (10), `Melee Weapon` (3). **434** entries carry `resistances`, **389** carry a `destruction` table.
 
-The Search detail panel renders a wiki-style **infobox** + two catch-all lists (unformatted fields, missing wiki fields).
+The Search detail panel renders a wiki-style **infobox** + two catch-all lists (unformatted fields, missing wiki fields). Production buildings (structures whose `codeName` is a key in `recipes.json.facilities`, plus `Factory` and `MassProduction`) also render a **`RECIPES`** infobox (`buildingRecipes()` in `production-recipes.js`) listing every item they make — facility base + modification recipes, Factory crate items, and MPF items/shippables (×9 / ×5). Pure-power recipes (Energy-only output) are excluded. Rendered via `ProductionBox` with `title="RECIPES"`.
 
 ### Field availability — what the game exports DO / DON'T contain (verified)
 - ✅ Shown when present: damage / damage type / magazine / accuracy / slot / ammo / crate (weapon/ammo/itemComponent); weight (`encumbrance`, some items lack it e.g. `RifleW`); damage mult; fuze / range / explosion radius (grenades); armour HP (vehicles); health/repair/decay/storage/disable; `maxAmmo:0` is correct for melee/launchers/flamethrowers; `engineForce:0` is correct for 42 towed/relic vehicles.
@@ -116,7 +118,7 @@ The Search detail panel renders a wiki-style **infobox** + two catch-all lists (
 
 ### `parser/data/recipes.json` — Production Recipe Index
 - `factory.crateRecipes` — Factory/MPF crate recipes (codeName → `{inputs, outputs, duration, retrieveTimes, researchLevel}`).
-- `facilities.{key}` — 22 facility blueprints with `baseRecipes` + per-modification recipes.
+- `facilities.{key}` — 22 facility blueprints with `baseRecipes` + per-modification recipes, **plus 1 pseudo-facility `AircraftDepot`** (`pseudo:true`, `baseRecipes` only) = 23 entries in `recipes.json.facilities`.
 
 ### `data/positions-*.js`
 ```js
@@ -185,3 +187,4 @@ The Search detail panel renders a wiki-style **infobox** + two catch-all lists (
 - **Powerless buildings (source data):** Water Pump, base Oil Well, the resource harvesters (Salvage/Components/Sulfur/Coal mines), Offshore Platform, and Concrete Mixer all have `0` building power. (User once believed only Water Pump + base Oil Well lack power — trust the data.)
 - **Factory/MPF `crateRecipes` must be gated by `productionCategories`** (factory/massProduction queue type). Many facility-only items carry a legacy `CostPerCrate` but are NOT Factory/MPF products — listing them there is the (fixed) bug where e.g. Cmats appeared makeable at a Factory/MPF. `isMpfEligible` excludes any vehicle with a facility-out recipe; vehicles/structures correctly have `productionCategories:null` yet ARE MPF-eligible via build cost — do **not** gate those by it.
 - **Battleship casing:** Dry Dock recipes use `LargeShipBattleShip*` (one 's') while metadata/icon is `LargeShipBattleship*` (canonicalized in `recipes.mjs`). Dry Dock recipes have empty inputs in the export — faithful, NOT a bug.
+- **Large aircraft model (frames + Aircraft Depot):** the Large Assembly Station's `AircraftAssembly` modification builds a per-plane **frame** (`<plane>Frame`, displayName `"… (Frame)"`) from Facility Materials — the legacy `AircraftCrate` input was not a real recipe ingredient and is dropped (`process-game-data.js`). The finished plane is assembled at a pseudo-facility **Aircraft Depot** (`pseudo:true`, `baseRecipes`) from the frame + faction-specific parts (`AIRCRAFT` map in `process-game-data.js`). Per-plane part counts: game_data `BasePartCodeName` slots for the 4 base planes; foxhole.wiki `PRD1_ExtraPart` tables for the other 5 (faction cross-checked against part display names — this dataset's suffix convention is inverted: **C = Colonial, W = Warden**). Frame metadata entries are full clones of the plane (icon PNG copied too); the depot recipe is `duration:0, powerDelta:0` (instant, power-free world assembly). `AircraftDepot` is in `recipes.test.mjs`'s `allowedMissing` set (intentionally absent from `FACILITY_TIER`, defaults to T1).

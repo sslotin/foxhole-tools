@@ -19,18 +19,18 @@ describe('fmtMW — up to one decimal, trailing .0 hidden', () => {
   })
 })
 
-describe('formatPower — <mag>MW × <duration>s (+ (/5) for multi-order), no sign', () => {
+describe('formatPower — <mag>MW × <duration>h (+ (/5) for multi-order), no sign', () => {
   const producer = { powerDelta: 2000, duration: 900 }
   const consumer = { facilityKey: 'FacilityRefinery', powerDelta: -4000, duration: 900 }
   const pad = { facilityKey: 'FacilityVehicleFactory1', powerDelta: -4000, duration: 900 }
 
   it('power producer: raw/1000 MW, no (/5) (sign shown via color, not text)', () => {
-    expect(formatPower(producer)).toBe('2MW × 900s')
+    expect(formatPower(producer)).toBe('2MW × 0.25h')
   })
   it('multi-order consumer: magnitude MW with (/5), no sign', () => {
-    expect(formatPower(consumer)).toBe('4MW × 180s (/5)')
+    expect(formatPower(consumer)).toBe('4MW × 0.05h (/5)')
   })
   it('assembly pad consumer: magnitude MW, no (/5), no sign', () => {
-    expect(formatPower(pad)).toBe('4MW × 900s')
+    expect(formatPower(pad)).toBe('4MW × 0.25h')
   })
 })

@@ -1261,8 +1261,48 @@ console.log(`  ${familyCount} upgrade families merged`)
   console.log(`  ${merged} overrides merged from overrides/wiki-enrich.json (palletAmount + volumeLiters)`)
 }
 
+// ── Large aircraft: frame items ────────────────────────────────────────────
+// The Large Assembly Station builds a per-plane *frame*, not the finished
+// plane. The game's `AircraftAssembly` modification produces a frame from
+// Facility Materials (the old "AircraftCrate" input is not a real recipe
+// ingredient). The finished plane is then assembled at an Aircraft Depot from
+// that frame + faction-specific engine/mechanical parts. `AIRCRAFT` maps each
+// plane codename to its extra-part requirements — taken from game_data
+// BasePartCodeName slots where present, otherwise the foxhole.wiki PRD1_ExtraPart
+// tables (faction cross-checked against the part display names; this dataset's
+// suffix convention is inverted: C = Colonial, W = Warden).
+const FRAME_SUFFIX = 'Frame'
+const AIRCRAFT = {
+  AircraftBomberC:      [['AircraftPartLargeEngineC', 2], ['AircraftPartLargeMechanicalC', 9]],
+  AircraftBomberW:      [['AircraftPartLargeEngineW', 2], ['AircraftPartLargeMechanicalW', 9]],
+  AircraftParatrooperC: [['AircraftPartLargeEngineC', 2], ['AircraftPartLargeMechanicalC', 6]],
+  AircraftParatrooperW: [['AircraftPartLargeEngineW', 2], ['AircraftPartLargeMechanicalW', 5]],
+  AircraftFighterC:     [['AircraftPartSmallEngineC', 1], ['AircraftPartSmallMechanicalC', 5]],
+  AircraftFighterW:     [['AircraftPartSmallEngineW', 1], ['AircraftPartSmallMechanicalW', 5]],
+  AircraftWaterW:       [['AircraftPartSmallEngineW', 1], ['AircraftPartSmallMechanicalW', 5]],
+  AircraftDiveC:        [['AircraftPartSmallEngineC', 1], ['AircraftPartSmallMechanicalC', 5]],
+  AircraftTorpedoW:     [['AircraftPartSmallEngineW', 3], ['AircraftPartSmallMechanicalW', 5]],
+}
+// Clone each plane's metadata into a "<plane>Frame" entry so the frame appears
+// in search / the recipe viewer with a "(Frame)" display name (its icon is
+// copied from the plane PNG below, after item icons are written).
+for (const plane of Object.keys(AIRCRAFT)) {
+  const src = metadata[plane]
+  if (!src) { missingIssues.push(`aircraft frame source missing: ${plane}`); continue }
+  metadata[plane + FRAME_SUFFIX] = { ...src, displayName: `${src.displayName} (Frame)` }
+}
+
 fs.writeFileSync(OUTPUT_METADATA, JSON.stringify(metadata, null, 2));
 console.log(`${Object.keys(metadata).length} items processed → ${OUTPUT_METADATA}`);
+
+// Large-aircraft frame icons: copy the plane's icon to the "<plane>Frame" name
+// (item icons are written above, so the source PNGs already exist this run).
+for (const plane of Object.keys(AIRCRAFT)) {
+  const src = ICON_BASE_DIR + `icons/${plane}.png`
+  const dst = ICON_BASE_DIR + `icons/${plane + FRAME_SUFFIX}.png`
+  if (fs.existsSync(src)) fs.copyFileSync(src, dst)
+  else missingIssues.push(`aircraft frame icon source missing: ${src}`)
+}
 
 if (missingIssues.length > 0) {
   const lines = [
@@ -1611,6 +1651,38 @@ for (const { path, key } of FACILITY_FILES) {
 }
 
 // ── Write recipes JSON ─────────────────────────────────────────────
+
+// ── Large-aircraft rework (derived from game_data + foxhole.wiki) ───────────
+// 1) The Large Assembly Station's "Aircraft Assembly" builds a per-plane *frame*
+//    from Facility Materials; the bogus "AircraftCrate" input is not a real
+//    recipe ingredient, so drop it and rename the outputs to "<plane>Frame".
+// 2) Add a pseudo-facility "Aircraft Depot" whose recipe assembles the frame +
+//    faction-specific parts into the finished plane. `AIRCRAFT` / `FRAME_SUFFIX`
+//    are declared above (before the metadata write) and are in scope here.
+const asmMod = facilities.FacilityVehicleFactory2?.modifications?.AircraftAssembly
+if (asmMod) {
+  for (const r of asmMod.recipes) {
+    r.inputs = r.inputs.filter(i => i.codeName !== 'AircraftCrate')
+    for (const o of r.outputs) o.codeName += FRAME_SUFFIX
+  }
+} else {
+  missingIssues.push('AircraftAssembly modification not found on FacilityVehicleFactory2')
+}
+facilities.AircraftDepot = {
+  displayName: 'Aircraft Depot',
+  codeName: 'AircraftDepot',
+  pseudo: true,
+  baseRecipes: Object.entries(AIRCRAFT).map(([plane, parts]) => ({
+    outputs: [{ codeName: plane, quantity: 1 }],
+    duration: 0,
+    powerDelta: 0,
+    requires: null,
+    inputs: [
+      { codeName: plane + FRAME_SUFFIX, quantity: 1 },
+      ...parts.map(([codeName, quantity]) => ({ codeName, quantity })),
+    ],
+  })),
+}
 
 const recipesOutput = {
   _generated: new Date().toISOString(),

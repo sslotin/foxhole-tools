@@ -2,7 +2,8 @@
 import { computed, ref } from 'vue'
 import { calc } from '../facility-calc/store.mjs'
 import {
-  recipesFor, displayName, modLabel, isPad, energyMWh, defaultRecipe,
+  recipesFor, displayName, modLabel, isPad, energyMWh, defaultRecipe, recipeTechTier,
+  shippable,
 } from '../facility-calc/recipes.mjs'
 import { powerByFacility as computePowerByFacility, peakPowerMW as computePeakPowerMW } from '../facility-calc/power.mjs'
 import { resolvePlan, reachableRecipes } from '../facility-calc/resolver.mjs'
@@ -16,6 +17,7 @@ import {
 import { toggleSkipAutoImport, chooseRecipe, toggleEnergy } from '../facility-calc/store.mjs'
 import FacItem from './FacItem.vue'
 import PowerChip from './PowerChip.vue'
+import { fmtHours } from './powerFormat.mjs'
 
 // ALWAYS_RAW resources (Metal, Coal, Sulfur, Components, Oil) default to being
 // imported (sourced from the world) rather than manufactured, but stay
@@ -53,6 +55,27 @@ const timeByRecipe = computed(() => {
 // an active/pinned recipe can never get stuck dimmed and can always be
 // deactivated). Pure logic in activation.mjs (focusItems / clickableRecipes).
 const focused = ref(null)
+// Hover-highlight: hovering any resource representation marks that resource so
+// every icon where it appears as a recipe INPUT (right-panel inputs + left-panel
+// recipe-input annotations) is outlined. data-res attributes on the relevant
+// elements drive this via a single root mouseover handler.
+const hoverResource = ref(null)
+// True only when the hovered element is an INPUT occurrence (a recipe-input
+// icon), not a resource's own row. So a resource's own row icon does not
+// self-highlight, but lights up when one of its input occurrences (a mini-
+// input in another resource's annotation / recipe) is hovered.
+const hoverFromInput = ref(false)
+function onHover (e) {
+  const el = e.target && e.target.closest ? e.target.closest('[data-res]') : null
+  if (!el) { hoverResource.value = null; hoverFromInput.value = false; return }
+  hoverResource.value = el.dataset.res
+  hoverFromInput.value = el.dataset.kind === 'input'
+}
+function onLeave () {
+  focused.value = null
+  hoverResource.value = null
+  hoverFromInput.value = false
+}
 const clickableRecipes = computed(() =>
   clickableForReachable(reachable.value, focused.value, activeRecipes.value, calc.desired))
 
@@ -202,26 +225,25 @@ function ceil1 (n) {
 function fmtEnergyMWh (v) {
   return v < 0.1 ? '<0.1' : ceil1(v)
 }
-function fmtTime (s) {
-  if (!s || s <= 0) return ''
-  s = Math.round(s) // round to whole seconds ONCE, then derive h/m/s by flooring
-  const h = Math.floor(s / 3600)
-  const m = Math.floor((s % 3600) / 60)
-  const sec = s % 60
-  const p = []
-  if (h) p.push(h + 'h')
-  if (m) p.push(m + 'm')
-  if (sec || !p.length) p.push(sec + 's')
-  return p.join(' ')
+// Shippable readout for the Imports panel: converts a plan quantity into its
+// container equivalent (scs / pallets / lcs / rcs). Returns a styled string
+// like "2.5 scs", or null when the item isn't shippable or the count is < 0.5
+// (per spec: don't print anything below half a container).
+function ship (c, q) {
+  const s = shippable(c, q)
+  if (!s || s.count < 0.5) return null
+  const v = Math.round(s.count * 10) / 10
+  const num = Number.isInteger(v) ? String(v) : v.toFixed(1)
+  return { num, unit: s.unit }
 }
 
 // Facilities list power label: consumers show "<MW>MW × <time>" (red, counted
 // in Peak power); producers show their output (green, excluded from Peak);
 // power-neutral buildings show just the time.
 function facPowerText (f) {
-  if (f.consumptionKw > 0) return fmtMW(f.consumptionKw / 1000) + 'MW × ' + fmtTime(f.timeActive)
-  if (f.productionKw > 0) return fmtMW(f.productionKw / 1000) + 'MW × ' + fmtTime(f.timeActive)
-  return fmtTime(f.timeActive)
+  if (f.consumptionKw > 0) return fmtMW(f.consumptionKw / 1000) + 'MW × ' + fmtHours(f.timeActive)
+  if (f.productionKw > 0) return fmtMW(f.productionKw / 1000) + 'MW × ' + fmtHours(f.timeActive)
+  return fmtHours(f.timeActive)
 }
 
 const sortBy = (a, b) => displayName(a[0]).localeCompare(displayName(b[0]))
@@ -259,9 +281,37 @@ const interDisplay = computed(() =>
   Object.entries(plan.value.intermediate).filter(([c]) => c !== 'Energy').sort(sortBy)
 )
 
+// Intermediates split by recipe choice: single-recipe resources first, then
+// multi-recipe ones (alternatives exist). A dashed separator is drawn between
+// the two groups. Energy (when produced) joins whichever group matches its
+// power-recipe count.
+const interEntries = computed(() => {
+  const list = interDisplay.value.slice()
+  if (energyProducedMWh.value > 1e-6) list.push(['Energy', null])
+  return list
+})
+const interSingle = computed(() => interEntries.value.filter(([c]) => recipeOptions(c).length <= 1))
+const interMulti = computed(() => interEntries.value.filter(([c]) => recipeOptions(c).length > 1))
+const interOrdered = computed(() => [...interSingle.value, ...interMulti.value])
+const interSeparatorKey = computed(() =>
+  interSingle.value.length && interMulti.value.length
+    ? interSingle.value[interSingle.value.length - 1][0]
+    : null)
+
 const byDisplay = computed(() =>
   Object.entries(plan.value.byproducts || {}).sort(sortBy)
 )
+
+// Icons-only annotation for an intermediate row: the inputs of its currently
+// selected (assigned) recipe, right-aligned. Energy is excluded — it's a
+// pseudo-resource (rendered by PowerChip), not a sourced item.
+function interInputs (c) {
+  const r = plan.value.assigned[c]
+  return r && r.inputs ? r.inputs.filter(i => i.codeName !== 'Energy') : []
+}
+
+// Does recipe `r` involve resource `res` (as input or output)? Used to
+// highlight the row when `res` is hovered anywhere on the page.
 
 // Items with no facility recipe at all (truly irreducible, must be sourced
 // from outside). These stay non-clickable because clicking can't manufacture
@@ -276,7 +326,7 @@ const alwaysInputSet = computed(() => {
 </script>
 
 <template>
-  <div class="fac-calc" @mouseleave="focused = null">
+  <div class="fac-calc" @mouseover="onHover" @mouseleave="onLeave">
     <div v-if="calc.desired.length === 0" class="fc-empty">
       <p>Click <b>+</b> next to a facility-produced item in the search list to add it.</p>
     </div>
@@ -288,37 +338,66 @@ const alwaysInputSet = computed(() => {
           <div v-if="rawDisplay.length || energyInImports" class="io-list">
             <div v-for="[c, q] in irreducibleInputs" :key="c"
                  class="input-row irreducible"
+                 :data-res="c"
+                 data-kind="self"
                  @mouseenter="focused = c">
-              <FacItem :codeName="c" :qty="fmt(q)" />
+              <FacItem :codeName="c" :qty="fmt(q)" :class="{ 'hl-input': hoverResource === c && hoverFromInput }" />
+              <span class="ship" v-if="s = ship(c, q)"><span class="n">{{ s.num }}</span><span class="u">{{ s.unit }}</span></span>
             </div>
             <div v-if="irreducibleInputs.length && reducibleInputs.length" class="input-separator"></div>
             <div v-for="[c, q] in reducibleInputs" :key="c"
                  class="input-row"
+                 :data-res="c"
                  :class="{ clickable: !alwaysInputSet.has(c) }"
                  @mouseenter="focused = c"
                  @click="alwaysInputSet.has(c) ? undefined : handleInputClick(c)">
-              <FacItem :codeName="c" :qty="fmt(q)" />
+              <FacItem :codeName="c" :qty="fmt(q)" :class="{ 'hl-input': hoverResource === c && hoverFromInput }" />
+              <span class="ship" v-if="s = ship(c, q)"><span class="n">{{ s.num }}</span><span class="u">{{ s.unit }}</span></span>
             </div>
             <div v-if="energyInImports" class="input-row clickable" @click="toggleEnergy" title="toggle energy: import / produce"
+                 :data-res="'Energy'"
                  @mouseenter="focused = 'Energy'">
-              <FacItem codeName="Energy" :qty="fmtEnergyMWh(energyDeficitMWh)" label="MWh" />
+              <FacItem codeName="Energy" :qty="fmtEnergyMWh(energyDeficitMWh)" label="MWh" :class="{ 'hl-input': hoverResource === 'Energy' && hoverFromInput }" />
+              <span class="ship" v-if="s = ship('Energy', energyDeficitMWh)"><span class="n">{{ s.num }}</span><span class="u">{{ s.unit }}</span></span>
             </div>
           </div>
           <p v-else class="muted">none</p>
         </section>
 
-        <section v-if="interDisplay.length || energyProducedMWh > 1e-6" class="fc-block">
+        <section v-if="interOrdered.length" class="fc-block">
           <h3>Intermediates</h3>
           <div class="io-list">
-            <div v-for="[c, q] in interDisplay" :key="c" class="inter-row"
-                 @mouseenter="focused = c"
-                 @click="handleInputClick(c)">
-              <FacItem :codeName="c" :qty="fmt(q)" />
-            </div>
-            <div v-if="energyProducedMWh > 1e-6" class="inter-row" @click="toggleEnergy" title="toggle energy: import / produce"
-                 @mouseenter="focused = 'Energy'">
-              <FacItem codeName="Energy" :qty="fmtEnergyMWh(energyProducedMWh)" label="MWh" />
-            </div>
+            <template v-for="[c, q] in interOrdered" :key="c">
+              <div v-if="c === 'Energy'" class="inter-row"
+                   :data-res="c"
+                   @click="toggleEnergy" title="toggle energy: import / produce"
+                   @mouseenter="focused = 'Energy'">
+                <FacItem codeName="Energy" :qty="fmtEnergyMWh(energyProducedMWh)" label="MWh" :class="{ 'hl-input': hoverResource === 'Energy' && hoverFromInput }" />
+                <span class="recipe-anno" v-if="interInputs('Energy').length">
+                  <img v-for="(inp, k) in interInputs('Energy')" :key="k"
+                       :src="`/icons/${inp.codeName}.png`" class="anno-icon"
+                       :data-res="inp.codeName"
+                       data-kind="input"
+                       :class="{ 'hl-input': hoverResource === inp.codeName }"
+                       @error="$event.target.style.visibility = 'hidden'" />
+                </span>
+              </div>
+              <div v-else class="inter-row"
+                   :data-res="c"
+                   @mouseenter="focused = c"
+                   @click="handleInputClick(c)">
+                <FacItem :codeName="c" :qty="fmt(q)" :class="{ 'hl-input': hoverResource === c && hoverFromInput }" />
+                <span class="recipe-anno" v-if="interInputs(c).length">
+                  <img v-for="(inp, k) in interInputs(c)" :key="k"
+                       :src="`/icons/${inp.codeName}.png`" class="anno-icon"
+                       :data-res="inp.codeName"
+                       data-kind="input"
+                       :class="{ 'hl-input': hoverResource === inp.codeName }"
+                       @error="$event.target.style.visibility = 'hidden'" />
+                </span>
+              </div>
+              <div v-if="c === interSeparatorKey" class="input-separator"></div>
+            </template>
           </div>
         </section>
 
@@ -326,8 +405,10 @@ const alwaysInputSet = computed(() => {
           <h3>By-products</h3>
           <div class="io-list">
             <div v-for="[c, q] in byDisplay" :key="c" class="by-row"
+                 :data-res="c"
+                 data-kind="self"
                  @mouseenter="focused = c">
-              <FacItem :codeName="c" :qty="fmt(q)" />
+              <FacItem :codeName="c" :qty="fmt(q)" :class="{ 'hl-input': hoverResource === c && hoverFromInput }" />
             </div>
           </div>
         </section>
@@ -364,18 +445,26 @@ const alwaysInputSet = computed(() => {
             <img :src="`/icons/${entry.r.facilityKey}.png`"
                  class="fac-icon"
                  @error="$event.target.style.visibility = 'hidden'" />
-            <span class="fac-label">{{ modLabel(entry.r) }}</span>
+            <span class="fac-label">{{ modLabel(entry.r) }}</span><sup v-if="recipeTechTier(entry.r) >= 2"
+                       class="tier-badge"
+                       :title="`Tech tier ${recipeTechTier(entry.r)} — not available from the start; requires advancing the tech tree`">T{{ recipeTechTier(entry.r) }}</sup>
           </span>
             <span class="io-inputs">
-              <FacItem v-for="(inp, k) in entry.r.inputs" :key="k" :codeName="inp.codeName" :qty="inp.quantity" />
+              <FacItem v-for="(inp, k) in entry.r.inputs" :key="k" :codeName="inp.codeName" :qty="inp.quantity"
+                       :data-res="inp.codeName"
+                       data-kind="input"
+                       :class="{ 'hl-input': hoverResource === inp.codeName }" />
               <PowerChip v-if="entry.r.powerDelta < 0" :recipe="entry.r" />
             </span>
             <span class="arrow-col">→</span>
             <span class="io-outputs">
-              <FacItem v-for="(out, k) in entry.r.outputs.filter(o => o.codeName !== 'Energy')" :key="k" :codeName="out.codeName" :qty="out.quantity" />
+              <FacItem v-for="(out, k) in entry.r.outputs.filter(o => o.codeName !== 'Energy')" :key="k" :codeName="out.codeName" :qty="out.quantity"
+                       :data-res="out.codeName"
+                       data-kind="output"
+                       :class="{ 'hl-input': hoverResource === out.codeName }" />
               <PowerChip v-if="entry.r.powerDelta > 0" :recipe="entry.r" />
             </span>
-            <span class="io-time" :class="{ visible: entry.active || entry.showDefault, default: entry.showDefault }">{{ entry.active ? fmtTime(timeByRecipe.get(entry.r)) : (entry.showDefault ? '(default)' : '') }}</span>
+            <span class="io-time" :class="{ visible: entry.active || entry.showDefault, default: entry.showDefault }">{{ entry.active ? fmtHours(timeByRecipe.get(entry.r)) : (entry.showDefault ? '(default)' : '') }}</span>
           </div>
         </div>
       </div>
@@ -388,10 +477,10 @@ const alwaysInputSet = computed(() => {
   display: flex
   gap: 24px
   align-items: flex-start
-  width: 1180px
+  width: 1250px
 
 .fc-left
-  flex: 0 0 340px
+  flex: 0 0 410px
   padding-right: 16px
   overflow-y: auto
   overflow-x: hidden
@@ -440,6 +529,21 @@ const alwaysInputSet = computed(() => {
     cursor: pointer
     width: 100%
 
+    // Right-aligned annotation: the inputs of the row's selected recipe
+    // (icons only), e.g. "← <icon1> <icon2> …".
+    .recipe-anno
+      margin-left: auto
+      display: flex
+      align-items: center
+      gap: 3px
+      flex-shrink: 0
+
+      .anno-icon
+        width: 22px
+        height: 22px
+        object-fit: contain
+        flex-shrink: 0
+
     &:hover
       background: #262626
 
@@ -480,6 +584,18 @@ const alwaysInputSet = computed(() => {
         flex: 1 1 auto
         min-width: 0
 
+.ship
+  margin-left: auto
+  font-weight: 600
+  white-space: nowrap
+  font-size: 16px
+
+  .n
+    color: #e8c674
+  .u
+    color: #ddd
+    margin-left: 2px
+
 .input-separator
   height: 0
   border-top: 1px dashed #333
@@ -494,6 +610,29 @@ const alwaysInputSet = computed(() => {
   display: flex
   flex-direction: column
   align-items: flex-start
+
+// Hover-highlight: when a resource is hovered anywhere on the page, every
+// icon where that resource appears as a recipe INPUT is outlined.
+// The ring uses a NEGATIVE outline-offset so it is drawn *inside* the icon and
+// can never be clipped by an ancestor's `overflow: hidden` (the rows and the
+// right-panel `.io-inputs`/`.io-outputs` all clip `.fac-item`).
+.fac-item.hl-input :deep(img),
+.anno-icon.hl-input
+  outline: 2px solid #e8c674
+  outline-offset: -2px
+  border-radius: 3px
+
+// The rows clip `.fac-item` with `overflow: hidden`, which would chop the
+// left side of the icon's outline ring. Flip it to visible on the highlighted
+// state so the ring draws fully — the name still truncates via its own `.nm`
+// overflow, so layout is unaffected. (The negative outline-offset above makes
+// this belt-and-suspenders; the ring is already drawn inside the icon.)
+.input-row .fac-item.hl-input,
+.inter-row .fac-item.hl-input,
+.by-row .fac-item.hl-input,
+.io-inputs .fac-item.hl-input,
+.io-outputs .fac-item.hl-input
+  overflow: visible
 
 .fac-list
   display: flex
@@ -614,6 +753,15 @@ const alwaysInputSet = computed(() => {
       line-height: 1.2
       width: 100%
       overflow-wrap: break-word
+
+    // Tech-tier superscript (T2/T3) for facilities not available from the
+    // start — see FACILITY_TIER in recipes.mjs (sourced from the wiki).
+    .tier-badge
+      font-size: 9px
+      font-weight: 700
+      line-height: 1
+      color: #e8c674
+      cursor: help
 
   .io-inputs
     display: flex

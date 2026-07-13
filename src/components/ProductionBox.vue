@@ -8,6 +8,7 @@ import PowerChip from './PowerChip.vue'
 
 const props = defineProps({
   recipes: { type: Array, default: () => [] },
+  title: { type: String, default: 'Production' },
 })
 const emit = defineEmits(['select'])
 
@@ -21,7 +22,7 @@ const used = computed(() => props.recipes.filter(r => r.kind === 'facility-in'))
        Garage / Construction Yard build, Factory crate, Mass Production). -->
   <template v-if="made.length">
     <div class="infobox">
-      <div class="infoclass">Production</div>
+      <div class="infoclass">{{ title }}</div>
       <div v-for="(r, i) in made" :key="'m' + i" class="recipe-row">
         <span class="fac-info">
           <img v-if="r.iconKey" :src="`/icons/${r.iconKey}.png`" class="fac-icon"

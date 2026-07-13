@@ -12,8 +12,9 @@
 // inputs/outputs are [{ codeName, quantity }] and an output may carry a `disp`
 // string override for the non-numeric MPF labels (e.g. "×9", "×5×3").
 
-import { recipesFor, recipesWithInput, modLabel } from '../facility-calc/recipes.mjs'
+import { recipesFor, recipesWithInput, modLabel, prettifyMod } from '../facility-calc/recipes.mjs'
 import recipesData from '../../parser/data/recipes.json' with { type: 'json' }
+import metadata from '../../parser/data/metadata.json' with { type: 'json' }
 
 const crateRecipes = recipesData.factory.crateRecipes
 
@@ -228,5 +229,82 @@ export function productionRecipes (codeName, entry) {
       outputs: [{ codeName, quantity: 1, disp: '5c' }],
     })
   }
+  return out
+}
+
+// Recipes produced by a production building — so the detail page can render a
+// "RECIPES" infobox listing everything the building makes. Covers three kinds
+// of production buildings:
+//   1. Facility buildings  — codeName is a key in recipesData.facilities
+//      (Materials Factory, Refinery, Coal Refinery, harvesters, assembly
+//      stations, Concrete Mixer, …). Every base + modification recipe.
+//   2. Factory             — every item it makes in crates (crateRecipes,
+//      gated by productionCategories so facility-only items are excluded).
+//   3. Mass Production Factory — every item (×9) / vehicle / structure (×5)
+//      it mass-produces.
+// Pure-power recipes (Energy only, no item output) are skipped — this box
+// lists items the building produces.
+export function buildingRecipes (codeName, entry) {
+  const out = []
+
+  // 1. Facility building: all base + modification recipes.
+  const fac = recipesData.facilities[codeName]
+  if (fac) {
+    const recipeOutputs = (r) => toIn(r.outputs).filter(o => o.codeName !== 'Energy')
+    const add = (modDispName, recipes) => {
+      for (const r of recipes) {
+        const outputs = recipeOutputs(r)
+        // Skip recipes with no item output (e.g. pure-power recipes whose only
+        // output is Energy, already filtered out) — this box lists items made.
+        if (outputs.length === 0) continue
+        out.push({
+          kind: 'facility-out',
+          iconKey: codeName,
+          facilityKey: codeName,
+          label: modDispName,
+          inputs: toIn(r.inputs),
+          outputs,
+          powerDelta: r.powerDelta,
+          duration: r.duration,
+        })
+      }
+    }
+    add(fac.displayName, fac.baseRecipes)
+    for (const [modKey, mod] of Object.entries(fac.modifications || {}))
+      add(mod.displayName || prettifyMod(modKey), mod.recipes)
+    return out
+  }
+
+  // 2. Factory: every crate item it produces.
+  if (codeName === 'Factory') {
+    for (const [itemCode, cr] of Object.entries(crateRecipes)) {
+      const e = metadata[itemCode]
+      if (!e || !isFactoryMpfItem(e)) continue
+      out.push({
+        kind: 'factory',
+        iconKey: 'Factory',
+        label: 'Factory',
+        inputs: toIn(cr.inputs),
+        outputs: [{ codeName: itemCode, quantity: 1, disp: '1c' }],
+      })
+    }
+    out.sort((a, b) => a.outputs[0].codeName.localeCompare(b.outputs[0].codeName))
+    return out
+  }
+
+  // 3. Mass Production Factory: every item / vehicle / structure it mass-produces.
+  if (codeName === 'MassProduction') {
+    for (const [itemCode, e] of Object.entries(metadata)) {
+      if (e.itemType === 'structure' || e.itemType === 'vehicle') {
+        if (isMpfEligible(e, itemCode))
+          out.push({ kind: 'mpf-veh', iconKey: 'MassProduction', label: 'Mass Production Factory', inputs: mpfLine5(e.buildCost), outputs: [{ codeName: itemCode, quantity: 1, disp: '5c' }] })
+      } else if (showCrateCost(e, itemCode)) {
+        out.push({ kind: 'mpf-item', iconKey: 'MassProduction', label: 'Mass Production Factory', inputs: mpfLine(e.crateCost), outputs: [{ codeName: itemCode, quantity: 1, disp: '9c' }] })
+      }
+    }
+    out.sort((a, b) => a.outputs[0].codeName.localeCompare(b.outputs[0].codeName))
+    return out
+  }
+
   return out
 }

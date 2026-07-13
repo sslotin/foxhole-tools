@@ -3,7 +3,7 @@ import { computed } from 'vue'
 import metadata from '../../parser/data/metadata.json'
 import { formatEntry, unformattedFields } from './metadata-format.js'
 import ProductionBox from './ProductionBox.vue'
-import { productionRecipes } from './production-recipes.js'
+import { productionRecipes, buildingRecipes } from './production-recipes.js'
 
 const props = defineProps({
   codeName: { type: String, default: undefined },
@@ -170,6 +170,10 @@ const prodCode = computed(() =>
 const prodEntry = computed(() => (prodCode.value ? metadata[prodCode.value] : null))
 const prodRecipes = computed(() =>
   prodEntry.value ? productionRecipes(prodCode.value, prodEntry.value) : [])
+
+// "RECIPES" infobox for production buildings: every item the building makes.
+const buildingRecipesList = computed(() =>
+  selected.value ? buildingRecipes(props.codeName, selected.value) : [])
 </script>
 
 <template>
@@ -184,6 +188,8 @@ const prodRecipes = computed(() =>
     <!-- Upgrade family: one page per building, Resistances pane with 1+3 tier columns -->
     <template v-if="isFamily">
       <ProductionBox :recipes="prodRecipes" @select="emit('select', $event)" />
+
+      <ProductionBox v-if="buildingRecipesList.length" :recipes="buildingRecipesList" title="RECIPES" @select="emit('select', $event)" />
 
       <div class="infobox" v-if="merged">
         <div class="infoclass">{{ mergedHeader }}<template v-if="merged.armour"> · <span class="sub">{{ merged.armour }}</span></template></div>
@@ -254,6 +260,8 @@ const prodRecipes = computed(() =>
     </div>
 
     <ProductionBox :recipes="prodRecipes" @select="emit('select', $event)" />
+
+    <ProductionBox v-if="buildingRecipesList.length" :recipes="buildingRecipesList" title="RECIPES" @select="emit('select', $event)" />
 
     <div class="infobox" v-if="merged">
       <div class="infoclass">{{ mergedHeader }}<template v-if="merged.armour"> · <span class="sub">{{ merged.armour }}</span></template></div>
