@@ -34,7 +34,7 @@ const SCRIPT_DIR = import.meta.dirname;
 // re-emitted into public/icons every run, so they survive the icons-dir wipe
 // above. Keyed by item codeName -> absolute path to a source PNG in this repo.
 const HARDCODED_ICONS = {
-  Diesel: SCRIPT_DIR + '/assets/ResourceFuelIcon.png',
+  Diesel: SCRIPT_DIR + '/overrides/ResourceFuelIcon.png',
 };
 
 // Clean and recreate icons directory, remove old subtypes dir
@@ -1240,6 +1240,24 @@ for (const [k, members] of Object.entries(famGroups)) {
   familyCount++
 }
 console.log(`  ${familyCount} upgrade families merged`)
+
+// ── Override merge (parser/scripts/overrides/wiki-enrich.json — explicit
+// overrides only; the wiki is NOT a game-data source — see MEMORY.md). Copy
+// `palletAmount` into the metadata so it survives regeneration and is available
+// at runtime (the UI reads metadata.json directly). Only palletAmount is merged
+// here: the other wiki-enrich fields (reload/fireRate/wikiTitle/...) are used
+// solely by the sanity-check test and must NOT leak into the infobox's
+// unformatted-fields list, so they stay out of metadata.json.
+{
+  let enrich = {}
+  try { enrich = JSON.parse(fs.readFileSync(SCRIPT_DIR + '/overrides/wiki-enrich.json', 'utf-8')) } catch { enrich = {} }
+  let merged = 0
+  for (const [code, e] of Object.entries(enrich)) {
+    const v = metadata[code]
+    if (v && e.palletAmount != null) { v.palletAmount = e.palletAmount; merged++ }
+  }
+  console.log(`  ${merged} palletAmount overrides merged from overrides/wiki-enrich.json`)
+}
 
 fs.writeFileSync(OUTPUT_METADATA, JSON.stringify(metadata, null, 2));
 console.log(`${Object.keys(metadata).length} items processed → ${OUTPUT_METADATA}`);

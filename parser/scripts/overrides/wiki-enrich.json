@@ -16,7 +16,8 @@
   },
   "ATRPGTW": {
     "fireRate": 17.1,
-    "wikiTitle": "Mounted Bonesaw MK.3"
+    "wikiTitle": "Mounted Bonesaw MK.3",
+    "palletAmount": 120
   },
   "ATRPGW": {
     "reload": 4,
@@ -50,7 +51,8 @@
   "ATRifleTC": {
     "fireRate": 60,
     "firingMode": "Automatic",
-    "wikiTitle": "“Typhon” ra.XII"
+    "wikiTitle": "“Typhon” ra.XII",
+    "palletAmount": 120
   },
   "ATRifleW": {
     "reload": 3.5,
@@ -360,7 +362,8 @@
   },
   "GrenadeLauncherTC": {
     "fireRate": 17,
-    "wikiTitle": "Mounted Fissura gd.I"
+    "wikiTitle": "Mounted Fissura gd.I",
+    "palletAmount": 120
   },
   "HalfTrackArtilleryC": {
     "speedKmh": 8.99,
@@ -544,12 +547,14 @@
   "MGTC": {
     "fireRate": 180,
     "firingMode": "Automatic",
-    "wikiTitle": "Lamentum mm.IV"
+    "wikiTitle": "Lamentum mm.IV",
+    "palletAmount": 120
   },
   "MGTW": {
     "fireRate": 300,
     "firingMode": "Automatic",
-    "wikiTitle": "Malone Ratcatcher MK.1"
+    "wikiTitle": "Malone Ratcatcher MK.1",
+    "palletAmount": 120
   },
   "MGW": {
     "reload": 3.5,
@@ -708,7 +713,8 @@
   },
   "RPGTW": {
     "fireRate": 10.9,
-    "wikiTitle": "Cutler Foebreaker"
+    "wikiTitle": "Cutler Foebreaker",
+    "palletAmount": 120
   },
   "RelicAPC": {
     "crew": 3,
@@ -1121,5 +1127,182 @@
   "WaterBucket": {
     "reload": 2,
     "wikiTitle": "Water Bucket"
+  },
+  "FireRocketAmmo": {
+    "palletAmount": 60
+  },
+  "FacilityMaterials3": {
+    "palletAmount": 120
+  },
+  "MortarTankAmmo": {
+    "palletAmount": 60
+  },
+  "TankMine": {
+    "palletAmount": 60
+  },
+  "HERocketAmmo": {
+    "palletAmount": 60
+  },
+  "SandbagMaterials": {
+    "palletAmount": 120
+  },
+  "MetalBeamMaterials": {
+    "palletAmount": 120
+  },
+  "FacilityMaterials2": {
+    "palletAmount": 120
+  },
+  "FacilityMaterials1": {
+    "palletAmount": 120
+  },
+  "ATLargeAmmo": {
+    "palletAmount": 60
+  },
+  "FlameAmmo": {
+    "palletAmount": 60
+  },
+  "HeavyArtilleryAmmo": {
+    "palletAmount": 120
+  },
+  "FacilityMaterials8": {
+    "palletAmount": 120
+  },
+  "BattleTankAmmo": {
+    "palletAmount": 60
+  },
+  "FacilityMaterials6": {
+    "palletAmount": 120
+  },
+  "BarbedWireMaterials": {
+    "palletAmount": 120
+  },
+  "LightArtilleryAmmo": {
+    "palletAmount": 120
+  },
+  "Concrete": {
+    "palletAmount": 120
+  },
+  "FacilityMaterials4": {
+    "palletAmount": 120
+  },
+  "ISGTC": {
+    "palletAmount": 120
+  },
+  "Tripod": {
+    "palletAmount": 120
+  },
+  "FacilityMaterials7": {
+    "palletAmount": 120
+  },
+  "FacilityMaterials5": {
+    "palletAmount": 120
+  },
+  "PipeMaterials": {
+    "palletAmount": 120
+  },
+  "LRArtilleryAmmo": {
+    "palletAmount": 120
+  },
+  "TorpedoAmmo": {
+    "palletAmount": 5
+  },
+  "DepthChargeAmmo": {
+    "palletAmount": 60
+  },
+  "WaterMine": {
+    "palletAmount": 60
+  },
+  "FacilityMaterials9": {
+    "palletAmount": 120
+  },
+  "FacilityMaterials11": {
+    "palletAmount": 120
+  },
+  "FacilityMaterials10": {
+    "palletAmount": 120
+  },
+  "InfantryMine": {
+    "palletAmount": 120
+  },
+  "MortarTankAmmoBR": {
+    "palletAmount": 60
+  },
+  "DemolitionRocketAmmo": {
+    "palletAmount": 60
+  },
+  "BomberAmmo": {
+    "palletAmount": 60
+  },
+  "AAAmmo": {
+    "palletAmount": 60
+  },
+  "SurfaceWaterMine": {
+    "palletAmount": 60
+  },
+  "DiveBomberAmmo": {
+    "palletAmount": 60
+  },
+  "AircraftPartSmallMechanicalC": {
+    "palletAmount": 60
+  },
+  "AircraftPartSmallEngineC": {
+    "palletAmount": 60
+  },
+  "AircraftPartLargeEngineC": {
+    "palletAmount": 1
+  },
+  "AircraftPartLargeMechanicalC": {
+    "palletAmount": 2
+  },
+  "AircraftPartSmallMechanicalW": {
+    "palletAmount": 60
+  },
+  "AircraftPartLargeEngineW": {
+    "palletAmount": 1
+  },
+  "AircraftPartSmallEngineW": {
+    "palletAmount": 60
+  },
+  "AircraftPartLargeMechanicalW": {
+    "palletAmount": 2
+  },
+  "MiniTorpedoAmmo": {
+    "palletAmount": 60
+  },
+  "AircraftAmmo": {
+    "palletAmount": 120
+  },
+  "AircraftPartSmallEngineWreckedC": {
+    "palletAmount": 60
+  },
+  "AircraftPartLargeEngineWreckedC": {
+    "palletAmount": 1
+  },
+  "AircraftPartSmallEngineWreckedW": {
+    "palletAmount": 60
+  },
+  "AircraftPartLargeEngineWreckedW": {
+    "palletAmount": 1
+  },
+  "AircraftPartLargeMechanicalWreckedW": {
+    "palletAmount": 2
+  },
+  "AircraftPartSmallMechanicalWreckedW": {
+    "palletAmount": 60
+  },
+  "AircraftPartSmallMechanicalWreckedC": {
+    "palletAmount": 60
+  },
+  "AircraftPartLargeMechanicalWreckedC": {
+    "palletAmount": 2
+  },
+  "AircraftTorpedoAmmo": {
+    "palletAmount": 5
+  },
+  "LightAAAmmo": {
+    "palletAmount": 60
+  },
+  "WaterWallMaterials": {
+    "palletAmount": 60
   }
 }

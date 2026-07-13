@@ -2,13 +2,13 @@
 //
 // Policy (see MEMORY.md "Data provenance (authoritative)"): parser/data/metadata.json
 // is derived ONLY from the exported game_data/ via process-game-data.js. The foxhole
-// wiki (parser/data/wiki-enrich.json) is NOT a data source — it is used solely here as
+// wiki (parser/scripts/overrides/wiki-enrich.json) is NOT a data source — it is used solely here as
 // a SANITY CHECK (e.g. to flag which fields we intentionally omit because the exports
 // lack them). See tmp/wiki-check.mjs for the field-by-field comparison script.
 import { describe, it, expect } from 'vitest'
 import metaRaw from './data/metadata.json'
-import enrich from './data/wiki-enrich.json'
-import { formatEntry, missingFields } from '../src/components/metadata-format.js'
+import enrich from './scripts/overrides/wiki-enrich.json'
+import { formatEntry, missingFields, classify } from '../src/components/metadata-format.js'
 
 const isFiniteNum = x => typeof x === 'number' && Number.isFinite(x)
 function walkNumbers(obj, path, bad) {
@@ -162,5 +162,29 @@ describe('train coal consumption (replaces fuel cap)', () => {
     const labels = r.rows.map(x => x.label)
     expect(labels).toContain('Fuel cap')
     expect(labels).not.toContain('Coal')
+  })
+})
+
+describe('palletAmount override surfaces as a "Per pallet" infobox row', () => {
+  it('150mm (HeavyArtilleryAmmo) shows Per pallet: 120', () => {
+    const r = formatEntry('HeavyArtilleryAmmo', metaRaw.HeavyArtilleryAmmo)
+    const row = r.rows.find(x => x.label === 'Per pallet')
+    expect(row, 'Per pallet row present').toBeTruthy()
+    expect(row.value).toBe(120)
+  })
+  it('Anti-Tank Mine (TankMine) shows Per pallet: 60', () => {
+    const r = formatEntry('TankMine', metaRaw.TankMine)
+    const row = r.rows.find(x => x.label === 'Per pallet')
+    expect(row.value).toBe(60)
+  })
+  it('non-cratable items (RifleW) have no Per pallet row', () => {
+    const r = formatEntry('RifleW', metaRaw.RifleW)
+    expect(r.rows.find(x => x.label === 'Per pallet')).toBeUndefined()
+  })
+  it('Per pallet is not flagged as a missing wiki field', () => {
+    const v = metaRaw.HeavyArtilleryAmmo
+    const r = formatEntry('HeavyArtilleryAmmo', v)
+    const labels = new Set(r.rows.map(x => x.label))
+    expect(missingFields(classify(v), labels)).not.toContain('Pallet Amount')
   })
 })
