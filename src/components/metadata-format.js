@@ -265,6 +265,8 @@ export function formatEntry(codeName, v) {
   }
   const cl = crateLine(v)
   if (cl != null) { push('Crate size', cl, 'quantityPerCrate') }
+  if (v.palletAmount != null) push('Per pallet', v.palletAmount, 'palletAmount')
+  if (v.volumeLiters != null) push('Volume', v.volumeLiters + ' L', 'volumeLiters')
 
   return { class: subhead, rows, used, missing: missingFields(cls, new Set(rows.map(r => r.label))) }
 }
@@ -309,12 +311,12 @@ export function classify(v) {
 // in meters for guns live only in the live client, not in these exports.
 const WIKI_FIELDS = {
   'Firearm': ['Fire rate', 'Reload', 'Firing mode', 'Range (m)'],
-  'Mount/Deployed': ['Fire rate', 'Reload', 'Firing mode', 'Range (m)', 'Pallet Amount'],
+  'Mount/Deployed': ['Fire rate', 'Reload', 'Firing mode', 'Range (m)'],
   'Melee Weapon': ['Damage Type', 'Firing mode'],
   'Grenade/Thrown': ['Damage Type', 'Firing mode'],
   'Ammunition': ['Weight'],
   'Material/Supply': ['Uses'],
-  'Tool/Equip': ['Pallet Amount'],
+  'Tool/Equip': [],
   'Misc': ['Uses'],
   'Land Vehicle': ['Crew', 'Passengers', 'Off-road Speed', 'Fire Rate'],
   'Ship': ['Armour HP', 'Crew', 'Passengers', 'Min/Max Pen Chance', 'Trigger Mines', 'Water Speed'],

@@ -188,3 +188,21 @@ describe('palletAmount override surfaces as a "Per pallet" infobox row', () => {
     expect(missingFields(classify(v), labels)).not.toContain('Pallet Amount')
   })
 })
+
+describe('liquid volume (liters per unit) override', () => {
+  it('Diesel shows Volume: 100 L (1 canister = 1 unit)', () => {
+    const r = formatEntry('Diesel', metaRaw.Diesel)
+    const row = r.rows.find(x => x.label === 'Volume')
+    expect(row, 'Volume row').toBeTruthy()
+    expect(row.value).toBe('100 L')
+  })
+  it('Heavy Oil (FacilityOil1) shows Volume: 30 L', () => {
+    const r = formatEntry('FacilityOil1', metaRaw.FacilityOil1)
+    const row = r.rows.find(x => x.label === 'Volume')
+    expect(row.value).toBe('30 L')
+  })
+  it('non-liquid items (RifleW) have no Volume row', () => {
+    const r = formatEntry('RifleW', metaRaw.RifleW)
+    expect(r.rows.find(x => x.label === 'Volume')).toBeUndefined()
+  })
+})

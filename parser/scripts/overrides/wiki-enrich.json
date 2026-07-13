@@ -40,18 +40,18 @@
     "reload": 4,
     "fireRate": 180,
     "firingMode": "3-round burst",
-    "wikiTitle": "“Dawn” Ve.II"
+    "wikiTitle": "\u201cDawn\u201d Ve.II"
   },
   "ATRifleSniperC": {
     "reload": 4,
     "fireRate": 30,
     "firingMode": "Bolt-action",
-    "wikiTitle": "“Quickhatch” Rt.I"
+    "wikiTitle": "\u201cQuickhatch\u201d Rt.I"
   },
   "ATRifleTC": {
     "fireRate": 60,
     "firingMode": "Automatic",
-    "wikiTitle": "“Typhon” ra.XII",
+    "wikiTitle": "\u201cTyphon\u201d ra.XII",
     "palletAmount": 120
   },
   "ATRifleW": {
@@ -65,14 +65,14 @@
     "offspeedKmh": 4.6,
     "crew": 1,
     "passengers": 1,
-    "wikiTitle": "R-12 - “Salus” Ambulance"
+    "wikiTitle": "R-12 - \u201cSalus\u201d Ambulance"
   },
   "AmbulanceFlameC": {
     "speedKmh": 13.16,
     "offspeedKmh": 4.6,
     "crew": 2,
     "passengers": 1,
-    "wikiTitle": "R-12b - “Salva” Flame Truck"
+    "wikiTitle": "R-12b - \u201cSalva\u201d Flame Truck"
   },
   "AmbulanceFlameW": {
     "speedKmh": 13.16,
@@ -116,7 +116,7 @@
     "speedKmh": 10.2,
     "offspeedKmh": 3.06,
     "crew": 2,
-    "wikiTitle": "T3 “Xiphos”"
+    "wikiTitle": "T3 \u201cXiphos\u201d"
   },
   "ArmoredCarFlameW": {
     "speedKmh": 6.86,
@@ -134,13 +134,13 @@
     "speedKmh": 10.04,
     "offspeedKmh": 5.52,
     "crew": 2,
-    "wikiTitle": "T5 “Percutio”"
+    "wikiTitle": "T5 \u201cPercutio\u201d"
   },
   "ArmoredCarTwinC": {
     "speedKmh": 10.2,
     "offspeedKmh": 3.06,
     "crew": 2,
-    "wikiTitle": "T8 “Gemini”"
+    "wikiTitle": "T8 \u201cGemini\u201d"
   },
   "ArmoredCarW": {
     "speedKmh": 10.88,
@@ -158,7 +158,7 @@
     "reload": 3.5,
     "fireRate": 300,
     "firingMode": "Automatic",
-    "wikiTitle": "“Dusk” ce.III"
+    "wikiTitle": "\u201cDusk\u201d ce.III"
   },
   "AssaultRifleHeavyW": {
     "reload": 3.5,
@@ -182,7 +182,7 @@
     "speedKmh": 4.22,
     "offspeedKmh": 2.95,
     "crew": 4,
-    "wikiTitle": "Lance-25 “Hasta”"
+    "wikiTitle": "Lance-25 \u201cHasta\u201d"
   },
   "BattleTankC": {
     "speedKmh": 6.25,
@@ -201,7 +201,7 @@
     "offspeedKmh": 2.17,
     "crew": 3,
     "passengers": 4,
-    "wikiTitle": "Lance-46 “Sarissa”"
+    "wikiTitle": "Lance-46 \u201cSarissa\u201d"
   },
   "BattleTankHeavyArtilleryW": {
     "speedKmh": 3.65,
@@ -230,7 +230,7 @@
     "offspeedKmh": 3.87,
     "crew": 1,
     "passengers": 11,
-    "wikiTitle": "R-15 - “Chariot”"
+    "wikiTitle": "R-15 - \u201cChariot\u201d"
   },
   "BusW": {
     "speedKmh": 12.9,
@@ -276,7 +276,7 @@
     "speedKmh": 3.19,
     "offspeedKmh": 1.92,
     "crew": 2,
-    "wikiTitle": "GA6 “Cestus”"
+    "wikiTitle": "GA6 \u201cCestus\u201d"
   },
   "FieldAT2W": {
     "speedKmh": 3.19,
@@ -306,7 +306,7 @@
     "speedKmh": 2.64,
     "offspeedKmh": 1.58,
     "crew": 2,
-    "wikiTitle": "40-45 “Smelter”"
+    "wikiTitle": "40-45 \u201cSmelter\u201d"
   },
   "FieldCannonW": {
     "speedKmh": 3.19,
@@ -318,7 +318,7 @@
     "speedKmh": 3.19,
     "offspeedKmh": 1.92,
     "crew": 2,
-    "wikiTitle": "G40 “Sagittarii”"
+    "wikiTitle": "G40 \u201cSagittarii\u201d"
   },
   "FieldMGW": {
     "speedKmh": 3.19,
@@ -330,7 +330,7 @@
     "speedKmh": 2.77,
     "offspeedKmh": 1.66,
     "crew": 2,
-    "wikiTitle": "30-250 “Tisiphone” Field Cannon"
+    "wikiTitle": "30-250 \u201cTisiphone\u201d Field Cannon"
   },
   "FieldMortarW": {
     "speedKmh": 3.19,
@@ -341,7 +341,7 @@
   "FlameTorchC": {
     "fireRate": 240,
     "firingMode": "Automatic",
-    "wikiTitle": "“Molten Wind” v.II Flame Torch"
+    "wikiTitle": "\u201cMolten Wind\u201d v.II Flame Torch"
   },
   "FlameTorchW": {
     "fireRate": 240,
@@ -369,21 +369,21 @@
     "speedKmh": 8.99,
     "offspeedKmh": 5.39,
     "crew": 3,
-    "wikiTitle": "HH-d “Peltast”"
+    "wikiTitle": "HH-d \u201cPeltast\u201d"
   },
   "HalfTrackC": {
     "speedKmh": 8.99,
     "offspeedKmh": 5.39,
     "crew": 2,
     "passengers": 5,
-    "wikiTitle": "HH-a “Javelin”"
+    "wikiTitle": "HH-a \u201cJavelin\u201d"
   },
   "HalfTrackDefensiveC": {
     "speedKmh": 7.94,
     "offspeedKmh": 4.36,
     "crew": 2,
     "passengers": 5,
-    "wikiTitle": "HH-b “Hoplite”"
+    "wikiTitle": "HH-b \u201cHoplite\u201d"
   },
   "HalfTrackOffensiveW": {
     "speedKmh": 7.66,
@@ -425,14 +425,14 @@
     "offspeedKmh": 4.06,
     "crew": 1,
     "passengers": 7,
-    "wikiTitle": "AB-8 “Acheron”"
+    "wikiTitle": "AB-8 \u201cAcheron\u201d"
   },
   "LandingCraftOffensiveC": {
     "speedKmh": 4.77,
     "offspeedKmh": 4.06,
     "crew": 2,
     "passengers": 7,
-    "wikiTitle": "AB-11 “Doru”"
+    "wikiTitle": "AB-11 \u201cDoru\u201d"
   },
   "LandingCraftW": {
     "speedKmh": 4.77,
@@ -451,7 +451,7 @@
     "speedKmh": 1.6,
     "offspeedKmh": 0.96,
     "crew": 2,
-    "wikiTitle": "945g “Stygian Bolt”"
+    "wikiTitle": "945g \u201cStygian Bolt\u201d"
   },
   "LargeFieldCannonW": {
     "speedKmh": 1.98,
@@ -463,13 +463,13 @@
     "speedKmh": 2.17,
     "offspeedKmh": 1.3,
     "crew": 2,
-    "wikiTitle": "120-68 “Koronides” Field Gun"
+    "wikiTitle": "120-68 \u201cKoronides\u201d Field Gun"
   },
   "LargeFieldMortarC": {
     "speedKmh": 1.6,
     "offspeedKmh": 0.96,
     "crew": 2,
-    "wikiTitle": "40-250 “Alekto” Heavy Cannon"
+    "wikiTitle": "40-250 \u201cAlekto\u201d Heavy Cannon"
   },
   "LargeFieldMultiW": {
     "speedKmh": 2.51,
@@ -482,13 +482,13 @@
     "offspeedKmh": 3.86,
     "crew": 3,
     "passengers": 2,
-    "wikiTitle": "HC-2 “Scorpion”"
+    "wikiTitle": "HC-2 \u201cScorpion\u201d"
   },
   "LightTank3C": {
     "speedKmh": 8.27,
     "offspeedKmh": 5.79,
     "crew": 2,
-    "wikiTitle": "HA-1 “Sagaris”"
+    "wikiTitle": "HA-1 \u201cSagaris\u201d"
   },
   "LightTank3W": {
     "speedKmh": 8.27,
@@ -506,7 +506,7 @@
     "speedKmh": 8.27,
     "offspeedKmh": 5.79,
     "crew": 3,
-    "wikiTitle": "H-5 “Hatchet”"
+    "wikiTitle": "H-5 \u201cHatchet\u201d"
   },
   "LightTankDefensiveW": {
     "speedKmh": 7.72,
@@ -518,19 +518,19 @@
     "speedKmh": 7.88,
     "offspeedKmh": 5.52,
     "crew": 3,
-    "wikiTitle": "H-19 “Vulcan”"
+    "wikiTitle": "H-19 \u201cVulcan\u201d"
   },
   "LightTankMobilityC": {
     "speedKmh": 7.72,
     "offspeedKmh": 5.4,
     "crew": 3,
-    "wikiTitle": "H-8 “Kranesca”"
+    "wikiTitle": "H-8 \u201cKranesca\u201d"
   },
   "LightTankOffensiveC": {
     "speedKmh": 8.15,
     "offspeedKmh": 5.7,
     "crew": 3,
-    "wikiTitle": "H-10 “Pelekys”"
+    "wikiTitle": "H-10 \u201cPelekys\u201d"
   },
   "LightTankW": {
     "speedKmh": 8.27,
@@ -582,7 +582,7 @@
     "speedKmh": 6.53,
     "offspeedKmh": 4.57,
     "crew": 3,
-    "wikiTitle": "86K-a “Bardiche”"
+    "wikiTitle": "86K-a \u201cBardiche\u201d"
   },
   "MediumTank2IndirectW": {
     "speedKmh": 6.67,
@@ -606,7 +606,7 @@
     "speedKmh": 6.53,
     "offspeedKmh": 4.57,
     "crew": 3,
-    "wikiTitle": "86K-c “Ranseur”"
+    "wikiTitle": "86K-c \u201cRanseur\u201d"
   },
   "MediumTank2W": {
     "speedKmh": 6.67,
@@ -618,7 +618,7 @@
     "speedKmh": 8.45,
     "offspeedKmh": 5.07,
     "crew": 4,
-    "wikiTitle": "90T-v “Nemesis”"
+    "wikiTitle": "90T-v \u201cNemesis\u201d"
   },
   "MediumTankATW": {
     "speedKmh": 7.75,
@@ -630,19 +630,19 @@
     "speedKmh": 7.62,
     "offspeedKmh": 5.33,
     "crew": 3,
-    "wikiTitle": "85K-b “Falchion”"
+    "wikiTitle": "85K-b \u201cFalchion\u201d"
   },
   "MediumTankLargeC": {
     "speedKmh": 3.94,
     "offspeedKmh": 2.76,
     "crew": 4,
-    "wikiTitle": "85V-g “Talos”"
+    "wikiTitle": "85V-g \u201cTalos\u201d"
   },
   "MediumTankOffensiveC": {
     "speedKmh": 7.62,
     "offspeedKmh": 5.33,
     "crew": 3,
-    "wikiTitle": "85K-a “Spatha”"
+    "wikiTitle": "85K-a \u201cSpatha\u201d"
   },
   "MediumTankSiegeW": {
     "speedKmh": 7.75,
@@ -665,7 +665,7 @@
     "speedKmh": 5.82,
     "offspeedKmh": 4.07,
     "crew": 3,
-    "wikiTitle": "HC-7 “Ballista”"
+    "wikiTitle": "HC-7 \u201cBallista\u201d"
   },
   "Motorboat": {
     "speedKmh": 8,
@@ -678,13 +678,13 @@
     "offspeedKmh": 6.85,
     "crew": 1,
     "passengers": 1,
-    "wikiTitle": "03MM “Caster”"
+    "wikiTitle": "03MM \u201cCaster\u201d"
   },
   "MotorcycleOffensiveC": {
     "speedKmh": 14.42,
     "offspeedKmh": 6.5,
     "crew": 2,
-    "wikiTitle": "00MS “Stinger”"
+    "wikiTitle": "00MS \u201cStinger\u201d"
   },
   "MotorcycleW": {
     "speedKmh": 15.2,
@@ -838,21 +838,21 @@
     "reload": 2.5,
     "fireRate": 240,
     "firingMode": "Automatic",
-    "wikiTitle": "“The Pitch Gun” mc.V"
+    "wikiTitle": "\u201cThe Pitch Gun\u201d mc.V"
   },
   "SMGHeavyC": {
     "reload": 3.2,
     "fireRate": 240,
     "firingMode": "Automatic",
     "encumbrance": 100,
-    "wikiTitle": "“Lionclaw” mc.VIII"
+    "wikiTitle": "\u201cLionclaw\u201d mc.VIII"
   },
   "SMGHeavyW": {
     "reload": 3.2,
     "fireRate": 171,
     "firingMode": "Automatic",
     "encumbrance": 100,
-    "wikiTitle": "No.1 “The Liar” Submachine Gun"
+    "wikiTitle": "No.1 \u201cThe Liar\u201d Submachine Gun"
   },
   "SMGW": {
     "reload": 2.5,
@@ -883,14 +883,14 @@
     "offspeedKmh": 10.17,
     "crew": 1,
     "passengers": 3,
-    "wikiTitle": "UV-05a “Argonaut”"
+    "wikiTitle": "UV-05a \u201cArgonaut\u201d"
   },
   "ScoutVehicleOffensiveC": {
     "speedKmh": 15.11,
     "offspeedKmh": 6.03,
     "crew": 2,
     "passengers": 1,
-    "wikiTitle": "UV-24 “Icarus”"
+    "wikiTitle": "UV-24 \u201cIcarus\u201d"
   },
   "ScoutVehicleOffensiveW": {
     "speedKmh": 15.11,
@@ -904,7 +904,7 @@
     "offspeedKmh": 7.56,
     "crew": 2,
     "passengers": 1,
-    "wikiTitle": "UV-5c “Odyssey”"
+    "wikiTitle": "UV-5c \u201cOdyssey\u201d"
   },
   "ScoutVehicleUtilityW": {
     "speedKmh": 13.94,
@@ -969,7 +969,7 @@
     "speedKmh": 5,
     "offspeedKmh": 3.5,
     "crew": 5,
-    "wikiTitle": "O-75b “Ares”"
+    "wikiTitle": "O-75b \u201cAres\u201d"
   },
   "SuperTankW": {
     "speedKmh": 7.21,
@@ -986,25 +986,25 @@
     "offspeedKmh": 4.59,
     "crew": 2,
     "passengers": 2,
-    "wikiTitle": "T12 “Actaeon” Tankette"
+    "wikiTitle": "T12 \u201cActaeon\u201d Tankette"
   },
   "TanketteFlameC": {
     "speedKmh": 5.76,
     "offspeedKmh": 4.03,
     "crew": 2,
-    "wikiTitle": "T14 “Vesta” Tankette"
+    "wikiTitle": "T14 \u201cVesta\u201d Tankette"
   },
   "TanketteMultiC": {
     "speedKmh": 5.76,
     "offspeedKmh": 4.03,
     "crew": 2,
-    "wikiTitle": "T13 “Deioneus” Rocket Battery"
+    "wikiTitle": "T13 \u201cDeioneus\u201d Rocket Battery"
   },
   "TanketteOffensiveC": {
     "speedKmh": 5.76,
     "offspeedKmh": 4.03,
     "crew": 2,
-    "wikiTitle": "T20 “Ixion” Tankette"
+    "wikiTitle": "T20 \u201cIxion\u201d Tankette"
   },
   "TrailerLiquid": {
     "crew": 0,
@@ -1067,7 +1067,7 @@
     "offspeedKmh": 4.15,
     "crew": 1,
     "passengers": 1,
-    "wikiTitle": "RR-3 “Stolon” Tanker"
+    "wikiTitle": "RR-3 \u201cStolon\u201d Tanker"
   },
   "TruckLiquidW": {
     "speedKmh": 13.84,
@@ -1081,7 +1081,7 @@
     "offspeedKmh": 3.46,
     "crew": 1,
     "passengers": 5,
-    "wikiTitle": "R-5b “Sisyphus” Hauler"
+    "wikiTitle": "R-5b \u201cSisyphus\u201d Hauler"
   },
   "TruckMobilityW": {
     "speedKmh": 12.62,
@@ -1094,21 +1094,21 @@
     "speedKmh": 14.28,
     "offspeedKmh": 2.86,
     "crew": 2,
-    "wikiTitle": "R-17 “Retiarius” Skirmisher"
+    "wikiTitle": "R-17 \u201cRetiarius\u201d Skirmisher"
   },
   "TruckOffensiveC": {
     "speedKmh": 17.32,
     "offspeedKmh": 3.46,
     "crew": 2,
     "passengers": 4,
-    "wikiTitle": "R-9 “Speartip” Escort"
+    "wikiTitle": "R-9 \u201cSpeartip\u201d Escort"
   },
   "TruckResourceC": {
     "speedKmh": 18.05,
     "offspeedKmh": 3.61,
     "crew": 1,
     "passengers": 1,
-    "wikiTitle": "R-5 “Atlas” Hauler"
+    "wikiTitle": "R-5 \u201cAtlas\u201d Hauler"
   },
   "TruckResourceW": {
     "speedKmh": 18.05,
@@ -1304,5 +1304,23 @@
   },
   "WaterWallMaterials": {
     "palletAmount": 60
+  },
+  "Diesel": {
+    "volumeLiters": 100
+  },
+  "Petrol": {
+    "volumeLiters": 50
+  },
+  "Oil": {
+    "volumeLiters": 50
+  },
+  "Water": {
+    "volumeLiters": 50
+  },
+  "FacilityOil1": {
+    "volumeLiters": 30
+  },
+  "FacilityOil2": {
+    "volumeLiters": 30
   }
 }
