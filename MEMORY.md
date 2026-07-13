@@ -61,12 +61,12 @@ Last updated: Jul 11, 2026 (energy import/produce toggle + sticky-hover focus + 
   default-produced recipe and stayed visible — looking like "can't unassign". Force-add keeps it
   imported. Regression test: `src/facility-calc/unassign-import.test.mjs` (7 cases, incl. the
   already-imported-before case for both Reformer and Oil Refinery, AND left-panel resource clicks).
-- **Left-panel resource-row click (`handleInputClick`):** for a NON-basic resource it mirrors the
-  recipe-row click. If the resource is **pinned** (manual `selectedRecipes[codeName]` set) it
-  clears the pin AND force-imports (add if missing); otherwise it toggles import↔produce via
-  `toggleImported`. The pin-clear is essential — `toggleImported` alone is overridden by the pin
-  because `expandState` force-produces a pinned recipe, so clicking the resource looked like a
-  no-op ("can't unassign Petrol"). Covered by the same `unassign-import.test.mjs` cases.
+- **Left-panel resource-row click (`handleInputClick`):** decides the action from the **current plan assignment** (`plan.assigned[codeName]` is a recipe ⇒ produced/intermediate; is `null` ⇒ imported/input), so a click does exactly one thing and cannot no-op:
+  - **Intermediate** (produced) → **unassign**: clear any manual pin (`chooseRecipe(codeName, null)`) AND force-import (add to `calc.imported` if missing; prunes its supply chain). No toggle, so it can never accidentally re-produce the item.
+  - **Reducible input** (imported, has a facility recipe) → **assign its default recipe**: remove from `calc.imported` AND pin `defaultRecipe(codeName)` so it is produced. No toggle.
+  - **Basics** (DEFAULT_IMPORTED) keep the separate `toggleSkipAutoImport` branch (toggle import↔break-down), untouched.
+  - Energy is handled separately (`@click="toggleEnergy"`), not via `handleInputClick`.
+  - Pre-Jul-13 the handler keyed off `selectedRecipes` presence + a `toggleImported` toggle, which could no-op when an item's import/pin state disagreed with its section. Covered by `src/facility-calc/unassign-import.test.mjs` (now 10 cases: pinned unassign, unpinned-intermediate unassign, reducible-input assigns default, already-imported-before cases, Energy via toggleEnergy).
 - **Sticky hover focus:** hovering a left-panel resource row sets `focused = codeName`; the right
   panel then filters to that resource's recipe options. `focused` persists while the mouse travels
   from the row left→right into the right panel (per-row `@mouseleave` was removed; focus only resets

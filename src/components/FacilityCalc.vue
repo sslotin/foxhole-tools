@@ -13,7 +13,7 @@ import {
   activeRecipes as activeForPlan,
   clickableRecipes as clickableForReachable,
 } from '../facility-calc/activation.mjs'
-import { toggleImported, toggleSkipAutoImport, chooseRecipe, toggleEnergy } from '../facility-calc/store.mjs'
+import { toggleSkipAutoImport, chooseRecipe, toggleEnergy } from '../facility-calc/store.mjs'
 import FacItem from './FacItem.vue'
 import PowerChip from './PowerChip.vue'
 
@@ -119,20 +119,34 @@ const energyInImports = computed(() => calc.energyImported && energyDeficitMWh.v
 const powerByFacility = computed(() => computePowerByFacility(plan.value))
 const peakPowerMW = computed(() => computePeakPowerMW(powerByFacility.value))
 
+// The click does exactly one thing, decided from the CURRENT plan assignment
+// (which section the row lives in), not from toggle/toggle state:
+//   * an INTERMEDIATE (produced: plan.assigned[codeName] is a recipe) -> unassign
+//     its recipe: drop any manual pin and force it imported (prune its chain).
+//   * a reducible INPUT  (imported: plan.assigned[codeName] is null)    -> assign
+//     its DEFAULT recipe: stop importing it and pin the default recipe.
+// This replaces the old selectedRecipes-based + toggleImported logic, which
+// could no-op when an item's import/pin state disagreed with its section.
 function handleInputClick (codeName) {
+  // Basics are imported by default; clicking toggles whether we break them
+  // down (manufacture) or keep importing — a separate concern from the
+  // intermediate/input recipe assignment below.
   if (DEFAULT_IMPORTED.includes(codeName)) { toggleSkipAutoImport(codeName); return }
-  // A manually-pinned intermediate (selectedRecipes[codeName] set) must have its
-  // pin cleared, otherwise expandState force-produces the pinned recipe and the
-  // import toggle is overridden — clicking the resource looks like a no-op
-  // (the "can't unassign Petrol" bug). After clearing the pin we force-import
-  // (add if missing), mirroring clicking the active recipe in the right panel.
-  if (codeName in calc.selectedRecipes) {
-    chooseRecipe(codeName, null)
+
+  const produced = !!plan.value.assigned[codeName]
+  if (produced) {
+    // INTERMEDIATE -> unassign (import it, prune its supply chain). No toggle:
+    // a single unassign action that cannot accidentally re-produce the item.
+    chooseRecipe(codeName, null) // clear manual pin if present
     if (!calc.imported.includes(codeName)) calc.imported.push(codeName)
     return
   }
-  // Unpinned intermediate: standard import <-> produce toggle.
-  toggleImported(codeName)
+
+  // REDUCIBLE INPUT -> assign its default recipe (produce it). No toggle: a
+  // single assign action. The resolver then manufactures it with defaultRecipe.
+  calc.imported = calc.imported.filter(c => c !== codeName)
+  const def = defaultRecipe(codeName)
+  if (def) chooseRecipe(codeName, def) // pin the default recipe => produced
 }
 
 // Click a recipe row in the right-panel picker.

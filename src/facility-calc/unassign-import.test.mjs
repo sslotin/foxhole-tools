@@ -11,7 +11,7 @@ import { describe, it, expect, beforeEach } from 'vitest'
 import { mount } from '@vue/test-utils'
 import FacilityCalc from '../components/FacilityCalc.vue'
 import { calc } from './store.mjs'
-import { recipesFor } from './recipes.mjs'
+import { recipesFor, defaultRecipe } from './recipes.mjs'
 
 function reset (opts = {}) {
   calc.active = true
@@ -107,5 +107,48 @@ describe('unassigning an active recipe force-imports it', () => {
     await pinThenUnassign('Oil Refinery', ['Petrol'])
     expect(calc.selectedRecipes.Petrol).toBeUndefined()
     expect(calc.imported).toContain('Petrol')
+  })
+})
+
+describe('clicking an UNPINNED intermediate unassigns it', () => {
+  // An intermediate produced via its DEFAULT recipe (no manual pin) must still
+  // unassign on click. The click is decided from the current plan assignment,
+  // not from selectedRecipes presence, so it cannot no-op.
+  it('Petrol produced via default -> click resource -> imported', async () => {
+    reset() // Petrol is an intermediate produced via the default Oil Refinery
+    const wrapper = mount(FacilityCalc)
+    const row = wrapper.findAll('.inter-row').find(r => r.text().includes('Petrol'))
+    expect(row, 'Petrol should be an intermediate').toBeTruthy()
+    await row.trigger('click')
+    await wrapper.vm.$nextTick()
+    expect(calc.selectedRecipes.Petrol).toBeUndefined()
+    expect(calc.imported).toContain('Petrol')
+  })
+})
+
+describe('clicking a reducible INPUT assigns its default recipe', () => {
+  // A reducible input (imported, has a facility recipe) clicked in the left
+  // panel must produce it with its default recipe — no toggle that could leave
+  // it imported. After the click it is no longer imported and its default
+  // recipe is the one assigned.
+  it('Petrol imported -> click resource -> produced with default recipe', async () => {
+    reset({ imported: ['Petrol'] }) // Petrol is now a reducible input
+    const wrapper = mount(FacilityCalc)
+    const row = wrapper.findAll('.input-row').find(r => r.text().includes('Petrol'))
+    expect(row, 'Petrol should be a reducible input').toBeTruthy()
+    await row.trigger('click')
+    await wrapper.vm.$nextTick()
+    expect(calc.imported).not.toContain('Petrol')
+    expect(calc.selectedRecipes.Petrol).toBe(defaultRecipe('Petrol'))
+  })
+
+  it('input already unpinned -> click still assigns default (no toggle back)', async () => {
+    reset({ imported: ['Petrol'] })
+    const wrapper = mount(FacilityCalc)
+    const row = wrapper.findAll('.input-row').find(r => r.text().includes('Petrol'))
+    await row.trigger('click')
+    await wrapper.vm.$nextTick()
+    expect(calc.selectedRecipes.Petrol).toBe(defaultRecipe('Petrol'))
+    expect(calc.imported).not.toContain('Petrol')
   })
 })
