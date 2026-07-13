@@ -15,12 +15,21 @@ export const calc = reactive({
   energyImported: true,   // energy pseudo-resource: true = imported (grid), false = produced
 })
 
-// Recipe assignments are derived from the current targets. Whenever the target
-// set (or any target quantity) changes, drop all manual recipe choices and
-// recalculate from scratch using defaults — a stale per-item selection must not
-// carry over to a different plan. (Import/energy mode flags are preferences, not
-// assignments, so they are left untouched.)
-watch(() => calc.desired, () => { calc.selectedRecipes = {} }, { deep: true, flush: 'sync' })
+// Recipe assignments are derived from the current targets. The plan state is
+// fully reset ONLY when the user unpins the last target (desired becomes
+// empty) — the calculator is then closed/restarted, so assigned recipes,
+// manual imports, skip-auto-import flags and energy mode are all cleared.
+// Adding a target or changing a target quantity must NOT reset anything
+// (a stale per-item selection is acceptable mid-plan and the user may be
+// refining amounts).
+watch(() => calc.desired, (desired) => {
+  if (!desired.length) {
+    calc.selectedRecipes = {}
+    calc.imported = []
+    calc.skipAutoImport = []
+    calc.energyImported = true
+  }
+}, { deep: true, flush: 'sync' })
 
 export function addDesired (codeName, qty = 1) {
   const existing = calc.desired.find(d => d.codeName === codeName)

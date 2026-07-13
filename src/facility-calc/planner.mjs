@@ -189,11 +189,16 @@ export function topoOrder (assigned, desired) {
 
 // Evaluate a full assignment state into imports / intermediates / byproducts /
 // processes, in fixed order.
-export function evaluate (assigned, desired, imported = new Set()) {
+export function evaluate (assigned, desired, imported = new Set(), opts = {}) {
   const order = topoOrder(assigned, desired)
 
   const demand = {}
   for (const d of desired) demand[d.codeName] = (demand[d.codeName] || 0) + d.qty
+  // When an energy target is supplied (produced-mode reactor sizing), seed
+  // Energy's demand directly instead of accumulating it during the pass. This
+  // lets the fixed-order evaluator size the power plant to the FULL consumption
+  // (including the plant's own fuel chain) without depending on evaluation order.
+  if (opts.energyTarget) demand.Energy = opts.energyTarget
 
   const supply = {}          // by-product pool (forward)
   const runs = {}            // runs per assigned resource
@@ -251,7 +256,7 @@ export function evaluate (assigned, desired, imported = new Set()) {
       processes.push({ recipe: rec, runs: r, time, item: R })
       // Power consumption feeds the Energy demand (consumer before Energy edge).
       const e = energyMWh(rec) * r
-      if (e < 0) demand.Energy = (demand.Energy || 0) - e // -e is positive consumption
+      if (e < 0 && !opts.energyTarget) demand.Energy = (demand.Energy || 0) - e // accumulate unless seeded
       // By-products (everything except the primary output R) flow forward.
       for (const o of rec.outputs) {
         if (o.codeName === R) continue
@@ -261,10 +266,11 @@ export function evaluate (assigned, desired, imported = new Set()) {
       for (const i of rec.inputs) {
         demand[i.codeName] = (demand[i.codeName] || 0) + r * i.quantity
       }
-    } else if (!targetSet.has(R)) {
-      // Fully covered by by-products: recipe not run, but it's still assigned.
-      intermediate[R] = (intermediate[R] || 0) + 0
     }
+    // NOTE: a resource whose demand is fully covered by by-products is simply
+    // not recorded in `intermediate` — we must NOT write `intermediate[R] = 0`
+    // here, or the UI would render a spurious "0" row. Targets are excluded
+    // from `intermediate` by the targetSet check inside the `need > EPS` block.
   }
 
   // Leftover supply => byproducts.
@@ -291,5 +297,25 @@ export function resolvePlan (desired, selectedRecipes = {}, imported = new Set()
   // Pull the power recipe's fuel/input requirements into the plan so evaluate
   // can resolve them. (In import mode assigned.Energy is null, so skipped.)
   if (assigned.Energy) expandInputs(assigned, imported, assigned.Energy)
-  return evaluate(assigned, desired, imported)
+  // Size the power plant so it covers ALL consumption, including its own fuel
+  // chain (a power consumer the fixed-order pass would otherwise order after
+  // Energy and omit from the demand). Pass 1 yields the item solution with a
+  // slightly undersized reactor; we then seed Energy's demand with the total
+  // measured consumption and re-evaluate until the reactor size converges.
+  let plan = evaluate(assigned, desired, imported)
+  if (assigned.Energy) {
+    for (let i = 0; i < 4; i++) {
+      let D = 0
+      for (const p of plan.processes) {
+        const e = energyMWh(p.recipe) * p.runs
+        if (e < 0) D += -e
+      }
+      const next = evaluate(assigned, desired, imported, { energyTarget: D })
+      const rPrev = plan.processes.find(p => p.item === 'Energy')?.runs ?? 0
+      const rNext = next.processes.find(p => p.item === 'Energy')?.runs ?? 0
+      plan = next
+      if (Math.abs(rNext - rPrev) < 1e-9) break
+    }
+  }
+  return plan
 }

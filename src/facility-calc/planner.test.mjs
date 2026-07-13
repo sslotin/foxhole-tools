@@ -3,7 +3,7 @@ import {
   resolvePlan, expandState, evaluate, topoOrder,
   BASIC_RESOURCES, PRODUCED_BEFORE
 } from './planner.mjs'
-import { recipesFor, defaultPowerRecipe } from './recipes.mjs'
+import { recipesFor, defaultPowerRecipe, energyMWh } from './recipes.mjs'
 
 const DEFAULT_IMPORTED = new Set(['Metal', 'Coal', 'Sulfur', 'Components', 'Oil'])
 
@@ -155,6 +155,49 @@ describe('standard target yields a sane plan', () => {
     for (const c of Object.keys(plan.raw)) {
       if (c === 'Energy') continue
       expect(assigned[c] ?? null).toBe(null) // imported == unassigned
+    }
+  })
+})
+
+describe('produced energy covers its own fuel chain (no hidden deficit)', () => {
+  // The power plant (Sulfuric Reactor) burns Heavy Oil made by the Cracking
+  // Unit, a power consumer. The fixed-order pass orders that fuel chain AFTER
+  // Energy, so its draw must not be omitted when sizing the reactor.
+  function totalConsumed (plan) {
+    let c = 0
+    for (const p of plan.processes) {
+      const e = energyMWh(p.recipe) * p.runs
+      if (e < 0) c += -e
+    }
+    return c
+  }
+  function reactorProduced (plan) {
+    const p = plan.processes.find(x => x.item === 'Energy')
+    return p ? energyMWh(p.recipe) * p.runs : 0
+  }
+  it('single target: reactor output >= total consumption', () => {
+    const plan = resolvePlan([{ codeName: 'FlameAmmo', qty: 50 }], {}, DEFAULT_IMPORTED, { energyImported: false })
+    expect(reactorProduced(plan)).toBeGreaterThanOrEqual(totalConsumed(plan) - 1e-9)
+    expect(reactorProduced(plan) - totalConsumed(plan)).toBeLessThan(1e-6)
+  })
+  it('multiple targets: reactor output >= total consumption', () => {
+    const plan = resolvePlan(
+      [{ codeName: 'FlameAmmo', qty: 50 }, { codeName: 'Concrete', qty: 1 }, { codeName: 'Petrol', qty: 200 }],
+      {}, DEFAULT_IMPORTED, { energyImported: false })
+    expect(reactorProduced(plan)).toBeGreaterThanOrEqual(totalConsumed(plan) - 1e-9)
+    expect(reactorProduced(plan) - totalConsumed(plan)).toBeLessThan(1e-6)
+  })
+})
+
+describe('by-product-covered intermediates do not emit a 0-qty row', () => {
+  it('target whose by-product fully covers another target’s intermediate', () => {
+    // SandbagMaterials x250 -> Recycler yields 50 Cmats, exactly covering
+    // FlameAmmo x50's Cmats need. No intermediate entry should be left at 0.
+    const plan = resolvePlan(
+      [{ codeName: 'SandbagMaterials', qty: 250 }, { codeName: 'FlameAmmo', qty: 50 }],
+      {}, DEFAULT_IMPORTED)
+    for (const [k, v] of Object.entries(plan.intermediate)) {
+      expect(v).toBeGreaterThan(1e-9)
     }
   })
 })

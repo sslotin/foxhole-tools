@@ -109,39 +109,52 @@ describe('toggleEnergy — import/produce coordination', () => {
   })
 })
 
-describe('target change resets assigned recipes', () => {
+describe('plan state resets only when all targets are unpinned', () => {
   beforeEach(() => {
-    calc.desired = []
+    calc.desired = [{ codeName: 'FacilityMaterials1', qty: 50 }]
     calc.selectedRecipes = {}
+    calc.imported = []
+    calc.skipAutoImport = []
     calc.energyImported = true
   })
 
-  it('adding a new target clears manual recipe choices', async () => {
+  it('adding a new target does NOT clear manual recipe choices', async () => {
     const recipe = recipesFor('FacilityMaterials1')[0]
-    calc.desired = [{ codeName: 'FacilityMaterials1', qty: 50 }]
     chooseRecipe('FacilityMaterials1', recipe)
     expect(calc.selectedRecipes.FacilityMaterials1).toBe(recipe)
     calc.desired.push({ codeName: 'FlameAmmo', qty: 10 }) // target set changed
     await nextTick()
-    expect(calc.selectedRecipes).toEqual({})
+    expect(calc.selectedRecipes.FacilityMaterials1).toBe(recipe) // preserved
   })
 
-  it('changing a target quantity clears manual recipe choices', async () => {
+  it('changing a target quantity does NOT clear manual recipe choices', async () => {
     const recipe = recipesFor('FacilityMaterials1')[0]
-    calc.desired = [{ codeName: 'FacilityMaterials1', qty: 50 }]
     chooseRecipe('FacilityMaterials1', recipe)
     calc.desired[0].qty = 100
     await nextTick()
-    expect(calc.selectedRecipes).toEqual({})
+    expect(calc.selectedRecipes.FacilityMaterials1).toBe(recipe) // preserved
   })
 
-  it('energy/import mode prefs survive a target reset', async () => {
+  it('removing one of several targets does NOT reset', async () => {
+    calc.desired.push({ codeName: 'FlameAmmo', qty: 10 })
     const recipe = recipesFor('FacilityMaterials1')[0]
-    calc.desired = [{ codeName: 'FacilityMaterials1', qty: 50 }]
     chooseRecipe('FacilityMaterials1', recipe)
-    calc.desired.splice(0, 1) // remove last target
+    calc.desired.splice(0, 1) // remove one, one remains
+    await nextTick()
+    expect(calc.selectedRecipes.FacilityMaterials1).toBe(recipe) // preserved
+  })
+
+  it('removing the last target fully resets the plan state', async () => {
+    const recipe = recipesFor('FacilityMaterials1')[0]
+    chooseRecipe('FacilityMaterials1', recipe)
+    calc.imported.push('Petrol')
+    calc.skipAutoImport.push('Sulfur')
+    calc.energyImported = false
+    calc.desired.splice(0, 1) // remove last target -> empty
     await nextTick()
     expect(calc.selectedRecipes).toEqual({})
-    expect(calc.energyImported).toBe(true) // mode pref untouched
+    expect(calc.imported).toEqual([])
+    expect(calc.skipAutoImport).toEqual([])
+    expect(calc.energyImported).toBe(true)
   })
 })
