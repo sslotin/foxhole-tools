@@ -7,13 +7,25 @@
 // ═══════════════════════════════════════════════════════════════════
 
 import { readFileSync, writeFileSync } from 'fs';
+import { pathToFileURL } from 'url';
+
+// Map a display name to its codeName. When a name is shared between an item
+// and a building (e.g. "Barbed Wire" item vs structure), prefer the *item* so
+// CSV item rows resolve to items, not structures. Otherwise the latest entry
+// wins (last non-item), preserving prior behaviour for building-only clashes.
+export function buildNameToCode(metadata) {
+  const nameToCode = {};
+  for (const [code, meta] of Object.entries(metadata)) {
+    if (!meta.displayName) continue;
+    const existing = nameToCode[meta.displayName];
+    const existingIsItem = existing && metadata[existing].itemType === 'item';
+    if (!existingIsItem) nameToCode[meta.displayName] = code;
+  }
+  return nameToCode;
+}
 
 const metadata = JSON.parse(readFileSync(new URL('../data/metadata.json', import.meta.url), 'utf-8'));
-
-const nameToCode = {};
-for (const [code, meta] of Object.entries(metadata)) {
-  if (meta.displayName) nameToCode[meta.displayName] = code;
-}
+const nameToCode = buildNameToCode(metadata);
 
 function parseDisplayName(line) {
   const idx = line.lastIndexOf(',');
@@ -99,8 +111,10 @@ if (process.argv.includes('--check')) {
 
 // ── Default: generate position tables ─────────────────────────────
 
-const stockpilePositions = extractPositions('../examples/u65_stockpile.csv');
-const inventoryPositions = extractPositions('../examples/u65_base.csv');
+if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {
+  const stockpilePositions = extractPositions('../examples/u65_stockpile.csv');
+  const inventoryPositions = extractPositions('../examples/u65_base.csv');
 
-writePositionsFile('../data/positions-stockpile.js', 'positionsStockpile', stockpilePositions);
-writePositionsFile('../data/positions-inventory.js', 'positionsInventory', inventoryPositions);
+  writePositionsFile('../data/positions-stockpile.js', 'positionsStockpile', stockpilePositions);
+  writePositionsFile('../data/positions-inventory.js', 'positionsInventory', inventoryPositions);
+}
