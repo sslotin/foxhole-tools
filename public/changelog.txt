@@ -6,6 +6,10 @@ TODO:
 - Smart targets
 - Persistent history
 
+v.2.2.2 (July 17, 2026):
+- Facility build cost
+- Facility calculator UI improvements
+
 v.2.2.1 (July 13, 2026):
 - Shippable units for imports and inputs for intermediates are shown in facility calculator
 

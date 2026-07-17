@@ -195,13 +195,18 @@ watch(query, q => {
       </div>
       <div class="content" v-else>
         <div class="empty">
-          <p class="app-title">s6's foxhole tools <span class="version-label">v2.2.1-u65</span></p>
+          <p class="app-title">s6's foxhole tools <span class="version-label">v2.2.2-u65</span></p>
           <p><strong>1. Inventory mode.</strong> Pin a base, update, copy csv data, ctrl+v. Track deltas, delivery times and burn rates. Click to change report, shift-click to set reference. Set shirts target with a slider, other color-coded targets are proportional. Click to dim tech-locked items. Click faction logo to filter warden/collie/all items.</p>
           <p><strong>2. Stockpile mode.</strong> Ctrl+v a stockpile, shift-click for source, click for target. Filter categories or click items. Auto-fill and edit a shopping list. Ctrl-click on arrow increments in steps of 15, shift-click adds all available. Export shopping list as text or export full state as json that can be imported with ctrl+v or drag-and-drop.</p>
-          <p><strong>3. Metadata search.</strong> Look up items, vehicles and structures. Check stats, costs and recipes. WIP</p>
-          <p><strong>4. Facility calculator.</strong> Click + on any facility-made item in search results. Explore production chains and compute resource and time requirements. WIP</p>
-          <p><strong>5. Logi guide.</strong> If you do not want to read, point your favorite LLM to <a href="/guide/index.html">foxhole-tools.netlify.app/guide</a> and it will tell you the optimal way to do what you want.</p>
-          <p>Feedback is welcome. New features are added before update wars. The app is stateless and fully local. Management/tracking/notification/sync tools will <i>not</i> be added, but you can write an app/bot downstream. Anything not relevant for logistics is out of scope.</p>
+          <p><strong>3. Metadata search.</strong> Look up items, vehicles and structures. Check stats, costs, recipes and "X to kill" tables. Machine- and human-readable. WIP</p>
+          <p><strong>4. Facility calculator.</strong> Click + on any facility-made item in search results and explore its supply chain. Choose what to what to produce in-house and import. Calculate inputs, intermediates and by-products. Track production times, power consumption and facility setup cost.</p>
+          <p><strong>5. Logi guide.</strong> If you do not want to read, point your favorite LLM to <a href="/guide/index.html">foxhole-tools.netlify.app/guide</a> and it will tell you the optimal way to accomplish what you want.</p>
+          <p>The web app is fully local and does not collect any data. New features are added before update wars.
+          Persistent tracking (access management, notifications, specialized statistics, etc.) is omitted by design:
+          <br>just use json exports and standard Discord features, or write a simple bot for your specific needs.
+          </p>
+
+          <p>Feedback is welcome.</p>
         </div>
         <div class="links">
           <a href='/guide/index.html'>logi guide</a>
