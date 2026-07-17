@@ -404,11 +404,12 @@ const alwaysInputSet = computed(() => {
         <section v-if="byDisplay.length" class="fc-block">
           <h3>By-products</h3>
           <div class="io-list">
-            <div v-for="[c, q] in byDisplay" :key="c" class="by-row"
+            <div v-for="[c, q] in byDisplay" :key="c" class="by-row input-row"
                  :data-res="c"
                  data-kind="self"
                  @mouseenter="focused = c">
               <FacItem :codeName="c" :qty="fmt(q)" :class="{ 'hl-input': hoverResource === c && hoverFromInput }" />
+              <span class="ship" v-if="s = ship(c, q)"><span class="n">{{ s.num }}</span><span class="u">{{ s.unit }}</span></span>
             </div>
           </div>
         </section>
@@ -633,6 +634,9 @@ const alwaysInputSet = computed(() => {
 .io-inputs .fac-item.hl-input,
 .io-outputs .fac-item.hl-input
   overflow: visible
+
+.by-row
+  opacity: 1
 
 .fac-list
   display: flex
