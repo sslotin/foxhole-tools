@@ -7,7 +7,10 @@
 > re-transforms from scratch. Always run `npm run build` first to confirm the code itself is valid
 > (a clean build rules out a real syntax error). `npm run build:data` auto-restarts the server via
 > `vite-plugin-restart` (watches `metadata.json`+`recipes.json`) — no manual restart needed after
-> regenerating data.
+> regenerating data. The dev server auto-refreshes via `vite-plugin-restart` in `vite.config.js`:
+> `restart` on `metadata.json`+`recipes.json`+`positions-*.js` (clean server restart, also re-serves `public/icons`
+> fresh), `reload` on `public/**`. So both `npm run build:data` and `npm run generate-positions` refresh the
+> browser automatically — no manual restart needed after regenerating data.
 
 Last updated: Jul 13, 2026 (trimmed to current state; dated change-logs removed; dev-server
 policy corrected — agent runs & maintains `npm run dev` on :5173).
