@@ -96,7 +96,7 @@ function processClick() {
   <div class="item" v-if="settings.configure || isDisplayed(name, data.count, settings)" :class='{ dimmed: settings.hiddenItems.includes(name), configurable: isConfigurable() }' @click="processClick()">
     <img :src="`/icons/${name}.png`">
     <span class='change' v-if="countChange != 0" :class="{ negative: countChange < 0 }">{{ formatChange(countChange) }}</span>
-    <span class='name' :class='{ warden: (data.warden !== undefined) && data.warden && !settings.warden, collie: (data.warden !== undefined) && !data.warden && settings.warden }'>{{ data.short }}</span>
+    <span class='name' :class='{ warden: (data.warden !== undefined) && data.warden && (!settings.warden || settings.configure), collie: (data.warden !== undefined) && !data.warden && (settings.warden || settings.configure) }'>{{ data.short }}</span>
     <span class='stat'>{{ props.stat }}</span>
     <span class='count' :style="{ color: color }">
       {{ data.count }}
