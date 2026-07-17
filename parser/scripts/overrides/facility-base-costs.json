@@ -1,0 +1,23 @@
+{
+  "_note": "Wiki-sourced BASE build cost of each facility (the materials to construct the building before any upgrades), in raw resources. NOT in game_data exports (only RepairCost is). Keyed by facilityKey -> { resourceCodeName: quantity }. Sourced from foxhole.wiki.gg facility 'Build' sections (game version 1.65) — an explicit exception to the wiki-is-not-a-source rule (game fields simply lack it). Resource codeNames: Cloth=Basic Materials, FacilityMaterials1=Construction Materials, FacilityMaterials2=Processed Construction Materials, FacilityMaterials3=Steel Construction Materials. Consumed by src/facility-calc/mod-costs.mjs (buildingCosts sums base + each modification per used building).\n\nNOTE: the 3 entries below are HARDCODED per user instruction (not wiki-sourced) and may drift from the live game: ConcreteMixer={Wood:75} (Refined Materials; codeName 'Wood' in this dataset), FacilityMineOilRig/Offshore Platform={FacilityMaterials1:100}, FacilityVehicleFactory3/Dry Dock={FacilityMaterials9:35}. All other entries are wiki-sourced v1.65.",
+  "FacilityRefinery1": { "Cloth": 200 },
+  "FacilityRefinery2": { "Cloth": 150 },
+  "FacilityRefineryCoal": { "Cloth": 150 },
+  "FacilityRefineryOil": { "FacilityMaterials1": 400, "Cloth": 200 },
+  "FacilityPowerDiesel": { "Cloth": 150 },
+  "FacilityPowerOil": { "FacilityMaterials1": 300 },
+  "FacilityMineResource1": { "FacilityMaterials1": 150 },
+  "FacilityMineResource2": { "FacilityMaterials2": 75 },
+  "FacilityMineResource3": { "FacilityMaterials2": 20 },
+  "FacilityMineResource4": { "FacilityMaterials2": 10 },
+  "FacilityMineOil": { "FacilityMaterials2": 25 },
+  "FacilityMineWater": { "FacilityMaterials1": 150 },
+  "FacilityVehicleFactory1": { "FacilityMaterials1": 75 },
+  "FacilityVehicleFactory2": { "FacilityMaterials2": 150 },
+  "FacilityFactoryAmmo": { "FacilityMaterials1": 50 },
+  "FacilityFactorySmallArms": { "FacilityMaterials1": 175 },
+  "FacilityFactoryAircraft": { "FacilityMaterials2": 15 },
+  "ConcreteMixer": { "Wood": 75 },
+  "FacilityMineOilRig": { "FacilityMaterials1": 100 },
+  "FacilityVehicleFactory3": { "FacilityMaterials9": 35 }
+}

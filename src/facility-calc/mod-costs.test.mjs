@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest'
 import { resolvePlan } from './resolver.mjs'
-import { requiredModificationCosts, sortedModCostEntries, modBuildCost } from './mod-costs.mjs'
+import { requiredModificationCosts, sortedModCostEntries, modBuildCost, buildingCosts, baseBuildCost } from './mod-costs.mjs'
 
 // FlameAmmo pulls on Cmats/Processed Cmats, which the resolver builds with
 // upgraded refineries (Recycler / Metal Press / Blast Furnace / etc.), so the
@@ -68,5 +68,66 @@ describe('sortedModCostEntries', () => {
     const names = entries.map(([code]) => code)
     const sorted = [...names].sort()
     expect(names).toEqual(sorted)
+  })
+})
+
+describe('buildingCosts (base + modifications per used building)', () => {
+  // Synthetic plans give full control over which (facility, mod) rows exist,
+  // so we test the aggregation logic directly (the resolver may pull extra
+  // modifications for a real multi-target plan).
+  const recipe = (facilityKey, mod) => ({
+    facilityKey,
+    mod: mod || null,
+    facility: 'X',
+    inputs: [],
+    outputs: [{ codeName: 'Thing', quantity: 1 }],
+    duration: 0,
+    powerDelta: 0,
+  })
+  const planOf = (...recipes) => ({ processes: recipes.map(r => ({ recipe: r, time: 0, runs: 1 })) })
+
+  it('base-only facility contributes its base build cost', () => {
+    // Oil Refinery base = 400 Construction Materials + 200 Basic Materials.
+    const totals = buildingCosts(planOf(recipe('FacilityRefineryOil', null)))
+    expect(totals.get('FacilityMaterials1')).toBe(400)
+    expect(totals.get('Cloth')).toBe(200)
+  })
+
+  it('modded facility contributes base + each modification (not mod-only)', () => {
+    // base (400 Cmats + 200 Bmats) PLUS Cracking Unit (20 Processed Cmats).
+    const totals = buildingCosts(planOf(recipe('FacilityRefineryOil', 'CrackingUnit')))
+    expect(totals.get('FacilityMaterials1')).toBe(400)
+    expect(totals.get('Cloth')).toBe(200)
+    expect(totals.get('FacilityMaterials2')).toBe(20)
+  })
+
+  it('base is counted once even when base + mod recipes coexist on one building', () => {
+    // A base recipe AND a mod recipe on the same Oil Refinery: base charged
+    // once, mod once.
+    const totals = buildingCosts(planOf(
+      recipe('FacilityRefineryOil', null),
+      recipe('FacilityRefineryOil', 'CrackingUnit'),
+    ))
+    expect(totals.get('FacilityMaterials1')).toBe(400) // not 800
+    expect(totals.get('Cloth')).toBe(200)
+    expect(totals.get('FacilityMaterials2')).toBe(20)
+  })
+
+  it('each distinct modification on a building is summed once', () => {
+    // Oil Refinery with two modifications: Cracking Unit (20 Processed Cmats)
+    // + Petrochemical Plant (25 Steel Cmats), base charged once.
+    const totals = buildingCosts(planOf(
+      recipe('FacilityRefineryOil', 'CrackingUnit'),
+      recipe('FacilityRefineryOil', 'PetrochemicalPlant'),
+    ))
+    expect(totals.get('FacilityMaterials1')).toBe(400)
+    expect(totals.get('Cloth')).toBe(200)
+    expect(totals.get('FacilityMaterials2')).toBe(20) // Cracking Unit
+    expect(totals.get('FacilityMaterials3')).toBe(25) // Petrochemical Plant
+  })
+
+  it('unknown facility base cost is skipped (no crash, no zero entry)', () => {
+    expect(baseBuildCost('EngineRoomT2')).toBeNull()
+    expect(() => buildingCosts(planOf(recipe('EngineRoomT2', null)))).not.toThrow()
   })
 })

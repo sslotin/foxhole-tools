@@ -6,7 +6,7 @@ import {
   shippable,
 } from '../facility-calc/recipes.mjs'
 import { powerByFacility as computePowerByFacility, peakPowerMW as computePeakPowerMW } from '../facility-calc/power.mjs'
-import { requiredModificationCosts, sortedModCostEntries } from '../facility-calc/mod-costs.mjs'
+import { buildingCosts, sortedBuildingCostEntries } from '../facility-calc/mod-costs.mjs'
 import { resolvePlan, reachableRecipes } from '../facility-calc/resolver.mjs'
 import {
   focusItems,
@@ -131,16 +131,17 @@ const energyProducedMWh = computed(() => {
 // with a deficit); otherwise it's produced/covered and shows in Intermediates.
 const energyInImports = computed(() => calc.energyImported && energyDeficitMWh.value > 1e-6)
 
-// Per-facility power aggregation + peak are pure (src/facility-calc/power.mjs,
-// unit-tested). Power-producing buildings sort LAST and contribute 0 to peak
-// (they supply power, they don't demand it). See power.mjs for details.
+// Per-building power aggregation + peak are pure (src/facility-calc/power.mjs,
+// unit-tested): one row per physical building, modifications combined. Power-
+// producing buildings sort LAST and contribute 0 to peak (they supply power,
+// they don't demand it). See power.mjs for details.
 const powerByFacility = computed(() => computePowerByFacility(plan.value))
 const peakPowerMW = computed(() => computePeakPowerMW(powerByFacility.value))
 
-// Build cost of every facility modification the current plan requires, aggregated
-// by resource. Empty when the plan uses only base (un-modded) recipes.
-const modCosts = computed(() => requiredModificationCosts(plan.value))
-const modCostEntries = computed(() => sortedModCostEntries(modCosts.value))
+// Build cost (base + modifications) of every facility the current plan uses,
+// aggregated by resource. Empty only if no used facility has a known cost.
+const buildingCostsValue = computed(() => buildingCosts(plan.value))
+const buildingCostEntries = computed(() => sortedBuildingCostEntries(buildingCostsValue.value))
 
 // The click does exactly one thing, decided from the CURRENT plan assignment
 // (which section the row lives in), not from toggle/toggle state:
@@ -417,7 +418,7 @@ const alwaysInputSet = computed(() => {
         <section v-if="powerByFacility.length" class="fc-block">
           <h3>Facilities</h3>
           <div class="power-list">
-            <div v-for="f in powerByFacility" :key="f.facilityKey + '|' + f.mod" class="power-row">
+            <div v-for="f in powerByFacility" :key="f.facilityKey + '|' + (f.mod || '')" class="power-row">
               <img :src="`/icons/${f.facilityKey}.png`"
                    class="fac-icon"
                    @error="$event.target.style.visibility = 'hidden'" />
@@ -428,12 +429,12 @@ const alwaysInputSet = computed(() => {
           <div class="input-separator"></div>
           <div class="summary">
             <span class="sum-cell peak"><span class="peak-val">{{ fmtMW(peakPowerMW) }}</span>MW</span>
-            <span class="sum-cell mod-cost" v-for="[code, q] in modCostEntries" :key="code" :title="displayName(code)">
+            <span class="sum-cell mod-cost" v-for="[code, q] in buildingCostEntries" :key="code" :title="displayName(code)">
               <span class="mc-qty">{{ q }}</span><span class="mc-x">x</span>
               <img :src="`/icons/${code}.png`" class="mc-icon"
                    @error="$event.target.style.visibility = 'hidden'" />
             </span>
-            <span class="sum-cell muted" v-if="!modCostEntries.length">no modifications required</span>
+            <span class="sum-cell muted" v-if="!buildingCostEntries.length">no build cost data</span>
           </div>
         </section>
 
