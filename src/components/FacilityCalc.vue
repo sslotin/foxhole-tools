@@ -56,26 +56,20 @@ const timeByRecipe = computed(() => {
 // an active/pinned recipe can never get stuck dimmed and can always be
 // deactivated). Pure logic in activation.mjs (focusItems / clickableRecipes).
 const focused = ref(null)
-// Hover-highlight: hovering any resource representation marks that resource so
-// every icon where it appears as a recipe INPUT (right-panel inputs + left-panel
-// recipe-input annotations) is outlined. data-res attributes on the relevant
-// elements drive this via a single root mouseover handler.
+// Hover-highlight: hovering any resource representation (a left-panel row or a
+// recipe-input/output/annotation icon) marks that resource so EVERY icon where
+// it appears on the page is outlined — left rows, recipe inputs/outputs,
+// annotation icons, and the icon under the cursor all highlight identically.
+// data-res attributes on the relevant elements drive this via a single root
+// mouseover handler.
 const hoverResource = ref(null)
-// True only when the hovered element is an INPUT occurrence (a recipe-input
-// icon), not a resource's own row. So a resource's own row icon does not
-// self-highlight, but lights up when one of its input occurrences (a mini-
-// input in another resource's annotation / recipe) is hovered.
-const hoverFromInput = ref(false)
 function onHover (e) {
   const el = e.target && e.target.closest ? e.target.closest('[data-res]') : null
-  if (!el) { hoverResource.value = null; hoverFromInput.value = false; return }
-  hoverResource.value = el.dataset.res
-  hoverFromInput.value = el.dataset.kind === 'input'
+  hoverResource.value = el ? el.dataset.res : null
 }
 function onLeave () {
   focused.value = null
   hoverResource.value = null
-  hoverFromInput.value = false
 }
 const clickableRecipes = computed(() =>
   clickableForReachable(reachable.value, focused.value, activeRecipes.value, calc.desired))
@@ -347,7 +341,7 @@ const alwaysInputSet = computed(() => {
                  :data-res="c"
                  data-kind="self"
                  @mouseenter="focused = c">
-              <FacItem :codeName="c" :qty="fmt(q)" :class="{ 'hl-input': hoverResource === c && hoverFromInput }" />
+              <FacItem :codeName="c" :qty="fmt(q)" :class="{ 'hl-input': hoverResource === c }" />
               <span class="ship" v-if="s = ship(c, q)"><span class="n">{{ s.num }}</span><span class="u">{{ s.unit }}</span></span>
             </div>
             <div v-if="irreducibleInputs.length && reducibleInputs.length" class="input-separator"></div>
@@ -357,13 +351,13 @@ const alwaysInputSet = computed(() => {
                  :class="{ clickable: !alwaysInputSet.has(c) }"
                  @mouseenter="focused = c"
                  @click="alwaysInputSet.has(c) ? undefined : handleInputClick(c)">
-              <FacItem :codeName="c" :qty="fmt(q)" :class="{ 'hl-input': hoverResource === c && hoverFromInput }" />
+              <FacItem :codeName="c" :qty="fmt(q)" :class="{ 'hl-input': hoverResource === c }" />
               <span class="ship" v-if="s = ship(c, q)"><span class="n">{{ s.num }}</span><span class="u">{{ s.unit }}</span></span>
             </div>
             <div v-if="energyInImports" class="input-row clickable" @click="toggleEnergy" title="toggle energy: import / produce"
                  :data-res="'Energy'"
                  @mouseenter="focused = 'Energy'">
-              <FacItem codeName="Energy" :qty="fmtEnergyMWh(energyDeficitMWh)" label="MWh" :class="{ 'hl-input': hoverResource === 'Energy' && hoverFromInput }" />
+              <FacItem codeName="Energy" :qty="fmtEnergyMWh(energyDeficitMWh)" label="MWh" :class="{ 'hl-input': hoverResource === 'Energy' }" />
               <span class="ship" v-if="s = ship('Energy', energyDeficitMWh)"><span class="n">{{ s.num }}</span><span class="u">{{ s.unit }}</span></span>
             </div>
           </div>
@@ -378,7 +372,7 @@ const alwaysInputSet = computed(() => {
                    :data-res="c"
                    @click="toggleEnergy" title="toggle energy: import / produce"
                    @mouseenter="focused = 'Energy'">
-                <FacItem codeName="Energy" :qty="fmtEnergyMWh(energyProducedMWh)" label="MWh" :class="{ 'hl-input': hoverResource === 'Energy' && hoverFromInput }" />
+                <FacItem codeName="Energy" :qty="fmtEnergyMWh(energyProducedMWh)" label="MWh" :class="{ 'hl-input': hoverResource === 'Energy' }" />
                 <span class="recipe-anno" v-if="interInputs('Energy').length">
                   <img v-for="(inp, k) in interInputs('Energy')" :key="k"
                        :src="`/icons/${inp.codeName}.png`" class="anno-icon"
@@ -392,7 +386,7 @@ const alwaysInputSet = computed(() => {
                    :data-res="c"
                    @mouseenter="focused = c"
                    @click="handleInputClick(c)">
-                <FacItem :codeName="c" :qty="fmt(q)" :class="{ 'hl-input': hoverResource === c && hoverFromInput }" />
+                <FacItem :codeName="c" :qty="fmt(q)" :class="{ 'hl-input': hoverResource === c }" />
                 <span class="recipe-anno" v-if="interInputs(c).length">
                   <img v-for="(inp, k) in interInputs(c)" :key="k"
                        :src="`/icons/${inp.codeName}.png`" class="anno-icon"
@@ -414,7 +408,7 @@ const alwaysInputSet = computed(() => {
                  :data-res="c"
                  data-kind="self"
                  @mouseenter="focused = c">
-              <FacItem :codeName="c" :qty="fmt(q)" :class="{ 'hl-input': hoverResource === c && hoverFromInput }" />
+              <FacItem :codeName="c" :qty="fmt(q)" :class="{ 'hl-input': hoverResource === c }" />
               <span class="ship" v-if="s = ship(c, q)"><span class="n">{{ s.num }}</span><span class="u">{{ s.unit }}</span></span>
             </div>
           </div>
@@ -627,16 +621,28 @@ const alwaysInputSet = computed(() => {
   flex-direction: column
   align-items: flex-start
 
-// Hover-highlight: when a resource is hovered anywhere on the page, every
-// icon where that resource appears as a recipe INPUT is outlined.
-// The ring uses a NEGATIVE outline-offset so it is drawn *inside* the icon and
-// can never be clipped by an ancestor's `overflow: hidden` (the rows and the
-// right-panel `.io-inputs`/`.io-outputs` all clip `.fac-item`).
+// Hover-highlight: when a resource is hovered anywhere on the page, EVERY icon
+// where that resource appears (left-panel rows, recipe inputs/outputs, and
+// annotation icons) is outlined — hovering a row or an icon now behaves the
+// same. The ring uses a NEGATIVE outline-offset so it is drawn *inside* the
+// icon and can never be clipped by an ancestor's `overflow: hidden` (the rows
+// and the right-panel `.io-inputs`/`.io-outputs` all clip `.fac-item`).
 .fac-item.hl-input :deep(img),
 .anno-icon.hl-input
   outline: 2px solid #e8c674
   outline-offset: -2px
   border-radius: 3px
+
+// Raise the highlighted chip above its siblings so the ring is never painted
+// over by a later-in-DOM icon or row (z-index only takes effect on a positioned
+// element).
+.fac-item.hl-input
+  position: relative
+  z-index: 5
+
+.anno-icon.hl-input
+  position: relative
+  z-index: 5
 
 // The rows clip `.fac-item` with `overflow: hidden`, which would chop the
 // left side of the icon's outline ring. Flip it to visible on the highlighted
