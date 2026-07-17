@@ -1,0 +1,123 @@
+{
+  "_note": "Wiki-sourced build cost of each facility modification (upgrade), in raw resources. NOT in game_data exports — derived from foxhole.wiki.gg facility \"Upgrades\" tables. Keyed by \"facilityKey|mod\" -> { resourceCodeName: quantity }. Resource codeNames: Cloth=Basic Materials, FacilityMaterials1=Construction Materials, FacilityMaterials2=Processed Construction Materials, FacilityMaterials3=Steel Construction Materials, FacilityMaterials9=Rare Alloys.",
+  "FacilityFactoryAircraft|AircraftStrategic": {
+    "FacilityMaterials9": 15
+  },
+  "FacilityFactoryAmmo|LargeShellFactory": {
+    "FacilityMaterials2": 175
+  },
+  "FacilityFactoryAmmo|RocketFactory": {
+    "FacilityMaterials2": 35
+  },
+  "FacilityFactoryAmmo|TripodFactory": {
+    "FacilityMaterials1": 50
+  },
+  "FacilityFactorySmallArms|HeavyAmmo": {
+    "FacilityMaterials2": 250
+  },
+  "FacilityFactorySmallArms|InfantryAmmo": {
+    "FacilityMaterials2": 175
+  },
+  "FacilityFactorySmallArms|SpecialWeapons": {
+    "FacilityMaterials2": 35
+  },
+  "FacilityMineOil|Electric": {
+    "FacilityMaterials2": 25
+  },
+  "FacilityMineOil|Fracker": {
+    "FacilityMaterials3": 25
+  },
+  "FacilityMineResource1|Excavator": {
+    "FacilityMaterials3": 10
+  },
+  "FacilityMineResource2|Excavator": {
+    "FacilityMaterials2": 75
+  },
+  "FacilityMineResource3|Excavator": {
+    "FacilityMaterials3": 20
+  },
+  "FacilityMineResource4|Excavator": {
+    "FacilityMaterials3": 10
+  },
+  "FacilityMineWater|Electric": {
+    "FacilityMaterials1": 150
+  },
+  "FacilityPowerDiesel|Coal": {
+    "FacilityMaterials1": 100
+  },
+  "FacilityPowerDiesel|Petrol": {
+    "FacilityMaterials1": 100
+  },
+  "FacilityPowerOil|SulfuricReactor": {
+    "FacilityMaterials3": 25
+  },
+  "FacilityRefinery1|Forge": {
+    "FacilityMaterials1": 200
+  },
+  "FacilityRefinery1|MetalPress": {
+    "FacilityMaterials1": 25
+  },
+  "FacilityRefinery1|Recycler": {
+    "Cloth": 50
+  },
+  "FacilityRefinery1|Smelter": {
+    "FacilityMaterials1": 25
+  },
+  "FacilityRefinery2|BlastFurnace": {
+    "FacilityMaterials2": 200
+  },
+  "FacilityRefinery2|EngineeringStation": {
+    "FacilityMaterials2": 150
+  },
+  "FacilityRefinery2|Recycler": {
+    "FacilityMaterials1": 150
+  },
+  "FacilityRefineryCoal|AdvCoalLiquefier": {
+    "FacilityMaterials3": 40
+  },
+  "FacilityRefineryCoal|CoalLiquefier": {
+    "FacilityMaterials2": 20
+  },
+  "FacilityRefineryCoal|CokeFurnace": {
+    "FacilityMaterials1": 200
+  },
+  "FacilityRefineryOil|CrackingUnit": {
+    "FacilityMaterials2": 20
+  },
+  "FacilityRefineryOil|PetrochemicalPlant": {
+    "FacilityMaterials3": 25
+  },
+  "FacilityRefineryOil|Reformer": {
+    "FacilityMaterials1": 200
+  },
+  "FacilityVehicleFactory1|ArtilleryFactory": {
+    "FacilityMaterials2": 65
+  },
+  "FacilityVehicleFactory1|LightVehicleAssembly": {
+    "FacilityMaterials2": 25
+  },
+  "FacilityVehicleFactory1|MotorPool": {
+    "FacilityMaterials1": 200
+  },
+  "FacilityVehicleFactory1|RocketAssembly": {
+    "FacilityMaterials9": 35
+  },
+  "FacilityVehicleFactory1|ShipAssembly": {
+    "FacilityMaterials9": 10
+  },
+  "FacilityVehicleFactory1|TankAssembly": {
+    "FacilityMaterials2": 200
+  },
+  "FacilityVehicleFactory1|WeaponsPlatformAssembly": {
+    "FacilityMaterials3": 20
+  },
+  "FacilityVehicleFactory2|AircraftAssembly": {
+    "FacilityMaterials9": 5
+  },
+  "FacilityVehicleFactory2|HeavyTankAssembly": {
+    "FacilityMaterials3": 150
+  },
+  "FacilityVehicleFactory2|TrainAssembly": {
+    "FacilityMaterials3": 150
+  }
+}
