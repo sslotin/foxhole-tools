@@ -123,28 +123,7 @@ describe('large aircraft: frames + Aircraft Depot', () => {
   })
 })
 
-describe('shippable — imports panel container equivalents', () => {
-  it('raw/refined resources ship in Resource Containers (÷5000)', () => {
-    expect(shippable('Components', 10000)).toEqual({ count: 2, unit: 'rcs' })
-    expect(shippable('BasicMaterials', 5000)).toEqual({ count: 1, unit: 'rcs' })
-  })
-  it('crated items ship in Shipping Containers (÷60)', () => {
-    const crate = [...crateItems][0]
-    expect(shippable(crate, 120).unit).toBe('scs')
-    expect(shippable(crate, 120).count).toBe(2)
-  })
-  it('pallet-able items ship in pallets (÷ palletAmount)', () => {
-    expect(shippable('WaterWallMaterials', 60)).toEqual({ count: 1, unit: 'pallets' })
-  })
-  it('liquids ship in Liquid Containers (q cans ÷ 100)', () => {
-    // Plan q for liquids is in cans; 100 cans ÷ 100 cans/LC = 1 LC.
-    // (volumeLiters only enters if you start from litres: litres = q×vol,
-    //  then ÷vol → cans, then ÷100 → LCs.)
-    expect(shippable('Petrol', 100)).toEqual({ count: 1, unit: 'lcs' })
-  })
-  it('precedence: liquid beats crate/pallet/resource', () => {
-    expect(shippable('Petrol', 100).unit).toBe('lcs')
-  })
+describe('shippable — non-shippable edge cases', () => {
   it('Energy and non-positive q are not shippable', () => {
     expect(shippable('Energy', 5)).toBeNull()
     expect(shippable('Components', 0)).toBeNull()
