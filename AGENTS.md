@@ -2,8 +2,6 @@ Project-scope context and status are consolidated in MEMORY.md. Start by reading
 
 Write all temporary files you need just for research in tmp/.
 
-Use a worktree while you are working and only "merge" when presenting results. There might be collisions with parallel sessions.
-
 When you change a data-processing script, inspect the diff of the derived data to see if there are any unintended side effects and whether the change was correct.
 
 This project involves parsing large JSON/CSV files. Avoid fully reading them and instead use search or tools such as head, grep and jq to analyze their structure.

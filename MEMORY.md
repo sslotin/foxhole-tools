@@ -93,6 +93,8 @@ Resolves the recipe graph bottom-up over the facility recipes and shows **two pa
 
 **`reachableRecipes` (`resolver.mjs`):** stable graph **closure** independent of `selectedRecipes` — so toggling a choice never adds/removes sections, only flips lit/dim. Returns `Map<recipe, primaryOutput>`.
 
+**Facility modification build costs** (`parser/data/facility-mod-costs.json`, wiki-sourced override): the game_data exports contain NO modification build cost (only recipe I/O), so each `(facilityKey|mod)` → `{resourceCodeName: qty}` is sourced from foxhole.wiki.gg facility *Upgrades* tables (v1.65) — an explicit exception to the wiki-is-not-a-source rule (game fields simply lack it). Resource codeNames: `Cloth`=Basic Materials, `FacilityMaterials1`=Construction Materials, `FacilityMaterials2`=Processed Construction Materials, `FacilityMaterials3`=Steel Construction Materials, `FacilityMaterials9`=Rare Alloys. Consumed by `src/facility-calc/mod-costs.mjs` (`requiredModificationCosts(plan)` aggregates by resource across every modification a plan actually uses; base recipes & Engine Rooms excluded) and shown under the Facilities panel (separator + "Peak power: X MW" + "Modifications: <qty> × <icon> …"). New modifications in `recipes.json` need a matching cost entry or the summary silently omits them.
+
 **`activation.mjs` (pure, unit-tested):** a recipe is **activatable** (full-bright, clickable) iff it produces an item in `raw ∪ inputs ∪ intermediate ∪ {Energy}`; the **clickable** set is `activatable ∪ active` (active recipes stay clickable so they can be deactivated). Non-activatable recipes are dimmed (`opacity:0.4`, `pointer-events:none`).
 
 **Key UI / interaction model:**

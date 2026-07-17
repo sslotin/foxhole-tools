@@ -6,6 +6,7 @@ import {
   shippable,
 } from '../facility-calc/recipes.mjs'
 import { powerByFacility as computePowerByFacility, peakPowerMW as computePeakPowerMW } from '../facility-calc/power.mjs'
+import { requiredModificationCosts, sortedModCostEntries } from '../facility-calc/mod-costs.mjs'
 import { resolvePlan, reachableRecipes } from '../facility-calc/resolver.mjs'
 import {
   focusItems,
@@ -141,6 +142,11 @@ const energyInImports = computed(() => calc.energyImported && energyDeficitMWh.v
 // (they supply power, they don't demand it). See power.mjs for details.
 const powerByFacility = computed(() => computePowerByFacility(plan.value))
 const peakPowerMW = computed(() => computePeakPowerMW(powerByFacility.value))
+
+// Build cost of every facility modification the current plan requires, aggregated
+// by resource. Empty when the plan uses only base (un-modded) recipes.
+const modCosts = computed(() => requiredModificationCosts(plan.value))
+const modCostEntries = computed(() => sortedModCostEntries(modCosts.value))
 
 // The click does exactly one thing, decided from the CURRENT plan assignment
 // (which section the row lives in), not from toggle/toggle state:
@@ -425,7 +431,16 @@ const alwaysInputSet = computed(() => {
               <span class="pw" :class="{ neg: f.consumptionKw > 0, pos: f.productionKw > 0 }">{{ facPowerText(f) }}</span>
             </div>
           </div>
-          <div class="peak-power">= {{ fmtMW(peakPowerMW) }}MW peak</div>
+          <div class="input-separator"></div>
+          <div class="summary">
+            <span class="sum-cell peak"><span class="peak-val">{{ fmtMW(peakPowerMW) }}</span>MW</span>
+            <span class="sum-cell mod-cost" v-for="[code, q] in modCostEntries" :key="code" :title="displayName(code)">
+              <span class="mc-qty">{{ q }}</span><span class="mc-x">x</span>
+              <img :src="`/icons/${code}.png`" class="mc-icon"
+                   @error="$event.target.style.visibility = 'hidden'" />
+            </span>
+            <span class="sum-cell muted" v-if="!modCostEntries.length">no modifications required</span>
+          </div>
         </section>
 
         
@@ -706,13 +721,49 @@ const alwaysInputSet = computed(() => {
     &.pos
       color: #7ecc7e
 
-.peak-power
+// Summary line below the Facilities list (separated by .input-separator):
+//   <peak>MW  <qty> x <icon>  <qty> x <icon> ...
+// Centered, with spacing between cells.
+.summary
   margin-top: 6px
-  margin-right: -7px
-  text-align: right
+  display: flex
+  flex-wrap: wrap
+  justify-content: center
+  align-items: center
+  gap: 12px
+  font-size: 14px
   color: #ddd
-  font-size: 15px
-  font-weight: 400
+
+  .sum-cell
+    display: inline-flex
+    align-items: center
+    gap: 3px
+
+    &.muted
+      color: #777
+
+    // Peak power: number glued to 'MW' (no space); only the number is orange.
+    &.peak
+      gap: 0
+      font-weight: 600
+      font-variant-numeric: tabular-nums
+
+      .peak-val
+        color: #e8c674
+
+  .mod-cost
+    .mc-qty
+      font-weight: 600
+      font-variant-numeric: tabular-nums
+      color: #e8c674
+
+    .mc-x
+      color: #999
+
+    .mc-icon
+      width: 20px
+      height: 20px
+      object-fit: contain
 
 // Primary-output groups. Each group has a right border.
 .group
